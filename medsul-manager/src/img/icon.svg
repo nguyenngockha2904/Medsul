@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="184" height="35" viewBox="0 0 184 37.151">
+  <g id="Group_7" data-name="Group 7" transform="translate(0)">
+    <path id="Path_4" data-name="Path 4" d="M33.963,0A9.912,9.912,0,0,0,23.749,10.334c0,5.479,3.569,9.614,8.8,10.247a10.772,10.772,0,0,1-21.448.033c5.268-.505,8.882-4.575,8.882-10.4V.445H15.044A1.752,1.752,0,0,0,13.292,2.2h0A1.752,1.752,0,0,0,15.044,3.95h1.851v6.265c0,4.463-3.055,6.86-6.92,6.86a6.561,6.561,0,0,1-6.889-6.86V3.95H5.2A1.753,1.753,0,0,0,6.948,2.2h0A1.752,1.752,0,0,0,5.2.445H0v9.77c0,5.619,3.338,9.6,8.3,10.333a13.556,13.556,0,0,0,27.041.039c5.25-.617,8.838-4.759,8.838-10.252A9.912,9.912,0,0,0,33.963,0Zm0,17.553c-4.044,0-6.62-3.115-6.62-7.219,0-4.134,2.576-7.219,6.62-7.219,4.014,0,6.62,3.085,6.62,7.219C40.583,14.438,37.977,17.553,33.963,17.553Z" transform="translate(0 4.008)" fill="#2cd889"/>
+    <circle id="Ellipse_1" data-name="Ellipse 1" cx="2.915" cy="2.915" r="2.915" transform="translate(31.027 11.846)" fill="#4e4e4e"/>
+    <ellipse id="Ellipse_8" data-name="Ellipse 8" cx="2.915" cy="1.5" rx="2.915" ry="1.5" transform="translate(7.027 12.846)" fill="#4e4e4e"/>
+    <text id="MedSul_" data-name="MedSul   " transform="translate(47 30)" fill="#4e4e4e" font-size="32" font-family="ArialNarrow, Arial" letter-spacing="0.099em" opacity="0.79"><tspan x="0" y="0" xml:space="preserve">MedSul   </tspan></text>
+  </g>
+</svg>
