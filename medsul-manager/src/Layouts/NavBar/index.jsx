@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import icon from '../../img/icon.svg';
 import { NavLink, Link } from 'react-router-dom';
-import styled, { ThemeConsumer } from 'styled-components';
+import styled from 'styled-components';
 import icon_toggle from '../../img/toggle_navIcon.svg';
 import icon_close from '../../img/closeSideIcon.svg';
+import { connect } from 'react-redux';
+import { SET_LOGIN } from '../../Redux/actions/type';
 class NavBar extends Component {
     state = {
         sidepanel: false,
@@ -16,77 +18,122 @@ class NavBar extends Component {
     render() {
         return (
             <NavbarContainer>
-                <nav className="navbar navbar-expand-lg navbar-light py-2">
-                    <a className="navbar-brand" href="#"><img src={icon} alt="icon.svg" className='img-fluid' /></a>
-                    <button className="navbar-toggler" type="button" onClick={this.handleOpensidepanel(true)}>
-                        <span className="navbar-toggler-icon" />
-                    </button>
-                    <div className="d-flex w-100 justify-content-between">
-                        <ul className="navbar-nav mr-auto ">
-                            <li className="nav-item">
-                                <NavLink activeStyle={{ color: '#2CD889' }} to="/" exact className="nav-link" href="#">THỐNG KÊ</NavLink>
-                            </li>
-                            <li className="nav-item">
-                                <NavLink activeStyle={{ color: '#2CD889' }} to="/dieuduong" exact className="nav-link" href="#">ĐIỀU DƯỠNG</NavLink>
-                            </li>
-                            <li className="nav-item">
-                                <NavLink activeStyle={{ color: '#2CD889' }} to="/dichvu" exact className="nav-link" href="#">DỊCH VỤ</NavLink>
-                            </li>
-                            <li className="nav-item">
-                                <NavLink activeStyle={{ color: '#2CD889' }} to="/khachhang" exact className="nav-link" href="#">KHÁCH HÀNG</NavLink>
-                            </li>
-                            <li className="nav-item">
-                                <NavLink activeStyle={{ color: '#2CD889' }} to="/khuyenmai" exact className="nav-link" href="#">KHUYẾN MÃI</NavLink>
-                            </li>
-                            <li className="nav-item">
-                                <NavLink activeStyle={{ color: '#2CD889' }} to="/donhang" exact className="nav-link" href="#">ĐƠN HÀNG</NavLink>
-                            </li>
-                            <li className="nav-item">
-                                <NavLink activeStyle={{ color: '#2CD889' }} to="/daotao" exact className="nav-link" href="#">ĐÀO TẠO</NavLink>
-                            </li>
-                        </ul>
-                        <ul className="navbar-nav ml-auto">
-                            <li className="nav-item dropdown">
-                                <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    ADMIN
-                    </a>
-                                <div className="dropdown-menu" aria-labelledby="navbarDropdown"
-
-                                >
-                                    <a className="dropdown-item" href="#">TÀI KHOẢN</a>
-                                    <a className="dropdown-item" href="#">CÀI ĐẶT</a>
-                                    <div className="dropdown-divider" />
-                                    <a className="dropdown-item" href="#">THOÁT</a>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                    <div className={this.state.sidepanel ? 'sidepanel w30' : 'sidepanel w-0'}>
-                        <div className="d-flex justify-content-end px-3 pt-3">
-                            <a className="closebtn" onClick={this.handleOpensidepanel(false)}><span className="closeImg"></span></a>
+                {this.props.isLoginPage
+                    ?
+                    <nav className="navbar navbar-expand-lg navbar-light py-2">
+                        <Link className="navbar-brand" ><img src={icon} alt="icon.svg" className='img-fluid' /></Link>
+                        <button className="navbar-toggler" type="button" onClick={this.handleOpensidepanel(true)}>
+                            <span className="navbar-toggler-icon" />
+                        </button>
+                        <div className="d-flex w-100 justify-content-between">
+                            <ul className="navbar-nav ml-auto">
+                                <li className="nav-item">
+                                    <Link className="nav-link active" to="/signin">
+                                        TÀI KHOẢN
+                                     </Link>
+                                </li>
+                            </ul>
                         </div>
-                        <NavLink activeStyle={{ color: '#2CD889' }} to="/" exact className="nav-link" href="#" onClick={this.handleOpensidepanel(false)}>THỐNG KÊ</NavLink>
-                        <NavLink activeStyle={{ color: '#2CD889' }} to="/dieuduong" exact className="nav-link" onClick={this.handleOpensidepanel(false)}>ĐIỀU DƯỠNG</NavLink>
-                        <NavLink activeStyle={{ color: '#2CD889' }} to="/dichvu" exact className="nav-link" onClick={this.handleOpensidepanel(false)}>DỊCH VỤ</NavLink>
-                        <NavLink activeStyle={{ color: '#2CD889' }} to="/khachhang" exact className="nav-link" onClick={this.handleOpensidepanel(false)}>KHÁCH HÀNG</NavLink>
-                        <NavLink activeStyle={{ color: '#2CD889' }} to="/khuyenmai" exact className="nav-link" onClick={this.handleOpensidepanel(false)}>KHUYẾN MÃI</NavLink>
-                        <NavLink activeStyle={{ color: '#2CD889' }} to="/donhang" exact className="nav-link" onClick={this.handleOpensidepanel(false)}>ĐƠN HÀNG</NavLink>
-                        <NavLink activeStyle={{ color: '#2CD889' }} to="/daotao" exact className="nav-link" onClick={this.handleOpensidepanel(false)}>ĐÀO TẠO</NavLink>
-                        <div className="hrtag"></div>
-                        <NavLink activeStyle={{ color: '#2CD889' }} to="/taikhoan" exact className="nav-link custom" href="#" onClick={this.handleOpensidepanel(false)}>TÀI KHOẢN</NavLink>
-                        <Link activeStyle={{ color: '#2CD889' }} to="/caidat" exact className="nav-link custom" onClick={this.handleOpensidepanel(false)}>CÀI ĐẶT</Link>
-                        <Link to="/thoat" exact className="nav-link custom" onClick={this.handleOpensidepanel(false)}>THOÁT</Link>
-                    </div>
-                </nav>
+                        <div className={this.state.sidepanel ? 'sidepanel w30' : 'sidepanel w-0'}>
+                            <div className="d-flex justify-content-end px-3 pt-3">
+                                <a className="closebtn" onClick={this.handleOpensidepanel(false)}><span className="closeImg"></span></a>
+                            </div>
+                            <NavLink activeStyle={{ color: '#2CD889' }} to="/signin" exact className="nav-link custom" href="#" onClick={this.handleOpensidepanel(false)}>TÀI KHOẢN</NavLink>
+                        </div>
+                    </nav>
+
+                    :
+                    <nav className="navbar navbar-expand-lg navbar-light py-2">
+                        <Link className="navbar-brand" to="/"><img src={icon} alt="icon.svg" className='img-fluid' /></Link>
+                        <button className="navbar-toggler" type="button" onClick={this.handleOpensidepanel(true)}>
+                            <span className="navbar-toggler-icon" />
+                        </button>
+                        <div className="d-flex w-100 justify-content-between">
+                            <ul className="navbar-nav mr-auto ">
+                                <li className="nav-item">
+                                    <NavLink activeStyle={{ color: '#2CD889' }} to="/" exact className="nav-link" >THỐNG KÊ</NavLink>
+                                </li>
+                                <li className="nav-item">
+                                    <NavLink activeStyle={{ color: '#2CD889' }} to="/dieuduong" exact className="nav-link" >ĐIỀU DƯỠNG</NavLink>
+                                </li>
+                                <li className="nav-item">
+                                    <NavLink activeStyle={{ color: '#2CD889' }} to="/dichvu" exact className="nav-link" >DỊCH VỤ</NavLink>
+                                </li>
+                                <li className="nav-item">
+                                    <NavLink activeStyle={{ color: '#2CD889' }} to="/khachhang" exact className="nav-link" >KHÁCH HÀNG</NavLink>
+                                </li>
+                                <li className="nav-item">
+                                    <NavLink activeStyle={{ color: '#2CD889' }} to="/khuyenmai" exact className="nav-link" >KHUYẾN MÃI</NavLink>
+                                </li>
+                                <li className="nav-item">
+                                    <NavLink activeStyle={{ color: '#2CD889' }} to="/donhang" exact className="nav-link" >ĐƠN HÀNG</NavLink>
+                                </li>
+                                <li className="nav-item">
+                                    <NavLink activeStyle={{ color: '#2CD889' }} to="/daotao" exact className="nav-link" >ĐÀO TẠO</NavLink>
+                                </li>
+                            </ul>
+                            <ul className="navbar-nav ml-auto">
+                                <li className="nav-item dropdown">
+                                    <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        ADMIN
+                    </a>
+                                    <div className="dropdown-menu" aria-labelledby="navbarDropdown"
+
+                                    >
+                                        <Link className="dropdown-item" to="/taikhoan">TÀI KHOẢN</Link>
+                                        <Link className="dropdown-item" to="/caidat">CÀI ĐẶT</Link>
+                                        <div className="dropdown-divider" />
+                                        <Link className="dropdown-item" to='/signin'
+                                            onClick={() => {
+                                                this.props.dispatch({
+                                                    type: SET_LOGIN,
+                                                    payload: true
+                                                })
+                                            }}
+                                        >THOÁT</Link>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div className={this.state.sidepanel ? 'sidepanel w30' : 'sidepanel w-0'}>
+                            <div className="d-flex justify-content-end px-3 pt-3">
+                                <a className="closebtn" onClick={this.handleOpensidepanel(false)}><span className="closeImg"></span></a>
+                            </div>
+                            <NavLink activeStyle={{ color: '#2CD889' }} to="/" exact className="nav-link" href="#" onClick={this.handleOpensidepanel(false)}>THỐNG KÊ</NavLink>
+                            <NavLink activeStyle={{ color: '#2CD889' }} to="/dieuduong" exact className="nav-link" onClick={this.handleOpensidepanel(false)}>ĐIỀU DƯỠNG</NavLink>
+                            <NavLink activeStyle={{ color: '#2CD889' }} to="/dichvu" exact className="nav-link" onClick={this.handleOpensidepanel(false)}>DỊCH VỤ</NavLink>
+                            <NavLink activeStyle={{ color: '#2CD889' }} to="/khachhang" exact className="nav-link" onClick={this.handleOpensidepanel(false)}>KHÁCH HÀNG</NavLink>
+                            <NavLink activeStyle={{ color: '#2CD889' }} to="/khuyenmai" exact className="nav-link" onClick={this.handleOpensidepanel(false)}>KHUYẾN MÃI</NavLink>
+                            <NavLink activeStyle={{ color: '#2CD889' }} to="/donhang" exact className="nav-link" onClick={this.handleOpensidepanel(false)}>ĐƠN HÀNG</NavLink>
+                            <NavLink activeStyle={{ color: '#2CD889' }} to="/daotao" exact className="nav-link" onClick={this.handleOpensidepanel(false)}>ĐÀO TẠO</NavLink>
+                            <div className="hrtag"></div>
+                            <NavLink activeStyle={{ color: '#2CD889' }} to="/taikhoan" exact className="nav-link custom" href="#" onClick={this.handleOpensidepanel(false)}>TÀI KHOẢN</NavLink>
+                            <NavLink activeStyle={{ color: '#2CD889' }} to="/caidat" exact className="nav-link custom" onClick={this.handleOpensidepanel(false)}>CÀI ĐẶT</NavLink>
+                            <Link to="/signin" className="nav-link custom" onClick={() => {
+                                this.props.dispatch({
+                                    type: SET_LOGIN,
+                                    payload: true
+                                });
+                                // this.handleOpensidepanel(false);
+                            }}>THOÁT</Link>
+                        </div>
+                    </nav>
+                }
             </NavbarContainer >
         );
     }
 }
-export default NavBar;
+const mapStateToProps = state => {
+    return {
+        isLoginPage: state.isLogin
+    }
+}
+
+export default connect(mapStateToProps)(NavBar);
 
 const NavbarContainer = styled.div`
     .navbar{
-        box-shadow: 0 -1px 2px 2px #646d8275;
+        box-shadow: 0 -1px 7px 2px #dcdcdc;
         padding: 0 1em !important;
         .navbar-brand{
             .img-fluid{
@@ -106,7 +153,7 @@ const NavbarContainer = styled.div`
         }
         .navbar-nav{
             .nav-item{
-                margin: 0 15px;
+                margin: 0px 5px;
                 .nav-link{
                     position: relative;
                     margin-top: 7px;
@@ -134,6 +181,7 @@ const NavbarContainer = styled.div`
                         
                     }
                     &.active{
+                        color: #2CD889;
                         &::before{
                             background: #2CD889;
                             width:100%;
@@ -155,6 +203,7 @@ const NavbarContainer = styled.div`
                             text-align:right;
                             &:active{
                                 background-color: #2CD889;
+                                color:#fff;
                             }
                         }
                     }
