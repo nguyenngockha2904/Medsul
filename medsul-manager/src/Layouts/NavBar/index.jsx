@@ -20,7 +20,7 @@ class NavBar extends Component {
             <NavbarContainer>
                 {this.props.isLoginPage
                     ?
-                    <nav className="navbar navbar-expand-lg navbar-light py-2">
+                    <nav className="navbar navbar-expand-lg navbar-light py-2" style={{ boxShadow: '0 -1px 7px 2px #dcdcdc' }}>
                         <Link className="navbar-brand" ><img src={icon} alt="icon.svg" className='img-fluid' /></Link>
                         <button className="navbar-toggler" type="button" onClick={this.handleOpensidepanel(true)}>
                             <span className="navbar-toggler-icon" />
@@ -43,7 +43,7 @@ class NavBar extends Component {
                     </nav>
 
                     :
-                    <nav className="navbar navbar-expand-lg navbar-light py-2">
+                    <nav className="navbar navbar-expand-lg navbar-light py-2" style={{ boxShadow: '0 -1px 1px 2px #fff' }}>
                         <Link className="navbar-brand" to="/"><img src={icon} alt="icon.svg" className='img-fluid' /></Link>
                         <button className="navbar-toggler" type="button" onClick={this.handleOpensidepanel(true)}>
                             <span className="navbar-toggler-icon" />
@@ -133,7 +133,6 @@ export default connect(mapStateToProps)(NavBar);
 
 const NavbarContainer = styled.div`
     .navbar{
-        box-shadow: 0 -1px 7px 2px #dcdcdc;
         padding: 0 1em !important;
         .navbar-brand{
             .img-fluid{

@@ -1,5 +1,5 @@
 import { SET_LOGIN } from '../actions/type';
-let initialState = true;
+let initialState = false;
 
 const LoginReducer = (state = initialState, { type, payload }) => {
     switch (type) {
