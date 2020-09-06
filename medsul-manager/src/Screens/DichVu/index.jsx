@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import CategoriesItem from '../../Components/categoryServices_item';
-import ServiceItem from '../../Components/Services_item';
+import ServiceItem from '../../Components/ServicePageComponents/Services_item';
+import CategoryServices from '../../Components/ServicePageComponents/categoryServices';
+import ServiceComponents from '../../Components/ServicePageComponents/ServiceComponents';
+import ModalCategoryService from '../../Components/ServicePageComponents/modalCategoryService';
+import ModalService from '../../Components/ServicePageComponents/modalService';
 class DichVuComponent extends Component {
     render() {
         return (
@@ -21,54 +24,14 @@ class DichVuComponent extends Component {
 
                     <div className="dichVuContent">
                         {/**table CategoriesService */}
-                        <div className="tableTab">
-                            <div className="d-flex justify-content-between headtable">
-                                <p>Loại Dịch Vụ</p>
-                                <button className="btn btn-success btnAdd">THÊM</button>
-                            </div>
-                            <table className="table">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">No.</th>
-                                        <th scope="col">Mã Loại Dịch Vụ</th>
-                                        <th scope="col">Tên Loại Dịch Vụ</th>
-                                        <th scope="col">Tùy Chỉnh</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <CategoriesItem />
-                                    <CategoriesItem />
-                                    <CategoriesItem />
-                                    <CategoriesItem />
-                                    <CategoriesItem />
-                                    <CategoriesItem />
-                                </tbody>
-                            </table>
-                        </div>
+                        <CategoryServices />
+
                         {/**table Service */}
-                        <div className="tableTab">
-                            <div className="d-flex justify-content-between headtable">
-                                <p>Dịch Vụ</p>
-                                <button className="btn btn-success btnAdd">THÊM</button>
-                            </div>
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">No.</th>
-                                        <th scope="col">Mã Dịch Vụ</th>
-                                        <th scope="col">Tên Dịch Vụ</th>
-                                        <th scope="col">Mô Tả Dịch Vụ</th>
-                                        <th scope="col">Công Việc Yêu Cầu</th>
-                                        <th scope="col">Thời Gian Ước Tính</th>
-                                        <th scope="col">Tùy Chỉnh</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <ServiceItem />
-                                </tbody>
-                            </table>
-                        </div>
+                        <ServiceComponents />
+
                     </div>
+                    <ModalCategoryService />
+                    <ModalService />
                 </div>
             </DichVuComponentStyles>
 
@@ -157,6 +120,7 @@ const DichVuComponentStyles = styled.div`
                     }
                     tbody{
                         .tRow{
+                            cursor: pointer;
                             color:#646D82;
                             text-align:center;
                             .groupBtn{
@@ -168,7 +132,9 @@ const DichVuComponentStyles = styled.div`
                                     margin:0 0.5em;
                                 }
                             }
-                            
+                            &:hover{
+                                background-color:#F0FAF;
+                            }
                         }
                     }
                         

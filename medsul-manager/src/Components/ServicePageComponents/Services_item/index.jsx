@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
-import btnEdit from '../../img/btnEdit.svg';
-import btnDelete from '../../img/btnDelete.svg';
-
-class CategoriesItem extends Component {
+import btnEdit from '../../../img/btnEdit.svg';
+import btnDelete from '../../../img/btnDelete.svg';
+class ServiceItem extends Component {
     render() {
         return (
             <tr className="tRow">
                 <th scope="row">1</th>
-                <td>phcn</td>
-                <td>Phục hồi chức năng</td>
+                <td>Mã Dịch Vụ</td>
+                <td>Tên Dịch Vụ</td>
+                <td>Mô Tả Dịch Vụ</td>
+                <td>Công việc yêu cầu</td>
+                <td>Công việc không bao gồm</td>
+                <td>thời gian ước tính</td>
                 <td><div className="d-flex justify-content-center groupBtn">
                     <button className=" btnCustom">
                         <img src={btnEdit} alt="btnEdit" />
@@ -22,4 +25,4 @@ class CategoriesItem extends Component {
     }
 }
 
-export default CategoriesItem;
+export default ServiceItem;
