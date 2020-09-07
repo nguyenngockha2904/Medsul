@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import { StyledModal } from '../modalService/index';
 class ModalCategoryService extends Component {
     render() {
         return (
@@ -31,64 +32,5 @@ class ModalCategoryService extends Component {
         );
     }
 }
-const StyledModal = styled.div`
-    .modal-dialog{
-        .modal-content{
-            .modal-header{
-                .modal-title{
-                        color:#646D82;
-                        text-transform:uppercase;
-                        letter-spacing: 1px;
-                        font-weight: 500;
-                        font-size: 1.6em;
-                }
-                border:none;
-            }
-            .modal-body{
-                border:none;
-                .form-group{
-                    label{
-                        color:#646D82;
-                    }
-                    .form-contro{
-                        display: block;
-                        text-align:center;
-                        width: 100%;
-                        height: calc(1.5em + 0.75rem + 2px);
-                        padding: 0.375rem 0.75rem;
-                        font-size: 1rem;
-                        font-weight: 400;
-                        line-height: 1.5;
-                        color: #495057;
-                        background-color: #fff;
-                        border-radius: 0.25rem;
-                        border:none;
-                        border-bottom:1px solid #CBD1D9;
-                        outline: none;
-                    }
-                    &.ac{
-                        label{
-                            font-size: 0.8em;
-                            margin: 0;
-                        }
-                        .form-contro{
-                            padding: 0 0.75rem;
-                        font-size: 0.7em;
-                        color: #495057;
-                        }
-                    }
-                }  
-            }
-            .modal-footer{
-                border:none;
-                .btnAccept{
-                    border-radius:20px;
-                    background-color:#2CD889;
-                    border:none;
-                }
-            }
-        }
-    }
-`;
 
 export default ModalCategoryService;        

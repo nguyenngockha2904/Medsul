@@ -133,7 +133,7 @@ const DichVuComponentStyles = styled.div`
                                 }
                             }
                             &:hover{
-                                background-color:#F0FAF;
+                                background-color:#F0FAF0;
                             }
                         }
                     }
