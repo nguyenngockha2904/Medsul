@@ -1,5 +1,5 @@
 -- MySQL dump 10.13  Distrib 8.0.21, for Win64 (x86_64)
-use csdl_medsul--
+use csdl_medsul
 -- Host: 127.0.0.1    Database: healthycare
 -- ------------------------------------------------------
 -- Server version	8.0.21
@@ -14,37 +14,6 @@ use csdl_medsul--
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-
---
--- Table structure for table `chitietchuyennganh`
---
-
-DROP TABLE IF EXISTS `chitietchuyennganh`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `chitietchuyennganh` (
-  `CTCN_ID` int NOT NULL AUTO_INCREMENT,
-  `CN_ID` int NOT NULL,
-  `DD_ID` int NOT NULL,
-  `CTCN_GHICHU` varchar(300) DEFAULT NULL,
-  `CTCN_CHUNGCHI` varchar(300) DEFAULT NULL,
-  `CTCN_TRINHDO` varchar(300) DEFAULT NULL,
-  PRIMARY KEY (`CTCN_ID`),
-  KEY `FK_CO_CHUYENNGANH` (`CN_ID`),
-  KEY `FK_CO_CTCN` (`DD_ID`),
-  CONSTRAINT `FK_CO_CHUYENNGANH` FOREIGN KEY (`CN_ID`) REFERENCES `chuyennganh` (`CN_ID`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `FK_CO_CTCN` FOREIGN KEY (`DD_ID`) REFERENCES `dieuduong` (`DD_ID`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `chitietchuyennganh`
---
-
-LOCK TABLES `chitietchuyennganh` WRITE;
-/*!40000 ALTER TABLE `chitietchuyennganh` DISABLE KEYS */;
-/*!40000 ALTER TABLE `chitietchuyennganh` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `chitietdat`
@@ -79,31 +48,6 @@ LOCK TABLES `chitietdat` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `chuyennganh`
---
-
-DROP TABLE IF EXISTS `chuyennganh`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `chuyennganh` (
-  `CN_ID` int NOT NULL AUTO_INCREMENT,
-  `CN_MA` varchar(50) DEFAULT NULL,
-  `CN_TENCN` varchar(300) DEFAULT NULL,
-  PRIMARY KEY (`CN_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `chuyennganh`
---
-
-LOCK TABLES `chuyennganh` WRITE;
-/*!40000 ALTER TABLE `chuyennganh` DISABLE KEYS */;
-INSERT INTO `chuyennganh` VALUES (1,'KTV_PHCN','Kỹ thuật viên phục hồi chức năng.');
-/*!40000 ALTER TABLE `chuyennganh` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `datlich`
 --
 
@@ -124,7 +68,7 @@ CREATE TABLE `datlich` (
   `DL_EMAIL` varchar(50) DEFAULT NULL,
   `DL_GHICHU` varchar(300) DEFAULT NULL,
   `DL_DIACHI` varchar(300) DEFAULT NULL,
-  `DL_TINHTRANG` tinyint NOT NULL,
+  `DL_TINHTRANG` tinyint(1) NOT NULL,
   PRIMARY KEY (`DL_ID`),
   KEY `FK_CO_MAGGIAMGIA` (`MGG_ID`),
   KEY `FK_DIEUDUONG_CO_LICH` (`DD_ID`),
@@ -158,7 +102,6 @@ DROP TABLE IF EXISTS `dichvu`;
 CREATE TABLE `dichvu` (
   `DV_ID` int NOT NULL AUTO_INCREMENT,
   `LOAIDV_ID` int NOT NULL,
-  `CN_ID` int NOT NULL,
   `DV_MA` varchar(50) DEFAULT NULL,
   `DV_TEN` varchar(200) DEFAULT NULL,
   `DV_MOTA` longtext,
@@ -167,9 +110,7 @@ CREATE TABLE `dichvu` (
   `DV_THOIGIANUOCTINH` int DEFAULT NULL,
   PRIMARY KEY (`DV_ID`),
   KEY `FK_CO` (`LOAIDV_ID`),
-  KEY `FK_YEUCAU_CHUYENNGANH` (`CN_ID`),
-  CONSTRAINT `FK_CO` FOREIGN KEY (`LOAIDV_ID`) REFERENCES `loaidichvu` (`LOAIDV_ID`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `FK_YEUCAU_CHUYENNGANH` FOREIGN KEY (`CN_ID`) REFERENCES `chuyennganh` (`CN_ID`) ON DELETE RESTRICT ON UPDATE RESTRICT
+  CONSTRAINT `FK_CO` FOREIGN KEY (`LOAIDV_ID`) REFERENCES `loaidichvu` (`LOAIDV_ID`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -179,8 +120,39 @@ CREATE TABLE `dichvu` (
 
 LOCK TABLES `dichvu` WRITE;
 /*!40000 ALTER TABLE `dichvu` DISABLE KEYS */;
-INSERT INTO `dichvu` VALUES (1,1,1,'PHCN_STB','PHCN Sau Tai Biến','Vật lý trị liệu và vận động phục hồi chức năng là hoạt động rất quang trọng quyết định đến sự thành công của ca phẫu thuật và khả năng phục hồi của bệnh nhân. Tuy nhiên sau khi phẫu thuật điều trị bệnh nhân vẫn còn rất đau, việc di chuyển đi lại rất khó khăn, nhiều rủi ro, tốn thời gian và chi phí. Hiểu được điều đó chúng tôi sẽ cử các chuyên viên PHCN nhiều năm kinh nghiệm đến thực hiện các thủ thuật vật lý trị liệu và hoạt động trị liệu cho bạn hoặc người thân tại nhà hoặc bất kỳ địa chỉ nào bạn yêu cầu.','Hướng dẫn tập vận động trị liệu và thực hiện các biện pháp vật lý trị liệu để giúp tăng hiệu quả điều trị và phục hồi khả năng vận động của bệnh nhân.','- Thay băng cắt chỉ cho vết thương.',2),(2,1,1,'PHCN_SPT','PHCN Sau Phẫu Thuật','Vật lý trị liệu và vận động phục hồi chức năng là hoạt động rất quang trọng quyết định đến sự thành công của ca phẫu thuật và khả năng phục hồi của bệnh nhân. Tuy nhiên sau khi phẫu thuật điều trị bệnh nhân vẫn còn rất đau, việc di chuyển đi lại rất khó khăn, nhiều rủi ro, tốn thời gian và chi phí. Hiểu được điều đó chúng tôi sẽ cử các chuyên viên PHCN nhiều năm kinh nghiệm đến thực hiện các thủ thuật vật lý trị liệu và hoạt động trị liệu cho bạn hoặc người thân tại nhà hoặc bất kỳ địa chỉ nào bạn yêu cầu.','Hướng dẫn tập vận động trị liệu và thực hiện các biện pháp vật lý trị liệu để giúp tăng hiệu quả điều trị và phục hồi khả năng vận động của bệnh nhân.','- Thay băng cắt chỉ cho vết thương.',2);
+INSERT INTO `dichvu` VALUES (1,1,'PHCN_STN','PHCN Sau Tai Nạn','Vật lý trị liệu và vận động phục hồi chức năng là hoạt động rất quang trọng quyết định đến sự thành công của ca phẫu thuật và khả năng phục hồi của bệnh nhân. Tuy nhiên sau khi phẫu thuật điều trị bệnh nhân vẫn còn rất đau, việc di chuyển đi lại rất khó khăn, nhiều rủi ro, tốn thời gian và chi phí. Hiểu được điều đó chúng tôi sẽ cử các chuyên viên PHCN nhiều năm kinh nghiệm đến thực hiện các thủ thuật vật lý trị liệu và hoạt động trị liệu cho bạn hoặc người thân tại nhà hoặc bất kỳ địa chỉ nào bạn yêu cầu.','Chăm sóc toàn diện cho bệnh nhân tại nhà và bệnh viện thay cho người nhà bệnh nhân bằng các điều dưỡng viên được đào tạo bài bản, chính quy.','- Thay băng cắt chỉ cho vết thương.',2),(2,1,'PHCN_BNOT','PHCN Bại Não ở trẻ','Bại não là tổn thương não không tiến triển gây nên bởi các yếu tố nguy cơ xảy ra ở giai đoạn trước sinh, trong khi sinh và sau sinh đến 5 tuổi.','- Hướng dẫn sử dụng các máy tập vận động phục hồi chức năng.','- Thay băng cắt chỉ, rửa vết thương.',3);
 /*!40000 ALTER TABLE `dichvu` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `dichvudieuduong`
+--
+
+DROP TABLE IF EXISTS `dichvudieuduong`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `dichvudieuduong` (
+  `CTCN_ID` int NOT NULL AUTO_INCREMENT,
+  `DV_ID` int DEFAULT NULL,
+  `DD_ID` int DEFAULT NULL,
+  `CTCN_GHICHU` varchar(300) DEFAULT NULL,
+  `CTCN_CHUNGCHI` varchar(300) DEFAULT NULL,
+  `CTCN_TRINHDO` varchar(300) DEFAULT NULL,
+  PRIMARY KEY (`CTCN_ID`),
+  KEY `FK_CO_CTCN` (`DD_ID`),
+  KEY `FK_CO_THE_THUC_HIEN` (`DV_ID`),
+  CONSTRAINT `FK_CO_CTCN` FOREIGN KEY (`DD_ID`) REFERENCES `dieuduong` (`DD_ID`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `FK_CO_THE_THUC_HIEN` FOREIGN KEY (`DV_ID`) REFERENCES `dichvu` (`DV_ID`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `dichvudieuduong`
+--
+
+LOCK TABLES `dichvudieuduong` WRITE;
+/*!40000 ALTER TABLE `dichvudieuduong` DISABLE KEYS */;
+/*!40000 ALTER TABLE `dichvudieuduong` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -192,20 +164,27 @@ DROP TABLE IF EXISTS `dieuduong`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `dieuduong` (
   `DD_ID` int NOT NULL AUTO_INCREMENT,
+  `QUANLY_DD_ID` int DEFAULT NULL,
   `TT_ID` int NOT NULL,
+  `Q_ID` int NOT NULL,
   `DD_MA` varchar(100) DEFAULT NULL,
   `DD_HOTEN` varchar(300) DEFAULT NULL,
   `DD_MAGIOITHIEU` varchar(100) DEFAULT NULL,
   `DD_GIOITINH` varchar(30) DEFAULT NULL,
   `DD_NGAYSINH` date DEFAULT NULL,
   `DD_SDT` varchar(11) DEFAULT NULL,
-  `DD_EMAIL` varchar(100) DEFAULT NULL,
+  `DD_EMAIL` varchar(100) NOT NULL,
   `DD_DIACHI` varchar(300) DEFAULT NULL,
   `DD_AVARTAR` varchar(300) DEFAULT NULL,
+  `DD_PASSWORD` varchar(50) NOT NULL,
   PRIMARY KEY (`DD_ID`),
   KEY `FK_DIEUDUONG_THUOC_TINHTHANH` (`TT_ID`),
-  CONSTRAINT `FK_DIEUDUONG_THUOC_TINHTHANH` FOREIGN KEY (`TT_ID`) REFERENCES `tinhthanh` (`TT_ID`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `FK_RELATIONSHIP_19` (`QUANLY_DD_ID`),
+  KEY `FK_RELATIONSHIP_21` (`Q_ID`),
+  CONSTRAINT `FK_DIEUDUONG_THUOC_TINHTHANH` FOREIGN KEY (`TT_ID`) REFERENCES `tinhthanh` (`TT_ID`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `FK_RELATIONSHIP_19` FOREIGN KEY (`QUANLY_DD_ID`) REFERENCES `dieuduong` (`DD_ID`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `FK_RELATIONSHIP_21` FOREIGN KEY (`Q_ID`) REFERENCES `quyen` (`Q_ID`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -214,36 +193,7 @@ CREATE TABLE `dieuduong` (
 
 LOCK TABLES `dieuduong` WRITE;
 /*!40000 ALTER TABLE `dieuduong` DISABLE KEYS */;
-INSERT INTO `dieuduong` VALUES (1,1,'DD2000','Wibu Nguyễn',NULL,'không biết','1999-01-02','0123456789','duongnguyen101199@gmail.com','1233 cái gì củng đc',NULL);
 /*!40000 ALTER TABLE `dieuduong` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `lichsuhen`
---
-
-DROP TABLE IF EXISTS `lichsuhen`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `lichsuhen` (
-  `LSUHEN_ID` int NOT NULL AUTO_INCREMENT,
-  `DL_ID` int DEFAULT NULL,
-  `DD_ID` int DEFAULT NULL,
-  PRIMARY KEY (`LSUHEN_ID`),
-  KEY `FK_LICHDAT_TROTHANH_LICHSUHEN` (`DL_ID`),
-  KEY `FK_RELATIONSHIP_17` (`DD_ID`),
-  CONSTRAINT `FK_LICHDAT_TROTHANH_LICHSUHEN` FOREIGN KEY (`DL_ID`) REFERENCES `datlich` (`DL_ID`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `FK_RELATIONSHIP_17` FOREIGN KEY (`DD_ID`) REFERENCES `dieuduong` (`DD_ID`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `lichsuhen`
---
-
-LOCK TABLES `lichsuhen` WRITE;
-/*!40000 ALTER TABLE `lichsuhen` DISABLE KEYS */;
-/*!40000 ALTER TABLE `lichsuhen` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -288,7 +238,7 @@ CREATE TABLE `magiamgia` (
   PRIMARY KEY (`MGG_ID`),
   KEY `FK_USER_CO_MAGIAMGIA` (`USER_ID`),
   CONSTRAINT `FK_USER_CO_MAGIAMGIA` FOREIGN KEY (`USER_ID`) REFERENCES `user` (`USER_ID`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -297,7 +247,6 @@ CREATE TABLE `magiamgia` (
 
 LOCK TABLES `magiamgia` WRITE;
 /*!40000 ALTER TABLE `magiamgia` DISABLE KEYS */;
-INSERT INTO `magiamgia` VALUES (1,NULL,'GG2000','Giảm cho người bị bóng','20',1);
 /*!40000 ALTER TABLE `magiamgia` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -324,7 +273,7 @@ CREATE TABLE `nguoibenh` (
   PRIMARY KEY (`NB_ID`),
   KEY `FK_NGUOIBENH_THUOC_TINHTHANH` (`TT_ID`),
   CONSTRAINT `FK_NGUOIBENH_THUOC_TINHTHANH` FOREIGN KEY (`TT_ID`) REFERENCES `tinhthanh` (`TT_ID`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -333,7 +282,6 @@ CREATE TABLE `nguoibenh` (
 
 LOCK TABLES `nguoibenh` WRITE;
 /*!40000 ALTER TABLE `nguoibenh` DISABLE KEYS */;
-INSERT INTO `nguoibenh` VALUES (1,2,'Nguyễn Lan','bê','0123456789','1999-02-02','123 quần','O','30','10','không ',NULL),(2,3,'Lê Ngọc Hậu','cong','0123652014','1999-10-11','14 què','AB','35','125','bóng lộ',NULL);
 /*!40000 ALTER TABLE `nguoibenh` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -354,7 +302,7 @@ CREATE TABLE `quanhe` (
   KEY `FK_USER_CO_QUANHE` (`USER_ID`),
   CONSTRAINT `FK_NGUOIBENH_CO_QUANHE` FOREIGN KEY (`NB_ID`) REFERENCES `nguoibenh` (`NB_ID`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `FK_USER_CO_QUANHE` FOREIGN KEY (`USER_ID`) REFERENCES `user` (`USER_ID`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -363,8 +311,31 @@ CREATE TABLE `quanhe` (
 
 LOCK TABLES `quanhe` WRITE;
 /*!40000 ALTER TABLE `quanhe` DISABLE KEYS */;
-INSERT INTO `quanhe` VALUES (1,1,1,'Người Thân');
 /*!40000 ALTER TABLE `quanhe` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `quyen`
+--
+
+DROP TABLE IF EXISTS `quyen`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `quyen` (
+  `Q_ID` int NOT NULL AUTO_INCREMENT,
+  `Q_TEN` varchar(30) DEFAULT NULL,
+  `Q_MOTA` varchar(300) DEFAULT NULL,
+  PRIMARY KEY (`Q_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `quyen`
+--
+
+LOCK TABLES `quyen` WRITE;
+/*!40000 ALTER TABLE `quyen` DISABLE KEYS */;
+/*!40000 ALTER TABLE `quyen` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -380,7 +351,7 @@ CREATE TABLE `tinhthanh` (
   `TT_TENTINH` varchar(300) DEFAULT NULL,
   `TT_HESOGIAM` varchar(30) DEFAULT NULL,
   PRIMARY KEY (`TT_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -389,7 +360,6 @@ CREATE TABLE `tinhthanh` (
 
 LOCK TABLES `tinhthanh` WRITE;
 /*!40000 ALTER TABLE `tinhthanh` DISABLE KEYS */;
-INSERT INTO `tinhthanh` VALUES (1,'LA','Long An','10'),(2,'HCM','Hồ Chí Minh','5'),(3,'DN','Đà Nẵng','10');
 /*!40000 ALTER TABLE `tinhthanh` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -402,20 +372,23 @@ DROP TABLE IF EXISTS `user`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `user` (
   `USER_ID` int NOT NULL AUTO_INCREMENT,
+  `Q_ID` int NOT NULL,
   `TT_ID` int NOT NULL,
-  `USER_EMAIL` varchar(30) DEFAULT NULL,
+  `USER_EMAIL` varchar(30) NOT NULL,
   `USER_HOTEN` varchar(30) DEFAULT NULL,
   `USER_SDT` varchar(15) DEFAULT NULL,
   `USER_PASSWORD` varchar(100) DEFAULT NULL,
   `USER_MAGIOITHIEU` varchar(100) DEFAULT NULL,
-  `USER_GIOITINH` varchar(5) DEFAULT NULL,
+  `USER_GIOITINH` varchar(30) DEFAULT NULL,
   `USER_DIACHI` varchar(100) DEFAULT NULL,
   `USER_NGAYSINH` date DEFAULT NULL,
   `USER_AVARTAR` varchar(300) DEFAULT NULL,
   PRIMARY KEY (`USER_ID`),
+  KEY `FK_RELATIONSHIP_20` (`Q_ID`),
   KEY `FK_USER_THUOC_TINHTHANH` (`TT_ID`),
+  CONSTRAINT `FK_RELATIONSHIP_20` FOREIGN KEY (`Q_ID`) REFERENCES `quyen` (`Q_ID`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `FK_USER_THUOC_TINHTHANH` FOREIGN KEY (`TT_ID`) REFERENCES `tinhthanh` (`TT_ID`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -424,7 +397,6 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,1,'suthanbien@gmail.com','Trần Thanh Quy','0123456789','Quy0164vn',NULL,'nam','123asd','1999-08-02',NULL);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -437,4 +409,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-09-05 14:37:00
+-- Dump completed on 2020-09-07 10:35:19

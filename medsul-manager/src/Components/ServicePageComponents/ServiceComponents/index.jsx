@@ -1,7 +1,14 @@
 import React, { Component } from 'react';
 import ServiceItem from '../Services_item';
-
+import { connect } from 'react-redux';
 class Services extends Component {
+    renderDichVu = () => {
+        return this.props.ListDichVu.map((item, index) => {
+            return (
+                <ServiceItem index={(+index + 1)} item={item} key={index} />
+            )
+        })
+    }
     render() {
         return (
             <div className="tableTab">
@@ -23,11 +30,7 @@ class Services extends Component {
                         </tr>
                     </thead>
                     <tbody>
-                        <ServiceItem />
-                        <ServiceItem />
-                        <ServiceItem />
-                        <ServiceItem />
-                        <ServiceItem />
+                        {this.renderDichVu()}
                     </tbody>
                 </table>
             </div>
@@ -35,5 +38,9 @@ class Services extends Component {
         );
     }
 }
-
-export default Services;
+const mapStatetoProps = state => {
+    return {
+        ListDichVu: state.qlDichVu.mangDichVu
+    }
+}
+export default connect(mapStatetoProps)(Services);

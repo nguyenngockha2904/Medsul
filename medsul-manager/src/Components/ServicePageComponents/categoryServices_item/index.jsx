@@ -4,11 +4,13 @@ import btnDelete from '../../../img/btnDelete.svg';
 
 class CategoriesItem extends Component {
     render() {
+        const { loaiDichVu_Id, maLoaiDichVu, tenLoaiDichVu } = this.props.item;
+        const index = this.props.index;
         return (
             <tr className="tRow" >
-                <th scope="row" onClick={() => { console.log('click row') }}>1</th>
-                <td onClick={() => { console.log('click row') }}>phcn</td>
-                <td onClick={() => { console.log('click row') }}>Phục hồi chức năng</td>
+                <th scope="row" onClick={() => { console.log('click row') }}>{index}</th>
+                <td onClick={() => { console.log('click row') }}>{maLoaiDichVu}</td>
+                <td onClick={() => { console.log('click row') }}>{tenLoaiDichVu}</td>
                 <td><div className="d-flex justify-content-center groupBtn">
                     <button className=" btnCustom" onClick={() => { console.log('click btnEdit') }}>
                         <img src={btnEdit} alt="btnEdit" />

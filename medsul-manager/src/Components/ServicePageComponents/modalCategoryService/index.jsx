@@ -1,7 +1,28 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
 import { StyledModal } from '../modalService/index';
+import { connect } from 'react-redux';
+import { ThemLoaiDichVuMoi } from '../../../Redux/actions/DichVuAction';
 class ModalCategoryService extends Component {
+
+    state = {
+        dichVu: {
+            loaiDichVu_Id: 0,
+            maLoaiDichVu: '',
+            tenLoaiDichVu: ''
+        }
+    }
+    handleChange = e => {
+        this.setState({
+            dichVu: { ...this.state.dichVu, [e.target.name]: e.target.value }
+        });
+    }
+    handleSubmit = e => {
+        e.preventDefault();
+        this.props.dispatch(ThemLoaiDichVuMoi(this.state.dichVu));
+    }
+    handleSetValue = () => {
+
+    }
     render() {
         return (
             <StyledModal className="modal fade" id="categoryServiceModal">
@@ -12,20 +33,23 @@ class ModalCategoryService extends Component {
                             <h4 className="modal-title">Thêm Loại dịch vụ</h4>
                         </div>
                         {/* Modal body */}
-                        <div className="modal-body">
-                            <div className="form-group ac">
+                        <form className="modal-body" onSubmit={this.handleSubmit}>
+                            <div className="form-group">
                                 <label htmlFor="usr">Mã loại dịch vụ :</label>
-                                <input type="text" className="form-contro" id="usr" disabled={true} value="kha" />
+                                <input type="text" className="form-contro" name="maLoaiDichVu" onChange={this.handleChange}
+                                    value={this.state.dichVu.maLoaiDichVu}
+                                />
                             </div>
                             <div className="form-group ">
                                 <label htmlFor="pwd">Tên loại dịch vụ:</label>
-                                <input type="text" className="form-contro" id="pwd" />
+                                <input type="text" className="form-contro" name="tenLoaiDichVu" onChange={this.handleChange}
+                                    value={this.state.dichVu.tenLoaiDichVu}
+                                />
                             </div>
-                        </div>
-                        {/* Modal footer */}
-                        <div className="modal-footer">
-                            <button type="button" className="btn btn-danger btnAccept" data-dismiss="modal">Xác Nhận</button>
-                        </div>
+                            <div className="text-right">
+                                <button type="submit" className="btn btn-danger btnAccept" >Xác Nhận</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </StyledModal>
@@ -33,4 +57,4 @@ class ModalCategoryService extends Component {
     }
 }
 
-export default ModalCategoryService;        
+export default connect()(ModalCategoryService);        

@@ -46,15 +46,6 @@ public class DichVu {
 	@JsonIgnore
 	private LoaiDichVu loaiDichVu;
 	
-	
-	@Column(name = "CN_ID")
-	private int chuyenNganhId; 
-	
-	@ManyToOne()
-	@JoinColumn(name = "CN_ID", insertable = false, updatable = false)
-	@JsonIgnore
-	private ChuyenNganh chuyenNganh;
-	
 	public int getDichVu_Id() {
 		return DichVu_Id;
 	}
@@ -119,20 +110,6 @@ public class DichVu {
 		this.loaiDichVuID = loaiDichVuID;
 	}
 
-	public int getChuyenNganhId() {
-		return chuyenNganhId;
-	}
-
-	public void setChuyenNganhId(int chuyenNganhId) {
-		this.chuyenNganhId = chuyenNganhId;
-	}
-	public ChuyenNganh getChuyenNganh() {
-		return chuyenNganh;
-	}
-
-	public void setChuyenNganh(ChuyenNganh chuyenNganh) {
-		this.chuyenNganh = chuyenNganh;
-	}
 
 	public LoaiDichVu getLoaiDichVu() {
 		return loaiDichVu;

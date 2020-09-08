@@ -3,15 +3,17 @@ import btnEdit from '../../../img/btnEdit.svg';
 import btnDelete from '../../../img/btnDelete.svg';
 class ServiceItem extends Component {
     render() {
+        const { maDichVu, moTaDichVu, tenDichVu, thoiGianUocTinh, yeuCauCongViec, khongBaoGom } = this.props.item;
+        const index = this.props.index;
         return (
             <tr className="tRow">
-                <th scope="row">1</th>
-                <td>Mã Dịch Vụ</td>
-                <td>Tên Dịch Vụ</td>
-                <td>Mô Tả Dịch Vụ</td>
-                <td>Công việc yêu cầu</td>
-                <td>Công việc không bao gồm</td>
-                <td>thời gian ước tính</td>
+                <th scope="row">{index}</th>
+                <td>{maDichVu}</td>
+                <td>{tenDichVu}</td>
+                <td>{moTaDichVu.slice(0, 50)}...</td>
+                <td>{yeuCauCongViec.slice(0, 50)}...</td>
+                <td>{khongBaoGom}</td>
+                <td>{thoiGianUocTinh} giờ</td>
                 <td><div className="d-flex justify-content-center groupBtn">
                     <button className=" btnCustom">
                         <img src={btnEdit} alt="btnEdit" />

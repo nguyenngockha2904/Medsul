@@ -43,9 +43,9 @@ public class DichVuController {
 		DichVu entity = dichVuRepository.save(dichVu);
 		return new ResponseEntity<DichVu>(entity,HttpStatus.CREATED);
 	}
-	@PutMapping("/{DichVu_Id}")
-	public Object post(@PathVariable int DichVu_Id, @RequestBody DichVu dichVu) {
-		if(dichVuRepository.existsById(DichVu_Id)) {
+	@PutMapping("")
+	public Object put( @RequestBody DichVu dichVu) {
+		if(dichVuRepository.existsById(dichVu.getDichVu_Id())) {
 			DichVu entity = dichVuRepository.save(dichVu);
 			return new ResponseEntity<DichVu>(entity, HttpStatus.OK);	
 		}

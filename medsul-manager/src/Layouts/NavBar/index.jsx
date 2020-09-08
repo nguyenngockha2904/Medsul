@@ -21,14 +21,14 @@ class NavBar extends Component {
                 {this.props.isLoginPage
                     ?
                     <nav className="navbar navbar-expand-lg navbar-light py-2" style={{ boxShadow: '0 -1px 7px 2px #dcdcdc' }}>
-                        <Link className="navbar-brand" ><img src={icon} alt="icon.svg" className='img-fluid' /></Link>
+                        <Link className="navbar-brand" to="/signin"><img src={icon} alt="icon.svg" className='img-fluid' /></Link>
                         <button className="navbar-toggler" type="button" onClick={this.handleOpensidepanel(true)}>
                             <span className="navbar-toggler-icon" />
                         </button>
                         <div className="d-flex w-100 justify-content-between">
                             <ul className="navbar-nav ml-auto">
                                 <li className="nav-item">
-                                    <Link className="nav-link active" to="/signin">
+                                    <Link className="nav-link" to="/signin">
                                         TÀI KHOẢN
                                      </Link>
                                 </li>
@@ -38,7 +38,7 @@ class NavBar extends Component {
                             <div className="d-flex justify-content-end px-3 pt-3">
                                 <a className="closebtn" onClick={this.handleOpensidepanel(false)}><span className="closeImg"></span></a>
                             </div>
-                            <NavLink activeStyle={{ color: '#2CD889' }} to="/signin" exact className="nav-link custom" href="#" onClick={this.handleOpensidepanel(false)}>TÀI KHOẢN</NavLink>
+                            <NavLink activeStyle={{ color: '#2CD889' }} to="/signin" exact className="nav-link custom" onClick={this.handleOpensidepanel(false)}>TÀI KHOẢN</NavLink>
                         </div>
                     </nav>
 

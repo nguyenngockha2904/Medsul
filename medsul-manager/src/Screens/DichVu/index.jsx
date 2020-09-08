@@ -5,6 +5,9 @@ import CategoryServices from '../../Components/ServicePageComponents/categorySer
 import ServiceComponents from '../../Components/ServicePageComponents/ServiceComponents';
 import ModalCategoryService from '../../Components/ServicePageComponents/modalCategoryService';
 import ModalService from '../../Components/ServicePageComponents/modalService';
+import Axios from 'axios';
+import { connect } from 'react-redux';
+import { layDanhSachLoaiDichVuAction, layDanhSachDichVuAction } from '../../Redux/actions/DichVuAction';
 class DichVuComponent extends Component {
     render() {
         return (
@@ -37,6 +40,11 @@ class DichVuComponent extends Component {
 
         );
     }
+
+    componentDidMount() {
+        this.props.dispatch(layDanhSachLoaiDichVuAction());
+        this.props.dispatch(layDanhSachDichVuAction());
+    };
 }
 
 const DichVuComponentStyles = styled.div`
@@ -104,14 +112,8 @@ const DichVuComponentStyles = styled.div`
                     }
                 }
                 .table{
-                    height: 200px;
-                    overflow-y: scroll;
-                    overflow-x: unset;
-                    scroll-behavior: smooth;
-                    height: 12em;
                     thead{
                         color:#CBD1D9;
-                        text-align:center;
                         tr{
                             th{
                                 border:none;
@@ -122,7 +124,6 @@ const DichVuComponentStyles = styled.div`
                         .tRow{
                             cursor: pointer;
                             color:#646D82;
-                            text-align:center;
                             .groupBtn{
                                 .btnCustom{
                                     border: none;
@@ -146,4 +147,4 @@ const DichVuComponentStyles = styled.div`
 `;
 
 
-export default DichVuComponent;
+export default connect()(DichVuComponent);

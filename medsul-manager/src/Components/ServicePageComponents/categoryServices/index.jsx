@@ -1,6 +1,14 @@
 import React, { Component } from 'react';
 import CategoriesItem from '../categoryServices_item';
+import { connect } from 'react-redux';
 class CategoryServices extends Component {
+    renderLoaiDichVu = () => {
+        return this.props.listLoaiDichVu.map((item, index) => {
+            return (
+                <CategoriesItem index={(+index + 1)} item={item} key={index} />
+            )
+        });
+    }
     render() {
         return (
             <div className="tableTab">
@@ -18,17 +26,18 @@ class CategoryServices extends Component {
                         </tr>
                     </thead>
                     <tbody>
-                        <CategoriesItem />
-                        <CategoriesItem />
-                        <CategoriesItem />
-                        <CategoriesItem />
-                        <CategoriesItem />
-                        <CategoriesItem />
+                        {this.renderLoaiDichVu()}
                     </tbody>
                 </table>
             </div>
         );
     }
 }
+const mapStateToProps = state => {
+    return {
+        listLoaiDichVu: state.qlDichVu.mangLoaiDichVu
+    }
+}
 
-export default CategoryServices;
+
+export default connect(mapStateToProps)(CategoryServices);

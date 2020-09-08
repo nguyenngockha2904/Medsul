@@ -136,13 +136,14 @@ export const StyledModal = styled.div`
                 }
             }  
         }
+        .btnAccept{
+            border-radius:20px;
+            background-color:#2CD889;
+            border:none;
+        }
         .modal-footer{
             border:none;
-            .btnAccept{
-                border-radius:20px;
-                background-color:#2CD889;
-                border:none;
-            }
+            
         }
     }
 }
