@@ -1,9 +1,29 @@
 import React, { Component } from 'react';
 import ServiceItem from '../Services_item';
 import { connect } from 'react-redux';
+import { SHOW_MODAL_DICHVU } from '../../../Redux/actions/type';
 class Services extends Component {
+    showModalService = () => {
+        this.props.dispatch({
+            type: SHOW_MODAL_DICHVU,
+            payload: {
+                dichVu_Id: 0,
+                khongBaoGom: '',
+                loaiDichVuID: 0,
+                maDichVu: '',
+                moTaDichVu: '',
+                tenDichVu: '',
+                thoiGianUocTinh: 0,
+                yeuCauCongViec: ''
+            }
+        })
+    }
     renderDichVu = () => {
-        return this.props.ListDichVu.map((item, index) => {
+        return this.props.dropDown_MaLDV ? this.props.ListDichVu.filter(item => item.loaiDichVuID === this.props.dropDown_MaLDV).map((item, index) => {
+            return (
+                <ServiceItem index={(+index + 1)} item={item} key={index} />
+            )
+        }) : this.props.ListDichVu.map((item, index) => {
             return (
                 <ServiceItem index={(+index + 1)} item={item} key={index} />
             )
@@ -14,7 +34,7 @@ class Services extends Component {
             <div className="tableTab">
                 <div className="d-flex justify-content-between headtable">
                     <p>Dịch Vụ</p>
-                    <button className="btn btn-success btnAdd" data-toggle="modal" data-target="#ServiceModal">THÊM</button>
+                    <button className="btn btn-success btnAdd" onClick={this.showModalService}>THÊM</button>
                 </div>
                 <table className="table">
                     <thead>
@@ -40,7 +60,8 @@ class Services extends Component {
 }
 const mapStatetoProps = state => {
     return {
-        ListDichVu: state.qlDichVu.mangDichVu
+        ListDichVu: state.qlDichVu.mangDichVu,
+        dropDown_MaLDV: state.qlDichVu.dropDown_MaLDV
     }
 }
 export default connect(mapStatetoProps)(Services);

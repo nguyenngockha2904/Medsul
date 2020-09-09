@@ -5,6 +5,8 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
+import org.apache.catalina.mapper.Mapper;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +20,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.isc.dto.LoaiDichVuEditDto;
+import com.isc.dto.LoaiDichVuInsertDto;
+import com.isc.entity.DichVu;
 import com.isc.entity.LoaiDichVu;
 import com.isc.repository.LoaiDichVuRepository;
 
@@ -35,7 +40,7 @@ public class LoaiDichVuController {
 		return new ResponseEntity<List<LoaiDichVu>>(listServiceType, HttpStatus.OK);
 	}
 
-	//API - TIM KIEM LOAI DICH VU THEO ID
+	// API - TIM KIEM LOAI DICH VU THEO ID
 	@GetMapping("/{id}")
 	public Object GetServiceTypeById(@PathVariable("id") int id) {
 		LoaiDichVu serviceType = loaiDichVuRepository.findById(id).orElse(null);
@@ -47,26 +52,41 @@ public class LoaiDichVuController {
 
 	// API - THEM MOI MOT LOAI DICH VU
 	@PostMapping("")
-	public Object AddNewServiceType(@Valid @RequestBody LoaiDichVu serviceType, BindingResult errors) {
+	public Object AddNewServiceType( @RequestBody LoaiDichVuInsertDto serviceType, BindingResult errors) {
 		if (errors.hasErrors()) {
 			return new ResponseEntity<Object>(errors.getAllErrors(), HttpStatus.BAD_REQUEST);
 		}
-		if (loaiDichVuRepository.saveAndFlush(serviceType) != null) {
-			return new ResponseEntity<LoaiDichVu>(serviceType, HttpStatus.CREATED);
+		ModelMapper modelMapper = new ModelMapper();
+		LoaiDichVu loaiDV = modelMapper.map(serviceType, LoaiDichVu.class);
+
+		System.out.println("ma dich vu " + serviceType.getMaLoaiDichVu());
+		List<LoaiDichVu> listLDV = loaiDichVuRepository.GetDanhSachLoaiDichVuByMaLoaiDichVu(serviceType.getMaLoaiDichVu());
+
+		if (listLDV.isEmpty() == false) {
+			return new ResponseEntity<String>("MA LDV da ton tai, Kiem tra lai", HttpStatus.BAD_REQUEST);
 		}
-		return new ResponseEntity<HttpStatus>(HttpStatus.BAD_REQUEST);
+
+		if (loaiDichVuRepository.save(loaiDV) != null) {
+			return new ResponseEntity<LoaiDichVu>(loaiDV, HttpStatus.CREATED);
+		}
+
+		return new ResponseEntity<String>("Failed", HttpStatus.BAD_REQUEST);
 	}
 
 	// API - CAP NHAT THONG TIN DICH VU
 	@PutMapping("/{id}")
-	public Object UpdateServiceType(@RequestBody LoaiDichVu serviceType, BindingResult errors) {
+	public Object UpdateServiceType(@PathVariable("id") int id, @RequestBody LoaiDichVuEditDto serviceType,
+			BindingResult errors) {
 		if (errors.hasErrors()) {
 			return new ResponseEntity<Object>(errors.getAllErrors(), HttpStatus.BAD_REQUEST);
 		}
-		if (loaiDichVuRepository.save(serviceType) != null) {
-			return new ResponseEntity<LoaiDichVu>(serviceType, HttpStatus.OK);
+		ModelMapper modelMapper = new ModelMapper();
+		LoaiDichVu loaiDV = modelMapper.map(serviceType, LoaiDichVu.class);
+		loaiDV = loaiDichVuRepository.findById(id).orElse(null);
+		if (loaiDichVuRepository.save(loaiDV) != null) {
+			return new ResponseEntity<LoaiDichVu>(loaiDV, HttpStatus.OK);
 		}
-		return new ResponseEntity<HttpStatus>(HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<String>("Id khong ton tai", HttpStatus.BAD_REQUEST);
 	}
 
 	// API - XOA LOAI DICH VU
@@ -82,8 +102,4 @@ public class LoaiDichVuController {
 				HttpStatus.BAD_REQUEST);
 	}
 
-//	@PutMapping("/id")
-//	  public ResponseEntity<LoaiDichVu> update(@RequestBody LoaiDichVu loaiDichVu) {
-//	    return new ResponseEntity<LoaiDichVu>(loaiDichVuRepository.save(loaiDichVu), HttpStatus.OK);
-//	  }
 }

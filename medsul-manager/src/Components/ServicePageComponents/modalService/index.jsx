@@ -1,46 +1,83 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import { connect } from 'react-redux';
+import { HIRE_MODAL_DICHVU } from '../../../Redux/actions/type';
 class ModalService extends Component {
+    handleHireModal = () => {
+        this.props.dispatch({
+            type: HIRE_MODAL_DICHVU
+        });
+    }
+    state = {
+        dichVu: {
+            dichVu_Id: 0,
+            khongBaoGom: '',
+            loaiDichVuID: 0,
+            maDichVu: '',
+            moTaDichVu: '',
+            tenDichVu: '',
+            thoiGianUocTinh: 0,
+            yeuCauCongViec: ''
+        }
+    }
+    handleChange = (e) => {
+        console.log(e.target.value);
+        this.setState({
+            dichVu: { ...this.state.dichVu, [e.target.name]: e.target.value }
+        });
+    }
+    handleSubmit = (e) => {
+        e.preventDefault();
+        console.log(this.state.dichVu);
+    }
+
     render() {
+        const { dichVu_Id, khongBaoGom, loaiDichVuID, maDichVu, moTaDichVu, tenDichVu, thoiGianUocTinh, yeuCauCongViec } = this.state.dichVu;
         return (
-            <StyledModal className="modal fade" id="ServiceModal">
-                <div className="modal-dialog modal-lg">
-                    <div className="modal-content">
+            <StyledModal className='modalService'>
+                <div className="modalService-dialog modal-lg ">
+                    <div className="modalService-content">
                         {/* Modal Header */}
-                        <div className="modal-header">
+                        <div className="modalService-header">
                             <h4 className="modal-title">Thêm dịch vụ mới</h4>
-                            <button type="button" className="close" data-dismiss="modal">×</button>
+                            <button type="button" className="close" onClick={this.handleHireModal}>×</button>
                         </div>
                         {/* Modal body */}
-                        <div className="modal-body">
+                        <form className="modalService-body" onSubmit={this.handleSubmit}>
                             <div className="d-flex justify-content-between">
-                                <div className="form-group secondFormleft ac">
+                                <div className="form-group secondFormleft">
                                     <label htmlFor="madv">Mã dịch vụ</label>
                                     <input type="text" className="form-contro"
-                                        disabled={true}
-                                        value="PHCN_TB"
+                                        value={maDichVu}
+                                        name="maDichVu"
+                                        onChange={this.handleChange}
                                     />
                                 </div>
                                 <div className="form-group secondFormright ac">
                                     <label htmlFor="madv">Mã loại dịch vụ</label>
                                     <input type="text" className="form-contro"
-                                        disabled={true}
-                                        value="PHCN_TB"
+                                        /*disabled={true}*/
+                                        value={loaiDichVuID}
+                                        name="loaiDichVuID"
+                                        onChange={this.handleChange}
                                     />
                                 </div>
                             </div>
                             <div className="form-group">
                                 <label htmlFor="">Tên dịch vụ</label>
-                                <input type="text" className="form-contro" />
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="">Tên dịch vụ</label>
-                                <input type="text" className="form-contro" />
+                                <input type="text" className="form-contro"
+                                    value={tenDichVu}
+                                    name="tenDichVu"
+                                    onChange={this.handleChange}
+                                />
                             </div>
                             <div className="form-group">
                                 <label htmlFor="">Mô tả dịch vụ</label>
                                 <textarea name="" cols="30" rows="100" className="form-contro mul_text"
                                     style={{ height: '100px' }}
+                                    value={moTaDichVu}
+                                    name="moTaDichVu"
+                                    onChange={this.handleChange}
                                 >
                                 </textarea>
                             </div>
@@ -48,25 +85,36 @@ class ModalService extends Component {
                                 <label htmlFor="">Yêu cầu dịch vụ</label>
                                 <textarea name="" cols="30" rows="100" height="70px" className="form-contro mul_text"
                                     style={{ height: '50px' }}
+                                    value={yeuCauCongViec}
+                                    name="yeuCauCongViec"
+                                    onChange={this.handleChange}
                                 >
                                 </textarea>
                             </div>
                             <div className="d-flex justify-content-between">
                                 <div className="form-group secondFormleft">
                                     <label htmlFor="">Thời gian ước tính(Giờ)</label>
-                                    <input type="text" className="form-contro" />
+                                    <input type="text" className="form-contro"
+                                        name="thoiGianUocTinh"
+                                        value={thoiGianUocTinh}
+                                        onChange={this.handleChange} />
                                 </div>
                                 <div className="form-group secondFormright">
                                     <label htmlFor="">Công việc không bao gồm</label>
-                                    <textarea name="" cols="30" rows="100" height="70px" className="form-contro mul_text">
+                                    <textarea name="" cols="30" rows="100" height="70px" className="form-contro mul_text"
+                                        name="khongBaoGom"
+                                        value={khongBaoGom}
+                                        onChange={this.handleChange}
+                                    >
                                     </textarea>
                                 </div>
                             </div>
-                        </div>
+                            <div className="text-right">
+                                <button type="submit" className="btn btn-danger btnAccept" data-dismiss="modal">Xác nhận</button>
+                            </div>
+                        </form>
                         {/* Modal footer */}
-                        <div className="modal-footer">
-                            <button type="button" className="btn btn-danger btnAccept" data-dismiss="modal">Xác nhận</button>
-                        </div>
+
                     </div>
                 </div>
             </StyledModal>
@@ -75,10 +123,46 @@ class ModalService extends Component {
 }
 
 export const StyledModal = styled.div`
-.modal-dialog{
-    .modal-content{
-        .modal-header{
-            .modal-title{
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1050;
+    display:block;
+    width: 100%;
+    height: 100%;
+    background: #00000047;
+    overflow: hidden;
+    overflow-y: scroll;
+    outline: 0;
+    transition: 0.5s all;
+    ::-webkit-scrollbar{
+        width: 0px; 
+    }
+.modalService-dialog{
+    margin: 5% auto;
+    max-width:600px;
+    &.modal-lg{
+        max-width: 1000px;
+    }
+    .modalService-content{
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        pointer-events: auto;
+        background-color: #fff;
+        background-clip: padding-box;
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        border-radius: 0.3rem;
+        outline: 0;
+        .modalService-header{
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            padding: 1rem 1rem;
+            border-top-left-radius: calc(0.3rem - 1px);
+            border-top-right-radius: calc(0.3rem - 1px);
+            .modalService-title{
                     color:#646D82;
                     text-transform:uppercase;
                     letter-spacing: 1px;
@@ -87,7 +171,10 @@ export const StyledModal = styled.div`
             }
             border:none;
         }
-        .modal-body{
+        .modalService-body{
+            position: relative;
+    flex: 1 1 auto;
+    padding: 1rem;
             border:none;
             .form-group{
                 label{
@@ -141,7 +228,15 @@ export const StyledModal = styled.div`
             background-color:#2CD889;
             border:none;
         }
-        .modal-footer{
+        .modalService-footer{
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: flex-end;
+            padding: 0.75rem;
+            border-top: 1px solid #dee2e6;
+            border-bottom-right-radius: calc(0.3rem - 1px);
+            border-bottom-left-radius: calc(0.3rem - 1px);
             border:none;
             
         }
@@ -149,6 +244,10 @@ export const StyledModal = styled.div`
 }
 
 `;
+const mapstatetoProps = state => {
+    return {
+        itemService: state.qlDichVu.modalDV
+    }
+}
 
-
-export default ModalService;
+export default connect(mapstatetoProps)(ModalService);

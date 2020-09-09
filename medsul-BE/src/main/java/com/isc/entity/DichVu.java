@@ -11,6 +11,10 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jdk.jfr.DataAmount;
+import lombok.Data;
+
+@Data
 @Entity
 @Table(name = "dichvu")
 public class DichVu {
@@ -45,78 +49,5 @@ public class DichVu {
 	@JoinColumn(name = "LOAIDV_ID", insertable = false, updatable = false)
 	@JsonIgnore
 	private LoaiDichVu loaiDichVu;
-	
-	public int getDichVu_Id() {
-		return DichVu_Id;
-	}
-
-	public void setDichVu_Id(int dichVu_Id) {
-		DichVu_Id = dichVu_Id;
-	}
-
-	public String getMaDichVu() {
-		return maDichVu;
-	}
-
-	public void setMaDichVu(String maDichVu) {
-		this.maDichVu = maDichVu;
-	}
-
-	public String getTenDichVu() {
-		return tenDichVu;
-	}
-
-	public void setTenDichVu(String tenDichVu) {
-		this.tenDichVu = tenDichVu;
-	}
-
-	public String getMoTaDichVu() {
-		return moTaDichVu;
-	}
-
-	public void setMoTaDichVu(String moTaDichVu) {
-		this.moTaDichVu = moTaDichVu;
-	}
-
-	public String getYeuCauCongViec() {
-		return yeuCauCongViec;
-	}
-
-	public void setYeuCauCongViec(String yeuCauCongViec) {
-		this.yeuCauCongViec = yeuCauCongViec;
-	}
-
-	public String getKhongBaoGom() {
-		return khongBaoGom;
-	}
-
-	public void setKhongBaoGom(String khongBaoGom) {
-		this.khongBaoGom = khongBaoGom;
-	}
-
-	public int getThoiGianUocTinh() {
-		return thoiGianUocTinh;
-	}
-
-	public void setThoiGianUocTinh(int thoiGianUocTinh) {
-		this.thoiGianUocTinh = thoiGianUocTinh;
-	}
-
-	public int getLoaiDichVuID() {
-		return loaiDichVuID;
-	}
-
-	public void setLoaiDichVuID(int loaiDichVuID) {
-		this.loaiDichVuID = loaiDichVuID;
-	}
-
-
-	public LoaiDichVu getLoaiDichVu() {
-		return loaiDichVu;
-	}
-
-	public void setLoaiDichVu(LoaiDichVu loaiDichVu) {
-		this.loaiDichVu = loaiDichVu;
-	}
 	
 }

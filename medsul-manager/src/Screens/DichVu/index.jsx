@@ -33,8 +33,8 @@ class DichVuComponent extends Component {
                         <ServiceComponents />
 
                     </div>
-                    <ModalCategoryService />
-                    <ModalService />
+                    {this.props.modalLoaiDV && <ModalCategoryService />}
+                    {this.props.modalDV && <ModalService />}
                 </div>
             </DichVuComponentStyles>
 
@@ -48,6 +48,7 @@ class DichVuComponent extends Component {
 }
 
 const DichVuComponentStyles = styled.div`
+
     background: #F0FAF8;
     .tab{
         padding: 10px 2%;
@@ -131,6 +132,13 @@ const DichVuComponentStyles = styled.div`
                                     cursor: pointer;
                                     outline: none;
                                     margin:0 0.5em;
+                                    border: none;
+                                    border-radius: 25px;
+                                    padding: 13px 13px;
+                                    transition:all 0.2s;
+                                    &:hover{
+                                        background: #d4f5ee;
+                                    }
                                 }
                             }
                             &:hover{
@@ -146,5 +154,10 @@ const DichVuComponentStyles = styled.div`
     }
 `;
 
-
-export default connect()(DichVuComponent);
+const mapStatetoProps = state => {
+    return {
+        modalLoaiDV: state.qlDichVu.modalLoaiDV.isShow,
+        modalDV: state.qlDichVu.modalDV.isShow
+    }
+}
+export default connect(mapStatetoProps)(DichVuComponent);

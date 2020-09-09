@@ -10,41 +10,40 @@ import javax.persistence.ManyToOne;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.isc.entity.LoaiDichVu;
 
-public class DichVuDto {
-	
-	private int DichVu_Id;
-	
+public class DichVuInsertDto {
+
 	private String maDichVu;
-	
+
 	private String tenDichVu;
-	
+
 	private String moTaDichVu;
 
 	private String yeuCauCongViec;
 
 	private String khongBaoGom;
-	
+
 	private int thoiGianUocTinh;
 	
-	public DichVuDto(int dichVu_Id, String maDichVu, String tenDichVu, String moTaDichVu, String yeuCauCongViec,
-			String khongBaoGom, int thoiGianUocTinh) {
+	private int loaiDichVuID;
+
+	public DichVuInsertDto() {
+	}
+
+	
+
+	public DichVuInsertDto(String maDichVu, String tenDichVu, String moTaDichVu, String yeuCauCongViec,
+			String khongBaoGom, int thoiGianUocTinh, int loaiDichVuID) {
 		super();
-		DichVu_Id = dichVu_Id;
 		this.maDichVu = maDichVu;
 		this.tenDichVu = tenDichVu;
 		this.moTaDichVu = moTaDichVu;
 		this.yeuCauCongViec = yeuCauCongViec;
 		this.khongBaoGom = khongBaoGom;
 		this.thoiGianUocTinh = thoiGianUocTinh;
+		this.loaiDichVuID = loaiDichVuID;
 	}
 
-	public int getDichVu_Id() {
-		return DichVu_Id;
-	}
 
-	public void setDichVu_Id(int dichVu_Id) {
-		DichVu_Id = dichVu_Id;
-	}
 
 	public String getMaDichVu() {
 		return maDichVu;
@@ -94,5 +93,13 @@ public class DichVuDto {
 		this.thoiGianUocTinh = thoiGianUocTinh;
 	}
 
+	public int getLoaiDichVuID() {
+		return loaiDichVuID;
+	}
+
+	public void setLoaiDichVuID(int loaiDichVuID) {
+		this.loaiDichVuID = loaiDichVuID;
+	}
+	
 
 }

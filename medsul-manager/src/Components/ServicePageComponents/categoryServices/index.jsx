@@ -1,7 +1,18 @@
 import React, { Component } from 'react';
 import CategoriesItem from '../categoryServices_item';
 import { connect } from 'react-redux';
+import { SHOW_MODAL_LOAIDICHVU } from '../../../Redux/actions/type';
 class CategoryServices extends Component {
+    handleShowModal = (value) => {
+        this.props.dispatch({
+            type: SHOW_MODAL_LOAIDICHVU,
+            payload: {
+                loaiDichVu_Id: '',
+                maLoaiDichVu: '',
+                tenLoaiDichVu: ''
+            }
+        })
+    }
     renderLoaiDichVu = () => {
         return this.props.listLoaiDichVu.map((item, index) => {
             return (
@@ -9,12 +20,13 @@ class CategoryServices extends Component {
             )
         });
     }
+
     render() {
         return (
             <div className="tableTab">
                 <div className="d-flex justify-content-between headtable">
                     <p>Loại Dịch Vụ</p>
-                    <button className="btn btn-success btnAdd" data-toggle="modal" data-target="#categoryServiceModal">THÊM</button>
+                    <button className="btn btn-success btnAdd" onClick={this.handleShowModal}>THÊM</button>
                 </div>
                 <table className="table">
                     <thead>
