@@ -75,17 +75,16 @@ public class LoaiDichVuController {
 
 	// API - CAP NHAT THONG TIN DICH VU
 	@PutMapping("/{id}")
-	public Object UpdateServiceType(@PathVariable("id") int id, @RequestBody LoaiDichVuEditDto serviceType,
-			BindingResult errors) {
-		if (errors.hasErrors()) {
-			return new ResponseEntity<Object>(errors.getAllErrors(), HttpStatus.BAD_REQUEST);
+	public Object UpdateServiceType(@PathVariable("id") int id, @RequestBody LoaiDichVuEditDto loaiDVEditDto) {
+		if (loaiDichVuRepository.findById(id).orElse(null) != null) {
+
+			ModelMapper modelMapper = new ModelMapper();
+			LoaiDichVu loaiDV = modelMapper.map(loaiDVEditDto, LoaiDichVu.class);
+			loaiDV.setLoaiDichVu_Id(id);
+			LoaiDichVu entity = loaiDichVuRepository.save(loaiDV);
+			return new ResponseEntity<LoaiDichVu>(entity, HttpStatus.OK);
 		}
-		ModelMapper modelMapper = new ModelMapper();
-		LoaiDichVu loaiDV = modelMapper.map(serviceType, LoaiDichVu.class);
-		loaiDV = loaiDichVuRepository.findById(id).orElse(null);
-		if (loaiDichVuRepository.save(loaiDV) != null) {
-			return new ResponseEntity<LoaiDichVu>(loaiDV, HttpStatus.OK);
-		}
+
 		return new ResponseEntity<String>("Id khong ton tai", HttpStatus.BAD_REQUEST);
 	}
 

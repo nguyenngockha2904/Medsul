@@ -86,6 +86,7 @@ const DichVuComponentStyles = styled.div`
             }
         }
         .dichVuContent{
+            padding-bottom: 3rem;
             .tableTab{
                 background-color:#fff;
                 margin:2px 1em 1em 1em;

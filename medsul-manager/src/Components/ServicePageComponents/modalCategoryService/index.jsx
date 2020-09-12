@@ -28,10 +28,9 @@ class ModalCategoryService extends Component {
         this.state.id
             ? swal({
                 title: "Bạn Chắc Chứ?",
-                text: "Nếu xóa loại dịch vụ này thì các dịch vụ của nó sẽ bị xóa !",
+                text: "Nếu xác nhận dữ liệu loại dịch vụ này sẽ thay đổi !",
                 icon: "warning",
                 buttons: true,
-                dangerMode: true,
             })
                 .then((willDelete) => {
                     if (willDelete) {
@@ -40,16 +39,20 @@ class ModalCategoryService extends Component {
                             text: "Loại dịch vụ này đã được cập nhật",
                             icon: "success",
                         });
-                        this.props.dispatch(CapNhatLoaiDichVu(this.state.id, this.state.dichVu));
+                        let loaidv = {
+                            maLoaiDichVu: this.state.LoaidichVu.maLoaiDichVu,
+                            tenLoaiDichVu: this.state.LoaidichVu.tenLoaiDichVu
+                        }
+                        this.props.dispatch(CapNhatLoaiDichVu(this.state.id, loaidv));
                     } else {
                         swal({
                             title: "Giữ nguyên !",
-                            text: "Loại dịch vụ này được giữ nguyên",
+                            text: "Dữ liệu được giữ nguyên",
                             icon: "info",
                         });
                     }
                 })
-            : this.props.dispatch(ThemLoaiDichVuMoi(this.state.dichVu));
+            : this.props.dispatch(ThemLoaiDichVuMoi(this.state.LoaidichVu));
         this.handleHireModal();
     }
     _SetValue = () => {

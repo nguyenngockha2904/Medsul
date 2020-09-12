@@ -4,10 +4,15 @@ import btnDelete from '../../../img/btnDelete.svg';
 import { connect } from 'react-redux';
 import { XoaLoaiDichVu } from '../../../Redux/actions/DichVuAction';
 import swal from 'sweetalert';
-import { SHOW_MODAL_LOAIDICHVU, DROPDOWN_TABLE_DICHVU } from '../../../Redux/actions/type';
+import { SHOW_MODAL_LOAIDICHVU, DROPDOWN_TABLE_DICHVU, CHECK_DATA } from '../../../Redux/actions/type';
 class CategoriesItem extends Component {
 
     handleDeleteItem = (id) => () => {
+        // this.props.dispatch({
+        //     type: CHECK_DATA,
+        //     payload: this.props.item.loaiDichVu_Id
+        // });
+        // console.log(this.props.SoLuong ? 'Delete' : 'noDelete');
         swal({
             title: "Bạn Chắc Chứ?",
             text: "Nếu xóa loại dịch vụ này thì các dịch vụ của nó sẽ bị xóa !",
@@ -61,11 +66,16 @@ class CategoriesItem extends Component {
             </tr >
         );
     }
+
+    componentDidMount() {
+
+    }
 }
 const mapStateToProps = state => {
     return {
-        modalLoaiDV: state.qlDichVu.modalLoaiDV
+        modalLoaiDV: state.qlDichVu.modalLoaiDV,
+        SoLuong: state.qlDichVu.SoLuong,
     }
 }
 
-export default connect()(CategoriesItem);
+export default connect(mapStateToProps)(CategoriesItem);

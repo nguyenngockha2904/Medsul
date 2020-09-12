@@ -64,13 +64,13 @@ public class DichVuController {
 
 	// API CAP NHAT DICH VU
 	@PutMapping("/{id}")
-	public Object UpdateService(@PathVariable("id") int getDichVu_Id, @RequestBody DichVuEditDto dichVuEditDto) {
+	public Object UpdateService(@PathVariable("id") int DichVu_Id, @RequestBody DichVuEditDto dichVuEditDto) {
 
-		if (dichVuRepository.findById(getDichVu_Id).orElse(null) != null) {
+		if (dichVuRepository.findById(DichVu_Id).orElse(null) != null) {
 
 			ModelMapper modelMapper = new ModelMapper();
 			DichVu dichVu = modelMapper.map(dichVuEditDto, DichVu.class);
-
+			dichVu.setDichVu_Id(DichVu_Id);
 			DichVu entity = dichVuRepository.save(dichVu);
 			return new ResponseEntity<DichVu>(entity, HttpStatus.OK);
 		}

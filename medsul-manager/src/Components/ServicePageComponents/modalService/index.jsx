@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-import { HIRE_MODAL_DICHVU } from '../../../Redux/actions/type';
+import { HIRE_MODAL_DICHVU, ADD_DICHVU } from '../../../Redux/actions/type';
+import { ThemDichVuMoi, CapNhatDichVu } from '../../../Redux/actions/DichVuAction';
+import swal from 'sweetalert';
 class ModalService extends Component {
     handleHireModal = () => {
         this.props.dispatch({
@@ -9,8 +11,9 @@ class ModalService extends Component {
         });
     }
     state = {
+        idLDV: '',
+        maLDV: '',
         dichVu: {
-            dichVu_Id: 0,
             khongBaoGom: '',
             loaiDichVuID: 0,
             maDichVu: '',
@@ -21,16 +24,60 @@ class ModalService extends Component {
         }
     }
     handleChange = (e) => {
-        console.log(e.target.value);
+        // console.log(e.target.value);
+
         this.setState({
             dichVu: { ...this.state.dichVu, [e.target.name]: e.target.value }
         });
     }
     handleSubmit = (e) => {
         e.preventDefault();
-        console.log(this.state.dichVu);
+        let dvTemp = {
+            khongBaoGom: this.state.dichVu.khongBaoGom,
+            loaiDichVuID: this.state.idLDV,
+            maDichVu: this.state.dichVu.maDichVu,
+            moTaDichVu: this.state.dichVu.moTaDichVu,
+            tenDichVu: this.state.dichVu.tenDichVu,
+            thoiGianUocTinh: +this.state.dichVu.thoiGianUocTinh * 1,
+            yeuCauCongViec: this.state.dichVu.yeuCauCongViec
+        };
+        this.props.itemService.dichVu_Id === 0
+            ?
+            this.props.dispatch(ThemDichVuMoi(dvTemp))
+            : swal({
+                title: "Bạn Chắc Chứ?",
+                text: "Nếu xác nhận dữ liệu dịch vụ này sẽ thay đổi!",
+                icon: "warning",
+                buttons: true,
+            })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        swal({
+                            title: "Thành công",
+                            text: "dịch vụ này đã được cập nhật !",
+                            icon: "success",
+                        });
+                        let idDV = this.state.dichVu.dichVu_Id;
+                        this.props.dispatch(CapNhatDichVu(idDV, dvTemp));
+                        // console.log('id: ' + idDV);
+                        // console.log(dvTemp);
+                    } else {
+                        swal({
+                            title: "Giữ nguyên !",
+                            text: "Dữ liệu được giữ nguyên",
+                            icon: "info",
+                        });
+                    }
+                });
+        this.handleHireModal();
     }
-
+    _setValue = () => {
+        this.setState({
+            idLDV: this.props.dropDown_MaLDV,
+            maLDV: this.props.maLDV,
+            dichVu: this.props.itemService
+        });
+    }
     render() {
         const { dichVu_Id, khongBaoGom, loaiDichVuID, maDichVu, moTaDichVu, tenDichVu, thoiGianUocTinh, yeuCauCongViec } = this.state.dichVu;
         return (
@@ -39,7 +86,7 @@ class ModalService extends Component {
                     <div className="modalService-content">
                         {/* Modal Header */}
                         <div className="modalService-header">
-                            <h4 className="modal-title">Thêm dịch vụ mới</h4>
+                            <h4 className="modal-title">{!this.props.itemService.dichVu_Id ? 'Thêm dịch vụ mới' : 'Cập nhật dịch vụ'}</h4>
                             <button type="button" className="close" onClick={this.handleHireModal}>×</button>
                         </div>
                         {/* Modal body */}
@@ -57,7 +104,7 @@ class ModalService extends Component {
                                     <label htmlFor="madv">Mã loại dịch vụ</label>
                                     <input type="text" className="form-contro"
                                         /*disabled={true}*/
-                                        value={loaiDichVuID}
+                                        value={this.state.maLDV}
                                         name="loaiDichVuID"
                                         onChange={this.handleChange}
                                     />
@@ -96,7 +143,7 @@ class ModalService extends Component {
                                     <label htmlFor="">Thời gian ước tính(Giờ)</label>
                                     <input type="text" className="form-contro"
                                         name="thoiGianUocTinh"
-                                        value={thoiGianUocTinh}
+                                        value={(+thoiGianUocTinh)}
                                         onChange={this.handleChange} />
                                 </div>
                                 <div className="form-group secondFormright">
@@ -119,6 +166,9 @@ class ModalService extends Component {
                 </div>
             </StyledModal>
         );
+    }
+    componentDidMount() {
+        this._setValue();
     }
 }
 
@@ -246,7 +296,9 @@ export const StyledModal = styled.div`
 `;
 const mapstatetoProps = state => {
     return {
-        itemService: state.qlDichVu.modalDV
+        itemService: state.qlDichVu.modalDV.value,
+        maLDV: state.qlDichVu.modalDV.maLDV,
+        dropDown_MaLDV: state.qlDichVu.dropDown_MaLDV
     }
 }
 

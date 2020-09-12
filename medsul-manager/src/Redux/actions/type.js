@@ -13,3 +13,7 @@ export const FETCH_DICHVU = 'FETCH_DICHVU';
 export const SHOW_MODAL_DICHVU = 'SHOW_MODAL_DICHVU';
 export const HIRE_MODAL_DICHVU = 'HIRE_MODAL_DICHVU';
 export const ADD_DICHVU = 'ADD_DICHVU';
+export const DELETE_DICHVU = 'DELETE_DICHVU';
+export const UPDATE_DICHVU = 'UPDATE_DICHVU';
+
+export const CHECK_DATA = 'CHECK_DATA';
