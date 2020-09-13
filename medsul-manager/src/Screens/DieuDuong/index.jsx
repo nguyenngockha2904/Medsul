@@ -1,110 +1,112 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import btnEdit from '../../img/btnEdit.svg';
+import btnVitien from '../../img/btnViTien.svg';
+import btnChuyenNganh from '../../img/btnChuyenNganh.svg';
+import DieuDuongTable from '../../Components/DieuDuongPageComponents/tbDieuDuongComponent';
+import ModalDieuDuong from '../../Components/DieuDuongPageComponents/ModalDD';
 class DieuDuongComponent extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            isTabDD: true,
+            tabDD: {
+
+            },
+            tabDT: {
+
+            },
+        }
+    }
     render() {
         return (
             <DieuDuongStyled>
-                <p className="text-center title">Danh sách điều dưỡng</p>
+                <p className="text-center title">Quản trị Nhân lực</p>
+
                 <div className="text-left">
                     <div className="btn-group">
-                        <button className="btnTab tabDD ac">Điều Dưỡng</button>
-                        <button className="btnTab tabDT">Đào Tạo</button>
+                        <button className={this.state.isTabDD ? "btnTab tabDD ac" : "btnTab tabDD"} onClick={() => {
+                            this.setState({
+                                isTabDD: true
+                            }, () => {
+                                console.log(this.state.isTabDD);
+                            });
+
+                        }}>Điều Dưỡng</button>
+                        <button className={this.state.isTabDD ? "btnTab tabDT " : "btnTab tabDT ac"} onClick={() => {
+                            this.setState({
+                                isTabDD: false
+                            }, () => {
+                                console.log(this.state.isTabDD);
+                            });
+
+                        }}>Đào Tạo</button>
                     </div>
                 </div>
 
                 <div className="contentTabGroup">
-                    <div className="contentTab tab_DD">
-                        <div className="d-flex justify-content-between groupBtnSearch">
-                            <select className="selectStatus">
-                                <option value="all" selected>Tất cả</option>
-                                <option value="thuviec">Thử việc</option>
-                                <option value="nghiviec">Nghỉ việc</option>
-                                <option value="chinhthuc">Chính thức</option>
-                            </select>
-                            <div className="d-flex justify-content-center groupSearch">
-                                <input type="text" className="form-contro" placeholder="Mã, Họ tên ...." />
-                                <div className="input-group-append">
-                                    <button className="btnSearch" type="button">Tìm kiếm</button>
+                    {
+                        this.state.isTabDD
+                            ?
+                            <div className="contentTab tab_DD">
+                                <p className="m-0 p-0 text-center title_tab">danh sách điều dưỡng</p>
+                                <div className="d-flex justify-content-between groupBtnSearch">
+                                    <select className="selectStatus" defaultValue="all">
+                                        <option value="all">Tất cả</option>
+                                        <option value="thuviec">Thử việc</option>
+                                        <option value="nghiviec">Nghỉ việc</option>
+                                        <option value="chinhthuc">Chính thức</option>
+                                    </select>
+
+
+                                    <div className="d-flex justify-content-center groupSearch">
+                                        <input type="text" className="form-contro" placeholder="Mã, Họ tên ...." />
+                                        <div className="input-group-append">
+                                            <button className="btnSearch" type="button">Tìm kiếm</button>
+                                        </div>
+                                    </div>
+                                    <button className="btnAdd">Thêm</button>
                                 </div>
+                                <DieuDuongTable valueStatus="" valueRender="" />
                             </div>
-                            <button className="btnAdd">Thêm</button>
-                        </div>
-                        <table className="table">
-                            <thead>
-                                <tr>
-                                    <th scope="col">
-                                        No.
-                                        </th>
-                                    <th scope="col">
-                                        Mã điều dưỡng
-                                        </th>
-                                    <th scope="col">
-                                        Họ tên
-                                        </th>
-                                    <th scope="col">
-                                        Sdt
-                                        </th>
-                                    <th scope="col">
-                                        Giới tính
-                                        </th>
-                                    <th scope="col">
-                                        Chuyên ngành
-                                        </th>
-                                    <th scope="col">
-                                        Tỉnh thành
-                                        </th>
-                                    <th scope="col">
-                                        Đào tạo viên
-                                        </th>
-                                    <th scope="col">
-                                        Trạng thái
-                                        </th>
-                                    <th scope="col">
-                                        Tùy chỉnh
-                                        </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr className="tRow">
-                                    {/**No. */}
-                                    <th>1</th>
-                                    {/**Mã điều dưỡng. */}
-                                    <td>MD001</td>
-                                    {/**Họ tên */}
-                                    <td>Nguyễn Ngọc Kha</td>
-                                    {/**sdt */}
-                                    <td>0329457486</td>
-                                    {/**giới tính. */}
-                                    <td>Nam</td>
-                                    {/**Chuyên ngành. */}
-                                    <td>Điều dưỡng</td>
-                                    {/**Tỉnh thành. */}
-                                    <td>TP.HCM</td>
-                                    {/**Đào tạo viên */}
-                                    <td>có</td>
-                                    {/**Trạng thái */}
-                                    <td>Chính thức</td>
-                                    {/**Tùy chỉnh */}
-                                    <td className="d-flex justify-content-center groupBtn">
-                                        <button className="btnCustom">
-                                            <img src="" alt="btnViTien" />
-                                        </button>
-                                        <button className="btnCustom">
-                                            <img src="" alt="btnEdit" />
-                                        </button>
-                                        <button className="btnCustom">
-                                            <img src="" alt="btnChuyenNganh" />
-                                        </button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div className="contentTab tab_DT">
 
 
-                    </div>
+                            :
+                            <div className="contentTab tab_DT">
+                                <p className="m-0 p-0 text-center title_tab">Đào tạo viên</p>
+                                <div className="d-flex justify-content-between groupBtnSearch">
+                                    <select className="selectStatus" defaultValue="all">
+                                        <option value="all">Tất cả</option>
+                                        <option value="thuviec">Thử việc</option>
+                                        <option value="nghiviec">Nghỉ việc</option>
+                                        <option value="chinhthuc">Chính thức</option>
+                                    </select>
+                                    <div className="d-flex justify-content-center groupSearch">
+                                        <input type="text" className="form-contro" placeholder="Mã, Họ tên ...." />
+                                        <div className="input-group-append">
+                                            <button className="btnSearch" type="button">Tìm kiếm</button>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <DieuDuongTable valueStatus="" valueRender="" />
+                                <div className="m-4"></div>
+                                <div className="d-flex justify-content-between">
+                                    <p className="m-0 p-0 text-left align-self-center title_tab">Đã đào tạo</p>
+                                    <div className="d-flex justify-content-between groupBtnSearch mr-0">
+                                        <select className="selectStatus" defaultValue="all">
+                                            <option value="all">Tất cả</option>
+                                            <option value="thuviec">Thử việc</option>
+                                            <option value="nghiviec">Nghỉ việc</option>
+                                            <option value="chinhthuc">Chính thức</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <DieuDuongTable valueStatus="" valueRender="" />
+                            </div>
+                    }
                 </div>
+                {/*<ModalDieuDuong /> */}
 
             </DieuDuongStyled>
         );
@@ -113,8 +115,8 @@ class DieuDuongComponent extends Component {
 
 const DieuDuongStyled = styled.div`
     background: #F0FAF8;
-    max-height: 1000px;
-    height: 617px;
+    min-height: 1000px;
+    height: auto;
     padding: 1.5rem 1rem;
     .title{
         color: #2CD889;
@@ -177,9 +179,16 @@ const DieuDuongStyled = styled.div`
         border-top-right-radius: 10px;
         border-bottom-right-radius: 10px;
         border-bottom-left-radius: 10px;
+        transition: all 1s;
         .contentTab{
+            .title_tab{
+                letter-spacing: 0.8px;
+                font-size: 0.8rem;
+                font-weight: 500;
+                text-transform: uppercase;
+            }
             .groupBtnSearch{
-                margin: 1rem 0.5rem;
+                margin: 1rem 0;
                 .selectStatus{
                     border: none;
                     padding: 0.3rem;
@@ -246,6 +255,10 @@ const DieuDuongStyled = styled.div`
                 }
             }
             .table{
+                box-shadow: 1px 2px 4px -0.5px #80808080;
+                min-height: 300px;
+                height: auto;
+                border-radius: 10px;
                 thead{
                     tr{
                         th{
@@ -257,7 +270,8 @@ const DieuDuongStyled = styled.div`
                     }
                 }
                 tbody{
-                    tr{
+                    .tRow{
+                        
                         th{
                             text-align: center;
                         }
@@ -265,12 +279,22 @@ const DieuDuongStyled = styled.div`
                             font-size: 0.8rem;
                             white-space: nowrap;
                             text-align: center;
-                            
+                            &.tdStatus{
+                                color:#FF4600;
+                            }
                             
                             
                             &.groupBtn{
                                 .btnCustom{
-
+                                    padding: 0 10px;
+                                    margin: 0 0.3rem;
+                                    border-radius: 10px;
+                                    background: #fff;
+                                    border: none;
+                                    outline:none;
+                                    &:hover{
+                                        background: #F0FAF8;
+                                    }
                                 }
                             }
                         }
@@ -282,10 +306,9 @@ const DieuDuongStyled = styled.div`
 
 
             &.tab_DD{
-
             }
             &.tab_DT{
-
+                
             }
         }
     }
