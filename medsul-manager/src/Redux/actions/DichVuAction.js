@@ -1,7 +1,7 @@
-import Axios from 'axios';
+
 import { FETCH_LOAIDICHVU, FETCH_DICHVU, ADD_LOAIDICHVU, DELETE_LOAIDICHVU, UPDATE_LOAIDICHVU, ADD_DICHVU, DELETE_DICHVU, UPDATE_DICHVU } from './type';
 import swal from 'sweetalert';
-import { DichVu, LoaiDichVu } from '../../Services/DichVuPageServices';
+import { DichVu, LoaiDichVu } from '../../Services';
 
 
 /**Loại Dịch Vụ */

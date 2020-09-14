@@ -39,6 +39,7 @@ public class DieuDuongService {
 			dieuDuongDTO.setDiaChi(lstDieuDuong.get(i).getDiaChi());
 			dieuDuongDTO.setAvatar(lstDieuDuong.get(i).getAvatar());
 			dieuDuongDTO.setLaDaoTaoVien(lstDieuDuong.get(i).getLaDaoTaoVien());
+			dieuDuongDTO.setTinhThanh_ID(lstDieuDuong.get(i).getTinhThanh_ID());
 
 			// vi
 			dieuDuongDTO.setTrangThai(lstDieuDuong.get(i).getTrangThai());

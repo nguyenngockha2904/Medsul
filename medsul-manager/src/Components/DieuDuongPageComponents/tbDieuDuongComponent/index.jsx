@@ -1,8 +1,15 @@
 import React, { Component, Fragment, PureComponent } from 'react';
 import styled from 'styled-components';
-
+import { connect } from 'react-redux';
 import DieuDuongItem from '../DieuDuongItem';
 class TbDieuDuongComponent extends PureComponent {
+    renderDieuDuongItem = () => {
+        return this.props.listDieuDuong.map((item, index) => {
+            return (
+                <DieuDuongItem item={item} key={index} index={+index + 1} />
+            )
+        })
+    }
     render() {
         return (
             <StyleTable>
@@ -25,9 +32,6 @@ class TbDieuDuongComponent extends PureComponent {
                                 Giới tính
                             </th>
                             <th scope="col">
-                                Chuyên ngành
-                            </th>
-                            <th scope="col">
                                 Tỉnh thành
                             </th>
                             <th scope="col">
@@ -42,9 +46,8 @@ class TbDieuDuongComponent extends PureComponent {
                         </tr>
                     </thead>
                     <tbody>
-                        <DieuDuongItem />
-                        <DieuDuongItem />
-                        <DieuDuongItem />
+
+                        {this.renderDieuDuongItem()}
                     </tbody>
                 </table>
             </StyleTable>
@@ -101,4 +104,10 @@ export const StyleTable = styled.div`
     }
 }
 `
-export default TbDieuDuongComponent;
+
+const mapStateToProps = state => {
+    return {
+        listDieuDuong: state.qlDieuDuong.listDieuDuong
+    }
+}
+export default connect(mapStateToProps)(TbDieuDuongComponent);

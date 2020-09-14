@@ -1,4 +1,4 @@
-import { HIRE_MODAL_DIEUDUONG, HIRE_MODAL_GIAYPHEPHANHNGHE, HIRE_MODAL_VITIEN, SHOW_MODAL_DIEUDUONG, SHOW_MODAL_VITIEN, SHOW_MODAL_GIAYPHEPHANHNGHE } from "../actions/type";
+import { HIRE_MODAL_DIEUDUONG, HIRE_MODAL_GIAYPHEPHANHNGHE, HIRE_MODAL_VITIEN, SHOW_MODAL_DIEUDUONG, SHOW_MODAL_VITIEN, SHOW_MODAL_GIAYPHEPHANHNGHE, SET_DATA_LISTDIEUDUONG } from "../actions/type";
 
 let initialState = {
     modalDieuDuong: {
@@ -12,7 +12,8 @@ let initialState = {
     modalViTien: {
         isShow: false,
         value: {},
-    }
+    },
+    listDieuDuong: [],
 
 }
 const dieuDuongReducer = (state = initialState, { type, payload }) => {
@@ -43,6 +44,10 @@ const dieuDuongReducer = (state = initialState, { type, payload }) => {
             state.modalViTien.isShow = true;
             state.modalViTien.value = payload;
             return { ...state }
+        }
+        case SET_DATA_LISTDIEUDUONG: {
+            state.listDieuDuong = payload;
+            return { ...state };
         }
         default: {
             return state;

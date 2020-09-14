@@ -33,7 +33,7 @@ public class DieuDuongGetAllDto {
 	private int laDaoTaoVien;
 
 	private int trangThai;
-
+	private int tinhThanh_ID;
 	// vi dien tu
 
 	// @Column(name = "VI_TONGTIEN")

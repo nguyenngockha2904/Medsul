@@ -15,27 +15,30 @@ class DieuDuongItem extends PureComponent {
     handleOpenModalGPHN = () => {
         this.props.dispatch(createAction(SHOW_MODAL_GIAYPHEPHANHNGHE, {}));
     }
+
     render() {
+        const { anhMatSau,
+            anhMatTruoc, avatar, diaChi, diaChiThuongTruCMND, dieuDuong_Id, email, gioiTinh, hoTen, laDaoTaoVien, maDieuDuong, nganHangLienKet, ngayCapCMND, ngaySinh, noiCap, password, queQuanCMND, soCMND, soDienThoai, soTaiKhoanNganHang, tinhThanh_ID,
+            tongTien, trangThai } = this.props.item;
+        const stt = this.props.index;
         return (
             <tr className="tRow">
                 {/**No. */}
-                <th>1</th>
+                <th>{stt}</th>
                 {/**Mã điều dưỡng. */}
-                <td>MD001</td>
+                <td>{maDieuDuong}</td>
                 {/**Họ tên */}
-                <td>Nguyễn Ngọc Kha</td>
+                <td>{hoTen}</td>
                 {/**sdt */}
-                <td>0329457486</td>
+                <td>{soDienThoai}</td>
                 {/**giới tính. */}
-                <td>Nam</td>
-                {/**Chuyên ngành. */}
-                <td>Điều dưỡng</td>
+                <td>{gioiTinh}</td>
                 {/**Tỉnh thành. */}
-                <td>TP.HCM</td>
+                <td>{tinhThanh_ID}</td>
                 {/**Đào tạo viên */}
-                <td>có</td>
+                <td>{laDaoTaoVien === 1 ? 'Có' : 'Không'}</td>
                 {/**Trạng thái */}
-                <td className="tdStatus">Chính thức</td>
+                <td className="tdStatus">{trangThai}</td>
                 {/**Tùy chỉnh */}
                 <td className="d-flex justify-content-center groupBtn">
                     <button className="btnCustom" onClick={this.handleOpenModalViTien}>

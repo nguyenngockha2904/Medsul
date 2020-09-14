@@ -7,6 +7,7 @@ import ModalViTien from '../../Components/DieuDuongPageComponents/ModalViTien';
 import { connect } from 'react-redux';
 import { createAction } from '../../Redux/actions';
 import { SHOW_MODAL_DIEUDUONG } from '../../Redux/actions/type';
+import { LayDanhSachDieuDuong } from '../../Redux/actions/DieuDuongAction';
 class DieuDuongComponent extends Component {
     constructor(props) {
         super(props);
@@ -111,6 +112,10 @@ class DieuDuongComponent extends Component {
                 {this.props.isModalViTien && <ModalViTien />}
             </DieuDuongStyled>
         );
+    }
+
+    componentDidMount() {
+        this.props.dispatch(LayDanhSachDieuDuong());
     }
 }
 

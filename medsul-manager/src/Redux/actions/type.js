@@ -1,6 +1,6 @@
 export const SET_LOGIN = 'SET_LOGIN';
 
-
+/* dịch vụ action */
 export const SHOW_MODAL_LOAIDICHVU = 'SHOW_MODAL_LOAIDICHVU';
 export const HIRE_MODAL_LOAIDICHVU = 'HIRE_MODAL_LOAIDICHVU';
 export const FETCH_LOAIDICHVU = 'FETCH_LOAIDICHVU';
@@ -18,7 +18,7 @@ export const UPDATE_DICHVU = 'UPDATE_DICHVU';
 
 export const CHECK_DATA = 'CHECK_DATA';
 
-
+/* Điều dưỡng action */
 export const SHOW_MODAL_DIEUDUONG = 'dieuduong/SHOW_MODAL_DIEUDUONG';
 export const SHOW_MODAL_VITIEN = 'dieuduong/SHOW_MODAL_VITIEN';
 export const SHOW_MODAL_GIAYPHEPHANHNGHE = 'dieuduong/SHOW_MODAL_GIAYPHEPHANHNGHE';
@@ -26,3 +26,5 @@ export const SHOW_MODAL_GIAYPHEPHANHNGHE = 'dieuduong/SHOW_MODAL_GIAYPHEPHANHNGH
 export const HIRE_MODAL_DIEUDUONG = 'dieuduong/HIRE_MODAL_DIEUDUONG';
 export const HIRE_MODAL_VITIEN = 'dieuduong/HIRE_MODAL_VITIEN';
 export const HIRE_MODAL_GIAYPHEPHANHNGHE = 'dieuduong/HIRE_MODAL_GIAYPHEPHANHNGHE';
+
+export const SET_DATA_LISTDIEUDUONG = 'dieuduong/SET_DATA_LISTDIEUDUONG';
