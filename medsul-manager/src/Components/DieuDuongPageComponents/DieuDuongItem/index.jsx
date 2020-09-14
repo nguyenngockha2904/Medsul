@@ -9,13 +9,12 @@ class DieuDuongItem extends PureComponent {
     handleOpenModalViTien = () => {
         this.props.dispatch(createAction(SHOW_MODAL_VITIEN, {}));
     }
-    handleOpenModalDD = () => {
-        this.props.dispatch(createAction(SHOW_MODAL_DIEUDUONG, {}));
+    handleOpenModalDD = (value) => () => {
+        this.props.dispatch(createAction(SHOW_MODAL_DIEUDUONG, value));
     }
     handleOpenModalGPHN = () => {
         this.props.dispatch(createAction(SHOW_MODAL_GIAYPHEPHANHNGHE, {}));
     }
-
     render() {
         const { anhMatSau,
             anhMatTruoc, avatar, diaChi, diaChiThuongTruCMND, dieuDuong_Id, email, gioiTinh, hoTen, laDaoTaoVien, maDieuDuong, nganHangLienKet, ngayCapCMND, ngaySinh, noiCap, password, queQuanCMND, soCMND, soDienThoai, soTaiKhoanNganHang, tinhThanh_ID,
@@ -24,27 +23,27 @@ class DieuDuongItem extends PureComponent {
         return (
             <tr className="tRow">
                 {/**No. */}
-                <th>{stt}</th>
+                <th onClick={this.handleOpenModalDD({ value: this.props.item, role: 2 })}>{stt}</th>
                 {/**Mã điều dưỡng. */}
-                <td>{maDieuDuong}</td>
+                <td onClick={this.handleOpenModalDD({ value: this.props.item, role: 2 })}>{maDieuDuong}</td>
                 {/**Họ tên */}
-                <td>{hoTen}</td>
+                <td onClick={this.handleOpenModalDD({ value: this.props.item, role: 2 })}>{hoTen}</td>
                 {/**sdt */}
-                <td>{soDienThoai}</td>
+                <td onClick={this.handleOpenModalDD({ value: this.props.item, role: 2 })}>{soDienThoai}</td>
                 {/**giới tính. */}
-                <td>{gioiTinh}</td>
+                <td onClick={this.handleOpenModalDD({ value: this.props.item, role: 2 })}>{gioiTinh}</td>
                 {/**Tỉnh thành. */}
-                <td>{tinhThanh_ID}</td>
+                <td onClick={this.handleOpenModalDD({ value: this.props.item, role: 2 })}>{tinhThanh_ID}</td>
                 {/**Đào tạo viên */}
-                <td>{laDaoTaoVien === 1 ? 'Có' : 'Không'}</td>
+                <td onClick={this.handleOpenModalDD({ value: this.props.item, role: 2 })}>{laDaoTaoVien === 1 ? 'Có' : 'Không'}</td>
                 {/**Trạng thái */}
-                <td className="tdStatus">{trangThai}</td>
+                <td className={trangThai === 1 ? 'tdStatus isThuViec' : (trangThai === 2 ? 'tdStatus isNghiViec' : 'tdStatus isChinhThuc')} onClick={this.handleOpenModalDD({ value: this.props.item, role: 2 })}>{trangThai === 1 ? 'Thử việc' : (trangThai === 2 ? 'Nghỉ việc' : 'Chính thức')}</td>
                 {/**Tùy chỉnh */}
                 <td className="d-flex justify-content-center groupBtn">
                     <button className="btnCustom" onClick={this.handleOpenModalViTien}>
                         <img src={btnVitien} alt="btnViTien" />
                     </button>
-                    <button className="btnCustom" onClick={this.handleOpenModalDD}>
+                    <button className="btnCustom" onClick={this.handleOpenModalDD({ value: this.props.item, role: 3 })}>
                         <img src={btnEdit} alt="btnEdit" />
                     </button>
                     <button className="btnCustom" onClick={this.handleOpenModalGPHN}>

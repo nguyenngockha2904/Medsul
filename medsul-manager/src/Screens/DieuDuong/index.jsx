@@ -16,20 +16,56 @@ class DieuDuongComponent extends Component {
             tabDD: {
 
             },
+            statusDDSelect: '',
             tabDT: {
 
             },
+            statusDTSelect: '',
         }
     }
     handleToogleTab = (value) => () => {
         this.setState({
-            isTabDD: value
+            isTabDD: value,
+            statusDDSelect: 0,
+            statusDTSelect: 0,
         }, () => {
             console.log(this.state.isTabDD);
         });
     }
     handleShowModalDieuDuong = () => {
-        this.props.dispatch(createAction(SHOW_MODAL_DIEUDUONG, {}));
+        let payload = {
+            value: {
+                anhMatSau: '',
+                anhMatTruoc: '',
+                avatar: '',
+                diaChi: '',
+                diaChiThuongTruCMND: '',
+                dieuDuong_Id: '',
+                email: '',
+                gioiTinh: 'Nam',
+                hoTen: '',
+                laDaoTaoVien: 0,
+                maDieuDuong: '',
+                nganHangLienKet: '',
+                ngayCapCMND: '',
+                ngaySinh: '',
+                noiCap: '',
+                password: '',
+                queQuanCMND: '',
+                soCMND: '',
+                soDienThoai: '',
+                soTaiKhoanNganHang: '',
+                tinhThanh_ID: 1,
+                tongTien: '',
+                trangThai: 1,
+            }, role: 1
+        }
+        this.props.dispatch(createAction(SHOW_MODAL_DIEUDUONG, payload));
+    }
+    handleChangeSelectNum = (e) => {
+        this.setState({
+            [e.target.name]: parseInt(e.target.value)
+        });
     }
     render() {
         return (
@@ -51,11 +87,16 @@ class DieuDuongComponent extends Component {
                             <div className="contentTab tab_DD">
                                 <p className="m-0 p-0 text-center title_tab">danh sách điều dưỡng</p>
                                 <div className="d-flex justify-content-between groupBtnSearch">
-                                    <select className="selectStatus" defaultValue="all">
-                                        <option value="all">Tất cả</option>
-                                        <option value="thuviec">Thử việc</option>
-                                        <option value="nghiviec">Nghỉ việc</option>
-                                        <option value="chinhthuc">Chính thức</option>
+                                    <select className={this.state.statusDDSelect === 1 ? "selectStatus isThuViec" : (
+                                        this.state.statusDDSelect === 2 ? "selectStatus isNghiViec" : (this.state.statusDDSelect === 3 ? "selectStatus isChinhThuc" : "selectStatus"))}
+                                        value={this.state.statusDDSelect}
+                                        name="statusDDSelect"
+                                        onChange={this.handleChangeSelectNum}
+                                    >
+                                        <option value={0}>Tất cả</option>
+                                        <option value={1}>Thử việc</option>
+                                        <option value={2}>Nghỉ việc</option>
+                                        <option value={3}>Chính thức</option>
                                     </select>
 
 
@@ -67,7 +108,7 @@ class DieuDuongComponent extends Component {
                                     </div>
                                     <button className="btnAdd" onClick={this.handleShowModalDieuDuong}>Thêm</button>
                                 </div>
-                                <DieuDuongTable valueStatus="" valueRender="" />
+                                <DieuDuongTable valueStatus={!!this.state.statusDDSelect ? this.state.statusDDSelect : 0} isDaoTaoVien={0} />
                             </div>
 
 
@@ -75,11 +116,15 @@ class DieuDuongComponent extends Component {
                             <div className="contentTab tab_DT">
                                 <p className="m-0 p-0 text-center title_tab">Đào tạo viên</p>
                                 <div className="d-flex justify-content-between groupBtnSearch">
-                                    <select className="selectStatus" defaultValue="all">
-                                        <option value="all">Tất cả</option>
-                                        <option value="thuviec">Thử việc</option>
-                                        <option value="nghiviec">Nghỉ việc</option>
-                                        <option value="chinhthuc">Chính thức</option>
+                                    <select className={this.state.statusDTSelect === 1 ? "selectStatus isThuViec" : (
+                                        this.state.statusDTSelect === 2 ? "selectStatus isNghiViec" : (this.state.statusDTSelect === 3 ? "selectStatus isChinhThuc" : "selectStatus"))}
+                                        value={this.state.statusDTSelect}
+                                        name="statusDTSelect"
+                                        onChange={this.handleChangeSelectNum}
+                                    >
+                                        <option value={0}>Tất cả</option>
+                                        <option value={2}>Nghỉ việc</option>
+                                        <option value={3}>Chính thức</option>
                                     </select>
                                     <div className="d-flex justify-content-center groupSearch">
                                         <input type="text" className="form-contro" placeholder="Mã, Họ tên ...." />
@@ -89,20 +134,25 @@ class DieuDuongComponent extends Component {
                                     </div>
 
                                 </div>
-                                <DieuDuongTable valueStatus="" valueRender="" />
+                                <DieuDuongTable valueStatus={!!this.state.statusDTSelect ? this.state.statusDTSelect : 0} isDaoTaoVien={1} />
                                 <div className="m-4"></div>
                                 <div className="d-flex justify-content-between">
                                     <p className="m-0 p-0 text-left align-self-center title_tab">Đã đào tạo</p>
                                     <div className="d-flex justify-content-between groupBtnSearch mr-0">
-                                        <select className="selectStatus" defaultValue="all">
-                                            <option value="all">Tất cả</option>
-                                            <option value="thuviec">Thử việc</option>
-                                            <option value="nghiviec">Nghỉ việc</option>
-                                            <option value="chinhthuc">Chính thức</option>
+                                        <select className={this.state.statusDDSelect === 1 ? "selectStatus isThuViec" : (
+                                            this.state.statusDDSelect === 2 ? "selectStatus isNghiViec" : (this.state.statusDDSelect === 3 ? "selectStatus isChinhThuc" : "selectStatus"))}
+                                            value={this.state.statusDDSelect}
+                                            name="statusDDSelect"
+                                            onChange={this.handleChangeSelectNum}
+                                        >
+                                            <option value={0}>Tất cả</option>
+                                            <option value={1}>Thử việc</option>
+                                            <option value={2}>Nghỉ việc</option>
+                                            <option value={3}>Chính thức</option>
                                         </select>
                                     </div>
                                 </div>
-                                <DieuDuongTable valueStatus="" valueRender="" />
+                                <DieuDuongTable valueStatus={!!this.state.statusDDSelect ? this.state.statusDDSelect : 0} isDaoTaoVien={0} />
                             </div>
                     }
                 </div>
@@ -120,6 +170,7 @@ class DieuDuongComponent extends Component {
 }
 
 const DieuDuongStyled = styled.div`
+
     background: #F0FAF8;
     min-height: 1000px;
     height: auto;
@@ -205,11 +256,37 @@ const DieuDuongStyled = styled.div`
                     font-weight: 500;
                     color:#fff;
                     background: #2CD889;
-                    transition: all 0.2s;
-                    &:hover , &:focus{
+                    &:hover {
                         box-shadow: 1px 2px 4px -0.5px #80808080;
                         color: #2CD889 ;
                         background:#fff;
+                    }
+                    &.isThuViec{
+                        color: #fff ;
+                            background:#FFEF00;
+                        &:hover{
+                            box-shadow: 1px 2px 4px -0.5px #80808080;
+                            color:#FFEF00;
+                            background:#fff;
+                        }
+                    }
+                    &.isNghiViec{
+                        color: #fff ;
+                        background:#FF0000;
+                        &:hover{
+                            box-shadow: 1px 2px 4px -0.5px #80808080;    
+                            color:#FF0000;
+                            background:#fff;
+                        }
+                    }
+                    &.isChinhThuc{
+                        box-shadow: 1px 2px 4px -0.5px #80808080;
+                        color:#2CD889;
+                        background:#fff;
+                        &:hover{
+                            color: #fff ;
+                            background:#2CD889;    
+                        }
                     }
                     
                 }

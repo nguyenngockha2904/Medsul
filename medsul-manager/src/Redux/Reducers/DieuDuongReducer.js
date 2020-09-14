@@ -4,6 +4,7 @@ let initialState = {
     modalDieuDuong: {
         isShow: false,
         value: {},
+        role: 1, //1 thêm //2 xem //3 sửa
     },
     modalGiayPhepHanhNghe: {
         isShow: false,
@@ -32,7 +33,8 @@ const dieuDuongReducer = (state = initialState, { type, payload }) => {
         }
         case SHOW_MODAL_DIEUDUONG: {
             state.modalDieuDuong.isShow = true;
-            state.modalDieuDuong.value = payload;
+            state.modalDieuDuong.value = payload.value;
+            state.modalDieuDuong.role = payload.role;
             return { ...state }
         }
         case SHOW_MODAL_GIAYPHEPHANHNGHE: {

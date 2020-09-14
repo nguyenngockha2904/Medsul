@@ -4,13 +4,36 @@ import { connect } from 'react-redux';
 import DieuDuongItem from '../DieuDuongItem';
 class TbDieuDuongComponent extends PureComponent {
     renderDieuDuongItem = () => {
-        return this.props.listDieuDuong.map((item, index) => {
-            return (
-                <DieuDuongItem item={item} key={index} index={+index + 1} />
+        return this.props.isDaoTaoVien == 0 ?
+            (this.props.valueStatus !== 0
+                ? this.props.listDieuDuong.filter(dd => dd.trangThai === this.props.valueStatus).map((item, index) => {
+                    return (
+                        <DieuDuongItem item={item} key={index} index={+index + 1} />
+                    )
+                })
+                : this.props.listDieuDuong.map((item, index) => {
+                    return (
+                        <DieuDuongItem item={item} key={index} index={+index + 1} />
+                    )
+                })
             )
-        })
+            : (this.props.valueStatus !== 0
+                ?
+                this.props.listDieuDuong.filter(dd => (dd.trangThai === this.props.valueStatus && dd.laDaoTaoVien === 1)).map((item, index) => {
+                    return (
+                        <DieuDuongItem item={item} key={index} index={+index + 1} />
+                    )
+                })
+                : this.props.listDieuDuong.filter(dd => (dd.laDaoTaoVien === 1)).map((item, index) => {
+                    return (
+                        <DieuDuongItem item={item} key={index} index={+index + 1} />
+                    )
+                }))
+
     }
     render() {
+        console.log("valueStatus: " + this.props.valueStatus);
+        console.log("isDaoTaoVien: " + this.props.isDaoTaoVien);
         return (
             <StyleTable>
                 <table className="table">
@@ -80,10 +103,22 @@ export const StyleTable = styled.div`
                 font-size: 0.8rem;
                 white-space: nowrap;
                 text-align: center;
+                vertical-align: initial;
                 &.tdStatus{
                     color:#FF4600;
+                    font-weight: 700;
+                    letter-spacing: 1px;
+                    font-size: 0.8em;
                 }
-                
+                &.isThuViec{
+                    color:#FFEF00;
+                }
+                &.isNghiViec{
+                    color:#FF0000;
+                }
+                &.isChinhThuc{
+                    color:#2CD889;
+                }
                 
                 &.groupBtn{
                     .btnCustom{
@@ -95,6 +130,20 @@ export const StyleTable = styled.div`
                         outline:none;
                         &:hover{
                             background: #F0FAF8;
+                        }
+                    }
+                }
+            }
+            &:hover{
+                cursor: pointer;
+                background-color:#F0FAF0;
+                td{
+                    &.groupBtn{
+                        .btnCustom{
+                            background: #F0FAF0;
+                            &:hover{
+                                background: #fff;    
+                            }
                         }
                     }
                 }

@@ -48,7 +48,7 @@ class DichVuComponent extends Component {
 }
 
 const DichVuComponentStyles = styled.div`
-
+    min-height:1000px;
     background: #F0FAF8;
     .tab{
         padding: 10px 2%;
