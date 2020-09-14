@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import { HIRE_MODAL_DIEUDUONG } from '../../../Redux/actions/type';
+import { connect } from 'react-redux';
+import { createAction } from '../../../Redux/actions';
 class ModalDieuDuong extends Component {
+    HandleHireModal = () => {
+        this.props.dispatch(createAction(HIRE_MODAL_DIEUDUONG, false));
+    }
     render() {
         return (
             <StyledModel>
@@ -9,7 +15,7 @@ class ModalDieuDuong extends Component {
                         {/* Modal Header */}
                         <div className="modalService-header">
                             <h4 className="modal-title">Thêm điều dưỡng</h4>
-                            <button type="button" className="close">×</button>
+                            <button type="button" className="close" onClick={this.HandleHireModal}>×</button>
                         </div>
                         {/* Modal body */}
                         <form className="modalService-body">
@@ -472,4 +478,4 @@ max-width:600px;
 
 
 `;
-export default ModalDieuDuong;
+export default connect()(ModalDieuDuong);

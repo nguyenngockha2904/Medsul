@@ -1,6 +1,13 @@
 import React, { Component, Fragment } from 'react';
+import { createAction } from '../../../Redux/actions';
+import { HIRE_MODAL_VITIEN } from '../../../Redux/actions/type';
 import { StyledModel } from '../ModalDD';
+import { connect } from 'react-redux';
 class ModalViTien extends Component {
+    HandleHireModal = () => {
+        this.props.dispatch(createAction(HIRE_MODAL_VITIEN, false));
+    }
+
     state = {
         isHistory: true,
     }
@@ -9,6 +16,8 @@ class ModalViTien extends Component {
             isHistory: value
         });
     }
+
+
     render() {
         return (
             <StyledModel>
@@ -17,7 +26,7 @@ class ModalViTien extends Component {
                         {/* Modal Header */}
                         <div className="modalService-header">
                             <h4 className="modal-title">Ví tiền</h4>
-                            <button type="button" className="close">x</button>
+                            <button type="button" className="close" onClick={this.HandleHireModal}>x</button>
                         </div>
                         <div className="text-right" style={{ padding: '0 1rem' }}>
                             <button type="button" className="btnNapTien" onClick={() => {
@@ -89,4 +98,4 @@ class ModalViTien extends Component {
     }
 }
 
-export default ModalViTien;
+export default connect()(ModalViTien);

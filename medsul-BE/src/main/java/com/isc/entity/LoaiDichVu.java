@@ -12,9 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import lombok.Data;
-
-
 @Entity
 @Table(name = "loaidichvu")
 public class LoaiDichVu {
@@ -29,6 +26,9 @@ public class LoaiDichVu {
 
 	@Column(name = "LOAIDV_TEN")
 	private String tenLoaiDichVu;
+	
+	@Column(name = "LOAIDV_TINHTRANG")
+	private int tinhTrangLoaiDichVu;
 
 	@OneToMany(mappedBy = "loaiDichVu", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<DichVu> dichVu;
@@ -36,11 +36,14 @@ public class LoaiDichVu {
 	public LoaiDichVu() {
 	}
 
-	public LoaiDichVu(int loaiDichVu_Id, String maLoaiDichVu, String tenLoaiDichVu) {
+	public LoaiDichVu(int loaiDichVu_Id, String maLoaiDichVu, String tenLoaiDichVu, int tinhTrangLoaiDichVu,
+			List<DichVu> dichVu) {
 		super();
 		this.loaiDichVu_Id = loaiDichVu_Id;
 		this.maLoaiDichVu = maLoaiDichVu;
 		this.tenLoaiDichVu = tenLoaiDichVu;
+		this.tinhTrangLoaiDichVu = tinhTrangLoaiDichVu;
+		this.dichVu = dichVu;
 	}
 
 	public int getLoaiDichVu_Id() {
@@ -66,4 +69,14 @@ public class LoaiDichVu {
 	public void setTenLoaiDichVu(String tenLoaiDichVu) {
 		this.tenLoaiDichVu = tenLoaiDichVu;
 	}
+
+	public int getTinhTrangLoaiDichVu() {
+		return tinhTrangLoaiDichVu;
+	}
+
+	public void setTinhTrangLoaiDichVu(int tinhTrangLoaiDichVu) {
+		this.tinhTrangLoaiDichVu = tinhTrangLoaiDichVu;
+	}
+
+	
 }

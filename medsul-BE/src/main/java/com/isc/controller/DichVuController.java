@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.isc.dto.DichVuEditDto;
 import com.isc.dto.DichVuInsertDto;
 import com.isc.entity.DichVu;
-import com.isc.entity.LoaiDichVu;
 import com.isc.repository.DichVuRepository;
 
 @RestController

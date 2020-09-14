@@ -1,11 +1,8 @@
 package com.isc.controller;
 
 import java.util.List;
-import java.util.Optional;
-
 import javax.validation.Valid;
 
-import org.apache.catalina.mapper.Mapper;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.isc.dto.LoaiDichVuEditDto;
 import com.isc.dto.LoaiDichVuInsertDto;
-import com.isc.entity.DichVu;
 import com.isc.entity.LoaiDichVu;
 import com.isc.repository.LoaiDichVuRepository;
 
@@ -52,7 +48,7 @@ public class LoaiDichVuController {
 
 	// API - THEM MOI MOT LOAI DICH VU
 	@PostMapping("")
-	public Object AddNewServiceType( @RequestBody LoaiDichVuInsertDto serviceType, BindingResult errors) {
+	public Object AddNewServiceType(@Valid @RequestBody LoaiDichVuInsertDto serviceType, BindingResult errors) {
 		if (errors.hasErrors()) {
 			return new ResponseEntity<Object>(errors.getAllErrors(), HttpStatus.BAD_REQUEST);
 		}
@@ -60,13 +56,14 @@ public class LoaiDichVuController {
 		LoaiDichVu loaiDV = modelMapper.map(serviceType, LoaiDichVu.class);
 
 		System.out.println("ma dich vu " + serviceType.getMaLoaiDichVu());
-		List<LoaiDichVu> listLDV = loaiDichVuRepository.GetDanhSachLoaiDichVuByMaLoaiDichVu(serviceType.getMaLoaiDichVu());
+		List<LoaiDichVu> listLDV = loaiDichVuRepository
+				.GetDanhSachLoaiDichVuByMaLoaiDichVu(serviceType.getMaLoaiDichVu());
 
 		if (listLDV.isEmpty() == false) {
 			return new ResponseEntity<String>("MA LDV da ton tai, Kiem tra lai", HttpStatus.BAD_REQUEST);
 		}
 
-		if (loaiDichVuRepository.save(loaiDV) != null) {
+		if (loaiDichVuRepository.saveAndFlush(loaiDV) != null) {
 			return new ResponseEntity<LoaiDichVu>(loaiDV, HttpStatus.CREATED);
 		}
 
@@ -76,6 +73,7 @@ public class LoaiDichVuController {
 	// API - CAP NHAT THONG TIN DICH VU
 	@PutMapping("/{id}")
 	public Object UpdateServiceType(@PathVariable("id") int id, @RequestBody LoaiDichVuEditDto loaiDVEditDto) {
+
 		if (loaiDichVuRepository.findById(id).orElse(null) != null) {
 
 			ModelMapper modelMapper = new ModelMapper();
@@ -84,7 +82,6 @@ public class LoaiDichVuController {
 			LoaiDichVu entity = loaiDichVuRepository.save(loaiDV);
 			return new ResponseEntity<LoaiDichVu>(entity, HttpStatus.OK);
 		}
-
 		return new ResponseEntity<String>("Id khong ton tai", HttpStatus.BAD_REQUEST);
 	}
 

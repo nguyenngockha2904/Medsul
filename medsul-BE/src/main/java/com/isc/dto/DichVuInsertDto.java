@@ -1,19 +1,13 @@
 package com.isc.dto;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.isc.entity.LoaiDichVu;
+import javax.validation.constraints.NotBlank;
 
 public class DichVuInsertDto {
 
+	@NotBlank(message = "vui long nhap ma dich vu")
 	private String maDichVu;
 
+	@NotBlank(message = "vui long nhap ten dich vu")
 	private String tenDichVu;
 
 	private String moTaDichVu;
@@ -23,16 +17,21 @@ public class DichVuInsertDto {
 	private String khongBaoGom;
 
 	private int thoiGianUocTinh;
-	
+
+	@NotBlank(message = "vui long nhap gia dich vu")
+	private float giaDichVu;
+
+	@NotBlank(message = "vui long nhap tinh trang dich vu")
+	private int tinhTrangDichVu;
+
+	@NotBlank(message = "vui long nhap id loai dich vu")
 	private int loaiDichVuID;
 
 	public DichVuInsertDto() {
 	}
 
-	
-
 	public DichVuInsertDto(String maDichVu, String tenDichVu, String moTaDichVu, String yeuCauCongViec,
-			String khongBaoGom, int thoiGianUocTinh, int loaiDichVuID) {
+			String khongBaoGom, int thoiGianUocTinh, int tinhTrangDichVu, float giaDichVu, int loaiDichVuID) {
 		super();
 		this.maDichVu = maDichVu;
 		this.tenDichVu = tenDichVu;
@@ -41,9 +40,17 @@ public class DichVuInsertDto {
 		this.khongBaoGom = khongBaoGom;
 		this.thoiGianUocTinh = thoiGianUocTinh;
 		this.loaiDichVuID = loaiDichVuID;
+		this.tinhTrangDichVu = tinhTrangDichVu;
+		this.giaDichVu = giaDichVu;
 	}
 
+	public float getGiaDichVu() {
+		return giaDichVu;
+	}
 
+	public void setGiaDichVu(float giaDichVu) {
+		this.giaDichVu = giaDichVu;
+	}
 
 	public String getMaDichVu() {
 		return maDichVu;
@@ -100,6 +107,13 @@ public class DichVuInsertDto {
 	public void setLoaiDichVuID(int loaiDichVuID) {
 		this.loaiDichVuID = loaiDichVuID;
 	}
-	
+
+	public int getTinhTrangDichVu() {
+		return tinhTrangDichVu;
+	}
+
+	public void setTinhTrangDichVu(int tinhTrangDichVu) {
+		this.tinhTrangDichVu = tinhTrangDichVu;
+	}
 
 }

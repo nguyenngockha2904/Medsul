@@ -2,9 +2,15 @@ import React, { Component, Fragment } from 'react';
 import { StyledModel } from '../ModalDD';
 import { StyleTable } from '../tbDieuDuongComponent';
 import btnEdit from '../../../img/btnEdit.svg';
+import { connect } from 'react-redux';
+import { createAction } from '../../../Redux/actions';
+import { HIRE_MODAL_GIAYPHEPHANHNGHE } from '../../../Redux/actions/type';
 class ModalBC extends Component {
     state = {
         isDetail: false
+    }
+    HandleHireModal = () => {
+        this.props.dispatch(createAction(HIRE_MODAL_GIAYPHEPHANHNGHE, false));
     }
     showDetail = (value) => () => {
         this.setState({
@@ -19,7 +25,7 @@ class ModalBC extends Component {
                         {/* Modal Header */}
                         <div className="modalService-header">
                             <h4 className="modal-title">Giấy phép hành nghề</h4>
-                            <button type="button" className="close">×</button>
+                            <button type="button" className="close" onClick={this.HandleHireModal}>×</button>
                         </div>
 
                         {/* table */}
@@ -153,4 +159,4 @@ class ModalBC extends Component {
     }
 }
 
-export default ModalBC;
+export default connect()(ModalBC);

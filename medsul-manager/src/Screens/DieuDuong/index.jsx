@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import btnEdit from '../../img/btnEdit.svg';
-import btnVitien from '../../img/btnViTien.svg';
-import btnChuyenNganh from '../../img/btnChuyenNganh.svg';
 import DieuDuongTable from '../../Components/DieuDuongPageComponents/tbDieuDuongComponent';
 import ModalDieuDuong from '../../Components/DieuDuongPageComponents/ModalDD';
 import ModalCN from '../../Components/DieuDuongPageComponents/ModalCN';
 import ModalViTien from '../../Components/DieuDuongPageComponents/ModalViTien';
+import { connect } from 'react-redux';
+import { createAction } from '../../Redux/actions';
+import { SHOW_MODAL_DIEUDUONG } from '../../Redux/actions/type';
 class DieuDuongComponent extends Component {
     constructor(props) {
         super(props);
@@ -20,29 +20,25 @@ class DieuDuongComponent extends Component {
             },
         }
     }
+    handleToogleTab = (value) => () => {
+        this.setState({
+            isTabDD: value
+        }, () => {
+            console.log(this.state.isTabDD);
+        });
+    }
+    handleShowModalDieuDuong = () => {
+        this.props.dispatch(createAction(SHOW_MODAL_DIEUDUONG, {}));
+    }
     render() {
         return (
             <DieuDuongStyled>
-                <p className="text-center title">Quản trị Nhân lực</p>
+                <p className="text-center title">Quản trị điều dưỡng và đào tạo viên</p>
 
                 <div className="text-left">
                     <div className="btn-group">
-                        <button className={this.state.isTabDD ? "btnTab tabDD ac" : "btnTab tabDD"} onClick={() => {
-                            this.setState({
-                                isTabDD: true
-                            }, () => {
-                                console.log(this.state.isTabDD);
-                            });
-
-                        }}>Điều Dưỡng</button>
-                        <button className={this.state.isTabDD ? "btnTab tabDT " : "btnTab tabDT ac"} onClick={() => {
-                            this.setState({
-                                isTabDD: false
-                            }, () => {
-                                console.log(this.state.isTabDD);
-                            });
-
-                        }}>Đào Tạo</button>
+                        <button className={this.state.isTabDD ? "btnTab tabDD ac" : "btnTab tabDD"} onClick={this.handleToogleTab(true)}>Điều Dưỡng</button>
+                        <button className={this.state.isTabDD ? "btnTab tabDT " : "btnTab tabDT ac"} onClick={this.handleToogleTab(false)}>Đào Tạo</button>
                     </div>
                 </div>
 
@@ -50,6 +46,7 @@ class DieuDuongComponent extends Component {
                     {
                         this.state.isTabDD
                             ?
+                            /* Tab điều dưỡng */
                             <div className="contentTab tab_DD">
                                 <p className="m-0 p-0 text-center title_tab">danh sách điều dưỡng</p>
                                 <div className="d-flex justify-content-between groupBtnSearch">
@@ -67,7 +64,7 @@ class DieuDuongComponent extends Component {
                                             <button className="btnSearch" type="button">Tìm kiếm</button>
                                         </div>
                                     </div>
-                                    <button className="btnAdd">Thêm</button>
+                                    <button className="btnAdd" onClick={this.handleShowModalDieuDuong}>Thêm</button>
                                 </div>
                                 <DieuDuongTable valueStatus="" valueRender="" />
                             </div>
@@ -108,8 +105,10 @@ class DieuDuongComponent extends Component {
                             </div>
                     }
                 </div>
-                {/**<ModalDieuDuong /> <ModalViTien /> */}
-                <ModalCN />
+                {/** <ModalViTien /> <ModalCN />*/}
+                {this.props.isModalDieuDuong && <ModalDieuDuong />}
+                {this.props.isModalGiayPhepHanhNghe && <ModalCN />}
+                {this.props.isModalViTien && <ModalViTien />}
             </DieuDuongStyled>
         );
     }
@@ -269,6 +268,12 @@ const DieuDuongStyled = styled.div`
     }
 
 `;
+const mapStateToProps = state => {
+    return {
+        isModalDieuDuong: state.qlDieuDuong.modalDieuDuong.isShow,
+        isModalGiayPhepHanhNghe: state.qlDieuDuong.modalGiayPhepHanhNghe.isShow,
+        isModalViTien: state.qlDieuDuong.modalViTien.isShow
+    }
+}
 
-
-export default DieuDuongComponent;
+export default connect(mapStateToProps)(DieuDuongComponent);

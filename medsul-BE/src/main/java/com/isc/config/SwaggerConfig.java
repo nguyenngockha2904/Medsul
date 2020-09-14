@@ -24,10 +24,10 @@ public class SwaggerConfig {
 				.build()
 				.apiInfo(new ApiInfo(
 						"RESTful API", 
-						"RESTful API cho Elearning App", 
+						"RESTful API cho MedSul", 
 						"", 
 						"",
-						new Contact("Nguyen Lan", "", "nguyenlanyth@gmail.com"), 
+						new Contact("FutureTeam", "", "futureteam808599@gmail.com"), 
 						"", 
 						"",
 						Collections.EMPTY_LIST

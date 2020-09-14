@@ -1,20 +1,37 @@
 package com.isc.dto;
 
+import javax.validation.constraints.NotBlank;
+
 public class DichVuEditDto {
 
+	@NotBlank(message = "vui long nhap ma dich vu")
 	private String maDichVu;
+	
+	@NotBlank(message = "vui long nhap ten dich vu")
 	private String tenDichVu;
+	
 	private String moTaDichVu;
+	
 	private String yeuCauCongViec;
+	
 	private String khongBaoGom;
+	
 	private int thoiGianUocTinh;
+	
+	@NotBlank(message = "vui long nhap tinh trang dich vu")
+	private int tinhTrangDichVu;
+	
+	@NotBlank(message = "vui long nhap id loai dich vu")
 	private int loaiDichVuID;
+	
+	@NotBlank(message = "vui long nhap gia dich vu")
+	private float giaDichVu;
 
 	public DichVuEditDto() {
 	}
 
 	public DichVuEditDto(String maDichVu, String tenDichVu, String moTaDichVu, String yeuCauCongViec,
-			String khongBaoGom, int thoiGianUocTinh, int loaiDichVuID) {
+			String khongBaoGom, int thoiGianUocTinh, int tinhTrangDichVu, float giaDichVu, int loaiDichVuID) {
 		super();
 		this.maDichVu = maDichVu;
 		this.tenDichVu = tenDichVu;
@@ -23,6 +40,24 @@ public class DichVuEditDto {
 		this.khongBaoGom = khongBaoGom;
 		this.thoiGianUocTinh = thoiGianUocTinh;
 		this.loaiDichVuID = loaiDichVuID;
+		this.giaDichVu = giaDichVu;
+		this.tinhTrangDichVu = tinhTrangDichVu;
+	}
+
+	public float getGiaDichVu() {
+		return giaDichVu;
+	}
+
+	public void setGiaDichVu(float giaDichVu) {
+		this.giaDichVu = giaDichVu;
+	}
+
+	public int getTinhTrangDichVu() {
+		return tinhTrangDichVu;
+	}
+
+	public void setTinhTrangDichVu(int tinhTrangDichVu) {
+		this.tinhTrangDichVu = tinhTrangDichVu;
 	}
 
 	public String getMaDichVu() {
@@ -81,5 +116,4 @@ public class DichVuEditDto {
 		this.loaiDichVuID = loaiDichVuID;
 	}
 
-	
 }

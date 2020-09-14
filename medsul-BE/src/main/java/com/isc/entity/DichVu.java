@@ -11,7 +11,6 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import jdk.jfr.DataAmount;
 import lombok.Data;
 
 @Data
@@ -41,6 +40,12 @@ public class DichVu {
 
 	@Column(name = "DV_THOIGIANUOCTINH")
 	private int thoiGianUocTinh;
+	
+	@Column(name = "DV_TINHTRANG")
+	private int tinhTrangDichVu;
+	
+	@Column(name = "DV_GIADICHVU")
+	private float giaDichVu;
 
 	@Column(name = "LOAIDV_ID")
 	private int loaiDichVuID;
