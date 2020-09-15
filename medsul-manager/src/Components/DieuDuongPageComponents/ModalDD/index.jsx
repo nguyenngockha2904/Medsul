@@ -103,7 +103,7 @@ class ModalDieuDuong extends Component {
                                         value={maDieuDuong ? maDieuDuong : ''}
                                         onChange={this.handleChange}
                                         disabled={
-                                            this.props.role === 1 ? true : (this.props.role === 2 ? true : false)
+                                            this.props.role === 1 ? true : (this.props.role === 2 ? true : true)
                                         }
 
                                     />
@@ -159,14 +159,14 @@ class ModalDieuDuong extends Component {
                                         value={soDienThoai ? soDienThoai : ''}
                                         onChange={this.handleChange}
                                         disabled={
-                                            this.props.role === 1 ? false : (this.props.role === 2 ? true : false)
+                                            this.props.role === 1 ? false : (this.props.role === 2 ? true : true)
                                         }
                                     />
                                 </div>
                                 {/* password */}
                                 <div className="form-group  secondFormright"
                                     style={
-                                        this.props.role === 1 ? { display: 'block' } : (this.props.role === 2 ? { display: 'none' } : { display: 'block' })
+                                        this.props.role === 1 ? { display: 'none' } : (this.props.role === 2 ? { display: 'none' } : { display: 'block' })
                                     }
                                 >
                                     <label >* Password: </label>
