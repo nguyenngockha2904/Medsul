@@ -22,9 +22,12 @@ export const CHECK_DATA = 'CHECK_DATA';
 export const SHOW_MODAL_DIEUDUONG = 'dieuduong/SHOW_MODAL_DIEUDUONG';
 export const SHOW_MODAL_VITIEN = 'dieuduong/SHOW_MODAL_VITIEN';
 export const SHOW_MODAL_GIAYPHEPHANHNGHE = 'dieuduong/SHOW_MODAL_GIAYPHEPHANHNGHE';
-
 export const HIRE_MODAL_DIEUDUONG = 'dieuduong/HIRE_MODAL_DIEUDUONG';
 export const HIRE_MODAL_VITIEN = 'dieuduong/HIRE_MODAL_VITIEN';
 export const HIRE_MODAL_GIAYPHEPHANHNGHE = 'dieuduong/HIRE_MODAL_GIAYPHEPHANHNGHE';
-
 export const SET_DATA_LISTDIEUDUONG = 'dieuduong/SET_DATA_LISTDIEUDUONG';
+
+
+
+/* Tỉnh thành action*/
+export const SET_DATA_TINHTHANH = 'tinhthanh/SET_DATA_TINHTHANH';

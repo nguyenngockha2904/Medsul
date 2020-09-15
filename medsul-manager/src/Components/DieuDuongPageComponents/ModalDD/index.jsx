@@ -50,14 +50,14 @@ class ModalDieuDuong extends Component {
         console.log(this.state.dieuDuong);
     }
     renderTinhThanh = () => {
-        return (
-            <Fragment>
-                <option value={1}>TP. HCM</option>
-                <option value={2}>Hà Nội</option>
-                <option value={3}>Đà Nẵng</option>
-                <option value={4}>Hà Tĩnh</option>
-            </Fragment>
-        )
+        return this.props.listTinhThanh.map((item, index) => {
+            return (
+
+                <option value={item.tinhThanh_Id} key={index}>{item.tenTinhThanh}</option>
+
+            )
+        })
+
     }
     _SetValue = () => {
         this.setState({
@@ -325,7 +325,6 @@ class ModalDieuDuong extends Component {
 
 
                             <div className="titleGroup">Chứng minh nhân dân</div>
-
 
                             {/* Số cmnd */}{/* Nơi cấp */}{/* Ngày cấp */}
                             <div className="d-flex justify-content-between">
@@ -736,6 +735,7 @@ const mapStateToProps = state => {
     return {
         item: state.qlDieuDuong.modalDieuDuong.value,
         role: state.qlDieuDuong.modalDieuDuong.role,
+        listTinhThanh: state.qlTinhThanh.listTinhThanh
     }
 }
 

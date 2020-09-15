@@ -36,7 +36,7 @@ public class TinhThanh {
 	@Column(name = "TINHT_HESOGIAMUSER")
 	private String heSoTinhThanhUser;
 	
-	@OneToMany(mappedBy = "tinhThanh", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private List<DieuDuong> dieuDuong;
+//	@OneToMany(mappedBy = "tinhThanh", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//	private List<DieuDuong> dieuDuong;
 	
 }

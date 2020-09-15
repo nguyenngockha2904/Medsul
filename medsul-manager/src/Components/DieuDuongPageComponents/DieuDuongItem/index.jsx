@@ -12,6 +12,9 @@ class DieuDuongItem extends PureComponent {
     handleOpenModalDD = (value) => () => {
         this.props.dispatch(createAction(SHOW_MODAL_DIEUDUONG, value));
     }
+    handleClickShowListDD = () => {
+        console.log('handleClickShowListDD');
+    }
     handleOpenModalGPHN = () => {
         this.props.dispatch(createAction(SHOW_MODAL_GIAYPHEPHANHNGHE, {}));
     }
@@ -23,19 +26,19 @@ class DieuDuongItem extends PureComponent {
         return (
             <tr className="tRow">
                 {/**No. */}
-                <th onClick={this.handleOpenModalDD({ value: this.props.item, role: 2 })}>{stt}</th>
+                <th onClick={this.props.typeTable === 1 ? this.handleOpenModalDD({ value: this.props.item, role: 2 }) : this.handleClickShowListDD}>{stt}</th>
                 {/**Mã điều dưỡng. */}
-                <td onClick={this.handleOpenModalDD({ value: this.props.item, role: 2 })}>{maDieuDuong}</td>
+                <td onClick={this.props.typeTable === 1 ? this.handleOpenModalDD({ value: this.props.item, role: 2 }) : this.handleClickShowListDD}>{maDieuDuong}</td>
                 {/**Họ tên */}
-                <td onClick={this.handleOpenModalDD({ value: this.props.item, role: 2 })}>{hoTen}</td>
+                <td onClick={this.props.typeTable === 1 ? this.handleOpenModalDD({ value: this.props.item, role: 2 }) : this.handleClickShowListDD}>{hoTen}</td>
                 {/**sdt */}
-                <td onClick={this.handleOpenModalDD({ value: this.props.item, role: 2 })}>{soDienThoai}</td>
+                <td onClick={this.props.typeTable === 1 ? this.handleOpenModalDD({ value: this.props.item, role: 2 }) : this.handleClickShowListDD}>{soDienThoai}</td>
                 {/**giới tính. */}
-                <td onClick={this.handleOpenModalDD({ value: this.props.item, role: 2 })}>{gioiTinh}</td>
+                <td onClick={this.props.typeTable === 1 ? this.handleOpenModalDD({ value: this.props.item, role: 2 }) : this.handleClickShowListDD}>{gioiTinh}</td>
                 {/**Tỉnh thành. */}
-                <td onClick={this.handleOpenModalDD({ value: this.props.item, role: 2 })}>{tinhThanh_ID}</td>
+                <td onClick={this.props.typeTable === 1 ? this.handleOpenModalDD({ value: this.props.item, role: 2 }) : this.handleClickShowListDD}>{tinhThanh_ID}</td>
                 {/**Đào tạo viên */}
-                <td onClick={this.handleOpenModalDD({ value: this.props.item, role: 2 })}>{laDaoTaoVien === 1 ? 'Có' : 'Không'}</td>
+                <td onClick={this.props.typeTable === 1 ? this.handleOpenModalDD({ value: this.props.item, role: 2 }) : this.handleClickShowListDD}>{laDaoTaoVien === 1 ? 'Có' : 'Không'}</td>
                 {/**Trạng thái */}
                 <td className={trangThai === 1 ? 'tdStatus isThuViec' : (trangThai === 2 ? 'tdStatus isNghiViec' : 'tdStatus isChinhThuc')} onClick={this.handleOpenModalDD({ value: this.props.item, role: 2 })}>{trangThai === 1 ? 'Thử việc' : (trangThai === 2 ? 'Nghỉ việc' : 'Chính thức')}</td>
                 {/**Tùy chỉnh */}

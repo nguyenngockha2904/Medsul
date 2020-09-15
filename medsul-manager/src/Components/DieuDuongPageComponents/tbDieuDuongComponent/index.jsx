@@ -3,32 +3,54 @@ import styled from 'styled-components';
 import { connect } from 'react-redux';
 import DieuDuongItem from '../DieuDuongItem';
 class TbDieuDuongComponent extends PureComponent {
+    // valueSearch
     renderDieuDuongItem = () => {
-        return this.props.isDaoTaoVien == 0 ?
+        return this.props.isDaoTaoVien === 0 ?
             (this.props.valueStatus !== 0
-                ? this.props.listDieuDuong.filter(dd => dd.trangThai === this.props.valueStatus).map((item, index) => {
-                    return (
-                        <DieuDuongItem item={item} key={index} index={+index + 1} />
-                    )
-                })
-                : this.props.listDieuDuong.map((item, index) => {
-                    return (
-                        <DieuDuongItem item={item} key={index} index={+index + 1} />
-                    )
-                })
+                ? (
+                    this.props.valueSearch !== -1 ? '' : this.props.listDieuDuong.filter(dd => dd.trangThai === this.props.valueStatus).map((item, index) => {
+                        return (
+                            <DieuDuongItem item={item} key={index} index={+index + 1} typeTable={this.props.typeTable} />
+                        )
+                    })
+                )
+                :
+                this.props.valueSearch !== -1 ?
+                    this.props.listDieuDuong.filter(dd => (dd.maDieuDuong === this.props.valueSearch)).map((item, index) => {
+                        return (
+                            <DieuDuongItem item={item} key={index} index={+index + 1}
+                                typeTable={this.props.typeTable} />
+                        )
+                    })
+                    : this.props.listDieuDuong.map((item, index) => {
+                        return (
+                            <DieuDuongItem item={item} key={index} index={+index + 1}
+                                typeTable={this.props.typeTable} />
+                        )
+                    })
             )
             : (this.props.valueStatus !== 0
                 ?
                 this.props.listDieuDuong.filter(dd => (dd.trangThai === this.props.valueStatus && dd.laDaoTaoVien === 1)).map((item, index) => {
                     return (
-                        <DieuDuongItem item={item} key={index} index={+index + 1} />
+                        <DieuDuongItem item={item} key={index} index={+index + 1}
+                            typeTable={this.props.typeTable} />
                     )
                 })
-                : this.props.listDieuDuong.filter(dd => (dd.laDaoTaoVien === 1)).map((item, index) => {
-                    return (
-                        <DieuDuongItem item={item} key={index} index={+index + 1} />
-                    )
-                }))
+                : this.props.valueSearch !== -1 ?
+                    this.props.listDieuDuong.filter(dd => (dd.laDaoTaoVien === 1 && dd.maDieuDuong === this.props.valueSearch)).map((item, index) => {
+                        return (
+                            <DieuDuongItem item={item} key={index} index={+index + 1}
+                                typeTable={this.props.typeTable} />
+                        )
+                    })
+
+                    : this.props.listDieuDuong.filter(dd => (dd.laDaoTaoVien === 1)).map((item, index) => {
+                        return (
+                            <DieuDuongItem item={item} key={index} index={+index + 1}
+                                typeTable={this.props.typeTable} />
+                        )
+                    }))
 
     }
     render() {

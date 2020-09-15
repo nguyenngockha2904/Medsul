@@ -13,12 +13,13 @@ class DieuDuongComponent extends Component {
         super(props);
         this.state = {
             isTabDD: true,
+            valueSearch: -1,
             tabDD: {
-
+                searchMaDD: '',
             },
             statusDDSelect: '',
             tabDT: {
-
+                searchMaDT: '',
             },
             statusDTSelect: '',
         }
@@ -28,6 +29,9 @@ class DieuDuongComponent extends Component {
             isTabDD: value,
             statusDDSelect: 0,
             statusDTSelect: 0,
+            valueSearch: -1,
+            tabDD: { ...this.state.tabDD, searchMaDD: '' },
+            tabDT: { ...this.state.tabDT, searchMaDT: '' }
         }, () => {
             console.log(this.state.isTabDD);
         });
@@ -62,10 +66,48 @@ class DieuDuongComponent extends Component {
         }
         this.props.dispatch(createAction(SHOW_MODAL_DIEUDUONG, payload));
     }
+    handleChange = e => {
+        this.setState({
+            valueSearch: e.target.value,
+            statusDDSelect: 0,
+            statusDTSelect: 0,
+        });
+
+    }
+    handleSearch = (tab, name, value) => (e) => {
+        e.preventDefault();
+        this.setState({
+            [tab]: { ...[tab], [name]: value }
+        });
+    }
+    handleClickInputSearch = () => {
+        this.setState({
+            statusDDSelect: 0,
+            statusDTSelect: 0,
+            valueSearch: '',
+        })
+    }
     handleChangeSelectNum = (e) => {
         this.setState({
             [e.target.name]: parseInt(e.target.value)
         });
+        if (this.state.statusDDSelect === 0) {
+            this.setState({
+                tabDD: { ...this.state.tabDD, searchMaDD: '' },
+                valueSearch: '',
+            })
+        }
+        if (this.state.statusDTSelect === 0) {
+            this.setState({
+                tabDT: { ...this.state.tabDT, searchMaDT: '' },
+                valueSearch: ''
+            })
+        }
+    }
+    handleClickSelect = () => {
+        this.setState({
+            valueSearch: ''
+        })
     }
     render() {
         return (
@@ -92,6 +134,7 @@ class DieuDuongComponent extends Component {
                                         value={this.state.statusDDSelect}
                                         name="statusDDSelect"
                                         onChange={this.handleChangeSelectNum}
+                                        onClick={this.handleClickSelect}
                                     >
                                         <option value={0}>Tất cả</option>
                                         <option value={1}>Thử việc</option>
@@ -100,15 +143,19 @@ class DieuDuongComponent extends Component {
                                     </select>
 
 
-                                    <div className="d-flex justify-content-center groupSearch">
-                                        <input type="text" className="form-contro" placeholder="Mã, Họ tên ...." />
+                                    <form className="d-flex justify-content-center groupSearch" onSubmit={this.handleSearch('tabDD', 'searchMaDD', this.state.valueSearch)}>
+                                        <input type="text" className="form-contro" placeholder="Mã...."
+                                            name="valueSearch" value={this.state.valueSearch !== -1 ? this.state.valueSearch : ''}
+                                            onChange={this.handleChange}
+                                            onClick={this.handleClickInputSearch}
+                                        />
                                         <div className="input-group-append">
-                                            <button className="btnSearch" type="button">Tìm kiếm</button>
+                                            <button className="btnSearch" type="submit">Tìm kiếm</button>
                                         </div>
-                                    </div>
+                                    </form>
                                     <button className="btnAdd" onClick={this.handleShowModalDieuDuong}>Thêm</button>
                                 </div>
-                                <DieuDuongTable valueStatus={!!this.state.statusDDSelect ? this.state.statusDDSelect : 0} isDaoTaoVien={0} />
+                                <DieuDuongTable valueStatus={!!this.state.statusDDSelect ? this.state.statusDDSelect : 0} isDaoTaoVien={0} valueSearch={!!this.state.tabDD.searchMaDD ? this.state.tabDD.searchMaDD : -1} typeTable={1} />
                             </div>
 
 
@@ -126,15 +173,25 @@ class DieuDuongComponent extends Component {
                                         <option value={2}>Nghỉ việc</option>
                                         <option value={3}>Chính thức</option>
                                     </select>
-                                    <div className="d-flex justify-content-center groupSearch">
-                                        <input type="text" className="form-contro" placeholder="Mã, Họ tên ...." />
+                                    <form className="d-flex justify-content-center groupSearch" onSubmit={this.handleSearch('tabDT', 'searchMaDT', this.state.valueSearch)}>
+
+                                        <input type="text" className="form-contro" placeholder="Mã..."
+                                            name="valueSearch"
+                                            value={this.state.valueSearch !== -1 ? this.state.valueSearch : ''}
+                                            onChange={this.handleChange}
+                                            onClick={this.handleClickInputSearch}
+                                        />
                                         <div className="input-group-append">
-                                            <button className="btnSearch" type="button">Tìm kiếm</button>
+                                            <button className="btnSearch" type="submit"
+                                            >Tìm kiếm</button>
                                         </div>
-                                    </div>
+
+                                    </form>
 
                                 </div>
-                                <DieuDuongTable valueStatus={!!this.state.statusDTSelect ? this.state.statusDTSelect : 0} isDaoTaoVien={1} />
+                                <DieuDuongTable valueStatus={!!this.state.statusDTSelect ? this.state.statusDTSelect : 0} isDaoTaoVien={1}
+                                    valueSearch={!!this.state.tabDT.searchMaDT ? this.state.tabDT.searchMaDT : -1} typeTable={2}
+                                />
                                 <div className="m-4"></div>
                                 <div className="d-flex justify-content-between">
                                     <p className="m-0 p-0 text-left align-self-center title_tab">Đã đào tạo</p>
@@ -152,7 +209,7 @@ class DieuDuongComponent extends Component {
                                         </select>
                                     </div>
                                 </div>
-                                <DieuDuongTable valueStatus={!!this.state.statusDDSelect ? this.state.statusDDSelect : 0} isDaoTaoVien={0} />
+                                <DieuDuongTable valueStatus={!!this.state.statusDDSelect ? this.state.statusDDSelect : 0} isDaoTaoVien={0} valueSearch={!!this.state.tabDD.searchMaDD ? this.state.tabDD.searchMaDD : -1} typeTable={1} />
                             </div>
                     }
                 </div>
@@ -312,7 +369,7 @@ const DieuDuongStyled = styled.div`
                         border-bottom-right-radius: 10px;
                         border-radius:10px;
                         transition: all 0.2s;
-                        &:hover, &:focus{
+                        &:hover{
                             background: #fff;
                             color: #2CD889;
                         }
