@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
-import { StyledModel } from '../ModalDD';
-import { StyleTable } from '../tbDieuDuongComponent';
+import { StyledModel } from '../../../Styles';
+import { StyleTable } from '../../../Styles';
 import btnEdit from '../../../img/btnEdit.svg';
 import { connect } from 'react-redux';
 import { createAction } from '../../../Redux/actions';

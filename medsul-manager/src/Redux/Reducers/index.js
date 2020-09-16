@@ -4,7 +4,7 @@ import DichVuReducer from './DichVuReducer';
 import DieuDuongReducer from './DieuDuongReducer';
 import TinhThanhReducer from './TinhThanhReducer';
 const RootReducer = combineReducers({
-    isLogin: LoginReducer,
+    credentials: LoginReducer,
     qlDichVu: DichVuReducer,
     qlDieuDuong: DieuDuongReducer,
     qlTinhThanh: TinhThanhReducer,

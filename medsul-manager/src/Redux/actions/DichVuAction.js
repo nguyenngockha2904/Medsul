@@ -40,19 +40,6 @@ export const ThemLoaiDichVuMoi = (value) => {
         })
     }
 }
-export const XoaLoaiDichVu = (id) => {
-    return dispatch => {
-        LoaiDichVu.deleleLoaiDichVu(id).then(res => {
-            console.log('Xóa Thành công');
-            dispatch({
-                type: DELETE_LOAIDICHVU,
-                payload: id
-            })
-        }).catch(err => {
-            console.log(err);
-        })
-    }
-}
 export const CapNhatLoaiDichVu = (id, value) => {
     return dispatch => {
         LoaiDichVu.updateLoaiDichVu(id, value).then(res => {

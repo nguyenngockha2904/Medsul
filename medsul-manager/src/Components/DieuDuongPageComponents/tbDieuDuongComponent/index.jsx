@@ -2,6 +2,7 @@ import React, { Component, Fragment, PureComponent } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import DieuDuongItem from '../DieuDuongItem';
+import { StyleTable } from '../../../Styles';
 class TbDieuDuongComponent extends PureComponent {
     // valueSearch
     renderDieuDuongItem = () => {
@@ -99,82 +100,6 @@ class TbDieuDuongComponent extends PureComponent {
         );
     }
 }
-export const StyleTable = styled.div`
-.table{
-    box-shadow: 1px 2px 4px -0.5px #80808080;
-    min-height: 300px;
-    height: auto;
-    border-radius: 10px;
-    thead{
-        tr{
-            th{
-                border: none;
-                white-space: nowrap;
-                text-align: center;
-                color: #CBD1D9;
-            }
-        }
-    }
-    tbody{
-        .tRow{
-            
-            th{
-                text-align: center;
-            }
-            td{
-                font-size: 0.8rem;
-                white-space: nowrap;
-                text-align: center;
-                vertical-align: initial;
-                &.tdStatus{
-                    color:#FF4600;
-                    font-weight: 700;
-                    letter-spacing: 1px;
-                    font-size: 0.8em;
-                }
-                &.isThuViec{
-                    color:#FFEF00;
-                }
-                &.isNghiViec{
-                    color:#FF0000;
-                }
-                &.isChinhThuc{
-                    color:#2CD889;
-                }
-                
-                &.groupBtn{
-                    .btnCustom{
-                        padding: 0 10px;
-                        margin: 0 0.3rem;
-                        border-radius: 10px;
-                        background: #fff;
-                        border: none;
-                        outline:none;
-                        &:hover{
-                            background: #F0FAF8;
-                        }
-                    }
-                }
-            }
-            &:hover{
-                cursor: pointer;
-                background-color:#F0FAF0;
-                td{
-                    &.groupBtn{
-                        .btnCustom{
-                            background: #F0FAF0;
-                            &:hover{
-                                background: #fff;    
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        
-    }
-}
-`
 
 const mapStateToProps = state => {
     return {

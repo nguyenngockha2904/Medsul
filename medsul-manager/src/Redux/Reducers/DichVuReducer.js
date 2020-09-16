@@ -63,12 +63,6 @@ const DichVuReducer = (state = initialState, { type, payload }) => {
         } case ADD_LOAIDICHVU: {
             state.mangLoaiDichVu = [...state.mangLoaiDichVu, payload];
             return { ...state };
-        } case DELETE_LOAIDICHVU: {
-            let mangLoaiDichVumoi = [...state.mangLoaiDichVu];
-            let index = mangLoaiDichVumoi.findIndex(ldv => ldv.id === payload);
-            mangLoaiDichVumoi.splice(index, 1);
-            state.mangLoaiDichVu = mangLoaiDichVumoi;
-            return { ...state };
         } case UPDATE_LOAIDICHVU: {
             let index = state.mangLoaiDichVu.findIndex(ldv => ldv.loaiDichVu_Id === payload.loaiDichVu_Id);
             let mangLoaiDichVuMoi = [...state.mangLoaiDichVu];

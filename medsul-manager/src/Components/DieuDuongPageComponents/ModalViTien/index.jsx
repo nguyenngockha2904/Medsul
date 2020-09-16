@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { createAction } from '../../../Redux/actions';
 import { HIRE_MODAL_VITIEN } from '../../../Redux/actions/type';
-import { StyledModel } from '../ModalDD';
+import { StyledModel } from '../../../Styles';
 import { connect } from 'react-redux';
 class ModalViTien extends Component {
     HandleHireModal = () => {

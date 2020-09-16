@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import ServiceItem from '../../Components/ServicePageComponents/Services_item';
 import CategoryServices from '../../Components/ServicePageComponents/categoryServices';
 import ServiceComponents from '../../Components/ServicePageComponents/ServiceComponents';
 import ModalCategoryService from '../../Components/ServicePageComponents/modalCategoryService';
 import ModalService from '../../Components/ServicePageComponents/modalService';
-import Axios from 'axios';
 import { connect } from 'react-redux';
 import { layDanhSachLoaiDichVuAction, layDanhSachDichVuAction } from '../../Redux/actions/DichVuAction';
+import { StyleGroupButtonSearch, StyleTable, StyledModel } from '../../Styles';
+
 class DichVuComponent extends Component {
     render() {
         return (
@@ -101,54 +101,8 @@ const DichVuComponentStyles = styled.div`
                         font-weight: 700;
                         color: #646D82;
                     }
-                    .btnAdd{
-                        background: #2CD889;
-                        color: #fff;
-                        font-weight: 600;
-                        letter-spacing: 1px;
-                        padding: 0.5em 1em;
-                        border: none;
-                        font-size: 0.9em;
-                        border-radius: 1em;
-                        outline: none;
-                    }
                 }
-                .table{
-                    thead{
-                        color:#CBD1D9;
-                        tr{
-                            th{
-                                border:none;
-                            }
-                        }
-                    }
-                    tbody{
-                        .tRow{
-                            cursor: pointer;
-                            color:#646D82;
-                            .groupBtn{
-                                .btnCustom{
-                                    border: none;
-                                    background: none;
-                                    cursor: pointer;
-                                    outline: none;
-                                    margin:0 0.5em;
-                                    border: none;
-                                    border-radius: 25px;
-                                    padding: 13px 13px;
-                                    transition:all 0.2s;
-                                    &:hover{
-                                        background: #d4f5ee;
-                                    }
-                                }
-                            }
-                            &:hover{
-                                background-color:#F0FAF0;
-                            }
-                        }
-                    }
-                        
-                }
+                
             }
             
         }

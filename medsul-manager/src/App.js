@@ -10,8 +10,10 @@ import KhachHangComponent from './Screens/KhachHang';
 import KhuyenMaiComponent from './Screens/KhuyenMai';
 import DonHangComponent from './Screens/DonHang';
 import DaoTaoComponent from './Screens/DaoTao';
+import TaiKhoanModal from './Components/ModalTaiKhoan';
 import { connect } from 'react-redux';
 import { LayDanhSachTinhThanh } from './Redux/actions/TinhThanhAction';
+
 class App extends Component {
   render() {
     return (
@@ -27,6 +29,7 @@ class App extends Component {
           <Route path='/donhang' component={DonHangComponent} />
           <Route path="/" component={ThongKeComponent} />
         </Switch>
+        {this.props.isModalThongTin && <TaiKhoanModal />}
       </BrowserRouter>
     );
   }
@@ -34,5 +37,9 @@ class App extends Component {
     this.props.dispatch(LayDanhSachTinhThanh());
   }
 }
-
-export default connect()(App);
+const mapStateToProps = state => {
+  return {
+    isModalThongTin: state.credentials.modalThongTinCaNhan.isShow
+  }
+}
+export default connect(mapStateToProps)(App);

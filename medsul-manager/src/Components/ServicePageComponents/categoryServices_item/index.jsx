@@ -1,37 +1,8 @@
 import React, { Component } from 'react';
 import btnEdit from '../../../img/btnEdit.svg';
-import btnDelete from '../../../img/btnDelete.svg';
 import { connect } from 'react-redux';
-import { XoaLoaiDichVu } from '../../../Redux/actions/DichVuAction';
-import swal from 'sweetalert';
 import { SHOW_MODAL_LOAIDICHVU, DROPDOWN_TABLE_DICHVU, CHECK_DATA } from '../../../Redux/actions/type';
 class CategoriesItem extends Component {
-
-    handleDeleteItem = (id) => () => {
-        // this.props.dispatch({
-        //     type: CHECK_DATA,
-        //     payload: this.props.item.loaiDichVu_Id
-        // });
-        // console.log(this.props.SoLuong ? 'Delete' : 'noDelete');
-        swal({
-            title: "Bạn Chắc Chứ?",
-            text: "Nếu xóa loại dịch vụ này thì các dịch vụ của nó sẽ bị xóa !",
-            icon: "warning",
-            buttons: true,
-            dangerMode: true,
-        })
-            .then((willDelete) => {
-                if (willDelete) {
-                    swal("Loại dịch vụ này đã được xóa", {
-                        icon: "success",
-                    });
-                    this.props.dispatch(XoaLoaiDichVu(id));
-                } else {
-                    swal("An toàn!");
-                }
-            });
-
-    }
     handleEdit = (value) => () => {
         this.props.dispatch({
             type: SHOW_MODAL_LOAIDICHVU,
@@ -46,23 +17,19 @@ class CategoriesItem extends Component {
         });
     }
     render() {
-        const { loaiDichVu_Id, maLoaiDichVu, tenLoaiDichVu } = this.props.item;
+        const { loaiDichVu_Id, maLoaiDichVu, tenLoaiDichVu, tinhTrangLoaiDichVu } = this.props.item;
         const index = this.props.index;
         return (
             <tr className="tRow" >
                 <th scope="row" onClick={this.handleDropDownTableDichVu(this.props.item)}>{index}</th>
                 <td onClick={this.handleDropDownTableDichVu(this.props.item)}>{maLoaiDichVu.toLocaleLowerCase()}</td>
                 <td onClick={this.handleDropDownTableDichVu(this.props.item)}>{tenLoaiDichVu}</td>
-                <td><div className="d-flex justify-content-center groupBtn">
+
+                <td className="d-flex justify-content-center groupBtn">
                     <button className=" btnCustom" onClick={this.handleEdit(this.props.item)}>
                         <img src={btnEdit} alt="btnEdit" />
                     </button>
-                    <button className=" btnCustom"
-                        onClick={this.handleDeleteItem(loaiDichVu_Id)}
-                    >
-                        <img src={btnDelete} alt="btnDelete" />
-                    </button>
-                </div></td>
+                </td>
             </tr >
         );
     }

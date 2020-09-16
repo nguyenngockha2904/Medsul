@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 import { createAction } from '../../Redux/actions';
 import { SHOW_MODAL_DIEUDUONG } from '../../Redux/actions/type';
 import { LayDanhSachDieuDuong } from '../../Redux/actions/DieuDuongAction';
+import { StyleGroupButtonSearch } from '../../Styles';
 class DieuDuongComponent extends Component {
     constructor(props) {
         super(props);
@@ -128,7 +129,7 @@ class DieuDuongComponent extends Component {
                             /* Tab điều dưỡng */
                             <div className="contentTab tab_DD">
                                 <p className="m-0 p-0 text-center title_tab">danh sách điều dưỡng</p>
-                                <div className="d-flex justify-content-between groupBtnSearch">
+                                <StyleGroupButtonSearch className="d-flex justify-content-between">
                                     <select className={this.state.statusDDSelect === 1 ? "selectStatus isThuViec" : (
                                         this.state.statusDDSelect === 2 ? "selectStatus isNghiViec" : (this.state.statusDDSelect === 3 ? "selectStatus isChinhThuc" : "selectStatus"))}
                                         value={this.state.statusDDSelect}
@@ -154,7 +155,7 @@ class DieuDuongComponent extends Component {
                                         </div>
                                     </form>
                                     <button className="btnAdd" onClick={this.handleShowModalDieuDuong}>Thêm</button>
-                                </div>
+                                </StyleGroupButtonSearch>
                                 <DieuDuongTable valueStatus={!!this.state.statusDDSelect ? this.state.statusDDSelect : 0} isDaoTaoVien={0} valueSearch={!!this.state.tabDD.searchMaDD ? this.state.tabDD.searchMaDD : -1} typeTable={1} />
                             </div>
 
@@ -162,7 +163,7 @@ class DieuDuongComponent extends Component {
                             :
                             <div className="contentTab tab_DT">
                                 <p className="m-0 p-0 text-center title_tab">Đào tạo viên</p>
-                                <div className="d-flex justify-content-between groupBtnSearch">
+                                <StyleGroupButtonSearch className="d-flex justify-content-between ">
                                     <select className={this.state.statusDTSelect === 1 ? "selectStatus isThuViec" : (
                                         this.state.statusDTSelect === 2 ? "selectStatus isNghiViec" : (this.state.statusDTSelect === 3 ? "selectStatus isChinhThuc" : "selectStatus"))}
                                         value={this.state.statusDTSelect}
@@ -188,14 +189,14 @@ class DieuDuongComponent extends Component {
 
                                     </form>
 
-                                </div>
+                                </StyleGroupButtonSearch>
                                 <DieuDuongTable valueStatus={!!this.state.statusDTSelect ? this.state.statusDTSelect : 0} isDaoTaoVien={1}
                                     valueSearch={!!this.state.tabDT.searchMaDT ? this.state.tabDT.searchMaDT : -1} typeTable={2}
                                 />
                                 <div className="m-4"></div>
                                 <div className="d-flex justify-content-between">
                                     <p className="m-0 p-0 text-left align-self-center title_tab">Đã đào tạo</p>
-                                    <div className="d-flex justify-content-between groupBtnSearch mr-0">
+                                    <StyleGroupButtonSearch className="d-flex justify-content-between  mr-0">
                                         <select className={this.state.statusDDSelect === 1 ? "selectStatus isThuViec" : (
                                             this.state.statusDDSelect === 2 ? "selectStatus isNghiViec" : (this.state.statusDDSelect === 3 ? "selectStatus isChinhThuc" : "selectStatus"))}
                                             value={this.state.statusDDSelect}
@@ -207,7 +208,7 @@ class DieuDuongComponent extends Component {
                                             <option value={2}>Nghỉ việc</option>
                                             <option value={3}>Chính thức</option>
                                         </select>
-                                    </div>
+                                    </StyleGroupButtonSearch>
                                 </div>
                                 <DieuDuongTable valueStatus={!!this.state.statusDDSelect ? this.state.statusDDSelect : 0} isDaoTaoVien={0} valueSearch={!!this.state.tabDD.searchMaDD ? this.state.tabDD.searchMaDD : -1} typeTable={1} />
                             </div>
@@ -225,7 +226,6 @@ class DieuDuongComponent extends Component {
         this.props.dispatch(LayDanhSachDieuDuong());
     }
 }
-
 const DieuDuongStyled = styled.div`
 
     background: #F0FAF8;
@@ -301,103 +301,6 @@ const DieuDuongStyled = styled.div`
                 font-weight: 500;
                 text-transform: uppercase;
             }
-            .groupBtnSearch{
-                margin: 1rem 0;
-                .selectStatus{
-                    border: none;
-                    padding: 0.3rem;
-                    border-radius: 5px;
-                    outline: none;
-                    letter-spacing: 0.8px;
-                    font-size: 0.8rem;
-                    font-weight: 500;
-                    color:#fff;
-                    background: #2CD889;
-                    &:hover {
-                        box-shadow: 1px 2px 4px -0.5px #80808080;
-                        color: #2CD889 ;
-                        background:#fff;
-                    }
-                    &.isThuViec{
-                        color: #fff ;
-                            background:#FFEF00;
-                        &:hover{
-                            box-shadow: 1px 2px 4px -0.5px #80808080;
-                            color:#FFEF00;
-                            background:#fff;
-                        }
-                    }
-                    &.isNghiViec{
-                        color: #fff ;
-                        background:#FF0000;
-                        &:hover{
-                            box-shadow: 1px 2px 4px -0.5px #80808080;    
-                            color:#FF0000;
-                            background:#fff;
-                        }
-                    }
-                    &.isChinhThuc{
-                        box-shadow: 1px 2px 4px -0.5px #80808080;
-                        color:#2CD889;
-                        background:#fff;
-                        &:hover{
-                            color: #fff ;
-                            background:#2CD889;    
-                        }
-                    }
-                    
-                }
-                .groupSearch{
-                    box-shadow: 1px 2px 4px -0.5px #80808080;
-                    letter-spacing: 0.8px;
-                    font-size: 0.8rem;
-                    border-radius:10px;
-                    .form-contro , .btnSearch{
-                        outline: none;
-                        border: none;
-                        font-weight: 500;
-                    }
-                    .form-contro{
-                        border-radius: 10px;
-                        padding: 0 1rem;
-                    }
-                    .btnSearch{
-                        color:#fff;
-                        background: #2CD889;
-                        padding: 0 1rem;
-                        border-top-right-radius: 10px;
-                        border-bottom-right-radius: 10px;
-                        border-radius:10px;
-                        transition: all 0.2s;
-                        &:hover{
-                            background: #fff;
-                            color: #2CD889;
-                        }
-                    }
-                }
-                .btnAdd{
-                    border-radius: 10px;
-                    border: none;
-                    padding: 0 1rem;
-                    letter-spacing: 0.8px;
-                    font-size: 0.8rem;
-                    font-weight: 500;
-                    color:#fff;
-                    background: #2CD889;
-                    outline: none;
-                    transition: all 0.2s;
-                    &:hover , &:focus{
-                        box-shadow: 1px 2px 4px -0.5px #80808080;
-                        color: #2CD889 ;
-                        background:#fff;
-                    }
-                   
-                }
-            }
-            
-
-
-
             &.tab_DD{
             }
             &.tab_DT{

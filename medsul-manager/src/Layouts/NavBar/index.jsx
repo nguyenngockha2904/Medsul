@@ -5,7 +5,8 @@ import styled from 'styled-components';
 import icon_toggle from '../../img/toggle_navIcon.svg';
 import icon_close from '../../img/closeSideIcon.svg';
 import { connect } from 'react-redux';
-import { SET_LOGIN } from '../../Redux/actions/type';
+import { SET_LOGIN, SHOW_MODAL_THONGTINCANHAN } from '../../Redux/actions/type';
+import { createAction } from '../../Redux/actions';
 class NavBar extends Component {
     state = {
         sidepanel: false,
@@ -14,6 +15,9 @@ class NavBar extends Component {
         this.setState({
             sidepanel: value,
         }, console.log(value));
+    }
+    handleShowModalThongTinCaNhan = (value) => () => {
+        this.props.dispatch(createAction(SHOW_MODAL_THONGTINCANHAN, value));
     }
     render() {
         return (
@@ -80,7 +84,7 @@ class NavBar extends Component {
                                     <div className="dropdown-menu" aria-labelledby="navbarDropdown"
 
                                     >
-                                        <Link className="dropdown-item" to="/taikhoan">TÀI KHOẢN</Link>
+                                        <button className="dropdown-item" onClick={this.handleShowModalThongTinCaNhan({})} style={{ outline: 'none' }}>TÀI KHOẢN</button>
                                         <Link className="dropdown-item" to="/caidat">CÀI ĐẶT</Link>
                                         <div className="dropdown-divider" />
                                         <Link className="dropdown-item" to='/signin'
@@ -107,7 +111,7 @@ class NavBar extends Component {
                             <NavLink activeStyle={{ color: '#2CD889' }} to="/donhang" exact className="nav-link" onClick={this.handleOpensidepanel(false)}>ĐƠN HÀNG</NavLink>
                             <NavLink activeStyle={{ color: '#2CD889' }} to="/daotao" exact className="nav-link" onClick={this.handleOpensidepanel(false)}>ĐÀO TẠO</NavLink>
                             <div className="hrtag"></div>
-                            <NavLink activeStyle={{ color: '#2CD889' }} to="/taikhoan" exact className="nav-link custom" href="#" onClick={this.handleOpensidepanel(false)}>TÀI KHOẢN</NavLink>
+                            <button className="nav-link custom" onClick={this.handleOpensidepanel(false) || this.handleShowModalThongTinCaNhan({})}>TÀI KHOẢN</button>
                             <NavLink activeStyle={{ color: '#2CD889' }} to="/caidat" exact className="nav-link custom" onClick={this.handleOpensidepanel(false)}>CÀI ĐẶT</NavLink>
                             <Link to="/signin" className="nav-link custom" onClick={() => {
                                 this.props.dispatch({
@@ -125,7 +129,7 @@ class NavBar extends Component {
 }
 const mapStateToProps = state => {
     return {
-        isLoginPage: state.isLogin
+        isLoginPage: state.credentials.isLogin
     }
 }
 

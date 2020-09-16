@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import CategoriesItem from '../categoryServices_item';
 import { connect } from 'react-redux';
 import { SHOW_MODAL_LOAIDICHVU } from '../../../Redux/actions/type';
+import { StyledModel, StyleTable, StyleGroupButtonSearch } from '../../../Styles';
 class CategoryServices extends Component {
     handleShowModal = (value) => {
         this.props.dispatch({
@@ -24,23 +25,27 @@ class CategoryServices extends Component {
     render() {
         return (
             <div className="tableTab">
-                <div className="d-flex justify-content-between headtable">
-                    <p>Loại Dịch Vụ</p>
-                    <button className="btn btn-success btnAdd" onClick={this.handleShowModal}>THÊM</button>
-                </div>
-                <table className="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">No.</th>
-                            <th scope="col">Mã Loại Dịch Vụ</th>
-                            <th scope="col">Tên Loại Dịch Vụ</th>
-                            <th scope="col">Tùy Chỉnh</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {this.renderLoaiDichVu()}
-                    </tbody>
-                </table>
+                <StyleGroupButtonSearch>
+                    <div className="d-flex justify-content-between">
+                        <p className="titleGroup">Loại Dịch Vụ</p>
+                        <button className="btnAdd" onClick={this.handleShowModal}>Thêm</button>
+                    </div>
+                </StyleGroupButtonSearch>
+                <StyleTable>
+                    <table className="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">No.</th>
+                                <th scope="col">Mã Loại Dịch Vụ</th>
+                                <th scope="col">Tên Loại Dịch Vụ</th>
+                                <th scope="col">Tùy Chỉnh</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {this.renderLoaiDichVu()}
+                        </tbody>
+                    </table>
+                </StyleTable>
             </div>
         );
     }
