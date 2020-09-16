@@ -5,10 +5,13 @@ import { StyleTable } from '../../../Styles';
 class TbDieuDuongComponent extends PureComponent {
     // valueSearch
     renderDieuDuongItem = () => {
+        let list = [];
+        this.props.typeTable === 1 ? list = this.props.listDieuDuong : (this.props.typeTable === 2 ? list = this.props.listDieuDuong : list = this.props.listDieuDuongByIdDaoTao);
+
         return this.props.isDaoTaoVien === 0 ?
             (this.props.valueStatus !== 0
                 ? (
-                    this.props.valueSearch !== -1 ? '' : this.props.listDieuDuong.filter(dd => dd.trangThai === this.props.valueStatus).map((item, index) => {
+                    this.props.valueSearch !== -1 ? '' : list.filter(dd => dd.trangThai === this.props.valueStatus).map((item, index) => {
                         return (
                             <DieuDuongItem item={item} key={index} index={+index + 1} typeTable={this.props.typeTable} />
                         )
@@ -16,13 +19,13 @@ class TbDieuDuongComponent extends PureComponent {
                 )
                 :
                 this.props.valueSearch !== -1 ?
-                    this.props.listDieuDuong.filter(dd => (dd.maDieuDuong === this.props.valueSearch)).map((item, index) => {
+                    list.filter(dd => (dd.maDieuDuong.toLowerCase() === this.props.valueSearch.toLowerCase())).map((item, index) => {
                         return (
                             <DieuDuongItem item={item} key={index} index={+index + 1}
                                 typeTable={this.props.typeTable} />
                         )
                     })
-                    : this.props.listDieuDuong.map((item, index) => {
+                    : list.map((item, index) => {
                         return (
                             <DieuDuongItem item={item} key={index} index={+index + 1}
                                 typeTable={this.props.typeTable} />
@@ -31,21 +34,21 @@ class TbDieuDuongComponent extends PureComponent {
             )
             : (this.props.valueStatus !== 0
                 ?
-                this.props.listDieuDuong.filter(dd => (dd.trangThai === this.props.valueStatus && dd.laDaoTaoVien === 1)).map((item, index) => {
+                list.filter(dd => (dd.trangThai === this.props.valueStatus && dd.laDaoTaoVien === 1)).map((item, index) => {
                     return (
                         <DieuDuongItem item={item} key={index} index={+index + 1}
                             typeTable={this.props.typeTable} />
                     )
                 })
                 : this.props.valueSearch !== -1 ?
-                    this.props.listDieuDuong.filter(dd => (dd.laDaoTaoVien === 1 && dd.maDieuDuong === this.props.valueSearch)).map((item, index) => {
+                    list.filter(dd => (dd.laDaoTaoVien === 1 && dd.maDieuDuong.toLowerCase() === this.props.valueSearch.toLowerCase())).map((item, index) => {
                         return (
                             <DieuDuongItem item={item} key={index} index={+index + 1}
                                 typeTable={this.props.typeTable} />
                         )
                     })
 
-                    : this.props.listDieuDuong.filter(dd => (dd.laDaoTaoVien === 1)).map((item, index) => {
+                    : list.filter(dd => (dd.laDaoTaoVien === 1)).map((item, index) => {
                         return (
                             <DieuDuongItem item={item} key={index} index={+index + 1}
                                 typeTable={this.props.typeTable} />
@@ -102,7 +105,8 @@ class TbDieuDuongComponent extends PureComponent {
 
 const mapStateToProps = state => {
     return {
-        listDieuDuong: state.qlDieuDuong.listDieuDuong
+        listDieuDuong: state.qlDieuDuong.listDieuDuong,
+        listDieuDuongByIdDaoTao: state.qlDieuDuong.listDieuDuongByIdDaoTao ? state.qlDieuDuong.listDieuDuongByIdDaoTao : []
     }
 }
 export default connect(mapStateToProps)(TbDieuDuongComponent);

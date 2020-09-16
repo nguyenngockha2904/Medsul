@@ -6,7 +6,7 @@ import ModalCN from '../../Components/DieuDuongPageComponents/ModalCN';
 import ModalViTien from '../../Components/DieuDuongPageComponents/ModalViTien';
 import { connect } from 'react-redux';
 import { createAction } from '../../Redux/actions';
-import { SHOW_MODAL_DIEUDUONG } from '../../Redux/actions/type';
+import { SET_DIEUDUONG_BY_DAOTAOVIEN, SHOW_MODAL_DIEUDUONG } from '../../Redux/actions/type';
 import { LayDanhSachDieuDuong } from '../../Redux/actions/DieuDuongAction';
 import { StyleGroupButtonSearch } from '../../Styles';
 class DieuDuongComponent extends Component {
@@ -36,6 +36,7 @@ class DieuDuongComponent extends Component {
         }, () => {
             console.log(this.state.isTabDD);
         });
+        this.props.dispatch(createAction(SET_DIEUDUONG_BY_DAOTAOVIEN, ''));
     }
     handleShowModalDieuDuong = () => {
         let payload = {
@@ -194,23 +195,25 @@ class DieuDuongComponent extends Component {
                                     valueSearch={!!this.state.tabDT.searchMaDT ? this.state.tabDT.searchMaDT : -1} typeTable={2}
                                 />
                                 <div className="m-4"></div>
-                                <div className="d-flex justify-content-between">
-                                    <p className="m-0 p-0 text-left align-self-center title_tab">Đã đào tạo</p>
-                                    <StyleGroupButtonSearch className="d-flex justify-content-between  mr-0">
-                                        <select className={this.state.statusDDSelect === 1 ? "selectStatus isThuViec" : (
-                                            this.state.statusDDSelect === 2 ? "selectStatus isNghiViec" : (this.state.statusDDSelect === 3 ? "selectStatus isChinhThuc" : "selectStatus"))}
-                                            value={this.state.statusDDSelect}
-                                            name="statusDDSelect"
-                                            onChange={this.handleChangeSelectNum}
-                                        >
-                                            <option value={0}>Tất cả</option>
-                                            <option value={1}>Thử việc</option>
-                                            <option value={2}>Nghỉ việc</option>
-                                            <option value={3}>Chính thức</option>
-                                        </select>
-                                    </StyleGroupButtonSearch>
+                                <div style={{ display: !!this.props.listDieuDuongByIdDaoTao ? 'block' : 'none' }}>
+                                    <div className="d-flex justify-content-between">
+                                        <p className="m-0 p-0 text-left align-self-center title_tab">Đã đào tạo</p>
+                                        <StyleGroupButtonSearch className="d-flex justify-content-between  mr-0">
+                                            <select className={this.state.statusDDSelect === 1 ? "selectStatus isThuViec" : (
+                                                this.state.statusDDSelect === 2 ? "selectStatus isNghiViec" : (this.state.statusDDSelect === 3 ? "selectStatus isChinhThuc" : "selectStatus"))}
+                                                value={this.state.statusDDSelect}
+                                                name="statusDDSelect"
+                                                onChange={this.handleChangeSelectNum}
+                                            >
+                                                <option value={0}>Tất cả</option>
+                                                <option value={1}>Thử việc</option>
+                                                <option value={2}>Nghỉ việc</option>
+                                                <option value={3}>Chính thức</option>
+                                            </select>
+                                        </StyleGroupButtonSearch>
+                                    </div>
+                                    <DieuDuongTable valueStatus={!!this.state.statusDDSelect ? this.state.statusDDSelect : 0} isDaoTaoVien={0} valueSearch={!!this.state.tabDD.searchMaDD ? this.state.tabDD.searchMaDD : -1} typeTable={3} />
                                 </div>
-                                <DieuDuongTable valueStatus={!!this.state.statusDDSelect ? this.state.statusDDSelect : 0} isDaoTaoVien={0} valueSearch={!!this.state.tabDD.searchMaDD ? this.state.tabDD.searchMaDD : -1} typeTable={1} />
                             </div>
                     }
                 </div>
@@ -314,7 +317,8 @@ const mapStateToProps = state => {
     return {
         isModalDieuDuong: state.qlDieuDuong.modalDieuDuong.isShow,
         isModalGiayPhepHanhNghe: state.qlDieuDuong.modalGiayPhepHanhNghe.isShow,
-        isModalViTien: state.qlDieuDuong.modalViTien.isShow
+        isModalViTien: state.qlDieuDuong.modalViTien.isShow,
+        listDieuDuongByIdDaoTao: state.qlDieuDuong.listDieuDuongByIdDaoTao,
     }
 }
 

@@ -14,6 +14,12 @@ class DieuDuong {
             data: value
         });
     }
+    getDieuDuongByID_DaoTao(id) {
+        return Axios({
+            method: 'GET',
+            url: `http://localhost:8080/api/dieuDuong/getDieuDUongByDaoTaoVienId/${id}`
+        })
+    }
 
 }
 

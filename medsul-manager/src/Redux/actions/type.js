@@ -30,6 +30,7 @@ export const HIRE_MODAL_GIAYPHEPHANHNGHE = 'dieuduong/HIRE_MODAL_GIAYPHEPHANHNGH
 export const SET_DATA_LISTDIEUDUONG = 'dieuduong/SET_DATA_LISTDIEUDUONG';
 export const ADD_DIEUDUONG = 'dieuduong/ADD_DIEUDUONG';
 export const UPDATE_DIEUDUONG = 'dieuduong/UPDATE_DIEUDUONG';
+export const SET_DIEUDUONG_BY_DAOTAOVIEN = 'dieuduong/SET_DIEUDUONG_BY_DAOTAOVIEN';
 
 
 /* Tỉnh thành action*/

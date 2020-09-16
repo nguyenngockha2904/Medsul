@@ -6,7 +6,8 @@ import ModalCategoryService from '../../Components/ServicePageComponents/modalCa
 import ModalService from '../../Components/ServicePageComponents/modalService';
 import { connect } from 'react-redux';
 import { layDanhSachLoaiDichVuAction, layDanhSachDichVuAction } from '../../Redux/actions/DichVuAction';
-import { StyleGroupButtonSearch, StyleTable, StyledModel } from '../../Styles';
+import { createAction } from '../../Redux/actions';
+import { DROPDOWN_TABLE_DICHVU } from '../../Redux/actions/type';
 
 class DichVuComponent extends Component {
     render() {
@@ -30,7 +31,7 @@ class DichVuComponent extends Component {
                         <CategoryServices />
 
                         {/**table Service */}
-                        <ServiceComponents />
+                        {!!this.props.dropDown_MaLDV && <ServiceComponents />}
 
                     </div>
                     {this.props.modalLoaiDV && <ModalCategoryService />}
@@ -44,6 +45,7 @@ class DichVuComponent extends Component {
     componentDidMount() {
         this.props.dispatch(layDanhSachLoaiDichVuAction());
         this.props.dispatch(layDanhSachDichVuAction());
+        this.props.dispatch(createAction(DROPDOWN_TABLE_DICHVU, ''));
     };
 }
 
@@ -112,7 +114,8 @@ const DichVuComponentStyles = styled.div`
 const mapStatetoProps = state => {
     return {
         modalLoaiDV: state.qlDichVu.modalLoaiDV.isShow,
-        modalDV: state.qlDichVu.modalDV.isShow
+        modalDV: state.qlDichVu.modalDV.isShow,
+        dropDown_MaLDV: state.qlDichVu.dropDown_MaLDV
     }
 }
 export default connect(mapStatetoProps)(DichVuComponent);
