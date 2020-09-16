@@ -5,78 +5,64 @@ import java.time.LocalDate;
 import javax.validation.constraints.NotBlank;
 
 public class DieuDuongInsertDto {
-	
-	@NotBlank(message = "vui long nhap ma dieu duong")
-	private String maDieuDuong;
 
 	@NotBlank(message = "vui long nhap ho ten dieu duong")
 	private String hoTen;
-	
+
 	@NotBlank(message = "vui long nhap gioi tinh dieu duong")
 	private String gioiTinh;
-	
+
 	private LocalDate ngaySinh;
-	
+
 	@NotBlank(message = "vui long nhap sdt dieu duong")
 	private String soDienThoai;
-	
-	@NotBlank(message = "vui long password dieu duong")
-	private String password;
-	
+
 	@NotBlank(message = "vui long nhap email dieu duong")
 	private String email;
-	
+
 	private String diaChi;
-	
+
 	private String avatar;
-	
-	@NotBlank(message = "cho biet co phai la dao tao vien hay khong ( 0-khong ; 1-co)")
-	private int laDaoTaoVien;
-	
-	@NotBlank(message = "vui long nhap trang thai dieu duong")
-	private int trangThai; 
-	
+
 	@NotBlank(message = "vui long nhap tinh thanh dieu duong")
 	private int tinhThanh_ID;
-	
-	
-	
-	/////--CMND--/////
+
+	///// --CMND--/////
+
 	@NotBlank(message = "vui long nhap so cmnd")
 	private String soCMND;
-	
+
 	private String noiCap;
-	
+
 	private String diaChiThuongTru;
-	
+
 	private String queQuan;
 
 	private LocalDate ngayCap;
-	
-	private String anhMatTruoc;
-	
-	private String anhMatSau;
-	
-	
-	////--Vi Dien Tu--////
-	
 
-	public DieuDuongInsertDto(String maDieuDuong, String hoTen, String gioiTinh, LocalDate ngaySinh, String soDienThoai,
-			String password, String email, String diaChi, String avatar, int laDaoTaoVien, int trangThai, String soCMND,
-			String noiCap, String diaChiThuongTru, String queQuan, LocalDate ngayCap, String dacDiemNhanDang,
-			String anhMatTruoc, String anhMatSau) {
+	private String anhMatTruoc;
+
+	private String anhMatSau;
+
+	public DieuDuongInsertDto() {
+	}
+
+	public DieuDuongInsertDto(@NotBlank(message = "vui long nhap ho ten dieu duong") String hoTen,
+			@NotBlank(message = "vui long nhap gioi tinh dieu duong") String gioiTinh, LocalDate ngaySinh,
+			@NotBlank(message = "vui long nhap sdt dieu duong") String soDienThoai,
+			@NotBlank(message = "vui long nhap email dieu duong") String email, String diaChi, String avatar,
+			@NotBlank(message = "vui long nhap tinh thanh dieu duong") int tinhThanh_ID,
+			@NotBlank(message = "vui long nhap so cmnd") String soCMND, String noiCap, String diaChiThuongTru,
+			String queQuan, LocalDate ngayCap, String anhMatTruoc, String anhMatSau) {
 		super();
-		this.maDieuDuong = maDieuDuong;
 		this.hoTen = hoTen;
 		this.gioiTinh = gioiTinh;
 		this.ngaySinh = ngaySinh;
 		this.soDienThoai = soDienThoai;
-		this.password = password;
 		this.email = email;
 		this.diaChi = diaChi;
 		this.avatar = avatar;
-		this.laDaoTaoVien = laDaoTaoVien;
-		this.trangThai = trangThai;
+		this.tinhThanh_ID = tinhThanh_ID;
 		this.soCMND = soCMND;
 		this.noiCap = noiCap;
 		this.diaChiThuongTru = diaChiThuongTru;
@@ -84,14 +70,6 @@ public class DieuDuongInsertDto {
 		this.ngayCap = ngayCap;
 		this.anhMatTruoc = anhMatTruoc;
 		this.anhMatSau = anhMatSau;
-	}
-
-	public String getMaDieuDuong() {
-		return maDieuDuong;
-	}
-
-	public void setMaDieuDuong(String maDieuDuong) {
-		this.maDieuDuong = maDieuDuong;
 	}
 
 	public String getHoTen() {
@@ -126,14 +104,6 @@ public class DieuDuongInsertDto {
 		this.soDienThoai = soDienThoai;
 	}
 
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
 	public String getEmail() {
 		return email;
 	}
@@ -158,20 +128,12 @@ public class DieuDuongInsertDto {
 		this.avatar = avatar;
 	}
 
-	public int getLaDaoTaoVien() {
-		return laDaoTaoVien;
+	public int getTinhThanh_ID() {
+		return tinhThanh_ID;
 	}
 
-	public void setLaDaoTaoVien(int laDaoTaoVien) {
-		this.laDaoTaoVien = laDaoTaoVien;
-	}
-
-	public int getTrangThai() {
-		return trangThai;
-	}
-
-	public void setTrangThai(int trangThai) {
-		this.trangThai = trangThai;
+	public void setTinhThanh_ID(int tinhThanh_ID) {
+		this.tinhThanh_ID = tinhThanh_ID;
 	}
 
 	public String getSoCMND() {
@@ -230,14 +192,4 @@ public class DieuDuongInsertDto {
 		this.anhMatSau = anhMatSau;
 	}
 
-	public int getTinhThanh_ID() {
-		return tinhThanh_ID;
-	}
-
-	public void setTinhThanh_ID(int tinhThanh_ID) {
-		this.tinhThanh_ID = tinhThanh_ID;
-	}
-	
-	
-	
 }

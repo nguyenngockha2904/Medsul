@@ -111,7 +111,7 @@ class ModalBC extends Component {
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor="">Thông tin chuyên ngành</label>
-                                        <textarea name="" cols="30" rows="100" height="70px" className="form-contro mul_text"
+                                        <textarea cols="30" rows="100" height="70px" className="form-contro mul_text"
                                             style={{ height: '100px' }}
                                             name="yeuCauCongViec"
                                         >

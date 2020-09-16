@@ -1,4 +1,4 @@
-import React, { Component, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import btnEdit from '../../../img/btnEdit.svg';
 import btnVitien from '../../../img/btnViTien.svg';
 import btnChuyenNganh from '../../../img/btnChuyenNganh.svg';
@@ -19,9 +19,8 @@ class DieuDuongItem extends PureComponent {
         this.props.dispatch(createAction(SHOW_MODAL_GIAYPHEPHANHNGHE, {}));
     }
     render() {
-        const { anhMatSau,
-            anhMatTruoc, avatar, diaChi, diaChiThuongTruCMND, dieuDuong_Id, email, gioiTinh, hoTen, laDaoTaoVien, maDieuDuong, nganHangLienKet, ngayCapCMND, ngaySinh, noiCap, password, queQuanCMND, soCMND, soDienThoai, soTaiKhoanNganHang, tinhThanh_ID,
-            tongTien, trangThai } = this.props.item;
+        const { gioiTinh, hoTen, laDaoTaoVien, maDieuDuong, soDienThoai, tinhThanh_ID,
+            trangThai } = this.props.item;
         const stt = this.props.index;
         return (
             <tr className="tRow">

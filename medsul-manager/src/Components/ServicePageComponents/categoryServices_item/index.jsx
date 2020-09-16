@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import btnEdit from '../../../img/btnEdit.svg';
 import { connect } from 'react-redux';
-import { SHOW_MODAL_LOAIDICHVU, DROPDOWN_TABLE_DICHVU, CHECK_DATA } from '../../../Redux/actions/type';
+import { SHOW_MODAL_LOAIDICHVU, DROPDOWN_TABLE_DICHVU } from '../../../Redux/actions/type';
 class CategoriesItem extends Component {
     handleEdit = (value) => () => {
         this.props.dispatch({

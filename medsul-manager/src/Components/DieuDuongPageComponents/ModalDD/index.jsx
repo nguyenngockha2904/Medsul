@@ -1,5 +1,4 @@
-import React, { Component, Fragment } from 'react';
-import styled from 'styled-components';
+import React, { Component } from 'react';
 import { HIRE_MODAL_DIEUDUONG } from '../../../Redux/actions/type';
 import { connect } from 'react-redux';
 import { createAction } from '../../../Redux/actions';
@@ -49,6 +48,8 @@ class ModalDieuDuong extends Component {
     handleSubmit = e => {
         e.preventDefault();
         console.log(this.state.dieuDuong);
+
+        // this.props.role === 1 ? 'Thêm điều dưỡng' : (this.props.role === 2 ? 'Thông tin chi tiết' : 'Cập nhật thông tin');
     }
     renderTinhThanh = () => {
         return this.props.listTinhThanh.map((item, index) => {
@@ -70,8 +71,7 @@ class ModalDieuDuong extends Component {
     render() {
         // console.log(this.props.item);
         console.log(this.props.role === 1 ? 'Thêm' : (this.props.role === 2 ? 'Xem' : 'Sửa'));
-        const { anhMatSau, anhMatTruoc, avatar, diaChi, diaChiThuongTruCMND, dieuDuong_Id, email, gioiTinh, hoTen, laDaoTaoVien, maDieuDuong, nganHangLienKet, ngayCapCMND, ngaySinh, noiCap, password, queQuanCMND, soCMND, soDienThoai, soTaiKhoanNganHang, tinhThanh_ID,
-            tongTien, trangThai } = this.state.dieuDuong;
+        const { anhMatSau, anhMatTruoc, avatar, diaChi, diaChiThuongTruCMND, email, gioiTinh, hoTen, laDaoTaoVien, maDieuDuong, nganHangLienKet, ngayCapCMND, ngaySinh, noiCap, password, queQuanCMND, soCMND, soDienThoai, soTaiKhoanNganHang, tinhThanh_ID, trangThai } = this.state.dieuDuong;
         return (
             <StyledModel>
                 <div className="modalService-dialog modal-lg ">
@@ -110,8 +110,7 @@ class ModalDieuDuong extends Component {
                                     />
                                 </div>
                                 {/* họ tên điều dưỡng */}
-                                <div className="form-group secondFormright"
-                                    className={this.props.role === 1 ? "form-group w-100" : "form-group secondFormright"}
+                                <div className={this.props.role === 1 ? "form-group w-100" : "form-group secondFormright"}
                                 >
                                     <label >Tên điều dưỡng: </label>
                                     <input type="text" className="form-contro"
@@ -270,8 +269,7 @@ class ModalDieuDuong extends Component {
                                     </select>
                                 </div>
                                 {/* Địa chỉ */}
-                                <div className="form-group secondFormright"
-                                    className={this.props.role === 1 ? "form-group w-100" : "form-group secondFormright"}
+                                <div className={this.props.role === 1 ? "form-group w-100" : "form-group secondFormright"}
                                 >
                                     <label >Địa chỉ: </label>
                                     <input type="text" className="form-contro"

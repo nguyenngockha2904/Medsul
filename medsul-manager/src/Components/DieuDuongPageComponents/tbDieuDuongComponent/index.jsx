@@ -1,5 +1,4 @@
-import React, { Component, Fragment, PureComponent } from 'react';
-import styled from 'styled-components';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import DieuDuongItem from '../DieuDuongItem';
 import { StyleTable } from '../../../Styles';

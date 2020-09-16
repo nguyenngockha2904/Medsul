@@ -1,7 +1,6 @@
 package com.isc.controller;
 
 import java.util.List;
-import java.util.stream.Stream;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.isc.dto.AddManagerDto;
 import com.isc.dto.AdminInformationDto;
-import com.isc.dto.UpdateAdminInformationDto;
 import com.isc.entity.Admin;
-import com.isc.entity.LoaiDichVu;
 import com.isc.repository.AdminRepository;
 
 @RestController

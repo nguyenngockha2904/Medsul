@@ -1,4 +1,4 @@
-import { FETCH_LOAIDICHVU, FETCH_DICHVU, ADD_LOAIDICHVU, SHOW_MODAL_DICHVU, HIRE_MODAL_DICHVU, SHOW_MODAL_LOAIDICHVU, HIRE_MODAL_LOAIDICHVU, DELETE_LOAIDICHVU, UPDATE_LOAIDICHVU, DROPDOWN_TABLE_DICHVU, ADD_DICHVU, DELETE_DICHVU, UPDATE_DICHVU, CHECK_DATA } from "../actions/type";
+import { FETCH_LOAIDICHVU, FETCH_DICHVU, ADD_LOAIDICHVU, SHOW_MODAL_DICHVU, HIRE_MODAL_DICHVU, SHOW_MODAL_LOAIDICHVU, HIRE_MODAL_LOAIDICHVU, UPDATE_LOAIDICHVU, DROPDOWN_TABLE_DICHVU, ADD_DICHVU, UPDATE_DICHVU, CHECK_DATA } from "../actions/type";
 
 let initialState = {
     modalLoaiDV: {
@@ -76,14 +76,6 @@ const DichVuReducer = (state = initialState, { type, payload }) => {
             return { ...state };
         } case ADD_DICHVU: {
             state.mangDichVu = [...state.mangDichVu, payload];
-            return { ...state };
-        } case DELETE_DICHVU: {
-            let index = state.mangDichVu.findIndex(dv => dv.dichVu_Id === payload);
-            if (index !== -1) {
-                let mangmoi = [...state.mangDichVu];
-                mangmoi.splice(index, 1);
-                state.mangDichVu = mangmoi;
-            }
             return { ...state };
         } case UPDATE_DICHVU: {
             let index = state.mangDichVu.findIndex(dv => dv.dichVu_Id === payload.dichVu_Id);

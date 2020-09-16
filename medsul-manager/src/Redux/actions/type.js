@@ -28,7 +28,8 @@ export const HIRE_MODAL_DIEUDUONG = 'dieuduong/HIRE_MODAL_DIEUDUONG';
 export const HIRE_MODAL_VITIEN = 'dieuduong/HIRE_MODAL_VITIEN';
 export const HIRE_MODAL_GIAYPHEPHANHNGHE = 'dieuduong/HIRE_MODAL_GIAYPHEPHANHNGHE';
 export const SET_DATA_LISTDIEUDUONG = 'dieuduong/SET_DATA_LISTDIEUDUONG';
-
+export const ADD_DIEUDUONG = 'dieuduong/ADD_DIEUDUONG';
+export const UPDATE_DIEUDUONG = 'dieuduong/UPDATE_DIEUDUONG';
 
 
 /* Tỉnh thành action*/

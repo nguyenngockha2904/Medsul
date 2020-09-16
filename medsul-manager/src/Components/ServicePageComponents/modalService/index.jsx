@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-import { HIRE_MODAL_DICHVU, ADD_DICHVU } from '../../../Redux/actions/type';
+import { HIRE_MODAL_DICHVU } from '../../../Redux/actions/type';
 import { ThemDichVuMoi, CapNhatDichVu } from '../../../Redux/actions/DichVuAction';
 import swal from 'sweetalert';
 class ModalService extends Component {
@@ -79,7 +79,7 @@ class ModalService extends Component {
         });
     }
     render() {
-        const { dichVu_Id, khongBaoGom, loaiDichVuID, maDichVu, moTaDichVu, tenDichVu, thoiGianUocTinh, yeuCauCongViec } = this.state.dichVu;
+        const { khongBaoGom, maDichVu, moTaDichVu, tenDichVu, thoiGianUocTinh, yeuCauCongViec } = this.state.dichVu;
         return (
             <StyledModal className='modalService'>
                 <div className="modalService-dialog modal-lg ">

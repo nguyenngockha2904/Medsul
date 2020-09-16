@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
 import btnEdit from '../../../img/btnEdit.svg';
-import btnDelete from '../../../img/btnDelete.svg';
 import { connect } from 'react-redux';
-import { SHOW_MODAL_DICHVU, DELETE_DICHVU } from '../../../Redux/actions/type';
-import { XoaDichVu } from '../../../Redux/actions/DichVuAction';
-import swal from 'sweetalert';
+import { SHOW_MODAL_DICHVU, } from '../../../Redux/actions/type';
 class ServiceItem extends Component {
     handleEdit = (value) => () => {
         this.props.dispatch({
@@ -33,16 +30,11 @@ class ServiceItem extends Component {
     // }
     render() {
         const {
-            dichVu_Id,
             giaDichVu,
-            khongBaoGom,
-            loaiDichVuID,
             maDichVu,
-            moTaDichVu,
             tenDichVu,
             thoiGianUocTinh,
-            tinhTrangDichVu,
-            yeuCauCongViec
+            tinhTrangDichVu
         } = this.props.item;
         const index = this.props.index;
         return (

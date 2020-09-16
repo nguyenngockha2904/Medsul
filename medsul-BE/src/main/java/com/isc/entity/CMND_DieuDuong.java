@@ -32,13 +32,13 @@ public class CMND_DieuDuong   {
 	private String noiCap;
 	
 	@Column(name="CMND_DIACHITT")
-	private String diaChi;
+	private String diaChiThuongTruCMND;
 	
 	@Column(name="CMND_QUEQUAN")
-	private String queQuan;
+	private String queQuanCMND;
 
 	@Column(name="CMND_NGAYCAP")
-	private LocalDate ngayCap;
+	private LocalDate ngayCapCMND;
 	
 	@Column(name="CMND_DACDIEMNHANDANG")
 	private String DacDiemNhanDang;

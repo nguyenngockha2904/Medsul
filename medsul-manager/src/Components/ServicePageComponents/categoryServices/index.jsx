@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import CategoriesItem from '../categoryServices_item';
 import { connect } from 'react-redux';
 import { SHOW_MODAL_LOAIDICHVU } from '../../../Redux/actions/type';
-import { StyledModel, StyleTable, StyleGroupButtonSearch } from '../../../Styles';
+import { StyleTable, StyleGroupButtonSearch } from '../../../Styles';
 class CategoryServices extends Component {
     handleShowModal = (value) => {
         this.props.dispatch({

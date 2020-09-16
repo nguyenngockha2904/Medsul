@@ -1,7 +1,5 @@
 package com.isc.entity;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,7 +23,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 //@EqualsAndHashCode(exclude = {"quytrinh_id"})
 @Table(name = "quytrinhthuchiendichvu")
-public class QuyTrinhThucHienDichVu implements Serializable {
+public class QuyTrinhThucHienDichVu  {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "QUYTRINH_ID")

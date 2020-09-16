@@ -1,15 +1,11 @@
 package com.isc.repository;
 
-import java.util.Date;
 import java.util.List;
-import java.util.stream.Stream;
 
-import org.springframework.data.jdbc.repository.query.Modifying;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import com.isc.dto.AdminInformationDto;
-import com.isc.dto.UpdateAdminInformationDto;
 import com.isc.entity.Admin;
 
 public interface AdminRepository extends JpaRepository<Admin, Integer>{

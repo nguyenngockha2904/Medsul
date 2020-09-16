@@ -40,7 +40,7 @@ class NavBar extends Component {
                         </div>
                         <div className={this.state.sidepanel ? 'sidepanel w30' : 'sidepanel w-0'}>
                             <div className="d-flex justify-content-end px-3 pt-3">
-                                <a className="closebtn" onClick={this.handleOpensidepanel(false)}><span className="closeImg"></span></a>
+                                <a onClick={this.handleOpensidepanel(false)}><span className="closeImg"></span></a>
                             </div>
                             <NavLink activeStyle={{ color: '#2CD889' }} to="/signin" exact className="nav-link custom" onClick={this.handleOpensidepanel(false)}>TÀI KHOẢN</NavLink>
                         </div>
@@ -101,7 +101,7 @@ class NavBar extends Component {
                         </div>
                         <div className={this.state.sidepanel ? 'sidepanel w30' : 'sidepanel w-0'}>
                             <div className="d-flex justify-content-end px-3 pt-3">
-                                <a className="closebtn" onClick={this.handleOpensidepanel(false)}><span className="closeImg"></span></a>
+                                <a onClick={this.handleOpensidepanel(false)}><span className="closeImg"></span></a>
                             </div>
                             <NavLink activeStyle={{ color: '#2CD889' }} to="/" exact className="nav-link" href="#" onClick={this.handleOpensidepanel(false)}>THỐNG KÊ</NavLink>
                             <NavLink activeStyle={{ color: '#2CD889' }} to="/dieuduong" exact className="nav-link" onClick={this.handleOpensidepanel(false)}>ĐIỀU DƯỠNG</NavLink>

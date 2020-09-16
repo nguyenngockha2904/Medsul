@@ -66,7 +66,7 @@ public class DieuDuong  {
 	private int trangThai;
 	
 	@Column(name = "TINHT_ID")
-	private int tinhThanh_ID;
+	private int tinhThanh_Id;
 
 	@ManyToOne()
 	@JoinColumn(name = "TINHT_ID", insertable = false, updatable = false)
@@ -77,8 +77,11 @@ public class DieuDuong  {
 	private List<ChungChi> chungChi;*/
 	
 	@OneToMany(mappedBy = "dieuDuong", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private List<CMND_DieuDuong> dmnd_dieuDuong;
+	private List<CMND_DieuDuong> cmnd_dieuDuong;
 	
 	@OneToMany(mappedBy = "dieuDuong", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<ViDienTu> viDienTu;
+	
+	@OneToMany(mappedBy = "daoTaoVien", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<GiayPhepHanhNghe> giayPhepHanhNghe;
 }

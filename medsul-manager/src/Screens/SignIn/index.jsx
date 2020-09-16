@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import bgSignin from '../../img/bgSignin.png';
 import logo from '../../img/icon.svg';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Formik, Form, Field } from 'formik';
 class SignIn extends Component {
     render() {
         return (

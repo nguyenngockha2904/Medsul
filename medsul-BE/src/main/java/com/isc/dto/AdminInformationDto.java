@@ -2,11 +2,7 @@ package com.isc.dto;
 
 import java.util.Date;
 
-import javax.persistence.Entity;
-
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-
-import lombok.Data;
 @JsonPropertyOrder({"ADMIN_USERNAME","ADMIN_EMAIL","ADMIN_GIOITINH","ADMIN_DIACHI","ADMIN_NGAYSINH","ADMIN_HOTEN","ADMIN_CMND","ADMIN_SDT","ADMIN_PASSWORD"})
 public class AdminInformationDto {
 	private String ADMIN_HOTEN;

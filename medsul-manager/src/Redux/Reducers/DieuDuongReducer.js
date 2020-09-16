@@ -1,4 +1,4 @@
-import { HIRE_MODAL_DIEUDUONG, HIRE_MODAL_GIAYPHEPHANHNGHE, HIRE_MODAL_VITIEN, SHOW_MODAL_DIEUDUONG, SHOW_MODAL_VITIEN, SHOW_MODAL_GIAYPHEPHANHNGHE, SET_DATA_LISTDIEUDUONG } from "../actions/type";
+import { HIRE_MODAL_DIEUDUONG, HIRE_MODAL_GIAYPHEPHANHNGHE, HIRE_MODAL_VITIEN, SHOW_MODAL_DIEUDUONG, SHOW_MODAL_VITIEN, SHOW_MODAL_GIAYPHEPHANHNGHE, SET_DATA_LISTDIEUDUONG, ADD_DIEUDUONG } from "../actions/type";
 
 let initialState = {
     modalDieuDuong: {
@@ -49,6 +49,9 @@ const dieuDuongReducer = (state = initialState, { type, payload }) => {
         }
         case SET_DATA_LISTDIEUDUONG: {
             state.listDieuDuong = payload;
+            return { ...state };
+        } case ADD_DIEUDUONG: {
+            state.listDieuDuong = [...state.listDieuDuong, payload];
             return { ...state };
         }
         default: {

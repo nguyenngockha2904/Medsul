@@ -10,8 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-
 import lombok.Builder;
 import lombok.Data;
 

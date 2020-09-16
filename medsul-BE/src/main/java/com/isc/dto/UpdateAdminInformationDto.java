@@ -2,8 +2,6 @@ package com.isc.dto;
 
 import java.util.Date;
 
-import lombok.Data;
-
 public class UpdateAdminInformationDto {
 	private String ADMIN_SDT;
 	private Date ADMIN_NGAYSINH;
