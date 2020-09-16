@@ -1,4 +1,4 @@
-import { FETCH_LOAIDICHVU, FETCH_DICHVU, ADD_LOAIDICHVU, SHOW_MODAL_DICHVU, HIRE_MODAL_DICHVU, SHOW_MODAL_LOAIDICHVU, HIRE_MODAL_LOAIDICHVU, UPDATE_LOAIDICHVU, DROPDOWN_TABLE_DICHVU, ADD_DICHVU, UPDATE_DICHVU, CHECK_DATA } from "../actions/type";
+import { FETCH_LOAIDICHVU, FETCH_DICHVU, ADD_LOAIDICHVU, SHOW_MODAL_DICHVU, HIRE_MODAL_DICHVU, SHOW_MODAL_LOAIDICHVU, HIRE_MODAL_LOAIDICHVU, UPDATE_LOAIDICHVU, DROPDOWN_TABLE_DICHVU, ADD_DICHVU, UPDATE_DICHVU, CHECK_DATA, SET_DATA_QUYTRINHDICHVUBYID } from "../actions/type";
 
 let initialState = {
     modalLoaiDV: {
@@ -26,7 +26,8 @@ let initialState = {
             tenDichVu: '',
             thoiGianUocTinh: 0,
             yeuCauCongViec: ''
-        }
+        },
+        listQTDV: []
     },
     mangDichVu: [
 
@@ -92,6 +93,9 @@ const DichVuReducer = (state = initialState, { type, payload }) => {
             } else {
                 state.SoLuong = true;
             }
+            return { ...state }
+        } case SET_DATA_QUYTRINHDICHVUBYID: {
+            state.modalDV.listQTDV = payload;
             return { ...state }
         }
         default: {

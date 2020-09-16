@@ -1,8 +1,8 @@
 
-import { FETCH_LOAIDICHVU, FETCH_DICHVU, ADD_LOAIDICHVU, UPDATE_LOAIDICHVU, ADD_DICHVU, DELETE_DICHVU, UPDATE_DICHVU } from './type';
+import { FETCH_LOAIDICHVU, FETCH_DICHVU, ADD_LOAIDICHVU, UPDATE_LOAIDICHVU, ADD_DICHVU, DELETE_DICHVU, UPDATE_DICHVU, SET_DATA_QUYTRINHDICHVUBYID } from './type';
 import swal from 'sweetalert';
-import { DichVu, LoaiDichVu } from '../../Services';
-
+import { DichVu, LoaiDichVu, QuyTrinhDichVu } from '../../Services';
+import { createAction } from '../../Redux/actions';
 
 /**Loại Dịch Vụ */
 
@@ -116,6 +116,17 @@ export const CapNhatDichVu = (id, value) => {
                 type: UPDATE_DICHVU,
                 payload: res.data
             })
+        }).catch(err => {
+            console.log(err);
+        })
+    }
+}
+
+export const LayDanhSachQuyTrinhDichVuByIdDichVu = id => {
+    return dispatch => {
+        QuyTrinhDichVu.getQuyTrinhDichVuByID(id).then(res => {
+            console.log(res.data);
+            dispatch(createAction(SET_DATA_QUYTRINHDICHVUBYID, res.data));
         }).catch(err => {
             console.log(err);
         })

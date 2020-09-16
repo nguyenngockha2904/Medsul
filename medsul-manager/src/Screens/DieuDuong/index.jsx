@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import { createAction } from '../../Redux/actions';
 import { SET_DIEUDUONG_BY_DAOTAOVIEN, SHOW_MODAL_DIEUDUONG } from '../../Redux/actions/type';
 import { LayDanhSachDieuDuong } from '../../Redux/actions/DieuDuongAction';
-import { StyleGroupButtonSearch } from '../../Styles';
+import { StyleGroupButtonSearch, StylePageComponent } from '../../Styles';
 class DieuDuongComponent extends Component {
     constructor(props) {
         super(props);
@@ -113,11 +113,11 @@ class DieuDuongComponent extends Component {
     }
     render() {
         return (
-            <DieuDuongStyled>
+            <StylePageComponent>
                 <p className="text-center title">Quản trị điều dưỡng và đào tạo viên</p>
 
                 <div className="text-left">
-                    <div className="btn-group">
+                    <div className="btn-group-tab">
                         <button className={this.state.isTabDD ? "btnTab tabDD ac" : "btnTab tabDD"} onClick={this.handleToogleTab(true)}>Điều Dưỡng</button>
                         <button className={this.state.isTabDD ? "btnTab tabDT " : "btnTab tabDT ac"} onClick={this.handleToogleTab(false)}>Đào Tạo</button>
                     </div>
@@ -221,7 +221,7 @@ class DieuDuongComponent extends Component {
                 {this.props.isModalDieuDuong && <ModalDieuDuong />}
                 {this.props.isModalGiayPhepHanhNghe && <ModalCN />}
                 {this.props.isModalViTien && <ModalViTien />}
-            </DieuDuongStyled>
+            </StylePageComponent>
         );
     }
 
@@ -229,90 +229,6 @@ class DieuDuongComponent extends Component {
         this.props.dispatch(LayDanhSachDieuDuong());
     }
 }
-const DieuDuongStyled = styled.div`
-
-    background: #F0FAF8;
-    min-height: 1000px;
-    height: auto;
-    padding: 1.5rem 1rem;
-    .title{
-        color: #2CD889;
-        text-transform: uppercase;
-        font-size: 1rem;
-        font-weight: 500;
-        letter-spacing: 1px;
-        margin: 0.5rem 0;
-    }
-    .btn-group{
-        .btnTab{
-            padding: 0.3rem 0.8rem;
-            border: 0;
-            font-size: 1rem;
-            font-weight: 500;
-            letter-spacing: 1.5px;
-            background: #fff;
-            outline:none;
-            position: relative;
-            transition: all 0.5s;
-            &.tabDD{
-                border-top-left-radius: 10px;
-            }
-            &.tabDT{
-                border-top-right-radius: 10px;
-            }
-            &::after{
-                content: '';
-                position: absolute;
-                height: 3px;
-                background: #2CD889;
-                width: 0;
-                bottom: 0;
-                left: 0;
-                right: 0;
-                transition: all 0.5s;
-            }
-            &:hover{
-                &::after{
-                    width:100%;
-                }
-            }
-            &:focus{
-                &::after{
-                    width:100%;
-                }
-            }
-            
-            &.ac{
-                color:#2CD889;
-                &::after{
-                    width:100%;
-                }
-            }
-        }
-    }
-    .contentTabGroup{
-        background: #fff;
-        padding: 1rem 0.8rem;
-        border-top-right-radius: 10px;
-        border-bottom-right-radius: 10px;
-        border-bottom-left-radius: 10px;
-        transition: all 1s;
-        .contentTab{
-            .title_tab{
-                letter-spacing: 0.8px;
-                font-size: 0.8rem;
-                font-weight: 500;
-                text-transform: uppercase;
-            }
-            &.tab_DD{
-            }
-            &.tab_DT{
-                
-            }
-        }
-    }
-
-`;
 const mapStateToProps = state => {
     return {
         isModalDieuDuong: state.qlDieuDuong.modalDieuDuong.isShow,

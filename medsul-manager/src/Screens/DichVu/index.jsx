@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import { layDanhSachLoaiDichVuAction, layDanhSachDichVuAction } from '../../Redux/actions/DichVuAction';
 import { createAction } from '../../Redux/actions';
 import { DROPDOWN_TABLE_DICHVU } from '../../Redux/actions/type';
-
+import { StylePageComponent } from '../../Styles';
 class DichVuComponent extends Component {
     render() {
         return (

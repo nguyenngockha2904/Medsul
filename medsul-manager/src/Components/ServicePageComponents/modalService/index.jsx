@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { HIRE_MODAL_DICHVU } from '../../../Redux/actions/type';
 import { ThemDichVuMoi, CapNhatDichVu } from '../../../Redux/actions/DichVuAction';
 import swal from 'sweetalert';
+import { StyledModel } from '../../../Styles';
 class ModalService extends Component {
     handleHireModal = () => {
         this.props.dispatch({
@@ -81,7 +81,7 @@ class ModalService extends Component {
     render() {
         const { khongBaoGom, maDichVu, moTaDichVu, tenDichVu, thoiGianUocTinh, yeuCauCongViec } = this.state.dichVu;
         return (
-            <StyledModal className='modalService'>
+            <StyledModel className='modalService'>
                 <div className="modalService-dialog modal-lg ">
                     <div className="modalService-content">
                         {/* Modal Header */}
@@ -156,6 +156,33 @@ class ModalService extends Component {
                                     </textarea>
                                 </div>
                             </div>
+                            <div className="d-flex justify-content-start form-group quyTrinh_Content">
+                                <div className="mx-1  quyTrinhItem">
+                                    <p className="m-0 p-0 mb-2 step">
+                                        bước 1
+                                        </p>
+                                    <p className="m-0 p-0  quyTrinh_Title">
+                                        cở áo bệnh nhân nữ ra
+                                        </p>
+                                </div>
+                                <div className="mx-1  quyTrinhItem">
+                                    <p className="m-0 p-0 mb-2 step">
+                                        bước 1
+                                        </p>
+                                    <p className="m-0 p-0 quyTrinh_Title">
+                                        cở áo bệnh nhân nữ ra
+                                        </p>
+                                </div>
+                                <div className="mx-1  quyTrinhItem">
+                                    <p className="m-0 p-0 mb-2 step">
+                                        bước 1
+                                        </p>
+                                    <p className="m-0 p-0 quyTrinh_Title">
+                                        cở áo bệnh nhân nữ ra
+                                        </p>
+                                </div>
+                            </div>
+
                             <div className="text-right">
                                 <button type="submit" className="btn btn-danger btnAccept" data-dismiss="modal">Xác nhận</button>
                             </div>
@@ -164,136 +191,13 @@ class ModalService extends Component {
 
                     </div>
                 </div>
-            </StyledModal>
+            </StyledModel>
         );
     }
     componentDidMount() {
         this._setValue();
     }
 }
-
-export const StyledModal = styled.div`
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1050;
-    display:block;
-    width: 100%;
-    height: 100%;
-    background: #00000047;
-    overflow: hidden;
-    overflow-y: scroll;
-    outline: 0;
-    transition: 0.5s all;
-    ::-webkit-scrollbar{
-        width: 0px; 
-    }
-.modalService-dialog{
-    margin: 5% auto;
-    max-width:600px;
-    &.modal-lg{
-        max-width: 1000px;
-    }
-    .modalService-content{
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-        pointer-events: auto;
-        background-color: #fff;
-        background-clip: padding-box;
-        border: 1px solid rgba(0, 0, 0, 0.2);
-        border-radius: 0.3rem;
-        outline: 0;
-        .modalService-header{
-            display: flex;
-            align-items: flex-start;
-            justify-content: space-between;
-            padding: 1rem 1rem;
-            border-top-left-radius: calc(0.3rem - 1px);
-            border-top-right-radius: calc(0.3rem - 1px);
-            .modalService-title{
-                    color:#646D82;
-                    text-transform:uppercase;
-                    letter-spacing: 1px;
-                    font-weight: 500;
-                    font-size: 1.6em;
-            }
-            border:none;
-        }
-        .modalService-body{
-            position: relative;
-    flex: 1 1 auto;
-    padding: 1rem;
-            border:none;
-            .form-group{
-                label{
-                    color:#646D82;
-                }
-                .form-contro{
-                    display: block;
-                    text-align:center;
-                    width: 100%;
-                    height: calc(1.5em + 0.75rem + 2px);
-                    padding: 0.375rem 0.75rem;
-                    font-size: 1rem;
-                    font-weight: 400;
-                    line-height: 1.5;
-                    color: #495057;
-                    background-color: #fff;
-                    border-radius: 0.25rem;
-                    border:none;
-                    border-bottom:1px solid #CBD1D9;
-                    outline: none;
-                    &.mul_text{
-                        border: 1px solid #CBD1D9;
-                        text-align:left;
-                    }
-                }
-                &.ac{
-                    label{
-                        font-size: 0.8em;
-                        margin: 0;
-                        color: #49505794;
-                    }
-                    .form-contro{
-                    padding: 0 0.75rem;
-                    font-size: 1em;
-                    color: #49505794;
-                    }
-                }
-                &.secondFormleft, &.secondFormright{
-                    width: 100%;
-                }
-                &.secondFormleft{
-                    margin-right:1em;
-                }
-                &.secondFormright{
-                    margin-left:1em;
-                }
-            }  
-        }
-        .btnAccept{
-            border-radius:20px;
-            background-color:#2CD889;
-            border:none;
-        }
-        .modalService-footer{
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: flex-end;
-            padding: 0.75rem;
-            border-top: 1px solid #dee2e6;
-            border-bottom-right-radius: calc(0.3rem - 1px);
-            border-bottom-left-radius: calc(0.3rem - 1px);
-            border:none;
-            
-        }
-    }
-}
-
-`;
 const mapstatetoProps = state => {
     return {
         itemService: state.qlDichVu.modalDV.value,

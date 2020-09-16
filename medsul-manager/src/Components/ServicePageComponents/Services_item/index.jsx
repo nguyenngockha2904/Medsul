@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 import btnEdit from '../../../img/btnEdit.svg';
 import { connect } from 'react-redux';
 import { SHOW_MODAL_DICHVU, } from '../../../Redux/actions/type';
+import { LayDanhSachQuyTrinhDichVuByIdDichVu } from '../../../Redux/actions/DichVuAction';
 class ServiceItem extends Component {
-    handleEdit = (value) => () => {
+    handleEdit = (id, value) => () => {
         this.props.dispatch({
             type: SHOW_MODAL_DICHVU,
             payload: value
         })
+        this.props.dispatch(LayDanhSachQuyTrinhDichVuByIdDichVu(id));
     }
     // handleDelete = (id) => () => {
     //     swal({
@@ -30,6 +32,7 @@ class ServiceItem extends Component {
     // }
     render() {
         const {
+            dichVu_Id,
             giaDichVu,
             maDichVu,
             tenDichVu,
@@ -39,16 +42,16 @@ class ServiceItem extends Component {
         const index = this.props.index;
         return (
             <tr className="tRow">
-                <th scope="row" onClick={this.handleEdit(this.props.item)}>{index}</th>
-                <td onClick={this.handleEdit(this.props.item)}>{maDichVu}</td>
-                <td className="wrap text-center" onClick={this.handleEdit(this.props.item)}>{tenDichVu}</td>
-                <td onClick={this.handleEdit(this.props.item)}>{thoiGianUocTinh} giờ</td>
-                <td onClick={this.handleEdit(this.props.item)}>{giaDichVu.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</td>
+                <th scope="row" onClick={this.handleEdit(dichVu_Id, this.props.item)}>{index}</th>
+                <td onClick={this.handleEdit(dichVu_Id, this.props.item)}>{maDichVu}</td>
+                <td className="wrap text-center" onClick={this.handleEdit(dichVu_Id, this.props.item)}>{tenDichVu}</td>
+                <td onClick={this.handleEdit(dichVu_Id, this.props.item)}>{thoiGianUocTinh} giờ</td>
+                <td onClick={this.handleEdit(dichVu_Id, this.props.item)}>{giaDichVu.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</td>
                 <td
                     className={tinhTrangDichVu === 1 ? 'tdStatus isThuViec' : (tinhTrangDichVu === 2 ? 'tdStatus isNghiViec' : 'tdStatus isChinhThuc')}
-                    onClick={this.handleEdit(this.props.item)}>{tinhTrangDichVu === 1 ? 'Kinh doanh' : (tinhTrangDichVu === 2 ? 'Ngừng kinh doanh' : 'tạm ngừng kinh doanh')}</td>
+                    onClick={this.handleEdit(dichVu_Id, this.props.item)}>{tinhTrangDichVu === 1 ? 'Kinh doanh' : (tinhTrangDichVu === 2 ? 'Ngừng kinh doanh' : 'tạm ngừng kinh doanh')}</td>
                 <td className="d-flex justify-content-center groupBtn">
-                    <button className=" btnCustom" onClick={this.handleEdit(this.props.item)}>
+                    <button className=" btnCustom" onClick={this.handleEdit(dichVu_Id, this.props.item)}>
                         <img src={btnEdit} alt="btnEdit" />
                     </button>
                 </td>

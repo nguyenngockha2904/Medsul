@@ -266,7 +266,6 @@ export const StyledModel = styled.div`
     }
 `;
 
-
 export const StyleTable = styled.div`
 .table{
     box-shadow: 1px 2px 4px -0.5px #80808080;
@@ -287,12 +286,16 @@ export const StyleTable = styled.div`
         .tRow{
             
             th{
-                text-align: center;
+                text-align: center; 
             }
             td{
                 font-size: 0.8rem;
                 white-space: nowrap;                
                 text-align: center;
+                color: rgb(0 0 0);
+                padding: 1em;
+                letter-spacing: 0.3px;
+                font-weight: 400;
                 vertical-align: initial;
                 &.wrap{
                     white-space: normal !important;
@@ -448,3 +451,93 @@ export const StyleGroupButtonSearch = styled.div`
        
     }
 `
+
+export const StylePageComponent = styled.div`
+    background: #F0FAF8;
+    min-height: 1000px;
+    height: auto;
+    padding: 1.5rem 1rem;
+    .title{
+        color: #2CD889;
+        text-transform: uppercase;
+        font-size: 1rem;
+        font-weight: 500;
+        letter-spacing: 1px;
+        margin: 0.5rem 0;
+    }
+    .btn-group-tab{
+        .btnTab{
+            padding: 0.3rem 0.8rem;
+            border: 0;
+            font-size: 1rem;
+            font-weight: 500;
+            letter-spacing: 1.5px;
+            background: #fff;
+            outline:none;
+            position: relative;
+            transition: all 0.5s;
+            &.tabDD{
+                border-top-left-radius: 10px;
+            }
+            &.tabDT{
+                border-top-right-radius: 10px;
+            }
+            &::after{
+                content: '';
+                position: absolute;
+                height: 3px;
+                background: #2CD889;
+                width: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                transition: all 0.5s;
+            }
+            &:hover{
+                &::after{
+                    width:100%;
+                }
+            }
+            &:focus{
+                &::after{
+                    width:100%;
+                }
+            }
+            
+            &.ac{
+                color:#2CD889;
+                &::after{
+                    width:100%;
+                }
+            }
+        }
+    }
+    .contentTabGroup{
+        background: #fff;
+        padding: 1rem 0.8rem;
+        border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
+        border-bottom-left-radius: 10px;
+        transition: all 1s;
+        .contentTab{
+            .title_tab{
+                letter-spacing: 0.8px;
+                font-size: 0.8rem;
+                font-weight: 500;
+                text-transform: uppercase;
+            }
+            &.tab_DD{
+            }
+            &.tab_DT{
+                
+            }
+        }
+    }
+
+`
+
+
+
+
+
+

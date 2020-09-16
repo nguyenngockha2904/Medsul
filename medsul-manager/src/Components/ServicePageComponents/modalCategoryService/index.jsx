@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyledModal } from '../modalService/index';
+import { StyledModel } from '../../../Styles';
 import { connect } from 'react-redux';
 import { ThemLoaiDichVuMoi, CapNhatLoaiDichVu } from '../../../Redux/actions/DichVuAction';
 import { HIRE_MODAL_LOAIDICHVU } from '../../../Redux/actions/type';
@@ -68,7 +68,7 @@ class ModalCategoryService extends Component {
     render() {
         const { maLoaiDichVu, tenLoaiDichVu } = this.state.LoaidichVu;
         return (
-            <StyledModal className="modalService">
+            <StyledModel className="modalService">
                 <div className=" modalService-dialog">
                     <div className="modalService-content">
                         {/* Modal Header */}
@@ -96,7 +96,7 @@ class ModalCategoryService extends Component {
                         </form>
                     </div>
                 </div>
-            </StyledModal>
+            </StyledModel>
         );
     }
     componentDidMount() {
