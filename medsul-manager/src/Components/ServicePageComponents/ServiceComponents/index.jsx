@@ -34,10 +34,8 @@ class Services extends Component {
         return (
             <div className="tableTab">
                 <StyleGroupButtonSearch>
-                    <div className="d-flex justify-content-between">
-                        <p className="titleGroup">Dịch Vụ</p>
-                        <button className="btnAdd" onClick={this.showModalService}>Thêm</button>
-                    </div>
+                    <p className="titleGroup">Dịch Vụ</p>
+                    <button className="btnAdd" onClick={this.showModalService}>Thêm</button>
                 </StyleGroupButtonSearch>
                 <StyleTable>
                     <table className="table">

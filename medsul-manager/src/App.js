@@ -10,6 +10,7 @@ import KhachHangComponent from './Screens/KhachHang';
 import KhuyenMaiComponent from './Screens/KhuyenMai';
 import DonHangComponent from './Screens/DonHang';
 import DaoTaoComponent from './Screens/DaoTao';
+import ManagerComponent from './Screens/Manager';
 import TaiKhoanModal from './Components/ModalTaiKhoan';
 import { connect } from 'react-redux';
 import { LayDanhSachTinhThanh } from './Redux/actions/TinhThanhAction';
@@ -20,13 +21,14 @@ class App extends Component {
       <BrowserRouter>
         <Header />
         <Switch>
-          <Route path="/signin" component={SignIn} />
-          <Route path="/dieuduong" component={DieuDuongComponent} />
-          <Route path="/dichvu" component={DichVuComponent} />
-          <Route path='/khachhang' component={KhachHangComponent} />
-          <Route path='/khuyenmai' component={KhuyenMaiComponent} />
-          <Route path='/daotao' component={DaoTaoComponent} />
-          <Route path='/donhang' component={DonHangComponent} />
+          <Route exact path="/signin" component={SignIn} />
+          <Route exact path="/dieuduong" component={DieuDuongComponent} />
+          <Route exact path="/dichvu" component={DichVuComponent} />
+          <Route exact path='/khachhang' component={KhachHangComponent} />
+          <Route exact path='/khuyenmai' component={KhuyenMaiComponent} />
+          <Route exact path='/daotao' component={DaoTaoComponent} />
+          <Route exact path='/donhang' component={DonHangComponent} />
+          <Route exact path='/manager' component={ManagerComponent} />
           <Route path="/" component={ThongKeComponent} />
         </Switch>
         {this.props.isModalThongTin && <TaiKhoanModal />}

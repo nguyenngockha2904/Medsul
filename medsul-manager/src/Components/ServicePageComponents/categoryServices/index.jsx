@@ -26,10 +26,8 @@ class CategoryServices extends Component {
         return (
             <div className="tableTab">
                 <StyleGroupButtonSearch>
-                    <div className="d-flex justify-content-between">
-                        <p className="titleGroup">Loại Dịch Vụ</p>
-                        <button className="btnAdd" onClick={this.handleShowModal}>Thêm</button>
-                    </div>
+                    <p className="titleGroup">Loại Dịch Vụ</p>
+                    <button className="btnAdd" onClick={this.handleShowModal}>Thêm</button>
                 </StyleGroupButtonSearch>
                 <StyleTable>
                     <table className="table">

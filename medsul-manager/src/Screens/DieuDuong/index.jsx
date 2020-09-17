@@ -164,7 +164,7 @@ class DieuDuongComponent extends Component {
                             :
                             <div className="contentTab tab_DT">
                                 <p className="m-0 p-0 text-center title_tab">Đào tạo viên</p>
-                                <StyleGroupButtonSearch className="d-flex justify-content-between ">
+                                <StyleGroupButtonSearch >
                                     <select className={this.state.statusDTSelect === 1 ? "selectStatus isThuViec" : (
                                         this.state.statusDTSelect === 2 ? "selectStatus isNghiViec" : (this.state.statusDTSelect === 3 ? "selectStatus isChinhThuc" : "selectStatus"))}
                                         value={this.state.statusDTSelect}
@@ -198,7 +198,7 @@ class DieuDuongComponent extends Component {
                                 <div style={{ display: !!this.props.listDieuDuongByIdDaoTao ? 'block' : 'none' }}>
                                     <div className="d-flex justify-content-between">
                                         <p className="m-0 p-0 text-left align-self-center title_tab">Đã đào tạo</p>
-                                        <StyleGroupButtonSearch className="d-flex justify-content-between  mr-0">
+                                        <StyleGroupButtonSearch className="mr-0">
                                             <select className={this.state.statusDDSelect === 1 ? "selectStatus isThuViec" : (
                                                 this.state.statusDDSelect === 2 ? "selectStatus isNghiViec" : (this.state.statusDDSelect === 3 ? "selectStatus isChinhThuc" : "selectStatus"))}
                                                 value={this.state.statusDDSelect}

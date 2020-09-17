@@ -353,6 +353,8 @@ export const StyleTable = styled.div`
 
 export const StyleGroupButtonSearch = styled.div`
     margin: 1rem 0;
+    display: flex;
+    justify-content: space-between;
     .selectStatus{
         border: none;
         padding: 0.3rem;
