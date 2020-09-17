@@ -14,6 +14,7 @@ import ManagerComponent from './Screens/Manager';
 import TaiKhoanModal from './Components/ModalTaiKhoan';
 import { connect } from 'react-redux';
 import { LayDanhSachTinhThanh } from './Redux/actions/TinhThanhAction';
+import { layDanhSachDichVuAction, layDanhSachLoaiDichVuAction } from './Redux/actions/DichVuAction';
 
 class App extends Component {
   render() {
@@ -37,6 +38,8 @@ class App extends Component {
   }
   componentDidMount() {
     this.props.dispatch(LayDanhSachTinhThanh());
+    this.props.dispatch(layDanhSachLoaiDichVuAction());
+    this.props.dispatch(layDanhSachDichVuAction());
   }
 }
 const mapStateToProps = state => {

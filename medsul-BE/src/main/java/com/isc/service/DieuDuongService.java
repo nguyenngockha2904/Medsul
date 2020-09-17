@@ -143,9 +143,9 @@ public class DieuDuongService {
 			cmnd.setSoCMND(dieuDuongInsertDto.getSoCMND());
 			cmnd.setDD_ID(dieuDuong.getDieuDuong_Id());
 			cmnd.setNoiCap(dieuDuongInsertDto.getNoiCap());
-			cmnd.setNgayCapCMND(dieuDuongInsertDto.getNgayCap());
+			cmnd.setNgayCapCMND(dieuDuongInsertDto.getNgayCapCMND());
 			cmnd.setDiaChiThuongTruCMND(dieuDuongInsertDto.getDiaChi());
-			cmnd.setQueQuanCMND(dieuDuongInsertDto.getQueQuan());
+			cmnd.setQueQuanCMND(dieuDuongInsertDto.getQueQuanCMND());
 			cmnd.setAnhMatTruoc(dieuDuongInsertDto.getAnhMatTruoc());
 			cmnd.setAnhMatSau(dieuDuongInsertDto.getAnhMatSau());
 			chungMinhReponsitory.save(cmnd);
@@ -181,16 +181,16 @@ public class DieuDuongService {
 			CMND_DieuDuong cmnd = chungMinhReponsitory.getCmndByDieuDuongID(dieuDuong_ID);
 			cmnd.setSoCMND(dieuDuongEditDto.getSoCMND());
 			cmnd.setNoiCap(dieuDuongEditDto.getNoiCap());
-			cmnd.setNgayCapCMND(dieuDuongEditDto.getNgayCap());
+			cmnd.setNgayCapCMND(dieuDuongEditDto.getNgayCapCMND());
 			cmnd.setDiaChiThuongTruCMND(dieuDuongEditDto.getDiaChi());
-			cmnd.setQueQuanCMND(dieuDuongEditDto.getQueQuan());
+			cmnd.setQueQuanCMND(dieuDuongEditDto.getQueQuanCMND());
 			cmnd.setAnhMatTruoc(dieuDuongEditDto.getAnhMatTruoc());
 			cmnd.setAnhMatSau(dieuDuongEditDto.getAnhMatSau());
 			chungMinhReponsitory.save(cmnd);
 
 			ViDienTu vdt = viDienTuReponsitory.GetViDienTuByDieuDuongID(dieuDuong_ID);
 			vdt.setSoTaiKhoanNganHang(dieuDuongEditDto.getSoTaiKhoanNganHang());
-			vdt.setNganHangLienKet(dieuDuongEditDto.getTenNganHang());
+			vdt.setNganHangLienKet(dieuDuongEditDto.getNganHangLienKet());
 			viDienTuReponsitory.save(vdt);
 
 			return true;

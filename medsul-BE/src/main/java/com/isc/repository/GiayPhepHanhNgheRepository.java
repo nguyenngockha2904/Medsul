@@ -11,5 +11,5 @@ import com.isc.entity.GiayPhepHanhNghe;
 @Repository
 public interface GiayPhepHanhNgheRepository extends JpaRepository<GiayPhepHanhNghe, Integer> {
 	public List<GiayPhepHanhNghe> findByDaoTaoVien(DieuDuong daoTaoVien);
-
+	public List<GiayPhepHanhNghe> findByDieuDuong(DieuDuong dieuDuong);
 }

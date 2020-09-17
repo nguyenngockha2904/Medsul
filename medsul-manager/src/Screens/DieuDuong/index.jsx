@@ -61,7 +61,7 @@ class DieuDuongComponent extends Component {
                 soCMND: '',
                 soDienThoai: '',
                 soTaiKhoanNganHang: '',
-                tinhThanh_ID: 1,
+                tinhThanh_Id: 1,
                 tongTien: '',
                 trangThai: 1,
             }, role: 1

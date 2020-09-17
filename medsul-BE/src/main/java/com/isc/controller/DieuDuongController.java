@@ -40,7 +40,7 @@ public class DieuDuongController {
 
 	@Autowired
 	private GiayPhepHanhNgheService giayPhepService;
-	
+
 	/*
 	 * // API - LAY TAT CA DANH SACH DIEU DUONG THEO FORM
 	 * 
@@ -49,47 +49,43 @@ public class DieuDuongController {
 	 * ResponseEntity<List<DieuDuongGetAllDto>>(lstGetAll, HttpStatus.OK); }
 	 */
 
-	
-	
-	
 	// API - LAY TAT CA DANH SACH DIEU DUONG THEO FORM
 	@GetMapping("")
 	public Object getAllDieuDuong() {
-		List<DieuDuongGetAllDto> lstGetAll = dieuDuongReponsitory.getAllDieuDuong();
+		List<DieuDuongGetAllDto> lstGetAll = dieuDuongReponsitory.getDieuDuongDtoGetAll();
 		if (lstGetAll.isEmpty()) {
 			return new ResponseEntity<String>("Danh Sach Trong", HttpStatus.OK);
 		}
 		return new ResponseEntity<List<DieuDuongGetAllDto>>(lstGetAll, HttpStatus.OK);
 	}
 
-	//lay danh sach dieu duong theo dao tao vien
+	// lay danh sach dieu duong theo dao tao vien
 	@GetMapping("/getDieuDUongByDaoTaoVienId/{dieuDuong_Id}")
 	public Object getDieuDUongByDaoTaoVienId(@PathVariable("dieuDuong_Id") int dieuDuong_Id) {
-		List<GiayPhepHanhNghe> lstGiayPhep=giayPhepService.GetListGiayPhepKhongTrungDieuDuongByDaoTaoVienID(dieuDuong_Id);
+		List<GiayPhepHanhNghe> lstGiayPhep = giayPhepService
+				.GetListGiayPhepKhongTrungDieuDuongByDaoTaoVienID(dieuDuong_Id);
 		List<DieuDuongGetAllDto> lstDieuDuongDTO = new ArrayList<>();
-		
-		for(int i=0;i<lstGiayPhep.size();i++) {
-			
-			DieuDuongGetAllDto dieuDuongDTO = dieuDuongService.GetAllDieuDuongByID(lstGiayPhep.get(i).getGiayPhep_DieuDuong_Id());
-					
+
+		for (int i = 0; i < lstGiayPhep.size(); i++) {
+
+			DieuDuongGetAllDto dieuDuongDTO = dieuDuongService
+					.GetAllDieuDuongByID(lstGiayPhep.get(i).getGiayPhep_DieuDuong_Id());
+
 			lstDieuDuongDTO.add(dieuDuongDTO);
 		}
 
 		return new ResponseEntity<List<DieuDuongGetAllDto>>(lstDieuDuongDTO, HttpStatus.OK);
 	}
-	
+
 	// API - LAY TAT CA DANH SACH DIEU DUONG THEO FORM
 	@GetMapping("/dieuDUong_ID/{dieuDuong_Id}")
 	public Object getDieuDuongById(int dieuDuong_Id) {
-		DieuDuongGetAllDto dieuDuong = dieuDuongReponsitory.GetDieuDuongById(dieuDuong_Id);
+		DieuDuongGetAllDto dieuDuong = dieuDuongReponsitory.GetDieuDuongDtoGetAllById(dieuDuong_Id);
 		if (dieuDuong == null) {
 			return new ResponseEntity<String>("[NULL] , Khong Tim Thay", HttpStatus.OK);
 		}
 		return new ResponseEntity<DieuDuongGetAllDto>(dieuDuong, HttpStatus.OK);
 	}
-
-	
-	
 
 	// API - LAY DANH SACH DIEU DUONG THEO LOAI MA DIEU DUONG
 	@GetMapping("/maDieuDuong/{maDieuDuong}")
@@ -98,9 +94,6 @@ public class DieuDuongController {
 		return new ResponseEntity<DieuDuong>(dieuDuong, HttpStatus.OK);
 	}
 
-	
-	
-	
 	// API - THEM MOI DIEU DUONG
 	@PostMapping("")
 	public Object AddNewDieuDuong(@RequestBody DieuDuongInsertDto dieuDuongInsertDto) {
@@ -121,14 +114,14 @@ public class DieuDuongController {
 		}
 
 		if (dieuDuongService.AddNewDieuDuong(dieuDuongInsertDto)) {
-			return new ResponseEntity<DieuDuongInsertDto>(dieuDuongInsertDto, HttpStatus.CREATED);
+			
+			// tim dieu duong vua moi them de tra ve 
+			DieuDuongGetAllDto entity = dieuDuongReponsitory.GetDieuDuongDtoGetAllByEmail(dieuDuongInsertDto.getEmail());
+			return new ResponseEntity<DieuDuongGetAllDto>(entity, HttpStatus.OK);
 		}
 		return new ResponseEntity<String>("Insert Failed, Loi Khong Xac Dinh...", HttpStatus.BAD_REQUEST);
 	}
 
-	
-	
-	
 	// API - CAP NHAT THONG TIN(FORM) DIEU DUONG
 	@PutMapping("/{dieuDuong_ID}")
 	public Object UpdateDieuDuong(@PathVariable("dieuDuong_ID") int dieuDuong_ID,
@@ -156,7 +149,10 @@ public class DieuDuongController {
 				// neu email va cmnd dieu trung => UPDATE
 				System.out.println("da trung cmnd");
 				if (dieuDuongService.UpdateDieuDuong(dieuDuong_ID, dieuDuongEditDto)) {
-					return new ResponseEntity<DieuDuongEditDto>(dieuDuongEditDto, HttpStatus.OK);
+					
+					//tim dieu duong vua update tra ve
+					DieuDuongGetAllDto entity = dieuDuongReponsitory.GetDieuDuongDtoGetAllById(dieuDuong_ID);
+					return new ResponseEntity<DieuDuongGetAllDto>(entity, HttpStatus.OK);
 				}
 			} else {
 				// cmnd cap nhat khac voi cmnd co san => check cmnd
@@ -165,16 +161,17 @@ public class DieuDuongController {
 				}
 			}
 		} else {
-			// cmnd cap nhat khac voi cmnd co san => check cmnd
+			// email cap nhat khac voi email co san => check email
 			if (dieuDuongReponsitory.GetDieuDuongByEmail(dieuDuongEditDto.getEmail()) != null) {
 				return new ResponseEntity<String>("Email Dieu Duong Da Ton Tai", HttpStatus.BAD_REQUEST);
 			}
 		}
 
 		if (dieuDuongService.UpdateDieuDuong(dieuDuong_ID, dieuDuongEditDto)) {
-			return new ResponseEntity<DieuDuongEditDto>(dieuDuongEditDto, HttpStatus.OK);
+			//tim dieu duong vua update tra ve
+			DieuDuongGetAllDto entity = dieuDuongReponsitory.GetDieuDuongDtoGetAllById(dieuDuong_ID);
+			return new ResponseEntity<DieuDuongGetAllDto>(entity, HttpStatus.OK);
 		}
-		return new ResponseEntity<String>("Cap Nhat That Bai, Loi Khong Xac Dinh..." + dieuDuong_ID,
-				HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<String>("Cap Nhat That Bai, Loi Khong Xac Dinh..." + dieuDuong_ID, HttpStatus.BAD_REQUEST);
 	}
 }

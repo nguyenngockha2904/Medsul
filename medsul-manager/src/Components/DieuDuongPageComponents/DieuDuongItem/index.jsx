@@ -9,7 +9,7 @@ import { SHOW_MODAL_DIEUDUONG, SHOW_MODAL_GIAYPHEPHANHNGHE, SHOW_MODAL_REPASSWOR
 import { layListDieuDuongByIdDaoTao } from '../../../Redux/actions/DieuDuongAction';
 class DieuDuongItem extends PureComponent {
     handleOpenModalViTien = () => {
-        this.props.dispatch(createAction(SHOW_MODAL_VITIEN, {}));
+        this.props.dispatch(createAction(SHOW_MODAL_VITIEN, this.props.item));
     }
     handleOpenModalDD = (value) => () => {
         this.props.dispatch(createAction(SHOW_MODAL_DIEUDUONG, value));
@@ -56,7 +56,7 @@ class DieuDuongItem extends PureComponent {
                     <button className="btnCustom" onClick={this.handleOpenModalGPHN}>
                         <img src={btnChuyenNganh} alt="btnChuyenNganh" />
                     </button>
-                    <button className="btnCustom" onClick={this.handleOpenModalPassword({})}>
+                    <button className="btnCustom" onClick={this.handleOpenModalPassword({ value: this.props.item, type: 1 })}>
                         <img src={btnRePass} alt="btnRePass" />
                     </button>
                 </td>

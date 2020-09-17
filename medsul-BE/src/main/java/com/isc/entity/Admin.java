@@ -48,11 +48,11 @@ public class Admin {
 	
 	private String ADMIN_AVATAR;
 	
-	private String ADMIN_TINHTRANG;
+	private int ADMIN_TINHTRANG;
 	
 	private String ADMIN_SDT;
 	
-	private String ADMIN_CHUCVU;
+	private int ADMIN_CHUCVU;
 	
 	private Date ADMIN_NGAYSINH;
 	public Admin() {
@@ -62,7 +62,7 @@ public class Admin {
 	public Admin(int aDMIN_ID, String aDMIN_HOTEN, String aDMIN_EMAIL, String aDMIN_GIOITINH,
 			String aDMIN_USERNAME, String aDMIN_PASSWORD, String aDMIN_DIACHI, String aDMIN_CMND,
 			Date aDMIN_CMNDNGAYCAP, String aDMIN_CMNDNOICAP, String aDMIN_CMNDMATTRUOC, String aDMIN_CMNDMATSAU,
-			String aDMIN_AVATAR, String aDMIN_TINHTRANG, String aDMIN_SDT, String aDMIN_CHUCVU,Date aDMIN_NGAYSINH) {
+			String aDMIN_AVATAR, int aDMIN_TINHTRANG, String aDMIN_SDT, int aDMIN_CHUCVU,Date aDMIN_NGAYSINH) {
 		super();
 		ADMIN_ID = aDMIN_ID;
 		ADMIN_HOTEN = aDMIN_HOTEN;

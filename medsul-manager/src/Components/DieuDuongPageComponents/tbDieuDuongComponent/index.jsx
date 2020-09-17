@@ -57,8 +57,8 @@ class TbDieuDuongComponent extends PureComponent {
 
     }
     render() {
-        console.log("valueStatus: " + this.props.valueStatus);
-        console.log("isDaoTaoVien: " + this.props.isDaoTaoVien);
+        // console.log("valueStatus: " + this.props.valueStatus);
+        // console.log("isDaoTaoVien: " + this.props.isDaoTaoVien);
         return (
             <StyleTable>
                 <table className="table">

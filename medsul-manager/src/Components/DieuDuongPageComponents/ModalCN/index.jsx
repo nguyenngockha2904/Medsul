@@ -5,9 +5,20 @@ import btnEdit from '../../../img/btnEdit.svg';
 import { connect } from 'react-redux';
 import { createAction } from '../../../Redux/actions';
 import { HIRE_MODAL_GIAYPHEPHANHNGHE } from '../../../Redux/actions/type';
+import { TinhThanh } from '../../../Services';
 class ModalBC extends Component {
     state = {
-        isDetail: false
+        isDetail: false,
+        DTV: {
+            maDTV: this.props.ListLVD[0].maDieuDuong,
+            nameDTV: this.props.ListDTV[0].hoTen,
+        },
+        LDV: {
+            maLDV: this.props.ListLVD[0].loaiDichVu_Id,
+            nameLDV: this.props.ListLVD[0].tenLoaiDichVu,
+        },
+        listDV: []
+
     }
     HandleHireModal = () => {
         this.props.dispatch(createAction(HIRE_MODAL_GIAYPHEPHANHNGHE, false));
@@ -17,6 +28,57 @@ class ModalBC extends Component {
             isDetail: value
         })
     }
+    renderMaDTV = () => {
+        return this.props.ListDTV.map((item, index) => {
+            return (
+                <option value={item.dieuDuong_Id} key={index}>{item.maDieuDuong}</option>
+            )
+        })
+    }
+    renderLDV = () => {
+        return this.props.ListLVD.map((item, index) => {
+            return (
+                <option value={item.loaiDichVu_Id} key={index}>{item.tenLoaiDichVu}</option>
+            )
+        })
+    }
+    renderDVbyLDV = () => {
+        return this.state.listDV.map((item, index) => {
+            return (
+                <option value={item.dichVu_Id} key={index}>{item.tenDichVu}</option>
+            )
+        })
+    }
+
+
+
+    handleChangeMDTV = (e) => {
+        this.setState({
+            DTV: { ...this.state.DTV, [e.target.name]: parseInt(e.target.value) }
+        }, () => {
+            let index = this.props.ListDTV.findIndex(dtv => dtv.dieuDuong_Id === this.state.DTV.maDTV);
+            if (index !== -1) {
+                this.setState({
+                    DTV: { ...this.state.DTV, nameDTV: this.props.ListDTV[index].hoTen }
+                })
+            }
+
+        })
+    }
+    handleChangeLDV = e => {
+        this.setState({
+            LDV: { ...this.state.LDV, [e.target.name]: parseInt(e.target.value) }
+        }, () => {
+            let listDvByIdLdv = this.props.ListDV.filter(dv => dv.loaiDichVuID === this.state.LDV.maLDV);
+            this.setState({
+                listDV: listDvByIdLdv
+            })
+        })
+    }
+
+
+
+
     render() {
         return (
             <StyledModel>
@@ -86,28 +148,44 @@ class ModalBC extends Component {
                                     </div>
                                     <div className="titleGroup">Thông tin chi tiết giấy phép hành nghề :</div>
                                     <div className="d-flex justify-content-between">
-                                        <div className="form-group secondFormleft ac">
-                                            <label >Mã điều dưỡng: </label>
-                                            <input type="text" className="form-contro"
-                                                name="maDieuDuong"
-                                            />
-                                        </div>
-                                        <div className="form-group secondFormright">
+                                        <div className="form-group secondFormleft width3">
                                             <label >Mã đào tạo viên: </label>
-                                            <select className="form-contro">
-                                                <option>MDD0002</option>
-                                                <option>NNK0001</option>
-                                                <option>NNK0004</option>
-                                                <option>MDD0002</option>
+                                            <select className="form-contro"
+                                                onChange={this.handleChangeMDTV}
+                                                name='maDTV'
+                                                value={this.state.DTV.maDTV}
+                                            >
+                                                {this.renderMaDTV()}
 
                                             </select>
+
+                                        </div>
+                                        <div className="form-group secondFormright ac">
+                                            <label >Tên Đào tạo viên: </label>
+                                            <input type="text" className="form-contro"
+                                                name="tenDaoTao"
+                                                value={this.state.DTV.nameDTV}
+                                                disabled={true}
+                                            />
                                         </div>
                                     </div>
-                                    <div className="form-group">
-                                        <label >Tên chuyên ngành: </label>
-                                        <input type="text" className="form-contro"
-                                            name="tenDieuDuong"
-                                        />
+                                    <div className="d-flex justify-content-between">
+                                        <div className="form-group secondFormleft">
+                                            <label >Loại Dịch Vụ: </label>
+                                            <select className="form-contro"
+                                                name='maLDV'
+                                                onChange={this.handleChangeLDV}
+                                                value={this.state.LDV.maLDV}
+                                            >
+                                                {this.renderLDV()}
+                                            </select>
+                                        </div>
+                                        <div className="form-group secondFormright">
+                                            <label >Dịch Vụ: </label>
+                                            <select className="form-contro">
+                                                {this.renderDVbyLDV()}
+                                            </select>
+                                        </div>
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor="">Thông tin chuyên ngành</label>
@@ -157,6 +235,18 @@ class ModalBC extends Component {
             </StyledModel>
         );
     }
-}
 
-export default connect()(ModalBC);
+    componentDidMount() {
+        let listDvByIdLdv = this.props.ListDV.filter(dv => dv.loaiDichVuID === this.state.LDV.maLDV);
+        this.setState({
+            listDV: listDvByIdLdv
+        })
+    }
+}
+const mapStateToProps = state => ({
+    ListDTV: state.qlDieuDuong.listDieuDuong.filter(dt => dt.laDaoTaoVien === 1),
+    ListLVD: state.qlDichVu.mangLoaiDichVu,
+    ListDV: state.qlDichVu.mangDichVu
+
+})
+export default connect(mapStateToProps)(ModalBC);

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.isc.entity.CMND_DieuDuong;
 
 @Repository
-public interface ChungMinhReponsitory extends JpaRepository<CMND_DieuDuong, String> {
+public interface ChungMinhReponsitory extends JpaRepository<CMND_DieuDuong, Integer> {
 
 	@Query("SELECT cmnd FROM CMND_DieuDuong cmnd WHERE cmnd.soCMND = :soCMND")
 	CMND_DieuDuong getCmndBySoCmnd(@Param("soCMND") String soCMND);

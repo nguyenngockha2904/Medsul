@@ -10,6 +10,8 @@ class ModalViTien extends Component {
 
     state = {
         isHistory: true,
+        monney: 0,
+        item: {},
     }
     toogleTabHistory = (value) => () => {
         this.setState({
@@ -17,8 +19,15 @@ class ModalViTien extends Component {
         });
     }
 
-
+    _setValue = () => {
+        this.setState({
+            item: this.props.item,
+            monney: this.props.item.tongTien,
+        })
+    }
     render() {
+        // console.log(this.props.item);
+        const { monney } = this.state;
         return (
             <StyledModel>
                 <div className=" modalService-dialog">
@@ -38,7 +47,7 @@ class ModalViTien extends Component {
                         {/* Modal body */}
                         <div className="d-flex justify-content-between  TongTien_Title">
                             <p className="m-0 p-0 subtitle">Số tiền tổng: </p>
-                            <p className="m-0 p-0  price">690.000<span className="vnd">Vnd</span></p>
+                            <p className="m-0 p-0  price">{monney.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')}<span className="vnd">Vnd</span></p>
                         </div>
                         {this.state.isHistory
                             ?
@@ -96,6 +105,12 @@ class ModalViTien extends Component {
             </StyledModel>
         );
     }
-}
 
-export default connect()(ModalViTien);
+    componentDidMount() {
+        this._setValue();
+    }
+}
+const mapStateToProps = state => ({
+    item: state.qlDieuDuong.modalViTien.value
+})
+export default connect(mapStateToProps)(ModalViTien);

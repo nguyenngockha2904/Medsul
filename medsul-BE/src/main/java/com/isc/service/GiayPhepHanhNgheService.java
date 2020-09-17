@@ -25,7 +25,13 @@ public class GiayPhepHanhNgheService {
 		return giayPhepRepo.findByDaoTaoVien(dieuDuong);
 
 	}
+	
+	public List<GiayPhepHanhNghe> GetListGiayPhepByDieuDuongID(int dieuDuong_Id) {
+		DieuDuong dieuDuong = dieuDuongReponsitory.GetDieuDuongByID(dieuDuong_Id);
+		// return new ResponseEntity<DieuDuong>(dieuDuong2, HttpStatus.OK);
+		return giayPhepRepo.findByDieuDuong(dieuDuong);
 
+	}
 	public List<GiayPhepHanhNghe> GetListGiayPhepKhongTrungDieuDuongByDaoTaoVienID(int dieuDuong_Id) {
 		DieuDuong dieuDuong = dieuDuongReponsitory.GetDieuDuongByID(dieuDuong_Id);
 

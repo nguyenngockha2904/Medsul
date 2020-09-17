@@ -10,7 +10,7 @@ import { createAction } from '../../Redux/actions';
 export const layDanhSachLoaiDichVuAction = () => {
     return dispatch => {
         LoaiDichVu.fetchLoaiDichVu().then(res => {
-            console.log(res.data);
+            // console.log(res.data);
             dispatch({
                 type: FETCH_LOAIDICHVU,
                 payload: res.data
@@ -24,7 +24,7 @@ export const layDanhSachLoaiDichVuAction = () => {
 export const ThemLoaiDichVuMoi = (value) => {
     return dispatch => {
         LoaiDichVu.addLoaiDichVu(value).then(res => {
-            console.log('Xóa Thành công');
+            // console.log('Xóa Thành công');
             dispatch({
                 type: ADD_LOAIDICHVU,
                 payload: res.data
@@ -43,7 +43,7 @@ export const ThemLoaiDichVuMoi = (value) => {
 export const CapNhatLoaiDichVu = (id, value) => {
     return dispatch => {
         LoaiDichVu.updateLoaiDichVu(id, value).then(res => {
-            console.log(res.data);
+            // console.log(res.data);
             dispatch({
                 type: UPDATE_LOAIDICHVU,
                 payload: res.data
@@ -61,7 +61,7 @@ export const CapNhatLoaiDichVu = (id, value) => {
 export const layDanhSachDichVuAction = () => {
     return dispatch => {
         DichVu.fetchDichVu().then(res => {
-            console.log(res.data);
+            // console.log(res.data);
             dispatch({
                 type: FETCH_DICHVU,
                 payload: res.data
@@ -75,7 +75,7 @@ export const layDanhSachDichVuAction = () => {
 export const ThemDichVuMoi = (value) => {
     return dispatch => {
         DichVu.addDichVu(value).then(res => {
-            console.log('value:', value);
+            // console.log('value:', value);
             dispatch({
                 type: ADD_DICHVU,
                 payload: res.data
@@ -86,7 +86,7 @@ export const ThemDichVuMoi = (value) => {
                 icon: "success",
                 button: "Ok!",
             });
-            console.log('res.data:', res.data);
+            // console.log('res.data:', res.data);
         }).catch(err => {
             console.log(err);
         })
@@ -96,7 +96,7 @@ export const ThemDichVuMoi = (value) => {
 export const XoaDichVu = (id) => {
     return dispatch => {
         DichVu.deleleDichVu(id).then(res => {
-            console.log(res.data);
+            // console.log(res.data);
             dispatch({
                 type: DELETE_DICHVU,
                 payload: id
@@ -111,7 +111,7 @@ export const XoaDichVu = (id) => {
 export const CapNhatDichVu = (id, value) => {
     return dispatch => {
         DichVu.updateDichVu(id, value).then(res => {
-            console.log(res.data);
+            // console.log(res.data);
             dispatch({
                 type: UPDATE_DICHVU,
                 payload: res.data
@@ -125,7 +125,7 @@ export const CapNhatDichVu = (id, value) => {
 export const LayDanhSachQuyTrinhDichVuByIdDichVu = id => {
     return dispatch => {
         QuyTrinhDichVu.getQuyTrinhDichVuByID(id).then(res => {
-            console.log(res.data);
+            // console.log(res.data);
             dispatch(createAction(SET_DATA_QUYTRINHDICHVUBYID, res.data));
         }).catch(err => {
             console.log(err);

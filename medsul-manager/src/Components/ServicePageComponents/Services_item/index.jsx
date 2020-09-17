@@ -12,23 +12,23 @@ class ServiceItem extends Component {
         this.props.dispatch(LayDanhSachQuyTrinhDichVuByIdDichVu(id));
     }
     // handleDelete = (id) => () => {
-    //     swal({
-    //         title: "Bạn Chắc Chứ?",
-    //         text: "Nếu dịch vụ này sẽ không được khôi phục lại!",
-    //         icon: "warning",
-    //         buttons: true,
-    //         dangerMode: true,
-    //     })
-    //         .then((willDelete) => {
-    //             if (willDelete) {
-    //                 swal("dịch vụ này đã được xóa", {
-    //                     icon: "success",
-    //                 });
-    //                 this.props.dispatch(XoaDichVu(id));
-    //             } else {
-    //                 swal("An toàn!");
-    //             }
-    //         });
+    // swal({
+    //     title: "Bạn Chắc Chứ?",
+    //     text: "Nếu dịch vụ này sẽ không được khôi phục lại!",
+    //     icon: "warning",
+    //     buttons: true,
+    //     dangerMode: true,
+    // })
+    //     .then((willDelete) => {
+    //         if (willDelete) {
+    //             swal("dịch vụ này đã được xóa", {
+    //                 icon: "success",
+    //             });
+    //             this.props.dispatch(XoaDichVu(id));
+    //         } else {
+    //             swal("An toàn!");
+    //         }
+    //     });
     // }
     render() {
         const {

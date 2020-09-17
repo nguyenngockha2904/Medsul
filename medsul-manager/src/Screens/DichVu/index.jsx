@@ -42,8 +42,6 @@ class DichVuComponent extends Component {
     }
 
     componentDidMount() {
-        this.props.dispatch(layDanhSachLoaiDichVuAction());
-        this.props.dispatch(layDanhSachDichVuAction());
         this.props.dispatch(createAction(DROPDOWN_TABLE_DICHVU, ''));
     };
 }

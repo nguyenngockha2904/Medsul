@@ -3,6 +3,8 @@ import { HIRE_MODAL_DIEUDUONG } from '../../../Redux/actions/type';
 import { connect } from 'react-redux';
 import { createAction } from '../../../Redux/actions';
 import { StyledModel } from '../../../Styles/index';
+import { capNhapDieuDuong, themDieuDuong } from '../../../Redux/actions/DieuDuongAction';
+import swal from 'sweetalert';
 class ModalDieuDuong extends Component {
     HandleHireModal = () => {
         this.props.dispatch(createAction(HIRE_MODAL_DIEUDUONG, false));
@@ -10,29 +12,7 @@ class ModalDieuDuong extends Component {
 
     state = {
         dieuDuong: {
-            anhMatSau: '',
-            anhMatTruoc: '',
-            avatar: '',
-            diaChi: '',
-            diaChiThuongTruCMND: '',
-            dieuDuong_Id: '',
-            email: '',
-            gioiTinh: 'Nam',
-            hoTen: '',
-            laDaoTaoVien: 0,
-            maDieuDuong: '',
-            nganHangLienKet: '',
-            ngayCapCMND: '',
-            ngaySinh: '',
-            noiCap: '',
-            password: '',
-            queQuanCMND: '',
-            soCMND: '',
-            soDienThoai: '',
-            soTaiKhoanNganHang: '',
-            tinhThanh_ID: 1,
-            tongTien: '',
-            trangThai: 1,
+
         }
     }
     handleChange = e => {
@@ -47,9 +27,41 @@ class ModalDieuDuong extends Component {
     }
     handleSubmit = e => {
         e.preventDefault();
-        console.log(this.state.dieuDuong);
+        const {
+            anhMatSau, anhMatTruoc, avatar, diaChi, diaChiThuongTruCMND,
+            email, gioiTinh, hoTen, ngayCapCMND, ngaySinh, noiCap, queQuanCMND,
+            soCMND, soDienThoai, tinhThanh_Id, laDaoTaoVien, nganHangLienKet, password, soTaiKhoanNganHang, trangThai, dieuDuong_Id
+        } = this.state.dieuDuong;
 
-        // this.props.role === 1 ? 'Thêm điều dưỡng' : (this.props.role === 2 ? 'Thông tin chi tiết' : 'Cập nhật thông tin');
+        let newitem = { anhMatSau: anhMatSau, anhMatTruoc: anhMatTruoc, avatar: avatar, diaChi: diaChi, diaChiThuongTruCMND: diaChiThuongTruCMND, email: email, gioiTinh: gioiTinh, hoTen: hoTen, ngayCapCMND: ngayCapCMND, ngaySinh: ngaySinh, noiCap: noiCap, queQuanCMND: queQuanCMND, soCMND: soCMND, soDienThoai: soDienThoai, tinhThanh_ID: tinhThanh_Id };
+        let update = {
+            ...newitem, laDaoTaoVien: laDaoTaoVien,
+            nganHangLienKet: nganHangLienKet,
+            password: password,
+            soTaiKhoanNganHang: soTaiKhoanNganHang,
+            trangThai: trangThai
+        }
+        if (this.props.role === 1) {
+            this.props.dispatch(themDieuDuong(newitem));
+        } else if (this.props.role === 3) {
+            swal({
+                title: "Bạn Chắc Chứ?",
+                text: "Nếu đồng ý dữ liệu này sẽ thay đổi!",
+                icon: "info",
+                buttons: true,
+                dangerMode: true,
+            }).then((willDelete) => {
+                if (willDelete) {
+                    swal("Dữ liệu đã được cập nhật!", {
+                        icon: "success",
+                    });
+                    this.props.dispatch(capNhapDieuDuong(dieuDuong_Id, update));
+                } else {
+                    swal("Dữ liệu được giữ nguyên!");
+                    this.HandleHireModal();
+                }
+            });
+        }
     }
     renderTinhThanh = () => {
         return this.props.listTinhThanh.map((item, index) => {
@@ -62,16 +74,14 @@ class ModalDieuDuong extends Component {
 
     }
     _SetValue = () => {
+        // console.log("this props:  ", this.props.item);
         this.setState({
             dieuDuong: this.props.item
-        }, () => {
-            console.log(this.state.dieuDuong);
-        })
+        });
     }
     render() {
-        // console.log(this.props.item);
-        console.log(this.props.role === 1 ? 'Thêm' : (this.props.role === 2 ? 'Xem' : 'Sửa'));
-        const { anhMatSau, anhMatTruoc, avatar, diaChi, diaChiThuongTruCMND, email, gioiTinh, hoTen, laDaoTaoVien, maDieuDuong, nganHangLienKet, ngayCapCMND, ngaySinh, noiCap, password, queQuanCMND, soCMND, soDienThoai, soTaiKhoanNganHang, tinhThanh_ID, trangThai } = this.state.dieuDuong;
+        // console.log(this.props.role === 1 ? 'Thêm' : (this.props.role === 2 ? 'Xem' : 'Sửa'));
+        const { anhMatSau, anhMatTruoc, avatar, diaChi, diaChiThuongTruCMND, email, gioiTinh, hoTen, laDaoTaoVien, maDieuDuong, nganHangLienKet, ngayCapCMND, ngaySinh, noiCap, queQuanCMND, soCMND, soDienThoai, soTaiKhoanNganHang, tinhThanh_Id, trangThai } = this.state.dieuDuong;
         return (
             <StyledModel>
                 <div className="modalService-dialog modal-lg ">
@@ -132,7 +142,7 @@ class ModalDieuDuong extends Component {
                                     <label>Giới tính: </label>
                                     <div className="form-contro d-flex justify-content-end">
                                         <p className="mr-2">
-                                            <input className="radGen" type="radio" name="gioiTinh" defaultChecked={gioiTinh === 'Nam' ? true : false}
+                                            <input className="radGen" type="radio" name="gioiTinh" checked={gioiTinh === 'Nam' ? true : false}
                                                 value="Nam" onChange={this.handleChange}
                                                 disabled={
                                                     this.props.role === 1 ? false : (this.props.role === 2 ? true : false)
@@ -142,7 +152,8 @@ class ModalDieuDuong extends Component {
                                         <p className="mx-4"></p>
                                         <p>
                                             <input className="radGen" type="radio"
-                                                defaultChecked={gioiTinh === 'Nam' ? false : true} name="gioiTinh" value="Nữ" onChange={this.handleChange}
+                                                checked={gioiTinh !== 'Nam' ? true : false}
+                                                name="gioiTinh" value="Nữ" onChange={this.handleChange}
                                                 disabled={
                                                     this.props.role === 1 ? false : (this.props.role === 2 ? true : false)
                                                 }
@@ -164,22 +175,7 @@ class ModalDieuDuong extends Component {
                                     />
                                 </div>
                                 {/* password */}
-                                <div className="form-group  secondFormright"
-                                    style={
-                                        this.props.role === 1 ? { display: 'none' } : (this.props.role === 2 ? { display: 'none' } : { display: 'block' })
-                                    }
-                                >
-                                    <label >* Password: </label>
-                                    <input type="password" className="form-contro"
-                                        /*disabled={true}*/
-                                        name="password"
-                                        value={password ? password : ''}
-                                        onChange={this.handleChange}
-                                        disabled={
-                                            this.props.role === 1 ? false : (this.props.role === 2 ? true : false)
-                                        }
-                                    />
-                                </div>
+
 
                             </div>
 
@@ -234,8 +230,8 @@ class ModalDieuDuong extends Component {
                                 <div className="form-group secondFormright">
                                     <label>Tỉnh thành: </label>
                                     <select className="form-contro"
-                                        value={tinhThanh_ID ? tinhThanh_ID : 1}
-                                        name="tinhThanh_ID"
+                                        value={tinhThanh_Id ? tinhThanh_Id : 1}
+                                        name="tinhThanh_Id"
                                         onChange={this.handleChange_Number}
                                         disabled={
                                             this.props.role === 1 ? false : (this.props.role === 2 ? true : false)
@@ -257,11 +253,11 @@ class ModalDieuDuong extends Component {
                                 >
                                     <label>Là đào viên: </label>
                                     <select className="form-contro"
-                                        value={laDaoTaoVien ? laDaoTaoVien : ''}
+                                        value={laDaoTaoVien ? (trangThai === 1 ? 0 : laDaoTaoVien) : ''}
                                         name="laDaoTaoVien"
                                         onChange={this.handleChange_Number}
                                         disabled={
-                                            this.props.role === 1 ? true : (this.props.role === 2 ? true : false)
+                                            this.props.role === 1 ? true : (this.props.role === 2 ? true : (this.state.dieuDuong.trangThai === 3 ? false : true))
                                         }
                                     >
                                         <option value={0}>Không</option>

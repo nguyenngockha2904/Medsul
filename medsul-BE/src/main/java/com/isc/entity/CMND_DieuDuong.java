@@ -19,6 +19,9 @@ import lombok.Data;
 public class CMND_DieuDuong   {
 	
 	@Id
+	@Column(name="CMND_ID")
+	private int CMND_ID;
+	
 	@Column(name="SOCMND")
 	private String soCMND;
 	
