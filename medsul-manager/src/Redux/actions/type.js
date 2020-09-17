@@ -1,6 +1,8 @@
 export const SET_LOGIN = 'SET_LOGIN';
 export const SHOW_MODAL_THONGTINCANHAN = 'user/SHOW_MODAL_THONGTINCANHAN';
 export const HIRE_MODAL_THONGTINCANHAN = 'user/HIRE_MODAL_THONGTINCANHAN';
+export const SHOW_MODAL_REPASSWORD = 'public/SHOW_MODAL_REPASSWORD';
+export const HIRE_MODAL_REPASSWORD = 'public/HIRE_MODAL_REPASSWORD';
 
 /* dịch vụ action */
 export const SHOW_MODAL_LOAIDICHVU = 'SHOW_MODAL_LOAIDICHVU';
@@ -38,3 +40,8 @@ export const SET_DIEUDUONG_BY_DAOTAOVIEN = 'dieuduong/SET_DIEUDUONG_BY_DAOTAOVIE
 
 /* Tỉnh thành action*/
 export const SET_DATA_TINHTHANH = 'tinhthanh/SET_DATA_TINHTHANH';
+
+
+/* Manager action */
+export const SHOW_MODAL_MANAGER = 'manager/SHOW_MODAL_MANAGER';
+export const HIRE_MODAL_MANAGER = 'manager/HIRE_MODAL_MANAGER';

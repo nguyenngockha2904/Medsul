@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
 import DieuDuongTable from '../../Components/DieuDuongPageComponents/tbDieuDuongComponent';
 import ModalDieuDuong from '../../Components/DieuDuongPageComponents/ModalDD';
 import ModalCN from '../../Components/DieuDuongPageComponents/ModalCN';
 import ModalViTien from '../../Components/DieuDuongPageComponents/ModalViTien';
+import ModalPassword from '../../Components/ModalPassword';
 import { connect } from 'react-redux';
 import { createAction } from '../../Redux/actions';
 import { SET_DIEUDUONG_BY_DAOTAOVIEN, SHOW_MODAL_DIEUDUONG } from '../../Redux/actions/type';
@@ -130,7 +130,7 @@ class DieuDuongComponent extends Component {
                             /* Tab điều dưỡng */
                             <div className="contentTab tab_DD">
                                 <p className="m-0 p-0 text-center title_tab">danh sách điều dưỡng</p>
-                                <StyleGroupButtonSearch className="d-flex justify-content-between">
+                                <StyleGroupButtonSearch >
                                     <select className={this.state.statusDDSelect === 1 ? "selectStatus isThuViec" : (
                                         this.state.statusDDSelect === 2 ? "selectStatus isNghiViec" : (this.state.statusDDSelect === 3 ? "selectStatus isChinhThuc" : "selectStatus"))}
                                         value={this.state.statusDDSelect}
@@ -221,6 +221,7 @@ class DieuDuongComponent extends Component {
                 {this.props.isModalDieuDuong && <ModalDieuDuong />}
                 {this.props.isModalGiayPhepHanhNghe && <ModalCN />}
                 {this.props.isModalViTien && <ModalViTien />}
+                {this.props.isShowModalPass && <ModalPassword />}
             </StylePageComponent>
         );
     }
@@ -235,6 +236,7 @@ const mapStateToProps = state => {
         isModalGiayPhepHanhNghe: state.qlDieuDuong.modalGiayPhepHanhNghe.isShow,
         isModalViTien: state.qlDieuDuong.modalViTien.isShow,
         listDieuDuongByIdDaoTao: state.qlDieuDuong.listDieuDuongByIdDaoTao,
+        isShowModalPass: state.credentials.modalRePassword.isShow,
     }
 }
 

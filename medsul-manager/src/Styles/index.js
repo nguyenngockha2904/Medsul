@@ -46,6 +46,10 @@ export const StyledModel = styled.div`
                     font-weight: 500;
                     font-size: 1.6em;
             }
+            .modal-title{
+                width: 100%;
+                text-align: center;
+            }
             .close{
                 outline: none;
             }
@@ -139,6 +143,19 @@ export const StyledModel = styled.div`
                 width: 80%;
                 .img-fluid{    
                     border-radius: 100%;
+                    box-shadow: 1px 2px 4px -0.5px #80808080;
+                    
+                }
+                &.cmnd{
+                    width: 100%;
+                    height: 100%;
+                    text-align:center;
+                    .img-fluid{
+                        box-shadow: 1px 2px 4px -0.5px #80808080;
+                        border-radius:10px;
+                        width: 60%;
+                        margin:10px 0;
+                    }
                 }
             }
             position: relative;

@@ -2,9 +2,10 @@ import React, { PureComponent } from 'react';
 import btnEdit from '../../../img/btnEdit.svg';
 import btnVitien from '../../../img/btnViTien.svg';
 import btnChuyenNganh from '../../../img/btnChuyenNganh.svg';
+import btnRePass from '../../../img/password_icon.svg';
 import { connect } from 'react-redux';
 import { createAction } from '../../../Redux/actions';
-import { SHOW_MODAL_DIEUDUONG, SHOW_MODAL_GIAYPHEPHANHNGHE, SHOW_MODAL_VITIEN } from '../../../Redux/actions/type';
+import { SHOW_MODAL_DIEUDUONG, SHOW_MODAL_GIAYPHEPHANHNGHE, SHOW_MODAL_REPASSWORD, SHOW_MODAL_VITIEN } from '../../../Redux/actions/type';
 import { layListDieuDuongByIdDaoTao } from '../../../Redux/actions/DieuDuongAction';
 class DieuDuongItem extends PureComponent {
     handleOpenModalViTien = () => {
@@ -18,6 +19,9 @@ class DieuDuongItem extends PureComponent {
     }
     handleOpenModalGPHN = () => {
         this.props.dispatch(createAction(SHOW_MODAL_GIAYPHEPHANHNGHE, {}));
+    }
+    handleOpenModalPassword = (value) => () => {
+        this.props.dispatch(createAction(SHOW_MODAL_REPASSWORD, value));
     }
     render() {
         const { dieuDuong_Id, gioiTinh, hoTen, laDaoTaoVien, maDieuDuong, soDienThoai, tinhThanh_ID,
@@ -51,6 +55,9 @@ class DieuDuongItem extends PureComponent {
                     </button>
                     <button className="btnCustom" onClick={this.handleOpenModalGPHN}>
                         <img src={btnChuyenNganh} alt="btnChuyenNganh" />
+                    </button>
+                    <button className="btnCustom" onClick={this.handleOpenModalPassword({})}>
+                        <img src={btnRePass} alt="btnRePass" />
                     </button>
                 </td>
             </tr>
