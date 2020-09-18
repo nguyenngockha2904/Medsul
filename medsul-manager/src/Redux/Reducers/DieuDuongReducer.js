@@ -1,4 +1,4 @@
-import { HIRE_MODAL_DIEUDUONG, HIRE_MODAL_GIAYPHEPHANHNGHE, HIRE_MODAL_VITIEN, SHOW_MODAL_DIEUDUONG, SHOW_MODAL_VITIEN, SHOW_MODAL_GIAYPHEPHANHNGHE, SET_DATA_LISTDIEUDUONG, ADD_DIEUDUONG, SET_DIEUDUONG_BY_DAOTAOVIEN, UPDATE_DIEUDUONG, SET_LISTGPHN_BY_DIEUDUONGID, CHECK_DAOTAOVIEN, SET_DATA_LISTGPHN } from "../actions/type";
+import { HIRE_MODAL_DIEUDUONG, HIRE_MODAL_GIAYPHEPHANHNGHE, HIRE_MODAL_VITIEN, SHOW_MODAL_DIEUDUONG, SHOW_MODAL_VITIEN, SHOW_MODAL_GIAYPHEPHANHNGHE, SET_DATA_LISTDIEUDUONG, ADD_DIEUDUONG, SET_DIEUDUONG_BY_DAOTAOVIEN, UPDATE_DIEUDUONG, SET_LISTGPHN_BY_DIEUDUONGID, CHECK_DAOTAOVIEN, SET_DATA_LISTGPHN, ADD_GIAYPHEPHANHNGHE, UPDATE_GIAYPHEPHANHNGHE } from "../actions/type";
 
 let initialState = {
     modalDieuDuong: {
@@ -58,6 +58,7 @@ const dieuDuongReducer = (state = initialState, { type, payload }) => {
             return { ...state };
         } case SET_DIEUDUONG_BY_DAOTAOVIEN: {
             state.listDieuDuongByIdDaoTao = payload;
+
             return { ...state };
         } case UPDATE_DIEUDUONG: {
             let index = state.listDieuDuong.findIndex(dd => dd.dieuDuong_Id === payload.dieuDuong_Id);
@@ -71,7 +72,8 @@ const dieuDuongReducer = (state = initialState, { type, payload }) => {
             state.listAllGPHN = payload;
             return { ...state };
         } case SET_LISTGPHN_BY_DIEUDUONGID: {
-            state.modalGiayPhepHanhNghe.listGiayPhepHanhNgheByDieuDuongId = payload;
+            state.modalGiayPhepHanhNghe = { ...state.modalGiayPhepHanhNghe, listGiayPhepHanhNgheByDieuDuongId: payload };
+            console.log(state.modalGiayPhepHanhNghe);
             return { ...state };
         } case CHECK_DAOTAOVIEN: {
             let index = state.listAllGPHN.findIndex(gphn => gphn.giayPhep_DaoTaoVien_Id === payload);
@@ -79,6 +81,17 @@ const dieuDuongReducer = (state = initialState, { type, payload }) => {
                 state.checkExist = false;
             } else {
                 state.checkExist = true;
+            }
+            return { ...state };
+        } case ADD_GIAYPHEPHANHNGHE: {
+            state.listAllGPHN = [...state.listAllGPHN, payload];
+            return { ...state };
+        } case UPDATE_GIAYPHEPHANHNGHE: {
+            let index = state.listAllGPHN.findIndex(gphn => gphn.giayPhep_Id === payload.giayPhep_Id);
+            if (index !== -1) {
+                let mangmoi = [...state.listAllGPHN];
+                mangmoi[index] = payload;
+                state.listAllGPHN = mangmoi;
             }
             return { ...state };
         }

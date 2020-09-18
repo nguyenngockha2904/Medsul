@@ -70,7 +70,7 @@ export const StyledModel = styled.div`
             background:#fff;
             box-shadow: 1px 2px 4px -0.5px #80808080;
             
-            &:hover , &:focus{
+            &:hover{
                 color:#fff;
                 background: #2CD889;
             }
@@ -197,7 +197,7 @@ export const StyledModel = styled.div`
                     color: #2CD889 ;
                     background:#fff;
                     box-shadow: 1px 2px 4px -0.5px #80808080;
-                    &:hover , &:focus{
+                    &:hover{
                         color:#fff;
                         background: #2CD889;
                     }
@@ -261,7 +261,7 @@ export const StyledModel = styled.div`
             letter-spacing: 1px;
             white-space: nowrap;
             transition: 0.2s all;
-            &:hover , &:focus{
+            &:hover {
                 color: #2CD889 ;
             background:#fff;
             box-shadow: 1px 2px 4px -0.5px #80808080;
@@ -462,7 +462,7 @@ export const StyleGroupButtonSearch = styled.div`
         background: #2CD889;
         outline: none;
         transition: all 0.2s;
-        &:hover , &:focus{
+        &:hover {
             box-shadow: 1px 2px 4px -0.5px #80808080;
             color: #2CD889 ;
             background:#fff;

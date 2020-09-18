@@ -227,7 +227,7 @@ class ModalDieuDuong extends Component {
                                 </div>
                                 {/* Email */}
                                 <div className="form-group secondFormright secondFormleft">
-                                    <label >Email: </label>
+                                    <label >*Email: </label>
                                     <input type="email" className="form-contro"
                                         /*disabled={true}*/
                                         name="email" value={email ? email : ''}
@@ -357,7 +357,7 @@ class ModalDieuDuong extends Component {
                             <div className="d-flex justify-content-between">
                                 {/* Số cmnd */}
                                 <div className="form-group secondFormleft">
-                                    <label>Số CMND: </label>
+                                    <label>*Số CMND: </label>
                                     <input type="text" className="form-contro"
                                         /*disabled={true}*/
                                         name="soCMND"

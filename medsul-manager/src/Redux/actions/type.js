@@ -41,7 +41,7 @@ export const CHECK_DAOTAOVIEN = 'dieuduong/CHECK_DAOTAOVIEN';
 export const SET_DATA_LISTGPHN = 'giayphephanhnghe/SET_DATA_LISTGPHN';
 export const SET_LISTGPHN_BY_DIEUDUONGID = 'giayphephanhnghe/SET_LISTGPHN_BY_DIEUDUONGID';
 export const ADD_GIAYPHEPHANHNGHE = 'giayphephanhnghe/ADD_GIAYPHEPHANHNGHE';
-
+export const UPDATE_GIAYPHEPHANHNGHE = 'giayphephanhnghe/UPDATE_GIAYPHEPHANHNGHE';
 
 /* Tỉnh thành action*/
 export const SET_DATA_TINHTHANH = 'tinhthanh/SET_DATA_TINHTHANH';

@@ -20,6 +20,13 @@ class GPHN {
             data: value
         })
     }
+    updateGiayPhepHanhNghe(id, value) {
+        return Axios({
+            url: `http://localhost:8080/api/giayPhepHanhNghe/${id}`,
+            method: 'PUT',
+            data: value
+        })
+    }
 
 
 }
