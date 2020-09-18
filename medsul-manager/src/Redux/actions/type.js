@@ -36,6 +36,11 @@ export const SET_DATA_LISTDIEUDUONG = 'dieuduong/SET_DATA_LISTDIEUDUONG';
 export const ADD_DIEUDUONG = 'dieuduong/ADD_DIEUDUONG';
 export const UPDATE_DIEUDUONG = 'dieuduong/UPDATE_DIEUDUONG';
 export const SET_DIEUDUONG_BY_DAOTAOVIEN = 'dieuduong/SET_DIEUDUONG_BY_DAOTAOVIEN';
+export const CHECK_DAOTAOVIEN = 'dieuduong/CHECK_DAOTAOVIEN';
+//GPHN
+export const SET_DATA_LISTGPHN = 'giayphephanhnghe/SET_DATA_LISTGPHN';
+export const SET_LISTGPHN_BY_DIEUDUONGID = 'giayphephanhnghe/SET_LISTGPHN_BY_DIEUDUONGID';
+export const ADD_GIAYPHEPHANHNGHE = 'giayphephanhnghe/ADD_GIAYPHEPHANHNGHE';
 
 
 /* Tỉnh thành action*/

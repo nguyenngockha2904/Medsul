@@ -1,6 +1,6 @@
 import { createAction } from '.';
-import { DieuDuong } from '../../Services/index';
-import { ADD_DIEUDUONG, HIRE_MODAL_DIEUDUONG, SET_DATA_LISTDIEUDUONG, SET_DIEUDUONG_BY_DAOTAOVIEN, UPDATE_DIEUDUONG } from './type';
+import { DieuDuong, GPHN } from '../../Services/index';
+import { ADD_DIEUDUONG, ADD_GIAYPHEPHANHNGHE, HIRE_MODAL_DIEUDUONG, SET_DATA_LISTDIEUDUONG, SET_DATA_LISTGPHN, SET_DIEUDUONG_BY_DAOTAOVIEN, SET_LISTGPHN_BY_DIEUDUONGID, UPDATE_DIEUDUONG } from './type';
 import swal from 'sweetalert';
 export const LayDanhSachDieuDuong = () => {
     return dispatch => {
@@ -51,6 +51,30 @@ export const layListDieuDuongByIdDaoTao = (idDaoTao) => {
             dispatch(createAction(SET_DIEUDUONG_BY_DAOTAOVIEN, res.data));
         }).catch(err => {
             console.log(err);
+        })
+    }
+}
+export const layListAllGPHN = () => {
+    return dispatch => {
+        GPHN.getALlGPHN().then(res => {
+            dispatch(createAction(SET_DATA_LISTGPHN, res.data));
+        }).catch(err => {
+            console.log(err);
+        })
+    }
+}
+export const layListGPHNByIdDieuDuong = (idDD) => {
+    return dispatch => {
+        GPHN.getGiayPhepHanhNgheByDieuDuongId(idDD).then(res => {
+            dispatch(createAction(SET_LISTGPHN_BY_DIEUDUONGID, res.data));
+        }).catch(err => { console.log(err) });
+    }
+}
+
+export const themGPHN = value => {
+    return dispatch => {
+        GPHN.addGiayPhepHanhNghe(value).then(res => {
+            dispatch(createAction(ADD_GIAYPHEPHANHNGHE, res.data));
         })
     }
 }

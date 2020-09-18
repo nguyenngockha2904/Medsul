@@ -7,7 +7,7 @@ import ModalPassword from '../../Components/ModalPassword';
 import { connect } from 'react-redux';
 import { createAction } from '../../Redux/actions';
 import { SET_DIEUDUONG_BY_DAOTAOVIEN, SHOW_MODAL_DIEUDUONG } from '../../Redux/actions/type';
-import { LayDanhSachDieuDuong } from '../../Redux/actions/DieuDuongAction';
+import { LayDanhSachDieuDuong, layListAllGPHN } from '../../Redux/actions/DieuDuongAction';
 import { StyleGroupButtonSearch, StylePageComponent } from '../../Styles';
 class DieuDuongComponent extends Component {
     constructor(props) {
@@ -228,6 +228,7 @@ class DieuDuongComponent extends Component {
 
     componentDidMount() {
         this.props.dispatch(LayDanhSachDieuDuong());
+        this.props.dispatch(layListAllGPHN());
     }
 }
 const mapStateToProps = state => {

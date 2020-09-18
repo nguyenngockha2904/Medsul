@@ -6,16 +6,26 @@ import { connect } from 'react-redux';
 import { createAction } from '../../../Redux/actions';
 import { HIRE_MODAL_GIAYPHEPHANHNGHE } from '../../../Redux/actions/type';
 import { TinhThanh } from '../../../Services';
+import { layListGPHNByIdDieuDuong } from '../../../Redux/actions/DieuDuongAction';
 class ModalBC extends Component {
     state = {
-        isDetail: false,
+        modalCT: {
+            isShow: false,
+            value: {},
+            role: 1, //1 thêm //2 xem // 3 sửa
+        },
         DTV: {
-            maDTV: this.props.ListLVD[0].maDieuDuong,
+            maDTV: this.props.ListDTV[0].maDieuDuong,
             nameDTV: this.props.ListDTV[0].hoTen,
         },
         LDV: {
             maLDV: this.props.ListLVD[0].loaiDichVu_Id,
             nameLDV: this.props.ListLVD[0].tenLoaiDichVu,
+        },
+        DD: {
+            idDD: this.props.DD.dieuDuong_Id,
+            maDD: this.props.DD.maDieuDuong,
+            nameDD: this.props.DD.hoTen,
         },
         listDV: []
 
@@ -23,9 +33,9 @@ class ModalBC extends Component {
     HandleHireModal = () => {
         this.props.dispatch(createAction(HIRE_MODAL_GIAYPHEPHANHNGHE, false));
     }
-    showDetail = (value) => () => {
+    showDetail = (role, value) => () => {
         this.setState({
-            isDetail: value
+            modalCT: { ...this.state.modalCT, isShow: true, value: value, role: role }
         })
     }
     renderMaDTV = () => {
@@ -75,8 +85,34 @@ class ModalBC extends Component {
             })
         })
     }
+    renderGPHN = () => {
+        return this.props.listGPHN.map((item, index) => {
+            return (
+                <tr className="tRow" key={index}>
+                    {/**No. */}
+                    <th>{+index + 1}</th>
+                    {/**Mã đào tạo viên. */}
+                    {<td>{this.props.ListDTV.filter(dtv => dtv.dieuDuong_Id === item.giayPhep_DaoTaoVien_Id)[0].maDieuDuong}</td>}
+                    {/**Chuyên ngành */}
+                    <td>{item.giayPhep_ThongTin}</td>
+                    {/**Trạng thái */}
+                    <td className={item.giayPhep_TrangThai === 0 ? 'tdStatus isThuViec' : (item.giayPhep_TrangThai === 1) ? 'tdStatus isChinhThuc' : 'tdStatus isNghiViec'}
 
+                    >{item.giayPhep_TrangThai === 0 ? 'Đang đào tạo' : (item.giayPhep_TrangThai === 1) ? 'Đang sử dụng' : 'Ngưng sử dụng'}</td>
+                    {/**Tùy chỉnh */}
+                    <td className="d-flex justify-content-center groupBtn">
+                        <button className="btnCustom">
+                            <img src={btnEdit} alt="btnEdit" />
+                        </button>
+                    </td>
+                </tr>
+            )
+        })
+    }
+    handleSubmit = e => {
+        e.preventDefault();
 
+    }
 
 
     render() {
@@ -92,9 +128,22 @@ class ModalBC extends Component {
 
                         {/* table */}
                         <div className="modalService-body">
+
                             <div className="titleGroup">Danh sách giấy phép hành nghề :</div>
+
+                            <div className="d-flex justify-content-between">
+                                <div className="form-group secondFormleft width3">
+                                    <label >Mã Điều Dưỡng: </label>
+                                    <p className="form-contro">{this.state.DD.maDD}</p>
+
+                                </div>
+                                <div className="form-group secondFormright ac">
+                                    <label >Tên Điều Dưỡng: </label>
+                                    <p className="form-contro">{this.state.DD.nameDD}</p>
+                                </div>
+                            </div>
                             <div className="text-right mb-3">
-                                <button type="submit" className="btn btnAccept" onClick={this.showDetail(true)}>Thêm mới</button>
+                                <button type="button" className="btn btnAccept" onClick={this.showDetail(1, {})}>Thêm mới</button>
                             </div>
                             <StyleTable>
                                 <table className="table">
@@ -104,52 +153,37 @@ class ModalBC extends Component {
                                                 No.
                                         </th>
                                             <th scope="col">
-                                                Mã đào tạo viên
+                                                Mã Đào Tạo Viên
                                         </th>
                                             <th scope="col">
-                                                Chuyên ngành
+                                                Tên Giấy Phép
                                         </th>
                                             <th scope="col">
-                                                Trạng thái
+                                                Trạng Thái
                                         </th>
                                             <th scope="col">
-                                                Tùy chỉnh
+                                                Tùy Chỉnh
                                         </th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr className="tRow">
-                                            {/**No. */}
-                                            <th>1</th>
-                                            {/**Mã đào tạo viên. */}
-                                            <td>MD001</td>
-                                            {/**Chuyên ngành */}
-                                            <td>Điều dưỡng viên</td>
-                                            {/**Trạng thái */}
-                                            <td className="tdStatus">Đang sử dụng</td>
-                                            {/**Tùy chỉnh */}
-                                            <td className="d-flex justify-content-center groupBtn">
-                                                <button className="btnCustom">
-                                                    <img src={btnEdit} alt="btnEdit" />
-                                                </button>
-                                            </td>
-                                        </tr>
+                                        {this.renderGPHN()}
                                     </tbody>
                                 </table>
                             </StyleTable>
 
                         </div>
                         {/* Detail */}
-                        {this.state.isDetail
+                        {this.state.modalCT.isShow
                             ? <Fragment>
-                                <form className="modalService-body">
+                                <form className="modalService-body" onSubmit={this.handleSubmit}>
                                     <div className="modalService-body">
                                         <div className="titleGroup bb"></div>
                                     </div>
-                                    <div className="titleGroup">Thông tin chi tiết giấy phép hành nghề :</div>
+                                    <div className="titleGroup">{this.state.modalCT.role === 1 ? 'Thêm giấy phép hành nghề mới ' : 'Thông tin chi tiết giấy phép hành nghề :'}</div>
                                     <div className="d-flex justify-content-between">
                                         <div className="form-group secondFormleft width3">
-                                            <label >Mã đào tạo viên: </label>
+                                            <label >Chọn đào tạo viên: </label>
                                             <select className="form-contro"
                                                 onChange={this.handleChangeMDTV}
                                                 name='maDTV'
@@ -219,7 +253,7 @@ class ModalBC extends Component {
 
 
                                     <div className="text-right">
-                                        <button type="submit" className="btn btnAccept" onClick={this.showDetail(false)}>Xác nhận</button>
+                                        <button type="submit" className="btn btnAccept">Xác nhận</button>
                                     </div>
                                 </form>
 
@@ -240,13 +274,16 @@ class ModalBC extends Component {
         let listDvByIdLdv = this.props.ListDV.filter(dv => dv.loaiDichVuID === this.state.LDV.maLDV);
         this.setState({
             listDV: listDvByIdLdv
-        })
+        });
+        this.props.dispatch(layListGPHNByIdDieuDuong(this.state.DD.idDD));
     }
 }
 const mapStateToProps = state => ({
     ListDTV: state.qlDieuDuong.listDieuDuong.filter(dt => dt.laDaoTaoVien === 1),
     ListLVD: state.qlDichVu.mangLoaiDichVu,
-    ListDV: state.qlDichVu.mangDichVu
+    ListDV: state.qlDichVu.mangDichVu,
+    DD: state.qlDieuDuong.modalGiayPhepHanhNghe.value,
+    listGPHN: state.qlDieuDuong.modalGiayPhepHanhNghe.listGiayPhepHanhNgheByDieuDuongId
 
 })
 export default connect(mapStateToProps)(ModalBC);

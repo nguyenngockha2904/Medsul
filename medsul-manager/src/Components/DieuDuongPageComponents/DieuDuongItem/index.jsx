@@ -17,8 +17,8 @@ class DieuDuongItem extends PureComponent {
     handleClickShowListDD = (id) => () => {
         this.props.dispatch(layListDieuDuongByIdDaoTao(id));
     }
-    handleOpenModalGPHN = () => {
-        this.props.dispatch(createAction(SHOW_MODAL_GIAYPHEPHANHNGHE, {}));
+    handleOpenModalGPHN = (value) => () => {
+        this.props.dispatch(createAction(SHOW_MODAL_GIAYPHEPHANHNGHE, value));
     }
     handleOpenModalPassword = (value) => () => {
         this.props.dispatch(createAction(SHOW_MODAL_REPASSWORD, value));
@@ -53,7 +53,7 @@ class DieuDuongItem extends PureComponent {
                     <button className="btnCustom" onClick={this.handleOpenModalDD({ value: this.props.item, role: 3 })}>
                         <img src={btnEdit} alt="btnEdit" />
                     </button>
-                    <button className="btnCustom" onClick={this.handleOpenModalGPHN}>
+                    <button className="btnCustom" onClick={this.handleOpenModalGPHN(this.props.item)}>
                         <img src={btnChuyenNganh} alt="btnChuyenNganh" />
                     </button>
                     <button className="btnCustom" onClick={this.handleOpenModalPassword({ value: this.props.item, type: 1 })}>

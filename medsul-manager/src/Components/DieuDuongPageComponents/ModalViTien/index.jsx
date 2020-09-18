@@ -83,7 +83,7 @@ class ModalViTien extends Component {
                                     <div className="form-group ac">
                                         <label >họ tên: </label>
                                         <input type="text" className="form-contro"
-                                            name="tenDieuDuong"
+                                            name="tenDieuDuong" value="Nguyễn Ngọc Kha"
                                         />
                                     </div>
                                     <div className="form-group">

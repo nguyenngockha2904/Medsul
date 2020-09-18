@@ -1,4 +1,4 @@
-import { HIRE_MODAL_DIEUDUONG, HIRE_MODAL_GIAYPHEPHANHNGHE, HIRE_MODAL_VITIEN, SHOW_MODAL_DIEUDUONG, SHOW_MODAL_VITIEN, SHOW_MODAL_GIAYPHEPHANHNGHE, SET_DATA_LISTDIEUDUONG, ADD_DIEUDUONG, SET_DIEUDUONG_BY_DAOTAOVIEN, UPDATE_DIEUDUONG } from "../actions/type";
+import { HIRE_MODAL_DIEUDUONG, HIRE_MODAL_GIAYPHEPHANHNGHE, HIRE_MODAL_VITIEN, SHOW_MODAL_DIEUDUONG, SHOW_MODAL_VITIEN, SHOW_MODAL_GIAYPHEPHANHNGHE, SET_DATA_LISTDIEUDUONG, ADD_DIEUDUONG, SET_DIEUDUONG_BY_DAOTAOVIEN, UPDATE_DIEUDUONG, SET_LISTGPHN_BY_DIEUDUONGID, CHECK_DAOTAOVIEN, SET_DATA_LISTGPHN } from "../actions/type";
 
 let initialState = {
     modalDieuDuong: {
@@ -9,14 +9,16 @@ let initialState = {
     modalGiayPhepHanhNghe: {
         isShow: false,
         value: {},
+        listGiayPhepHanhNgheByDieuDuongId: [],
     },
     modalViTien: {
         isShow: false,
         value: {},
     },
     listDieuDuong: [],
-    listDieuDuongByIdDaoTao: ''
-
+    listDieuDuongByIdDaoTao: '',
+    listAllGPHN: [],
+    checkExist: false,
 }
 const dieuDuongReducer = (state = initialState, { type, payload }) => {
     switch (type) {
@@ -63,6 +65,20 @@ const dieuDuongReducer = (state = initialState, { type, payload }) => {
                 let mangmoi = [...state.listDieuDuong];
                 mangmoi[index] = payload;
                 state.listDieuDuong = mangmoi;
+            }
+            return { ...state };
+        } case SET_DATA_LISTGPHN: {
+            state.listAllGPHN = payload;
+            return { ...state };
+        } case SET_LISTGPHN_BY_DIEUDUONGID: {
+            state.modalGiayPhepHanhNghe.listGiayPhepHanhNgheByDieuDuongId = payload;
+            return { ...state };
+        } case CHECK_DAOTAOVIEN: {
+            let index = state.listAllGPHN.findIndex(gphn => gphn.giayPhep_DaoTaoVien_Id === payload);
+            if (index === -1) {
+                state.checkExist = false;
+            } else {
+                state.checkExist = true;
             }
             return { ...state };
         }

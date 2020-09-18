@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { HIRE_MODAL_DIEUDUONG } from '../../../Redux/actions/type';
+import { CHECK_DAOTAOVIEN, HIRE_MODAL_DIEUDUONG } from '../../../Redux/actions/type';
 import { connect } from 'react-redux';
 import { createAction } from '../../../Redux/actions';
 import { StyledModel } from '../../../Styles/index';
@@ -21,9 +21,36 @@ class ModalDieuDuong extends Component {
         });
     }
     handleChange_Number = e => {
+        this.props.dispatch(createAction(CHECK_DAOTAOVIEN, this.state.dieuDuong.dieuDuong_Id));
         this.setState({
             dieuDuong: { ...this.state.dieuDuong, [e.target.name]: parseInt(e.target.value) }
-        })
+        }, () => {
+            this.setState({
+                dieuDuong: { ...this.state.dieuDuong, laDaoTaoVien: (this.state.dieuDuong.trangThai === 1 ? 2 : this.state.dieuDuong.laDaoTaoVien) }
+            }, () => {
+                if (this.state.dieuDuong.laDaoTaoVien === 2) {
+                    // this.props.checkExist?'tồn tại':'không tồn tại'
+                    if (this.props.checkExist) {
+                        swal({
+                            title: "Không được thây đổi!",
+                            text: "Vì đào tạo viên này đã và đang đào tạo một vài điều dưỡng!",
+                            icon: "warning",
+                        }).then(ok => {
+                            if (ok) {
+                                this.setState({
+                                    dieuDuong: { ...this.state.dieuDuong, laDaoTaoVien: this.props.item.laDaoTaoVien }
+                                })
+                            }
+
+                        })
+                    }
+
+                }
+
+            });
+        });
+
+
     }
     handleSubmit = e => {
         e.preventDefault();
@@ -34,6 +61,9 @@ class ModalDieuDuong extends Component {
         } = this.state.dieuDuong;
 
         let newitem = { anhMatSau: anhMatSau, anhMatTruoc: anhMatTruoc, avatar: avatar, diaChi: diaChi, diaChiThuongTruCMND: diaChiThuongTruCMND, email: email, gioiTinh: gioiTinh, hoTen: hoTen, ngayCapCMND: ngayCapCMND, ngaySinh: ngaySinh, noiCap: noiCap, queQuanCMND: queQuanCMND, soCMND: soCMND, soDienThoai: soDienThoai, tinhThanh_ID: tinhThanh_Id };
+
+
+
         let update = {
             ...newitem, laDaoTaoVien: laDaoTaoVien,
             nganHangLienKet: nganHangLienKet,
@@ -76,7 +106,8 @@ class ModalDieuDuong extends Component {
     _SetValue = () => {
         // console.log("this props:  ", this.props.item);
         this.setState({
-            dieuDuong: this.props.item
+            dieuDuong: this.props.item,
+
         });
     }
     render() {
@@ -253,15 +284,16 @@ class ModalDieuDuong extends Component {
                                 >
                                     <label>Là đào viên: </label>
                                     <select className="form-contro"
-                                        value={laDaoTaoVien ? (trangThai === 1 ? 0 : laDaoTaoVien) : ''}
+                                        value={laDaoTaoVien ? laDaoTaoVien : ''}
                                         name="laDaoTaoVien"
                                         onChange={this.handleChange_Number}
                                         disabled={
                                             this.props.role === 1 ? true : (this.props.role === 2 ? true : (this.state.dieuDuong.trangThai === 3 ? false : true))
                                         }
                                     >
-                                        <option value={0}>Không</option>
                                         <option value={1}>Có</option>
+                                        <option value={2}>Không</option>
+
                                     </select>
                                 </div>
                                 {/* Địa chỉ */}
@@ -464,13 +496,15 @@ class ModalDieuDuong extends Component {
 
     componentDidMount() {
         this._SetValue();
+
     }
 }
 const mapStateToProps = state => {
     return {
         item: state.qlDieuDuong.modalDieuDuong.value,
         role: state.qlDieuDuong.modalDieuDuong.role,
-        listTinhThanh: state.qlTinhThanh.listTinhThanh
+        listTinhThanh: state.qlTinhThanh.listTinhThanh,
+        checkExist: state.qlDieuDuong.checkExist,
     }
 }
 
