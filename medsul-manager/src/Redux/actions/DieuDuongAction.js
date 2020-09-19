@@ -47,7 +47,7 @@ export const capNhapDieuDuong = (id, value) => {
 export const layListDieuDuongByIdDaoTao = (idDaoTao) => {
     return dispatch => {
         DieuDuong.getDieuDuongByID_DaoTao(idDaoTao).then(res => {
-            // console.log(res.data);
+            console.log(res.data);
             dispatch(createAction(SET_DIEUDUONG_BY_DAOTAOVIEN, res.data));
         }).catch(err => {
             console.log(err);

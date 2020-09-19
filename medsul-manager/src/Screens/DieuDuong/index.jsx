@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 import { createAction } from '../../Redux/actions';
 import { SET_DIEUDUONG_BY_DAOTAOVIEN, SHOW_MODAL_DIEUDUONG } from '../../Redux/actions/type';
 import { LayDanhSachDieuDuong, layListAllGPHN } from '../../Redux/actions/DieuDuongAction';
+import { LayDanhSachTinhThanh } from '../../Redux/actions/TinhThanhAction';
 import { StyleGroupButtonSearch, StylePageComponent } from '../../Styles';
 class DieuDuongComponent extends Component {
     constructor(props) {

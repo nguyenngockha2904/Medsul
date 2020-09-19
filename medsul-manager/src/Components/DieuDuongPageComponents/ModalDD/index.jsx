@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { CHECK_DAOTAOVIEN, HIRE_MODAL_DIEUDUONG } from '../../../Redux/actions/type';
+import { CHECK_CMND, CHECK_DAOTAOVIEN, CHECK_EMAIL, CHECK_SDT, HIRE_MODAL_DIEUDUONG } from '../../../Redux/actions/type';
 import { connect } from 'react-redux';
 import { createAction } from '../../../Redux/actions';
 import { StyledModel } from '../../../Styles/index';
@@ -8,19 +8,89 @@ import swal from 'sweetalert';
 class ModalDieuDuong extends Component {
     HandleHireModal = () => {
         this.props.dispatch(createAction(HIRE_MODAL_DIEUDUONG, false));
+        if (this.props.role !== 2) {
+            this.props.dispatch(createAction(CHECK_SDT, this.state.dieuDuong.soDienThoai + 'false'));
+            // this.state.dieuDuong.email
+            this.props.dispatch(createAction(CHECK_EMAIL, this.state.dieuDuong.email + 'false'));
+            // this.state.dieuDuong.soCMND
+            this.props.dispatch(createAction(CHECK_CMND, this.state.dieuDuong.soCMND + 'false'));
+        }
+
     }
 
     state = {
-        dieuDuong: {
-
+        dieuDuong: {},
+        oldState: {
+            emailOld: '',
+            cmndOld: '',
         }
     }
-    handleChange = e => {
+    handleChangeSpecialSDT = e => {
         this.setState({
             dieuDuong: { ...this.state.dieuDuong, [e.target.name]: e.target.value }
+        }, () => {
+            // this.state.dieuDuong.soDienThoai
+            this.props.dispatch(createAction(CHECK_SDT, this.state.dieuDuong.soDienThoai));
+            this.setState({
+                dieuDuong: { ...this.state.dieuDuong }
+            }, () => {
+                if (this.props.role !== 3) {
+                    if (this.props.checkExistSDT) {
+                        swal({
+                            title: "Số điện thoại đã tồn tại!",
+                            text: "Vui lòng kiểm tra lại số điện thoại",
+                            icon: "warning",
+                        });
+                    }
+                }
+            })
+        });
+
+    }
+    handleChangeSpecialEmail = e => {
+        this.setState({
+            dieuDuong: { ...this.state.dieuDuong, [e.target.name]: e.target.value }
+        }, () => {
+            // this.state.dieuDuong.email
+            this.props.dispatch(createAction(CHECK_EMAIL, this.state.dieuDuong.email));
+            this.setState({
+                dieuDuong: { ...this.state.dieuDuong }
+            }, () => {
+                if (this.props.role !== 3) {
+                    if (this.props.checkExistEmail) {
+                        swal({
+                            title: "Email đã tồn tại!",
+                            text: "Vui lòng kiểm tra lại email",
+                            icon: "warning",
+                        });
+                    }
+                }
+
+            })
         });
     }
-    handleChange_Number = e => {
+    handleChangeSpecialCMND = e => {
+        this.setState({
+            dieuDuong: { ...this.state.dieuDuong, [e.target.name]: e.target.value }
+        }, () => {
+            // this.state.dieuDuong.soCMND
+            this.props.dispatch(createAction(CHECK_CMND, this.state.dieuDuong.soCMND));
+            this.setState({
+                dieuDuong: { ...this.state.dieuDuong }
+            }, () => {
+                if (this.props.role !== 3) {
+                    if (this.props.checkExistCMND) {
+                        swal({
+                            title: "CMND đã tồn tại!",
+                            text: "Vui lòng kiểm tra lại CMND",
+                            icon: "warning",
+                        });
+                    }
+                }
+            })
+        });
+    }
+    handleChangeSpecialDTV = e => {
         this.props.dispatch(createAction(CHECK_DAOTAOVIEN, this.state.dieuDuong.dieuDuong_Id));
         this.setState({
             dieuDuong: { ...this.state.dieuDuong, [e.target.name]: parseInt(e.target.value) }
@@ -30,7 +100,7 @@ class ModalDieuDuong extends Component {
             }, () => {
                 if (this.state.dieuDuong.laDaoTaoVien === 2) {
                     // this.props.checkExist?'tồn tại':'không tồn tại'
-                    if (this.props.checkExist) {
+                    if (this.props.checkExistDTV) {
                         swal({
                             title: "Không được thây đổi!",
                             text: "Vì đào tạo viên này đã và đang đào tạo một vài điều dưỡng!",
@@ -48,6 +118,19 @@ class ModalDieuDuong extends Component {
                 }
 
             });
+        });
+
+
+    }
+    handleChange = e => {
+
+        this.setState({
+            dieuDuong: { ...this.state.dieuDuong, [e.target.name]: e.target.value }
+        });
+    }
+    handleChange_Number = e => {
+        this.setState({
+            dieuDuong: { ...this.state.dieuDuong, [e.target.name]: parseInt(e.target.value) }
         });
 
 
@@ -73,24 +156,66 @@ class ModalDieuDuong extends Component {
         }
         if (this.props.role === 1) {
             this.props.dispatch(themDieuDuong(newitem));
+            // console.log(newitem);
         } else if (this.props.role === 3) {
-            swal({
-                title: "Bạn Chắc Chứ?",
-                text: "Nếu đồng ý dữ liệu này sẽ thay đổi!",
-                icon: "info",
-                buttons: true,
-                dangerMode: true,
-            }).then((willDelete) => {
-                if (willDelete) {
-                    swal("Dữ liệu đã được cập nhật!", {
-                        icon: "success",
-                    });
-                    this.props.dispatch(capNhapDieuDuong(dieuDuong_Id, update));
+            let checkEmail = false;
+            let checkCMND = false;
+            if (this.state.dieuDuong.email !== this.state.oldState.emailOld) {
+                if (this.props.checkExistEmail) {
+                    this.setState({
+                        dieuDuong: { ...this.state.dieuDuong, email: this.state.oldState.emailOld }
+                    }, () => {
+                        swal({
+                            title: "Email đã tồn tại!",
+                            text: "Vui lòng kiểm tra lại email",
+                            icon: "warning",
+                        });
+                        checkEmail = false;
+                    })
                 } else {
-                    swal("Dữ liệu được giữ nguyên!");
-                    this.HandleHireModal();
+                    checkEmail = true;
                 }
-            });
+            } else {
+                checkEmail = true;
+            }
+            if (this.state.dieuDuong.soCMND !== this.state.oldState.cmndOld) {
+                if (this.props.checkExistCMND) {
+                    this.setState({
+                        dieuDuong: { ...this.state.dieuDuong, soCMND: this.state.oldState.cmndOld }
+                    }, () => {
+                        swal({
+                            title: "CMND đã tồn tại!",
+                            text: "Vui lòng kiểm tra lại CMND",
+                            icon: "warning",
+                        });
+                        checkCMND = false;
+                    })
+                } else {
+                    checkCMND = true;
+                }
+            } else {
+                checkCMND = true;
+            }
+            if (checkEmail && checkCMND) {
+                swal({
+                    title: "Bạn Chắc Chứ?",
+                    text: "Nếu đồng ý dữ liệu này sẽ thay đổi!",
+                    icon: "info",
+                    buttons: true,
+                    dangerMode: true,
+                }).then((willDelete) => {
+                    if (willDelete) {
+                        swal("Dữ liệu đã được cập nhật!", {
+                            icon: "success",
+                        });
+                        this.props.dispatch(capNhapDieuDuong(dieuDuong_Id, update));
+                    } else {
+                        swal("Dữ liệu được giữ nguyên!");
+                        this.HandleHireModal();
+                    }
+                });
+            }
+
         }
     }
     renderTinhThanh = () => {
@@ -107,7 +232,13 @@ class ModalDieuDuong extends Component {
         // console.log("this props:  ", this.props.item);
         this.setState({
             dieuDuong: this.props.item,
-
+        }, () => {
+            this.setState({
+                oldState: {
+                    ...this.state.oldState, emailOld: this.state.dieuDuong.email,
+                    cmndOld: this.state.dieuDuong.soCMND,
+                }
+            })
         });
     }
     render() {
@@ -161,6 +292,7 @@ class ModalDieuDuong extends Component {
                                         disabled={
                                             this.props.role === 1 ? false : (this.props.role === 2 ? true : false)
                                         }
+                                        required={true}
                                     />
                                 </div>
                             </div>
@@ -199,10 +331,11 @@ class ModalDieuDuong extends Component {
                                         /*disabled={true}*/
                                         name="soDienThoai"
                                         value={soDienThoai ? soDienThoai : ''}
-                                        onChange={this.handleChange}
+                                        onChange={this.handleChangeSpecialSDT}
                                         disabled={
                                             this.props.role === 1 ? false : (this.props.role === 2 ? true : true)
                                         }
+                                        required={true}
                                     />
                                 </div>
                                 {/* password */}
@@ -223,6 +356,7 @@ class ModalDieuDuong extends Component {
                                         disabled={
                                             this.props.role === 1 ? false : (this.props.role === 2 ? true : false)
                                         }
+                                        required={true}
                                     />
                                 </div>
                                 {/* Email */}
@@ -231,10 +365,11 @@ class ModalDieuDuong extends Component {
                                     <input type="email" className="form-contro"
                                         /*disabled={true}*/
                                         name="email" value={email ? email : ''}
-                                        onChange={this.handleChange}
+                                        onChange={this.handleChangeSpecialEmail}
                                         disabled={
                                             this.props.role === 1 ? false : (this.props.role === 2 ? true : false)
                                         }
+                                        required={true}
                                     />
                                 </div>
                                 {/* Trạng thái */}
@@ -286,7 +421,7 @@ class ModalDieuDuong extends Component {
                                     <select className="form-contro"
                                         value={laDaoTaoVien ? laDaoTaoVien : ''}
                                         name="laDaoTaoVien"
-                                        onChange={this.handleChange_Number}
+                                        onChange={this.handleChangeSpecialDTV}
                                         disabled={
                                             this.props.role === 1 ? true : (this.props.role === 2 ? true : (this.state.dieuDuong.trangThai === 3 ? false : true))
                                         }
@@ -307,6 +442,7 @@ class ModalDieuDuong extends Component {
                                         disabled={
                                             this.props.role === 1 ? false : (this.props.role === 2 ? true : false)
                                         }
+                                        required={true}
                                     />
                                 </div>
                             </div>
@@ -362,10 +498,11 @@ class ModalDieuDuong extends Component {
                                         /*disabled={true}*/
                                         name="soCMND"
                                         value={soCMND ? soCMND : ''}
-                                        onChange={this.handleChange}
+                                        onChange={this.handleChangeSpecialCMND}
                                         disabled={
                                             this.props.role === 1 ? false : (this.props.role === 2 ? true : false)
                                         }
+                                        required={true}
 
                                     />
                                 </div>
@@ -380,6 +517,7 @@ class ModalDieuDuong extends Component {
                                         disabled={
                                             this.props.role === 1 ? false : (this.props.role === 2 ? true : false)
                                         }
+                                        required={true}
                                     />
                                 </div>
                                 {/* Ngày cấp */}
@@ -393,6 +531,7 @@ class ModalDieuDuong extends Component {
                                         disabled={
                                             this.props.role === 1 ? false : (this.props.role === 2 ? true : false)
                                         }
+                                        required={true}
                                     />
                                 </div>
                             </div>
@@ -408,6 +547,7 @@ class ModalDieuDuong extends Component {
                                     disabled={
                                         this.props.role === 1 ? false : (this.props.role === 2 ? true : false)
                                     }
+                                    required={true}
                                 />
                             </div>
 
@@ -422,6 +562,7 @@ class ModalDieuDuong extends Component {
                                     disabled={
                                         this.props.role === 1 ? false : (this.props.role === 2 ? true : false)
                                     }
+                                    required={true}
                                 />
                             </div>
 
@@ -504,7 +645,10 @@ const mapStateToProps = state => {
         item: state.qlDieuDuong.modalDieuDuong.value,
         role: state.qlDieuDuong.modalDieuDuong.role,
         listTinhThanh: state.qlTinhThanh.listTinhThanh,
-        checkExist: state.qlDieuDuong.checkExist,
+        checkExistDTV: state.qlDieuDuong.checkExist,
+        checkExistSDT: state.qlDieuDuong.checkExistSDT,
+        checkExistCMND: state.qlDieuDuong.checkExistCMND,
+        checkExistEmail: state.qlDieuDuong.checkExistEmail
     }
 }
 

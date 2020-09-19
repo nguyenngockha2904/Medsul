@@ -18,6 +18,7 @@ import { layDanhSachDichVuAction, layDanhSachLoaiDichVuAction } from './Redux/ac
 
 class App extends Component {
   render() {
+    this.props.dispatch(LayDanhSachTinhThanh());
     return (
       <BrowserRouter>
         <Header />
@@ -37,7 +38,6 @@ class App extends Component {
     );
   }
   componentDidMount() {
-    this.props.dispatch(LayDanhSachTinhThanh());
     this.props.dispatch(layDanhSachLoaiDichVuAction());
     this.props.dispatch(layDanhSachDichVuAction());
   }

@@ -23,8 +23,11 @@ class DieuDuongItem extends PureComponent {
     handleOpenModalPassword = (value) => () => {
         this.props.dispatch(createAction(SHOW_MODAL_REPASSWORD, value));
     }
+    state = {
+        tenTinhThanh: '',
+    }
     render() {
-        const { dieuDuong_Id, gioiTinh, hoTen, laDaoTaoVien, maDieuDuong, soDienThoai, tinhThanh_ID,
+        const { dieuDuong_Id, gioiTinh, hoTen, laDaoTaoVien, maDieuDuong, soDienThoai, tinhThanh_Id,
             trangThai } = this.props.item;
         const stt = this.props.index;
         return (
@@ -40,7 +43,7 @@ class DieuDuongItem extends PureComponent {
                 {/**giới tính. */}
                 <td onClick={this.props.typeTable === 2 ? this.handleClickShowListDD(dieuDuong_Id) : this.handleOpenModalDD({ value: this.props.item, role: 2 })}>{gioiTinh}</td>
                 {/**Tỉnh thành. */}
-                <td onClick={this.props.typeTable === 2 ? this.handleClickShowListDD(dieuDuong_Id) : this.handleOpenModalDD({ value: this.props.item, role: 2 })}>{tinhThanh_ID}</td>
+                <td onClick={this.props.typeTable === 2 ? this.handleClickShowListDD(dieuDuong_Id) : this.handleOpenModalDD({ value: this.props.item, role: 2 })}>{this.state.tenTinhThanh}</td>
                 {/**Đào tạo viên */}
                 <td onClick={this.props.typeTable === 2 ? this.handleClickShowListDD(dieuDuong_Id) : this.handleOpenModalDD({ value: this.props.item, role: 2 })}>{laDaoTaoVien === 1 ? 'Có' : 'Không'}</td>
                 {/**Trạng thái */}
@@ -63,6 +66,14 @@ class DieuDuongItem extends PureComponent {
             </tr>
         );
     }
+    componentDidMount() {
+        let tenTinhT = this.props.listTinhThanh.filter(tt => tt.tinhThanh_Id === this.props.item.tinhThanh_Id)[0].tenTinhThanh;
+        this.setState({
+            tenTinhThanh: tenTinhT
+        })
+    }
 }
-
-export default connect()(DieuDuongItem);
+const mapStateToProps = state => ({
+    listTinhThanh: state.qlTinhThanh.listTinhThanh,
+})
+export default connect(mapStateToProps)(DieuDuongItem);

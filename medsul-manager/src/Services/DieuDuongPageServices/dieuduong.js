@@ -27,6 +27,7 @@ class DieuDuong {
             url: `http://localhost:8080/api/dieuDuong/getDieuDUongByDaoTaoVienId/${id}`
         })
     }
+    // updateViTien()
 
 }
 

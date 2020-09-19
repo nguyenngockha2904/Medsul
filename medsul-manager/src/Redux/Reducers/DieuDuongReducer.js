@@ -1,4 +1,4 @@
-import { HIRE_MODAL_DIEUDUONG, HIRE_MODAL_GIAYPHEPHANHNGHE, HIRE_MODAL_VITIEN, SHOW_MODAL_DIEUDUONG, SHOW_MODAL_VITIEN, SHOW_MODAL_GIAYPHEPHANHNGHE, SET_DATA_LISTDIEUDUONG, ADD_DIEUDUONG, SET_DIEUDUONG_BY_DAOTAOVIEN, UPDATE_DIEUDUONG, SET_LISTGPHN_BY_DIEUDUONGID, CHECK_DAOTAOVIEN, SET_DATA_LISTGPHN, ADD_GIAYPHEPHANHNGHE, UPDATE_GIAYPHEPHANHNGHE } from "../actions/type";
+import { HIRE_MODAL_DIEUDUONG, HIRE_MODAL_GIAYPHEPHANHNGHE, HIRE_MODAL_VITIEN, SHOW_MODAL_DIEUDUONG, SHOW_MODAL_VITIEN, SHOW_MODAL_GIAYPHEPHANHNGHE, SET_DATA_LISTDIEUDUONG, ADD_DIEUDUONG, SET_DIEUDUONG_BY_DAOTAOVIEN, UPDATE_DIEUDUONG, SET_LISTGPHN_BY_DIEUDUONGID, CHECK_DAOTAOVIEN, SET_DATA_LISTGPHN, ADD_GIAYPHEPHANHNGHE, UPDATE_GIAYPHEPHANHNGHE, CHECK_SDT, CHECK_CMND, CHECK_EMAIL } from "../actions/type";
 
 let initialState = {
     modalDieuDuong: {
@@ -19,6 +19,9 @@ let initialState = {
     listDieuDuongByIdDaoTao: '',
     listAllGPHN: [],
     checkExist: false,
+    checkExistSDT: false,
+    checkExistCMND: false,
+    checkExistEmail: false,
 }
 const dieuDuongReducer = (state = initialState, { type, payload }) => {
     switch (type) {
@@ -83,6 +86,35 @@ const dieuDuongReducer = (state = initialState, { type, payload }) => {
                 state.checkExist = true;
             }
             return { ...state };
+        } case CHECK_SDT: {
+            let index = state.listDieuDuong.findIndex(dd => dd.soDienThoai === payload);
+            console.log(index);
+            console.log(payload);
+            if (index === -1) {
+                state.checkExistSDT = false;
+            } else {
+                state.checkExistSDT = true;
+            }
+            return { ...state };
+
+
+        } case CHECK_CMND: {
+            let index = state.listDieuDuong.findIndex(dd => dd.soCMND === payload);
+            if (index === -1) {
+                state.checkExistCMND = false;
+            } else {
+                state.checkExistCMND = true;
+            }
+            return { ...state };
+        } case CHECK_EMAIL: {
+            let index = state.listDieuDuong.findIndex(dd => dd.email === payload);
+            if (index === -1) {
+                state.checkExistEmail = false;
+            } else {
+                state.checkExistEmail = true;
+            }
+            return { ...state };
+
         } case ADD_GIAYPHEPHANHNGHE: {
             state.listAllGPHN = [...state.listAllGPHN, payload];
             return { ...state };

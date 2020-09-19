@@ -37,6 +37,9 @@ export const ADD_DIEUDUONG = 'dieuduong/ADD_DIEUDUONG';
 export const UPDATE_DIEUDUONG = 'dieuduong/UPDATE_DIEUDUONG';
 export const SET_DIEUDUONG_BY_DAOTAOVIEN = 'dieuduong/SET_DIEUDUONG_BY_DAOTAOVIEN';
 export const CHECK_DAOTAOVIEN = 'dieuduong/CHECK_DAOTAOVIEN';
+export const CHECK_SDT = 'dieuduong/CHECK_SDT';
+export const CHECK_CMND = 'dieuduong/CHECK_CMND';
+export const CHECK_EMAIL = 'dieuduong/CHECK_EMAIL';
 //GPHN
 export const SET_DATA_LISTGPHN = 'giayphephanhnghe/SET_DATA_LISTGPHN';
 export const SET_LISTGPHN_BY_DIEUDUONGID = 'giayphephanhnghe/SET_LISTGPHN_BY_DIEUDUONGID';

@@ -63,7 +63,7 @@ class ModalBC extends PureComponent {
         })
     }
     renderMaDTV = () => {
-        return this.props.ListDTV.map((item, index) => {
+        return this.props.ListDTV.filter(dtv => dtv.dieuDuong_Id !== this.state.DD.idDD).map((item, index) => {
             return (
                 <option value={item.dieuDuong_Id} key={index}>{item.maDieuDuong}</option>
             )
@@ -115,7 +115,7 @@ class ModalBC extends PureComponent {
         });
     }
     renderGPHN = () => {
-        return this.state.listGPHN.map((item, index) => {
+        return this.props.listGPHN.filter(gphn => gphn.giayPhep_DieuDuong_Id === this.state.DD.idDD).map((item, index) => {
             return (
                 <tr className="tRow" key={index}>
                     {/**No. */}
@@ -167,7 +167,7 @@ class ModalBC extends PureComponent {
             this.props.dispatch(themGPHN(addNew));
             // console.log(addNew);
             this.setState({
-                modalCT: { ...this.state.modalCT, isShow: false }
+                modalCT: { ...this.state.modalCT, isShow: false },
             });
 
         } else if (this.state.modalCT.role === 3) {
@@ -184,13 +184,15 @@ class ModalBC extends PureComponent {
                         icon: "success",
                     });
                     this.props.dispatch(capNhatGPHN(this.state.giayPhep_Id, addNew));
+
                     this.setState({
-                        modalCT: { ...this.state.modalCT, isShow: false }
+                        modalCT: { ...this.state.modalCT, isShow: false },
+
                     });
                 } else {
                     swal("Dữ liệu được giữ nguyên!");
                     this.setState({
-                        modalCT: { ...this.state.modalCT, isShow: false }
+                        modalCT: { ...this.state.modalCT, isShow: false },
                     });
                 }
             });
@@ -385,7 +387,7 @@ class ModalBC extends PureComponent {
 
     componentDidMount() {
         let listDvByIdLdv = this.props.ListDV.filter(dv => dv.loaiDichVuID === this.state.LDV.maLDV);
-        let listGPHNF = this.props.listGPHN.filter(gphn => gphn.giayPhep_DieuDuong_Id === this.state.DD.dieuDuong_Id);
+        let listGPHNF = this.props.listGPHN.filter(gphn => gphn.giayPhep_DieuDuong_Id === this.state.DD.idDD);
         this.setState({
             listDV: listDvByIdLdv,
             listGPHN: listGPHNF
