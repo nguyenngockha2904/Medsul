@@ -1,17 +1,31 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { SET_LOGIN } from '../../Redux/actions/type';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import bgSignin from '../../img/bgSignin.png';
 import logo from '../../img/icon.svg';
-import { Formik, Form, Field } from 'formik';
+import { Login } from '../../Redux/actions/LoginAction';
 class SignIn extends Component {
+    state = {
+        credentials: {
+            userName: '',
+            passWord: '',
+        }
+    }
+    handleChange = (e) => {
+        this.setState({
+            credentials: { ...this.state.credentials, [e.target.name]: e.target.value }
+        })
+    }
+    handleSubmit = (e) => {
+        e.preventDefault();
+        // console.log(this.state.credentials);
+        this.props.dispatch(Login(this.state.credentials.userName, this.state.credentials.passWord.toLowerCase(), () => {
+            this.props.history.replace('/');
+        }));
+    }
     render() {
         return (
-
             <SignUpcontainer>
-
                 <div className="wrapper row m-0">
                     <div className="div_left p-0 col-lg-6 col-0">
                         <img src={bgSignin} alt="" className="img-fluid" />
@@ -20,66 +34,30 @@ class SignIn extends Component {
                         <div className="div_right w-50 mx-auto">
                             <p className="text-center icon-d"><img src={logo} alt="logo" className="img-fluid" /></p>
                             <p className="subtitle">Chào mừng bạn đã quay lại với hệ thống MedSul!</p>
-                            <Formik
-                                initialValues={{
-                                    taiKhoan: '',
-                                    matKhau: '',
-                                }}
-                                onSubmit={() => { console.log('đăng nhập') }}
-                                render={
-                                    (formikProps) => (
-                                        <Form>
-                                            <div className="form-group">
-                                                <Field type="text" className="form-control1" name="taikhoan" onChange={formikProps.handleChange} placeholder="Tài khoản" ></Field>
-                                            </div>
-                                            <div className="form-group">
-                                                <Field type="password" className="form-control1" name="password" onChange={formikProps.handleChange} placeholder="Mật khẩu"></Field>
-                                            </div>
-                                            <div className=" d-flex justify-content-between service">
-                                                <div className="form-check">
-                                                    <Field type="checkbox" className="form-check-input" id="txtrememberM" />
-                                                    <label className="form-check-label" htmlFor="txtrememberM">Remember me</label>
-                                                </div>
-                                                <a href='#'>Forgot Password</a>
-                                            </div>
-                                            <div className="text-center">
-                                                <Link className="btn_login btn btn-success"
-                                                    onClick={() => {
-                                                        this.props.dispatch({
-                                                            type: SET_LOGIN,
-                                                            payload: false
-                                                        })
-                                                    }}
-                                                    to='/dichvu'
-                                                >Đăng nhập</Link>
-                                            </div>
-                                        </Form>
-                                    )
-                                }
+                            <form onSubmit={this.handleSubmit}>
+                                <div className="form-group">
+                                    <label>Tài khoản:</label>
+                                    <input type="text" className="form-contro" name="userName" value={this.state.credentials.userName}
+                                        onChange={this.handleChange}
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label >Mật khẩu</label>
+                                    <input type="password" className="form-contro" name="passWord" value={this.state.credentials.passWord}
+                                        onChange={this.handleChange}
+                                    />
+                                </div>
 
-                            >
 
-                            </Formik>
+                                <div className="text-center">
+                                    <button className="btn_login btn btn-success btnAccept"
+                                    >Đăng nhập</button>
+                                </div>
+                            </form>
                         </div>
 
                     </div>
                 </div>
-
-
-
-
-
-
-                {/** test signin
-                    <Link className="btn btn-primary" onClick={() => {
-                    this.props.dispatch({
-                        type: SET_LOGIN,
-                        payload: false
-                    })
-                }}
-                    to='/'
-                >Login</Link>
-                */}
             </SignUpcontainer>
         );
     }
@@ -102,19 +80,68 @@ const SignUpcontainer = styled.div`
                 color:#646D82;
                 margin: 2em 0;
                 text-align: center;
+                font-weight: 400;
+                letter-spacing: 1px;
+                font-size: 0.8em;
             }
             .form-group{
-                .form-control1{
-                    font-size: 13px;
-                    border: none;
-                    border-bottom: 1px solid #E9E9F0;
-                    outline: none !important;
-                    width: 100%;
-                    border-radius: 0.25rem;
-                    margin: 10px 0;
-                    padding:10px 0 ;
+                label{
+                    margin:0;
+                    color:#646D82;
+                    font-weight: 700;
+                    letter-spacing: 1px;
+                    font-size: 0.8em;
                 }
-            }
+                .radGen{
+                    margin:0 10px;
+                }
+                .form-contro{
+                    display: block;
+                    text-align:center;
+                    width: 100%;
+                    height: calc(1.5em + 0.75rem + 2px);
+                    padding: 0 0.75rem;
+                    font-size: 1rem;
+                    font-weight: 400;
+                    line-height: 1.5;
+                    color:#646D82;
+                    background-color: #fff;
+                    border-radius: 0.25rem;
+                    border:none;
+                    border-bottom:1px solid #CBD1D9;
+                    outline: none;
+                    &.mul_text{
+                        border: 1px solid #CBD1D9;
+                        text-align:left;
+                    }
+                    &.gioitinh{
+                        border:none;
+                    }
+                    
+                }
+                
+                &.ac{
+                    label{
+                        color: #49505794;
+                    }
+                    .form-contro{
+                    color: #49505794;
+                    }
+                }
+                
+                &.secondFormleft, &.secondFormright{
+                    width: 100%;
+                }
+                &.secondFormleft{
+                    margin-right:1em;
+                }
+                &.secondFormright{
+                    margin-left:1em;
+                }
+                &.width3{
+                    width:30.6%;
+                }
+            }  
             .service{
                 margin:1em 0;
                 .form-check{
@@ -126,12 +153,21 @@ const SignUpcontainer = styled.div`
                     color:#646D82;
                 }
             }
-            .btn_login{
-                margin: 0.5em 0;
-                background-color: #2CD889;
-                border: none;
-                padding: 0.6em 2em;
-                font-size: 1em;
+            .btnAccept{
+                border-radius:10px;
+                color: #fff ;
+                background-color:#2CD889;
+                border:none;
+                font-size: 0.8em;
+                font-weight: 700;
+                letter-spacing: 1px;
+                white-space: nowrap;
+                transition: 0.2s all;
+                &:hover {
+                    color: #2CD889 ;
+                background:#fff;
+                box-shadow: 1px 2px 4px -0.5px #80808080;
+                }
             }
         }
         @media only screen and (max-width: 993px) {

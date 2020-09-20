@@ -2,7 +2,6 @@ package com.isc.controller;
 
 import java.util.List;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,11 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.isc.dto.AddTinhThanhDto;
 import com.isc.dto.GiayPhepInsertDto;
 import com.isc.entity.GiayPhepHanhNghe;
-import com.isc.entity.TinhThanh;
-import com.isc.repository.DieuDuongReponsitory;
 import com.isc.repository.GiayPhepHanhNgheRepository;
 import com.isc.service.GiayPhepHanhNgheService;
 
@@ -27,9 +23,6 @@ import com.isc.service.GiayPhepHanhNgheService;
 public class GiayPhepHanhNgheController {
 	@Autowired
 	private GiayPhepHanhNgheRepository giayPhepRepo;
-
-	@Autowired
-	private DieuDuongReponsitory dieuDuongReponsitory;
 
 	@Autowired
 	private GiayPhepHanhNgheService giayPhepService;
@@ -89,12 +82,13 @@ public class GiayPhepHanhNgheController {
 		return new ResponseEntity<String>("Add Manager Failse!", HttpStatus.BAD_REQUEST);
 
 	}
-	
+
 	@PutMapping("/{giayPhep_ID}")
-	public Object updateGiayPhep(@PathVariable("giayPhep_ID") int giayPhep_ID,@RequestBody GiayPhepInsertDto giayPhepInsertDto) {
-		
+	public Object updateGiayPhep(@PathVariable("giayPhep_ID") int giayPhep_ID,
+			@RequestBody GiayPhepInsertDto giayPhepInsertDto) {
+
 		if (giayPhepRepo.findById(giayPhep_ID).orElse(null) != null) {
-			
+
 			GiayPhepHanhNghe giayPhep = new GiayPhepHanhNghe();
 			giayPhep.setGiayPhep_DichVu_Id(giayPhepInsertDto.getGiayPhep_DichVu_Id());
 			giayPhep.setGiayPhep_DieuDuong_Id(giayPhepInsertDto.getGiayPhep_DieuDuong_Id());
@@ -103,12 +97,12 @@ public class GiayPhepHanhNgheController {
 			giayPhep.setGiayPhep_XepLoai(giayPhepInsertDto.getGiayPhep_XepLoai());
 			giayPhep.setGiayPhep_TrangThai(giayPhepInsertDto.getGiayPhep_TrangThai());
 			giayPhep.setGiayPhep_Id(giayPhep_ID);
-			
+
 			GiayPhepHanhNghe entity = giayPhepRepo.save(giayPhep);
 			return new ResponseEntity<GiayPhepHanhNghe>(entity, HttpStatus.CREATED);
 		}
 		return new ResponseEntity<String>("Update Fail!", HttpStatus.BAD_REQUEST);
-		
+
 	}
 
 }

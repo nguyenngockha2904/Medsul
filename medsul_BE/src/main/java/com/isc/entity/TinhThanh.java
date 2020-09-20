@@ -26,10 +26,10 @@ public class TinhThanh {
 	private String tenTinhThanh;
 
 	@Column(name = "TINHT_HESOGIAMDD")
-	private String heSoTinhThanhDieuDuong;
+	private double heSoTinhThanhDieuDuong;
 
 	@Column(name = "TINHT_HESOGIAMUSER")
-	private String heSoTinhThanhUser;
+	private double heSoTinhThanhUser;
 
 	/*
 	 * @OneToMany(mappedBy = "tinhThanh", fetch = FetchType.LAZY, cascade =

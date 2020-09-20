@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import icon_toggle from '../../img/toggle_navIcon.svg';
 import icon_close from '../../img/closeSideIcon.svg';
 import { connect } from 'react-redux';
-import { SET_LOGIN, SHOW_MODAL_THONGTINCANHAN } from '../../Redux/actions/type';
+import { FETCH_DICHVU, FETCH_LOAIDICHVU, LOGOUT, SET_DATA_LISTDIEUDUONG, SET_DATA_LISTGPHN, SET_DATA_QUYTRINHDICHVUBYID, SET_DATA_TINHTHANH, SET_LOGIN, SHOW_MODAL_THONGTINCANHAN } from '../../Redux/actions/type';
 import { createAction } from '../../Redux/actions';
 class NavBar extends Component {
     state = {
@@ -19,10 +19,19 @@ class NavBar extends Component {
     handleShowModalThongTinCaNhan = (value) => () => {
         this.props.dispatch(createAction(SHOW_MODAL_THONGTINCANHAN, value));
     }
+    handleLogOut = () => {
+        this.props.dispatch(createAction(LOGOUT, {}));
+        this.props.dispatch(createAction(SET_DATA_LISTDIEUDUONG, []));
+        this.props.dispatch(createAction(SET_DATA_LISTGPHN, []));
+        this.props.dispatch(createAction(SET_DATA_QUYTRINHDICHVUBYID, []));
+        this.props.dispatch(createAction(SET_DATA_TINHTHANH, []));
+        this.props.dispatch(createAction(FETCH_LOAIDICHVU, []));
+        this.props.dispatch(createAction(FETCH_DICHVU, []));
+    }
     render() {
         return (
             <NavbarContainer>
-                {this.props.isLoginPage
+                {!this.props.isLoginPage
                     ?
                     <nav className="navbar navbar-expand-lg navbar-light py-2" style={{ boxShadow: '0 -1px 7px 2px #dcdcdc' }}>
                         <Link className="navbar-brand" to="/signin"><img src={icon} alt="icon.svg" className='img-fluid' /></Link>
@@ -80,21 +89,16 @@ class NavBar extends Component {
                                 <li className="nav-item dropdown">
                                     <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         ADMIN
-                    </a>
+                                    </a>
                                     <div className="dropdown-menu" aria-labelledby="navbarDropdown"
 
                                     >
                                         <button className="dropdown-item" onClick={this.handleShowModalThongTinCaNhan({})} style={{ outline: 'none' }}>TÀI KHOẢN</button>
                                         <Link className="dropdown-item" to="/caidat">CÀI ĐẶT</Link>
                                         <div className="dropdown-divider" />
-                                        <Link className="dropdown-item" to='/signin'
-                                            onClick={() => {
-                                                this.props.dispatch({
-                                                    type: SET_LOGIN,
-                                                    payload: true
-                                                })
-                                            }}
-                                        >THOÁT</Link>
+                                        <button className="dropdown-item"
+                                            onClick={this.handleLogOut}
+                                        >THOÁT</button>
                                     </div>
                                 </li>
                             </ul>
@@ -113,13 +117,7 @@ class NavBar extends Component {
                             <div className="hrtag"></div>
                             <button className="nav-link custom" onClick={this.handleOpensidepanel(false) || this.handleShowModalThongTinCaNhan({})}>TÀI KHOẢN</button>
                             <NavLink activeStyle={{ color: '#2CD889' }} to="/caidat" exact className="nav-link custom" onClick={this.handleOpensidepanel(false)}>CÀI ĐẶT</NavLink>
-                            <Link to="/signin" className="nav-link custom" onClick={() => {
-                                this.props.dispatch({
-                                    type: SET_LOGIN,
-                                    payload: true
-                                });
-                                // this.handleOpensidepanel(false);
-                            }}>THOÁT</Link>
+                            <button className="nav-link custom" onClick={this.handleLogOut}>THOÁT</button>
                         </div>
                     </nav>
                 }
@@ -129,7 +127,7 @@ class NavBar extends Component {
 }
 const mapStateToProps = state => {
     return {
-        isLoginPage: state.credentials.isLogin
+        isLoginPage: state.credentials.credentials.isLogin
     }
 }
 

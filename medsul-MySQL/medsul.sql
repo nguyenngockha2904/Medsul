@@ -1,5 +1,7 @@
 -- MySQL dump 10.13  Distrib 8.0.21, for Win64 (x86_64)
 --
+
+use csdl_medsul
 -- Host: 127.0.0.1    Database: csdl_medsul
 -- ------------------------------------------------------
 -- Server version	8.0.21
@@ -179,7 +181,7 @@ CREATE TABLE `cmnd_dieuduong` (
   UNIQUE KEY `DD_ID_UNIQUE` (`DD_ID`),
   CONSTRAINT `FK_DD_CO_CMND` FOREIGN KEY (`DD_ID`) REFERENCES `dieuduong` (`DD_ID`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `FKcckt2qle68fjkasilwdatb0p0` FOREIGN KEY (`DD_ID`) REFERENCES `dieuduong` (`DD_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -188,7 +190,7 @@ CREATE TABLE `cmnd_dieuduong` (
 
 LOCK TABLES `cmnd_dieuduong` WRITE;
 /*!40000 ALTER TABLE `cmnd_dieuduong` DISABLE KEYS */;
-INSERT INTO `cmnd_dieuduong` VALUES (1,'12541235hkbhj',2,'LE NGOC HAU[','Việt Nam','HN','123 G','long an 1','2013-10-10','@@ QWE','CHƯA CÓ','CHƯA CÓ'),(2,'301634255jkbjk',5,'l',NULL,'api','api','api',NULL,NULL,'api','api'),(3,'301634259lolo',1,'TRAN THANH QUY','Việt Nam','LA','phuoc tan hung , chau thanh, long an','long an','2013-10-15','đẹp trai nhất vũ trụ ','chưa có','chưa có'),(4,'963245126',3,'NGUYEN LAN','Việt Nam','LA','341DA','long an 2','2013-10-10','@@ QWE','CHƯA CÓ','CHƯA CÓ'),(5,'965896325',4,'NGUYEN NGOC KHA','Việt Nam','HCM','ASD12','long an 3','2013-10-11','@@ QWE','CHƯA CÓ','CHƯA CÓ'),(6,'123456',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
+INSERT INTO `cmnd_dieuduong` VALUES (1,'12541235hkbhj',2,'LE NGOC HAU[','Việt Nam','HN','123 G','long an 1','2013-10-10','@@ QWE','CHƯA CÓ','CHƯA CÓ'),(3,'301634259lolo',1,'TRAN THANH QUY','Việt Nam','LA','phuoc tan hung , chau thanh, long an','long an','2013-10-15','đẹp trai nhất vũ trụ ','chưa có','chưa có'),(4,'963245126',3,'NGUYEN LAN','Việt Nam','LA','341DA','long an 2','2013-10-10','@@ QWE','CHƯA CÓ','CHƯA CÓ'),(5,'965896325',4,'NGUYEN NGOC KHA','Việt Nam','HCM','ASD12','long an 3','2013-10-11','@@ QWE','CHƯA CÓ','CHƯA CÓ');
 /*!40000 ALTER TABLE `cmnd_dieuduong` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -304,7 +306,7 @@ CREATE TABLE `dieuduong` (
   KEY `FK_DIEUDUONG_THUOC_TINHTHANH` (`TINHT_ID`),
   CONSTRAINT `FK_DIEUDUONG_THUOC_TINHTHANH` FOREIGN KEY (`TINHT_ID`) REFERENCES `tinhthanh` (`TINHT_ID`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `FKius6pw410pmtcxf4eoloa2onu` FOREIGN KEY (`TINHT_ID`) REFERENCES `tinhthanh` (`TINHT_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -313,7 +315,7 @@ CREATE TABLE `dieuduong` (
 
 LOCK TABLES `dieuduong` WRITE;
 /*!40000 ALTER TABLE `dieuduong` DISABLE KEYS */;
-INSERT INTO `dieuduong` VALUES (1,1,'DD0001','Trần Thanh Quy',NULL,'Nam','1999-08-02','0375250024','thanhquy0164@gmail.com','911 quang trung ','chua co','quy123',1,1),(2,2,'DD0002','Lê Ngọc Hậu',NULL,'Nam','1999-08-02','0122456789','hau@gmail.com','trái đất','chua co','hau123',0,1),(3,1,'DD0003','Nguyễn Lan',NULL,'Nam','1999-05-03','012352525421','lan@gmail.com','việt nam','chua co','lan123',1,1),(4,3,'DD0004','Nguyễn Ngọc Kha',NULL,'Nam','1999-01-01','1235214520','kha@gmail.com','HCM','chua co','kha123',0,1),(5,2,'DD0005','api',NULL,'api',NULL,'03752250024','api','api','api','api',2,1);
+INSERT INTO `dieuduong` VALUES (1,1,'DD0001','Trần Thanh Quy',NULL,'Nam','1999-08-02','0375250024','thanhquy0164@gmail.com','911 quang trung ','chua co','quy123',1,1),(2,2,'DD0002','Lê Ngọc Hậu',NULL,'Nam','1999-08-02','0122456789','hau@gmail.com','trái đất','chua co','hau123',0,1),(3,1,'DD0003','Nguyễn Lan',NULL,'Nam','1999-05-03','012352525421','lan@gmail.com','việt nam','chua co','lan123',1,1),(4,3,'DD0004','Nguyễn Ngọc Kha',NULL,'Nam','1999-01-01','1235214520','kha@gmail.com','HCM','chua co','kha123',0,1);
 /*!40000 ALTER TABLE `dieuduong` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -343,7 +345,7 @@ CREATE TABLE `giayphephanhnghe` (
   CONSTRAINT `FK_DD_DAOTAO_DDMOI` FOREIGN KEY (`DD_DAOTAOVIEN_ID`) REFERENCES `dieuduong` (`DD_ID`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `FKbevbrdr3p0o2ui4fwtvx1s61` FOREIGN KEY (`DD_DAOTAOVIEN_ID`) REFERENCES `dieuduong` (`DD_ID`),
   CONSTRAINT `FKet67072osfh4iwl7xoqe6e1xg` FOREIGN KEY (`DV_ID`) REFERENCES `dichvu` (`DV_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -352,7 +354,7 @@ CREATE TABLE `giayphephanhnghe` (
 
 LOCK TABLES `giayphephanhnghe` WRITE;
 /*!40000 ALTER TABLE `giayphephanhnghe` DISABLE KEYS */;
-INSERT INTO `giayphephanhnghe` VALUES (1,1,2,1,'Giấy phép phục hồi chức năng sau tai biến','chưa cấp',0,NULL),(2,2,4,3,'Giấy phép Phục Hồi Chức Năng Sau Tai Nạn','khá',1,NULL),(3,2,2,1,'Giấy phép Phục Hồi Chức Năng Sau Tai Nạn','TB',1,NULL),(4,1,4,1,'Giấy phép phục hồi chức năng sau tai biến','khá',2,NULL),(6,3,2,3,'Giấy Phép Cắt Chỉ Thẩm Mỹ','Khá',1,NULL);
+INSERT INTO `giayphephanhnghe` VALUES (1,1,2,1,'Giấy phép phục hồi chức năng sau tai biến','chưa cấp',0,NULL),(2,2,4,3,'Giấy phép Phục Hồi Chức Năng Sau Tai Nạn','khá',1,NULL),(3,2,2,1,'Giấy phép Phục Hồi Chức Năng Sau Tai Nạn','TB',1,NULL),(4,1,4,1,'Giấy phép phục hồi chức năng sau tai biến','khá',2,NULL),(6,3,2,3,'Giấy Phép Cắt Chỉ Thẩm Mỹ','Khá',1,NULL),(7,2,2,1,'Giấy Phép Phục Hồi Chức Năng Sau Tai Nạn','Rớt',0,NULL),(8,2,3,1,'Giấy Phép Phục Hồi Chức Năng Sau Tai Nạn','Giỏi',1,NULL),(9,1,4,1,'Giấy phép phục hồi chức năng sau tai biến','Khá',1,NULL);
 /*!40000 ALTER TABLE `giayphephanhnghe` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -592,7 +594,7 @@ CREATE TABLE `vidientu` (
   UNIQUE KEY `DD_ID_UNIQUE` (`DD_ID`),
   CONSTRAINT `FK_DD_CO_VI` FOREIGN KEY (`DD_ID`) REFERENCES `dieuduong` (`DD_ID`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `FKs8h18b7mby88vy71kur9xkrgc` FOREIGN KEY (`DD_ID`) REFERENCES `dieuduong` (`DD_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -601,7 +603,7 @@ CREATE TABLE `vidientu` (
 
 LOCK TABLES `vidientu` WRITE;
 /*!40000 ALTER TABLE `vidientu` DISABLE KEYS */;
-INSERT INTO `vidientu` VALUES (7,1,100000000,'VIETTINBANK','1234568987978','TRAN THANH QUY',NULL),(8,2,0,NULL,NULL,NULL,NULL),(9,3,0,NULL,NULL,NULL,NULL),(10,4,0,NULL,NULL,NULL,NULL),(11,5,0,'string','string',NULL,NULL);
+INSERT INTO `vidientu` VALUES (7,1,100000000,'VIETTINBANK','1234568987978','TRAN THANH QUY',NULL),(8,2,0,NULL,NULL,NULL,NULL),(9,3,0,NULL,NULL,NULL,NULL),(10,4,0,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `vidientu` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -614,4 +616,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-09-16 16:20:51
+-- Dump completed on 2020-09-19  8:06:58

@@ -30,7 +30,7 @@ public class SwaggerConfig {
 						new Contact("FutureTeam", "", "futureteam808599@gmail.com"), 
 						"", 
 						"",
-						Collections.EMPTY_LIST
+						Collections.emptyList()
 					));
 	}
 }

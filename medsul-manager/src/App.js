@@ -1,5 +1,5 @@
 
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Header from './Layouts/NavBar';
 import SignIn from './Screens/SignIn';
@@ -18,33 +18,41 @@ import { layDanhSachDichVuAction, layDanhSachLoaiDichVuAction } from './Redux/ac
 
 class App extends Component {
   render() {
-    this.props.dispatch(LayDanhSachTinhThanh());
+    { this.props.isLoginPage && this.props.dispatch(LayDanhSachTinhThanh()); }
+    { this.props.isLoginPage && this.props.dispatch(layDanhSachLoaiDichVuAction()); }
+    { this.props.isLoginPage && this.props.dispatch(layDanhSachDichVuAction()); }
     return (
       <BrowserRouter>
         <Header />
         <Switch>
-          <Route exact path="/signin" component={SignIn} />
-          <Route exact path="/dieuduong" component={DieuDuongComponent} />
-          <Route exact path="/dichvu" component={DichVuComponent} />
-          <Route exact path='/khachhang' component={KhachHangComponent} />
-          <Route exact path='/khuyenmai' component={KhuyenMaiComponent} />
-          <Route exact path='/daotao' component={DaoTaoComponent} />
-          <Route exact path='/donhang' component={DonHangComponent} />
-          <Route exact path='/manager' component={ManagerComponent} />
-          <Route path="/" component={ThongKeComponent} />
+          {!this.props.isLoginPage ?
+            <Fragment>
+              < Route path="/" component={SignIn} />
+            </Fragment>
+            :
+            <Fragment>
+              <Route path="/signin" component={SignIn} />
+              <Route path="/dieuduong" component={DieuDuongComponent} />
+              <Route path="/dichvu" component={DichVuComponent} />
+              <Route path='/khachhang' component={KhachHangComponent} />
+              <Route path='/khuyenmai' component={KhuyenMaiComponent} />
+              <Route path='/daotao' component={DaoTaoComponent} />
+              <Route path='/donhang' component={DonHangComponent} />
+              <Route path='/manager' component={ManagerComponent} />
+              <Route path="/" component={ThongKeComponent} />
+
+            </Fragment>}
+
         </Switch>
         {this.props.isModalThongTin && <TaiKhoanModal />}
       </BrowserRouter>
     );
   }
-  componentDidMount() {
-    this.props.dispatch(layDanhSachLoaiDichVuAction());
-    this.props.dispatch(layDanhSachDichVuAction());
-  }
 }
 const mapStateToProps = state => {
   return {
-    isModalThongTin: state.credentials.modalThongTinCaNhan.isShow
+    isModalThongTin: state.credentials.modalThongTinCaNhan.isShow,
+    isLoginPage: state.credentials.credentials.isLogin
   }
 }
 export default connect(mapStateToProps)(App);

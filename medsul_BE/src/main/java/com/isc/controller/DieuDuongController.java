@@ -1,11 +1,11 @@
 package com.isc.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,11 +19,9 @@ import com.isc.dto.DieuDuongGetAllDto;
 import com.isc.dto.DieuDuongInsertDto;
 import com.isc.entity.CMND_DieuDuong;
 import com.isc.entity.DieuDuong;
-import com.isc.entity.GiayPhepHanhNghe;
 import com.isc.repository.ChungMinhReponsitory;
 import com.isc.repository.DieuDuongReponsitory;
 import com.isc.service.DieuDuongService;
-import com.isc.service.GiayPhepHanhNgheService;
 
 @RestController
 @RequestMapping("api/dieuDuong")
@@ -37,9 +35,6 @@ public class DieuDuongController {
 
 	@Autowired
 	private ChungMinhReponsitory chungMinhReponsitory;
-
-	@Autowired
-	private GiayPhepHanhNgheService giayPhepService;
 
 	/*
 	 * // API - LAY TAT CA DANH SACH DIEU DUONG THEO FORM
@@ -59,22 +54,30 @@ public class DieuDuongController {
 		return new ResponseEntity<List<DieuDuongGetAllDto>>(lstGetAll, HttpStatus.OK);
 	}
 
-	// lay danh sach dieu duong theo dao tao vien
-	@GetMapping("/getDieuDUongByDaoTaoVienId/{dieuDuong_Id}")
-	public Object getDieuDUongByDaoTaoVienId(@PathVariable("dieuDuong_Id") int dieuDuong_Id) {
-		List<GiayPhepHanhNghe> lstGiayPhep = giayPhepService
-				.GetListGiayPhepKhongTrungDieuDuongByDaoTaoVienID(dieuDuong_Id);
-		List<DieuDuongGetAllDto> lstDieuDuongDTO = new ArrayList<>();
+	@GetMapping("/loginByPhoneNumber/{sdtDieuDuong}/{passDieuDuong}")
+	public Object LoginDieuDuongBySDT(@PathVariable String sdtDieuDuong, @PathVariable String passDieuDuong) {
 
-		for (int i = 0; i < lstGiayPhep.size(); i++) {
+		DieuDuongGetAllDto loginDieuDuong = dieuDuongReponsitory.GetDieuDuongDtoGetAllBySDT(sdtDieuDuong);
 
-			DieuDuongGetAllDto dieuDuongDTO = dieuDuongService
-					.GetAllDieuDuongByID(lstGiayPhep.get(i).getGiayPhep_DieuDuong_Id());
-
-			lstDieuDuongDTO.add(dieuDuongDTO);
+		if (loginDieuDuong != null) {
+			if (loginDieuDuong.getPassword().equals(passDieuDuong)) {
+				return new ResponseEntity<DieuDuongGetAllDto>(loginDieuDuong, HttpStatus.OK);
+			} else {
+				return new ResponseEntity<String>("Sai Pass", HttpStatus.BAD_REQUEST);
+			}
 		}
+		return new ResponseEntity<String>("Khong tim thay dieu duong co sdt la: " + sdtDieuDuong, HttpStatus.OK);
+	}
 
-		return new ResponseEntity<List<DieuDuongGetAllDto>>(lstDieuDuongDTO, HttpStatus.OK);
+	// lay danh sach dieu duong theo dao tao vien
+	@GetMapping("/getDieuDUongByDaoTaoVienId/{daoTaoVien_ID}")
+	public Object getDieuDUongByDaoTaoVienId(@PathVariable("daoTaoVien_ID") int daoTaoVien_ID) {
+		List<DieuDuongGetAllDto> listDieuDuong = dieuDuongReponsitory
+				.GetDieuDuongDtoGetAllByDaoTaoVienID(daoTaoVien_ID);
+		if (listDieuDuong.isEmpty()) {
+			return new ResponseEntity<String>("[NULL] - Danh Sach Trong", HttpStatus.OK);
+		}
+		return new ResponseEntity<List<DieuDuongGetAllDto>>(listDieuDuong, HttpStatus.OK);
 	}
 
 	// API - LAY TAT CA DANH SACH DIEU DUONG THEO FORM
@@ -114,9 +117,10 @@ public class DieuDuongController {
 		}
 
 		if (dieuDuongService.AddNewDieuDuong(dieuDuongInsertDto)) {
-			
-			// tim dieu duong vua moi them de tra ve 
-			DieuDuongGetAllDto entity = dieuDuongReponsitory.GetDieuDuongDtoGetAllByEmail(dieuDuongInsertDto.getEmail());
+
+			// tim dieu duong vua moi them de tra ve
+			DieuDuongGetAllDto entity = dieuDuongReponsitory
+					.GetDieuDuongDtoGetAllByEmail(dieuDuongInsertDto.getEmail());
 			return new ResponseEntity<DieuDuongGetAllDto>(entity, HttpStatus.OK);
 		}
 		return new ResponseEntity<String>("Insert Failed, Loi Khong Xac Dinh...", HttpStatus.BAD_REQUEST);
@@ -149,8 +153,8 @@ public class DieuDuongController {
 				// neu email va cmnd dieu trung => UPDATE
 				System.out.println("da trung cmnd");
 				if (dieuDuongService.UpdateDieuDuong(dieuDuong_ID, dieuDuongEditDto)) {
-					
-					//tim dieu duong vua update tra ve
+
+					// tim dieu duong vua update tra ve
 					DieuDuongGetAllDto entity = dieuDuongReponsitory.GetDieuDuongDtoGetAllById(dieuDuong_ID);
 					return new ResponseEntity<DieuDuongGetAllDto>(entity, HttpStatus.OK);
 				}
@@ -168,10 +172,21 @@ public class DieuDuongController {
 		}
 
 		if (dieuDuongService.UpdateDieuDuong(dieuDuong_ID, dieuDuongEditDto)) {
-			//tim dieu duong vua update tra ve
+			// tim dieu duong vua update tra ve
 			DieuDuongGetAllDto entity = dieuDuongReponsitory.GetDieuDuongDtoGetAllById(dieuDuong_ID);
 			return new ResponseEntity<DieuDuongGetAllDto>(entity, HttpStatus.OK);
 		}
-		return new ResponseEntity<String>("Cap Nhat That Bai, Loi Khong Xac Dinh..." + dieuDuong_ID, HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<String>("Cap Nhat That Bai, Loi Khong Xac Dinh..." + dieuDuong_ID,
+				HttpStatus.BAD_REQUEST);
+	}
+
+	// API - XOA DIEU DUONG
+	@DeleteMapping("/{dieuDuong_ID}")
+	public Object DeleteDieuDuong(@PathVariable int dieuDuong_ID) {
+		if (dieuDuongReponsitory.existsById(dieuDuong_ID)) {
+			dieuDuongService.DeleteDieuDuong(dieuDuong_ID);
+			return new ResponseEntity<String>("Da Xoa", HttpStatus.OK);
+		}
+		return new ResponseEntity<String>("Xoa That Bai ,Id ko tồn tại!", HttpStatus.BAD_REQUEST);
 	}
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import com.isc.dto.AdminInformationDto;
 import com.isc.entity.Admin;
@@ -18,5 +19,7 @@ public interface AdminRepository extends JpaRepository<Admin, Integer>{
 //	@Query("Update Admin set ADMIN_SDT =?1, ADMIN_NGAYSINH= ?2, ADMIN_PASSWORD= ?3 ,"
 //			+ "ADMIN_EMAIL= ?4,ADMIN_DIACHI= ?5 Where ADMIN_ID =:ADMIN_ID ")
 //	Admin updateInformationDto();
+	@Query("SELECT ad FROM Admin ad WHERE ad.ADMIN_USERNAME = :ADMIN_USERNAME")
+	Admin GetAdminByUsername(@Param("ADMIN_USERNAME") String userName);
 	
 }

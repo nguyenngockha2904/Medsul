@@ -198,4 +198,26 @@ public class DieuDuongService {
 
 		return false;
 	}
+	
+	public boolean DeleteDieuDuong(int dieuDuong_ID) {
+		
+		DieuDuong dieuDuong = dieuDuongReponsitory.findById(dieuDuong_ID).orElse(null);
+		if(dieuDuong != null) {
+			
+			//xoa vi dien tu
+			ViDienTu viDienTu = viDienTuReponsitory.GetViDienTuByDieuDuongID(dieuDuong_ID);
+			viDienTuReponsitory.delete(viDienTu);
+			
+			// xoa cmnd
+			CMND_DieuDuong cmnd = chungMinhReponsitory.getCmndByDieuDuongID(dieuDuong_ID);
+			chungMinhReponsitory.delete(cmnd);
+			
+			// xoa dieu duong
+			dieuDuongReponsitory.delete(dieuDuong);
+			
+			return true;
+		}
+		return false;
+	}
+
 }

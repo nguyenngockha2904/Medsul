@@ -32,7 +32,7 @@ class ModalPassword extends Component {
         let update = {
             ...newitem, laDaoTaoVien: laDaoTaoVien,
             nganHangLienKet: nganHangLienKet,
-            password: this.state.credentials.password,
+            password: this.state.credentials.password.toLowerCase(),
             soTaiKhoanNganHang: soTaiKhoanNganHang,
             trangThai: trangThai
         }

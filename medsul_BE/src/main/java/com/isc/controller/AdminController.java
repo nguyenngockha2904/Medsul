@@ -37,6 +37,18 @@ public class AdminController {
 		return new ResponseEntity<List<AdminInformationDto>>(admin, HttpStatus.OK);
 	}
 
+	@GetMapping("/login/{userName}/{passWord}")
+	public Object LoginByUsername(@PathVariable String userName, @PathVariable String passWord) {
+		Admin loginAdmin = adminRepository.GetAdminByUsername(userName);
+		if (loginAdmin != null) {
+			if (loginAdmin.getADMIN_PASSWORD().equals(passWord)) {
+				return new ResponseEntity<Admin>(loginAdmin, HttpStatus.OK);
+			} else {
+				return new ResponseEntity<String>("Sai Pass roi </> ", HttpStatus.BAD_REQUEST);
+			}
+		}
+		return new ResponseEntity<String>("Username Khong Ton Tai </> ", HttpStatus.BAD_REQUEST);
+	}
 	@PostMapping("")
 	public Object addNewManager(@RequestBody AddManagerDto addManagerDto) {
 		ModelMapper modelMapper = new ModelMapper();

@@ -1,10 +1,15 @@
-import { HIRE_MODAL_THONGTINCANHAN, SET_LOGIN, SHOW_MODAL_REPASSWORD, SHOW_MODAL_THONGTINCANHAN, HIRE_MODAL_REPASSWORD } from '../actions/type';
+import { HIRE_MODAL_THONGTINCANHAN, SET_LOGIN, SHOW_MODAL_REPASSWORD, SHOW_MODAL_THONGTINCANHAN, HIRE_MODAL_REPASSWORD, LOGOUT } from '../actions/type';
 let initialState = {
-    isLogin: false,
+    credentials: {
+        isLogin: false,
+        value: {},
+    },
+
     modalThongTinCaNhan: {
         isShow: false,
         value: {}
     },
+
     modalRePassword: {
         isShow: false,
         value: {},
@@ -15,7 +20,12 @@ let initialState = {
 const LoginReducer = (state = initialState, { type, payload }) => {
     switch (type) {
         case SET_LOGIN: {
-            state.isLogin = payload;
+            state.credentials.isLogin = true;
+            state.credentials.value = payload;
+            return { ...state }
+        } case LOGOUT: {
+            state.credentials.isLogin = false;
+            state.credentials.value = payload;
             return { ...state }
         }
         case SHOW_MODAL_THONGTINCANHAN: {

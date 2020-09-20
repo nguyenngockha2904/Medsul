@@ -9,6 +9,7 @@ class TaiKhoanComponent extends Component {
         this.props.dispatch(createAction(HIRE_MODAL_THONGTINCANHAN, {}));
     }
     render() {
+        const { admin_HOTEN, admin_USERNAME, admin_SDT, admin_PASSWORD, admin_CMND, admin_EMAIL, admin_NGAYSINH, admin_GIOITINH, admin_DIACHI, admin_CHUCVU } = this.props.item; //chức vụ 0 admin 1 manager
         return (
             <div>
                 <StyledModel>
@@ -27,54 +28,88 @@ class TaiKhoanComponent extends Component {
                                     </div>
                                     <div className=" secondFormright" style={{ width: '65%', marginLeft: '1em' }}>
                                         <div className="d-flex justify-content-between">
-                                            <div className="form-group secondFormleft">
+                                            <div
+                                                className={admin_CHUCVU === 1 ? 'form-group secondFormleft ac' : 'form-group secondFormleft'}
+                                            >
                                                 <label >Họ Tên</label>
-                                                <input type="text" className="form-contro" id="firstName" />
+                                                <input type="text" className="form-contro" id="firstName" value={admin_HOTEN}
+                                                    disabled={admin_CHUCVU === 1 ? true : false}
+                                                />
                                             </div>
-                                            <div className="form-group secondFormright">
+                                            <div
+                                                className={admin_CHUCVU === 1 ? 'form-group secondFormright ac' : 'form-group secondFormright'}
+                                            >
                                                 <label >Tài Khoản</label>
-                                                <input type="text" className="form-contro" id="firstName" />
+                                                <input type="text" className="form-contro" id="firstName" value={admin_USERNAME} disabled={admin_CHUCVU === 1 ? true : false} />
                                             </div>
                                         </div>
 
                                         <div className="d-flex justify-content-between">
-                                            <div className="form-group secondFormleft">
+                                            <div
+                                                className={admin_CHUCVU === 1 ? 'form-group secondFormleft ac' : 'form-group secondFormleft'}
+                                            >
                                                 <label >Số Điện Thoại</label>
-                                                <input type="tel" className="form-contro" id="firstName" />
+                                                <input type="tel" className="form-contro" id="firstName"
+                                                    value={admin_SDT}
+                                                    disabled={admin_CHUCVU === 1 ? true : false}
+                                                />
                                             </div>
-                                            <div className="form-group secondFormright">
+                                            <div
+                                                className={admin_CHUCVU === 1 ? 'form-group secondFormright' : 'form-group secondFormright'}
+                                            >
                                                 <label >Mật Khẩu</label>
-                                                <input type="password" className="form-contro" id="firstName" />
+                                                <input type="password" className="form-contro" id="firstName"
+                                                    value={admin_PASSWORD}
+                                                />
                                             </div>
                                         </div>
 
                                         <div className="d-flex justify-content-between">
-                                            <div className="form-group secondFormleft">
+                                            <div
+                                                className={admin_CHUCVU === 1 ? 'form-group secondFormleft ac' : 'form-group secondFormleft'}
+                                            >
                                                 <label >CMND</label>
-                                                <input type="text" className="form-contro" id="firstName" />
+                                                <input type="text" className="form-contro" id="firstName"
+                                                    value={admin_CMND}
+                                                    disabled={admin_CHUCVU === 1 ? true : false}
+                                                />
                                             </div>
-                                            <div className="form-group secondFormright">
+                                            <div
+                                                className={admin_CHUCVU === 1 ? 'form-group secondFormright ac' : 'form-group secondFormright'}
+                                            >
                                                 <label >Email</label>
-                                                <input type="email" className="form-contro" id="firstName" />
+                                                <input type="email" className="form-contro" id="firstName"
+                                                    value={admin_EMAIL}
+                                                    disabled={admin_CHUCVU === 1 ? true : false}
+                                                />
                                             </div>
                                         </div>
 
                                         <div className="d-flex justify-content-between">
-                                            <div className="form-group secondFormleft">
+                                            <div
+                                                className={admin_CHUCVU === 1 ? 'form-group secondFormleft ac' : 'form-group secondFormleft'}
+                                            >
                                                 <div>
                                                     <div className="form-group">
                                                         <label >Ngày Sinh</label>
-                                                        <input type="date" id="start" name="trip-start" className="form-contro" defaultValue="yyyy/mm/dd" min="2018-01-01" max="2020-09-15" />
+                                                        <input type="date" name="trip-start" className="form-contro"
+                                                            value={admin_NGAYSINH ? admin_NGAYSINH : '1987-04-25'}
+                                                            disabled={admin_CHUCVU === 1 ? true : false}
+                                                        />
                                                     </div>
                                                     <div className="form-group">
                                                         <label >Giới Tính:</label>
-                                                        <p className="form-contro">Nam</p>
+                                                        <p className="form-contro">{admin_GIOITINH}</p>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className="form-group secondFormright">
+                                            <div
+                                                className={admin_CHUCVU === 1 ? 'form-group secondFormright ac' : 'form-group secondFormright'}
+                                            >
                                                 <label >Địa Chỉ</label>
-                                                <textarea id="comment" name="comment" className="form-contro mul_text" cols={57} rows={3} maxLength={65525} required="required" defaultValue={""} style={{ height: '100%', maxHeight: "127px" }} />
+                                                <textarea name="comment" className="form-contro mul_text" cols={57} rows={3} maxLength={65525} required="required" defaultValue={""} style={{ height: '100%', maxHeight: "127px" }} value={admin_DIACHI}
+                                                    disabled={admin_CHUCVU === 1 ? true : false}
+                                                />
                                             </div>
                                         </div>
                                     </div>
@@ -94,4 +129,7 @@ class TaiKhoanComponent extends Component {
         );
     }
 }
-export default connect()(TaiKhoanComponent); 
+const mapStateToProps = state => ({
+    item: state.credentials.credentials.value
+})
+export default connect(mapStateToProps)(TaiKhoanComponent); 
