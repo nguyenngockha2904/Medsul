@@ -11,7 +11,7 @@ class Manager {
         return Axios({
             method: 'POST',
             url: 'http://localhost:8080/api/admin',
-            deta: value
+            data: value
         });
     };
     updateManager(id, value) {

@@ -13,7 +13,7 @@ let initialState = {
     modalRePassword: {
         isShow: false,
         value: {},
-        type: 2, //1 điều dưỡng //2 là admin manager
+        role: 2, //1 điều dưỡng //2 là admin manager
     }
 };
 
@@ -38,7 +38,7 @@ const LoginReducer = (state = initialState, { type, payload }) => {
         } case SHOW_MODAL_REPASSWORD: {
             state.modalRePassword.isShow = true;
             state.modalRePassword.value = payload.value;
-            state.modalRePassword.type = payload.type;
+            state.modalRePassword.role = payload.role;
             return { ...state }
         } case HIRE_MODAL_REPASSWORD: {
             state.modalRePassword.isShow = false;

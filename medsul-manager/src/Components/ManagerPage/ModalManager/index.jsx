@@ -5,15 +5,89 @@ import CMNDImg from '../../../img/indentityCard_Img.svg';
 import { connect } from 'react-redux';
 import { createAction } from '../../../Redux/actions';
 import { HIRE_MODAL_MANAGER } from '../../../Redux/actions/type';
+import { capNhatManager, themManager } from '../../../Redux/actions/managerAction';
+import swal from 'sweetalert';
 class ModalManager extends Component {
     HandleHireModal = () => {
         this.props.dispatch(createAction(HIRE_MODAL_MANAGER, {}));
     }
-    handleChange_Number = () => {
+    state = {
+        item: {}
+    }
+
+    handleChange_Number = (e) => {
+        this.setState({
+            item: { ...this.state.item, [e.target.name]: parseInt(e.target.value) }
+        });
+    }
+    handleChange = e => {
+        this.setState({
+            item: { ...this.state.item, [e.target.name]: e.target.value }
+        });
+    }
+    handleSubmit = e => {
+        e.preventDefault();
+        const {
+            admin_ID, admin_PASSWORD, admin_CMNDMATSAU, admin_CMNDNOICAP,
+            admin_CMNDMATTRUOC, admin_CMNDNGAYCAP, admin_TINHTRANG, admin_HOTEN,
+            admin_AVATAR, admin_CHUCVU, admin_EMAIL, admin_NGAYSINH, admin_GIOITINH,
+            admin_SDT, admin_DIACHI, admin_USERNAME, admin_CMND
+        } = this.state.item;
+        let itemAdd = {
+            admin_AVATAR: admin_AVATAR,
+            admin_CHUCVU: 1,
+            admin_CMND: admin_CMND,
+            admin_CMNDMATSAU: "string",
+            admin_CMNDMATTRUOC: "string",
+            admin_CMNDNGAYCAP: admin_CMNDNGAYCAP,
+            admin_CMNDNOICAP: admin_CMNDNOICAP,
+            admin_DIACHI: admin_DIACHI,
+            admin_EMAIL: admin_EMAIL,
+            admin_GIOITINH: admin_GIOITINH,
+            admin_HOTEN: admin_HOTEN,
+            admin_NGAYSINH: admin_NGAYSINH,
+            admin_PASSWORD: this.props.role === 1 ? '123' : admin_PASSWORD,
+            admin_SDT: admin_SDT,
+            admin_TINHTRANG: this.props.role === 1 ? 1 : admin_TINHTRANG,
+            admin_USERNAME: admin_EMAIL.slice(0, admin_EMAIL.lastIndexOf('@'))
+        };
+        if (this.props.role === 1) {
+            this.props.dispatch(themManager(itemAdd, () => {
+                swal({
+                    title: "Thành công !!",
+                    text: 'Bạn đã thêm thành công một quản trị viên mới !',
+                    icon: "success",
+                });
+                this.HandleHireModal();
+            }));
+
+        } else if (this.props.role === 3) {
+            swal({
+                title: "Bạn Chắc Chứ?",
+                text: `Nếu đồng ý dữ liệu sẽ thay đổi!`,
+                icon: "info",
+                buttons: true,
+            }).then((willDelete) => {
+                if (willDelete) {
+                    swal(`Dữ liệu đã được cập nhật!`, {
+                        icon: "success",
+                    });
+                    this.props.dispatch(capNhatManager(admin_ID, itemAdd, this.HandleHireModal));
+                } else {
+                    swal(`Dữ liệu được giữ nguyên!`);
+                    // this.HandleHireModal();
+                    this.setState({
+                        item: this.props.item
+                    });
+                }
+            });
+        }
 
     }
-    handleChange = () => {
-
+    _setValue = () => {
+        this.setState({
+            item: this.props.item
+        })
     }
     render() {
         // console.log(this.props.role === 1 ? 'thêm' : (this.props.role === 2 ? 'xem' : 'sửa'));
@@ -22,7 +96,7 @@ class ModalManager extends Component {
             admin_CMNDMATTRUOC, admin_CMNDNGAYCAP, admin_TINHTRANG, admin_HOTEN,
             admin_AVATAR, admin_CHUCVU, admin_EMAIL, admin_NGAYSINH, admin_GIOITINH,
             admin_SDT, admin_DIACHI, admin_USERNAME, admin_CMND
-        } = this.props.item;
+        } = this.state.item;
         return (
             <StyledModel>
                 <div className="modalService-dialog modal-lg">
@@ -31,50 +105,63 @@ class ModalManager extends Component {
                             <h4 className="modal-title">{this.props.role === 1 ? "Thêm một quản trị viên mới" : (this.props.role === 2 ? 'Thông tin quản trị viên' : 'Cập nhật thông tin')}</h4>
                             <button type="button" className="close" onClick={this.HandleHireModal}>×</button>
                         </div>
-                        <form className="modalService-body" style={{ paddingTop: 0 }}>
+                        <form className="modalService-body" style={{ paddingTop: 0 }} onSubmit={this.handleSubmit}>
                             <div className="titleGroup">Thông Tin Cá Nhân</div>
                             <div className="d-flex justify-content-between mb-4">
                                 <div className=" secondFormright" style={{ width: '65%', marginLeft: '1em' }}>
                                     <div className="d-flex justify-content-between">
-                                        <div className="form-group secondFormleft">
+                                        <div
+                                            className={this.props.role === 2 ? 'form-group secondFormleft ac' : 'form-group secondFormleft'}
+                                        >
                                             <label >Họ Tên</label>
                                             <input type="text" className="form-contro" value={admin_HOTEN ? admin_HOTEN : ''}
                                                 name='admin_HOTEN'
                                                 onChange={this.handleChange}
                                                 disabled={this.props.role === 1 ? false : (this.props.role === 2 ? true : false)}
+                                                required={true}
                                             />
                                         </div>
-                                        <div className="form-group secondFormright">
+                                        <div
+                                            className={this.props.role === 2 ? 'form-group secondFormright ac' : 'form-group secondFormright'}
+                                        >
                                             <label >Số Điện Thoại</label>
                                             <input type="text" className="form-contro"
                                                 value={admin_SDT ? admin_SDT : ''}
                                                 name='admin_SDT'
                                                 onChange={this.handleChange}
                                                 disabled={this.props.role === 1 ? false : (this.props.role === 2 ? true : false)}
+                                                required={true}
                                             />
                                         </div>
                                     </div>
 
                                     <div className="d-flex justify-content-between">
-                                        <div className="form-group secondFormleft">
+                                        <div
+                                            className={this.props.role === 2 ? 'form-group secondFormleft ac' : 'form-group secondFormleft'}
+                                        >
                                             <label >Ngày Sinh</label>
-                                            <input type="date" className="form-contro" defaultValue="yyyy/mm/dd" min="2018-01-01" max="2020-09-15"
+                                            <input type="date" className="form-contro"
                                                 value={admin_NGAYSINH ? admin_NGAYSINH : ''}
                                                 name='admin_NGAYSINH'
                                                 onChange={this.handleChange}
                                                 disabled={this.props.role === 1 ? false : (this.props.role === 2 ? true : false)}
+                                                required={true}
                                             />
                                         </div>
-                                        <div className="form-group secondFormright ">
+                                        <div
+                                            className={this.props.role === 2 ? 'form-group secondFormright ac' : 'form-group secondFormright'}
+                                        >
                                             <label>Giới Tính: </label>
                                             <div className="form-contro d-flex justify-content-end">
                                                 <p className="mr-2">
                                                     <input className="radGen" type="radio"
+
                                                         checked={admin_GIOITINH === 'Nam' ? true : false}
                                                         value='Nam'
                                                         name='admin_GIOITINH'
                                                         onChange={this.handleChange}
                                                         disabled={this.props.role === 1 ? false : (this.props.role === 2 ? true : false)}
+
                                                     />Nam
                                                 </p>
                                                 <p className="mx-4"></p>
@@ -90,26 +177,35 @@ class ModalManager extends Component {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="form-group">
+                                    <div
+                                        className={this.props.role === 2 ? 'form-group ac' : 'form-group'}
+                                    >
                                         <label >Địa Chỉ</label>
-                                        <input type="email" className="form-contro"
+                                        <input type="text" className="form-contro"
                                             value={admin_DIACHI ? admin_DIACHI : ''}
                                             name='admin_DIACHI'
                                             onChange={this.handleChange}
                                             disabled={this.props.role === 1 ? false : (this.props.role === 2 ? true : false)}
+                                            required={true}
                                         />
                                     </div>
                                     <div className="d-flex justify-content-between">
-                                        <div className="form-group secondFormleft">
+                                        <div
+                                            className={this.props.role === 2 ? 'form-group secondFormleft ac' : 'form-group secondFormleft'}
+                                        >
                                             <label >Email</label>
                                             <input type="text" className="form-contro"
                                                 value={admin_EMAIL ? admin_EMAIL : ''}
                                                 name='admin_EMAIL'
                                                 onChange={this.handleChange}
                                                 disabled={this.props.role === 1 ? false : (this.props.role === 2 ? true : false)}
+                                                required={true}
                                             />
                                         </div>
-                                        <div className="form-group secondFormright width3">
+                                        <div
+                                            className={this.props.role === 2 ? 'form-group secondFormright width3 ac' : 'form-group secondFormright width3'}
+                                            style={{ display: this.props.role === 1 ? 'none' : 'block' }}
+                                        >
                                             <label>Trạng thái: </label>
                                             <select className="form-contro"
                                                 value={admin_TINHTRANG ? admin_TINHTRANG : ''}
@@ -117,9 +213,8 @@ class ModalManager extends Component {
                                                 onChange={this.handleChange_Number}
                                                 disabled={this.props.role === 1 ? false : (this.props.role === 2 ? true : false)}
                                             >
-                                                <option value={1}>Thử việc</option>
+                                                <option value={1}>Đang làm</option>
                                                 <option value={2}>Nghỉ việc</option>
-                                                <option value={3}>Chính thức</option>
                                             </select>
                                         </div>
                                     </div>
@@ -137,34 +232,43 @@ class ModalManager extends Component {
                                     <div className=" secondFormright" style={{ width: '65%', alignSelf: 'flex-start', marginRight: '1em' }}>
                                         <div className="titleGroup">Chứng Minh Nhân Dân</div>
                                         <div className="d-flex justify-content-between">
-                                            <div className="form-group secondFormleft">
+                                            <div
+                                                className={this.props.role === 2 ? 'form-group secondFormleft ac' : 'form-group secondFormleft'}
+                                            >
                                                 <label >Số CMND</label>
                                                 <input type="text" className="form-contro"
                                                     value={admin_CMND ? admin_CMND : ''}
                                                     name='admin_CMND'
                                                     onChange={this.handleChange}
                                                     disabled={this.props.role === 1 ? false : (this.props.role === 2 ? true : false)}
+                                                    required={true}
                                                 />
                                             </div>
-                                            <div className="form-group secondFormright width3">
+                                            <div
+                                                className={this.props.role === 2 ? 'form-group secondFormright width3 ac' : 'form-group secondFormright width3'}
+                                            >
                                                 <label >Ngày Cấp</label>
-                                                <input type="date" className="form-contro" defaultValue="yyyy/mm/dd" min="2018-01-01" max="2020-09-15"
+                                                <input type="date" className="form-contro"
                                                     value={admin_CMNDNGAYCAP ? admin_CMNDNGAYCAP : ''}
                                                     name='admin_CMNDNGAYCAP'
                                                     onChange={this.handleChange}
                                                     disabled={this.props.role === 1 ? false : (this.props.role === 2 ? true : false)}
+                                                    required={true}
 
                                                 />
                                             </div>
 
                                         </div>
-                                        <div className="form-group">
+                                        <div
+                                            className={this.props.role === 2 ? 'form-group ac' : 'form-group'}
+                                        >
                                             <label >Nơi cấp</label>
                                             <input type="text" className="form-contro"
                                                 value={admin_CMNDNOICAP ? admin_CMNDNOICAP : ''}
                                                 name='admin_CMNDNOICAP'
                                                 onChange={this.handleChange}
                                                 disabled={this.props.role === 1 ? false : (this.props.role === 2 ? true : false)}
+                                                required={true}
                                             />
                                         </div>
 
@@ -172,13 +276,13 @@ class ModalManager extends Component {
 
                                     <div className=" secondFormleft" style={{ width: '35%', marginLeft: '1em' }}>
 
-                                        <div className="form-group">
+                                        <div className={this.props.role === 2 ? 'form-group ac' : 'form-group'}>
                                             <label >Ảnh CMND Mặt Trước: </label>
                                             <div className="avatarImg cmnd">
                                                 <img src={CMNDImg} alt="CMNDImg" className="img-fluid" />
                                             </div>
                                         </div>
-                                        <div className="form-group">
+                                        <div className={this.props.role === 2 ? 'form-group ac' : 'form-group'}>
                                             <label >Ảnh CMND Mặt Sau: </label>
                                             <div className="avatarImg cmnd">
                                                 <img src={CMNDImg} alt="CMNDImg" className="img-fluid" />
@@ -199,6 +303,9 @@ class ModalManager extends Component {
                 </div>
             </StyledModel>
         );
+    }
+    componentDidMount() {
+        this._setValue();
     }
 }
 const mapStateToProps = state => ({

@@ -41,7 +41,7 @@ class ManagerItem extends PureComponent {
                         <img src={btnEdit} alt="btnEdit" />
                     </button>
 
-                    <button className="btnCustom" onClick={this.ShowModalPass({})}>
+                    <button className="btnCustom" onClick={this.ShowModalPass({ value: this.props.item, role: 2 })}>
                         <img src={btnRePass} alt="btnRePass" />
                     </button>
                 </td>

@@ -11,11 +11,12 @@ export const LayDanhSachManager = () => {
     };
 }
 
-export const themManager = (value) => {
+export const themManager = (value, callback) => {
     return dispatch => {
         Manager.addNewManager(value).then(res => {
             // console.log(res.data);
             dispatch(createAction(ADD_MANAGER, res.data));
+            callback();
         }).catch(err => {
             console.log(err);
         })

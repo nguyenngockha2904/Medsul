@@ -59,7 +59,7 @@ class DieuDuongItem extends PureComponent {
                     <button className="btnCustom" onClick={this.handleOpenModalGPHN(this.props.item)}>
                         <img src={btnChuyenNganh} alt="btnChuyenNganh" />
                     </button>
-                    <button className="btnCustom" onClick={this.handleOpenModalPassword({ value: this.props.item, type: 1 })}>
+                    <button className="btnCustom" onClick={this.handleOpenModalPassword({ value: this.props.item, role: 1 })}>
                         <img src={btnRePass} alt="btnRePass" />
                     </button>
                 </td>
