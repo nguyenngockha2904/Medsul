@@ -4,11 +4,23 @@ import ManagerItem from '../managerItem';
 import { connect } from 'react-redux';
 class ManagerTable extends PureComponent {
     renderManagerItem = () => {
-        return this.props.listAllManager.map((item, index) => {
-            return (
-                <ManagerItem index={index + 1} item={item} key={index} />
-            )
-        })
+        let list = this.props.listAllManager;
+        let status = this.props.valueStatus;
+        return status === 0
+            ?
+            list.map((item, index) => {
+                return (
+                    <ManagerItem index={index + 1} item={item} key={index} />
+                )
+            })
+            :
+            list.filter(mn => mn.admin_TINHTRANG === status).map((item, index) => {
+                return (
+                    <ManagerItem index={index + 1} item={item} key={index} />
+                )
+            })
+
+
     }
     render() {
         return (

@@ -5,6 +5,8 @@ import bgSignin from '../../img/bgSignin.png';
 import logo from '../../img/icon.svg';
 import { Login } from '../../Redux/actions/LoginAction';
 import swal from 'sweetalert';
+import { createAction } from '../../Redux/actions';
+import { LOGOUT } from '../../Redux/actions/type';
 class SignIn extends Component {
     state = {
         credentials: {
@@ -20,13 +22,50 @@ class SignIn extends Component {
     handleSubmit = (e) => {
         e.preventDefault();
         // console.log(this.state.credentials);
-        this.props.dispatch(Login(this.state.credentials.userName, this.state.credentials.passWord.toLowerCase(), (name, role) => {
-            { role === 0 ? this.props.history.replace('/manager') : this.props.history.replace('/dieuduong') }
-            swal({
-                title: `Hi! ${name}`,
-                text: "Chào mừng bạn đến với hệ thống quản trị của MedSul !!",
-                icon: "success",
-            })
+        this.props.dispatch(Login(this.state.credentials.userName, this.state.credentials.passWord.toLowerCase(), (name, role, tinhTrang) => {
+            if (role === 0) {
+                if (tinhTrang === 2) {
+                    this.props.dispatch(createAction(LOGOUT, {}));
+                    swal({
+                        title: `Hi! ${name}`,
+                        text: "Phiên bản của bạn hết hạn bạn không thể vào Medsul !!",
+                        icon: "info",
+                    });
+                } else {
+                    this.props.history.replace('/manager');
+                    swal({
+                        title: `Hi! ${name}`,
+                        text: "Chào mừng bạn đến với hệ thống quản trị của MedSul !!",
+                        icon: "success",
+                    })
+                }
+            } else {
+                if (tinhTrang === 2) {
+                    this.props.dispatch(createAction(LOGOUT, {}));
+                    swal({
+                        title: `Hi! ${name}`,
+                        text: "Phiên bản của bạn hết hạn bạn không thể vào Medsul !!",
+                        icon: "info",
+                    });
+                } else {
+                    this.props.history.replace('/dieuduong');
+                    swal({
+                        title: `Hi! ${name}`,
+                        text: "Chào mừng bạn đến với hệ thống quản trị của MedSul !!",
+                        icon: "success",
+                    })
+                }
+            }
+
+
+
+
+            // { role === 0 ? this.props.history.replace('/manager') : this.props.history.replace('/dieuduong') }
+            // swal({
+            //     title: `Hi! ${name}`,
+            //     text: "Chào mừng bạn đến với hệ thống quản trị của MedSul !!",
+            //     icon: "success",
+            // })
         }, () => {
             swal({
                 title: "Thất bại?",

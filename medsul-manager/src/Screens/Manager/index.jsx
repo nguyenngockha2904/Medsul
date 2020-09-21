@@ -31,6 +31,7 @@ class Manager extends Component {
     }
     handleSearch = (e) => {
         e.preventDefault();
+        console.log(this.state.valueSearch);
     }
     handleShowModalManager = (value) => () => {
         this.props.dispatch(createAction(SHOW_MODAL_MANAGER, { value: value, role: 1 }));
@@ -61,29 +62,29 @@ class Manager extends Component {
                 <div className="contentTabGroup">
                     <div className="contentTab">
                         <StyleGroupButtonSearch >
-                            <select className={this.state.statusSelect === 1 ? "selectStatus isThuViec" : (
-                                this.state.statusSelect === 2 ? "selectStatus isNghiViec" : (this.state.statusSelect === 3 ? "selectStatus isChinhThuc" : "selectStatus"))}
+                            <select className={this.state.statusSelect === 1 ? "selectStatus isChinhThuc" : (
+                                this.state.statusSelect === 2 ? "selectStatus isNghiViec" : 'selectStatus')}
                                 value={this.state.statusSelect}
                                 name="statusSelect"
                                 onChange={this.handleChangeSelectNum}
                                 onClick={this.handleClickSelect}
                             >
                                 <option value={0}>Tất cả</option>
-                                <option value={1}>Thử việc</option>
+                                <option value={1}>Đang làm</option>
                                 <option value={2}>Nghỉ việc</option>
-                                <option value={3}>Chính thức</option>
+
                             </select>
 
 
-                            <form className="d-flex justify-content-center groupSearch" onSubmit={this.handleSearch}>
-                                <input type="text" className="form-contro" placeholder="Mã...."
-                                    name="valueSearch" value={this.state.valueSearch !== -1 ? this.state.valueSearch : ''}
+                            {/* <form className="d-flex justify-content-center groupSearch" onSubmit={this.handleSearch}>
+                                <input type="text" className="form-contro" placeholder="SDT...."
+                                    name="valueSearch" value={this.state.valueSearch ? this.state.valueSearch : ''}
                                     onChange={this.handleChange}
                                 />
                                 <div className="input-group-append">
                                     <button className="btnSearch" type="submit">Tìm kiếm</button>
                                 </div>
-                            </form>
+                            </form> */}
                             <button className="btnAdd" onClick={this.handleShowModalManager({
                                 admin_ID: -1,
                                 admin_PASSWORD: '',
@@ -104,7 +105,7 @@ class Manager extends Component {
                                 admin_CMND: ''
                             })}>Thêm</button>
                         </StyleGroupButtonSearch>
-                        <ManagerTable />
+                        <ManagerTable valueStatus={this.state.statusSelect} />
                     </div>
                 </div>
                 {this.props.isShowModalManager && <ModalManager />}

@@ -8,14 +8,18 @@ class Services extends Component {
         this.props.dispatch({
             type: SHOW_MODAL_DICHVU,
             payload: {
-                dichVu_Id: 0,
-                khongBaoGom: '',
-                loaiDichVuID: 0,
-                maDichVu: '',
-                moTaDichVu: '',
-                tenDichVu: '',
-                thoiGianUocTinh: 0,
-                yeuCauCongViec: ''
+                value: {
+                    dichVu_Id: 0,
+                    khongBaoGom: '',
+                    loaiDichVuID: 0,
+                    maDichVu: '',
+                    moTaDichVu: '',
+                    tenDichVu: '',
+                    thoiGianUocTinh: 0,
+                    yeuCauCongViec: '',
+                    giaDichVu: 0,
+                },
+                role: 1
             }
         })
     }

@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import btnEdit from '../../../img/btnEdit.svg';
+import btnMoney from '../../../img/moneyBag_img.svg';
 import { connect } from 'react-redux';
-import { SHOW_MODAL_DICHVU, } from '../../../Redux/actions/type';
+import { SHOW_MODAL_DICHVU, SHOW_MODAL_GIA_DICH_VU, } from '../../../Redux/actions/type';
 import { LayDanhSachQuyTrinhDichVuByIdDichVu } from '../../../Redux/actions/DichVuAction';
+import { createAction } from '../../../Redux/actions';
 class ServiceItem extends Component {
     handleEdit = (id, value) => () => {
         this.props.dispatch({
@@ -30,6 +32,9 @@ class ServiceItem extends Component {
     //         }
     //     });
     // }
+    handleOpenModalMoney = (value) => () => {
+        this.props.dispatch(createAction(SHOW_MODAL_GIA_DICH_VU, value));
+    }
     render() {
         const {
             dichVu_Id,
@@ -42,17 +47,20 @@ class ServiceItem extends Component {
         const index = this.props.index;
         return (
             <tr className="tRow">
-                <th scope="row" onClick={this.handleEdit(dichVu_Id, this.props.item)}>{index}</th>
-                <td onClick={this.handleEdit(dichVu_Id, this.props.item)}>{maDichVu}</td>
-                <td className="wrap text-center" onClick={this.handleEdit(dichVu_Id, this.props.item)}>{tenDichVu}</td>
-                <td onClick={this.handleEdit(dichVu_Id, this.props.item)}>{thoiGianUocTinh} giờ</td>
-                <td onClick={this.handleEdit(dichVu_Id, this.props.item)}>{giaDichVu.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</td>
+                <th scope="row" onClick={this.handleEdit(dichVu_Id, { value: this.props.item, role: 2 })}>{index}</th>
+                <td onClick={this.handleEdit(dichVu_Id, { value: this.props.item, role: 2 })}>{maDichVu}</td>
+                <td className="wrap text-center" onClick={this.handleEdit(dichVu_Id, { value: this.props.item, role: 2 })}>{tenDichVu}</td>
+                <td onClick={this.handleEdit(dichVu_Id, { value: this.props.item, role: 2 })}>{thoiGianUocTinh} giờ</td>
+                <td onClick={this.handleEdit(dichVu_Id, { value: this.props.item, role: 2 })}>{giaDichVu.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</td>
                 <td
                     className={tinhTrangDichVu === 1 ? 'tdStatus isThuViec' : (tinhTrangDichVu === 2 ? 'tdStatus isNghiViec' : 'tdStatus isChinhThuc')}
-                    onClick={this.handleEdit(dichVu_Id, this.props.item)}>{tinhTrangDichVu === 1 ? 'Kinh doanh' : (tinhTrangDichVu === 2 ? 'Ngừng kinh doanh' : 'tạm ngừng kinh doanh')}</td>
+                    onClick={this.handleEdit(dichVu_Id, { value: this.props.item, role: 2 })}>{tinhTrangDichVu === 1 ? 'Kinh doanh' : (tinhTrangDichVu === 2 ? 'Ngừng kinh doanh' : 'tạm ngừng kinh doanh')}</td>
                 <td className="d-flex justify-content-center groupBtn">
-                    <button className=" btnCustom" onClick={this.handleEdit(dichVu_Id, this.props.item)}>
+                    <button className=" btnCustom" onClick={this.handleEdit(dichVu_Id, { value: this.props.item, role: 3 })}>
                         <img src={btnEdit} alt="btnEdit" />
+                    </button>
+                    <button className=" btnCustom" onClick={this.handleOpenModalMoney(this.props.item)}>
+                        <img src={btnMoney} alt="btnEdit" />
                     </button>
                 </td>
             </tr>

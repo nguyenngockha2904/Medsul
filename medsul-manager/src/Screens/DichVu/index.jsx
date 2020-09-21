@@ -6,6 +6,7 @@ import ModalCategoryService from '../../Components/ServicePageComponents/modalCa
 import ModalService from '../../Components/ServicePageComponents/modalService';
 import { connect } from 'react-redux';
 import { layDanhSachLoaiDichVuAction, layDanhSachDichVuAction } from '../../Redux/actions/DichVuAction';
+import ModalMoney from '../../Components/ServicePageComponents/modalUpdateMoney';
 import { createAction } from '../../Redux/actions';
 import { DROPDOWN_TABLE_DICHVU } from '../../Redux/actions/type';
 class DichVuComponent extends Component {
@@ -35,6 +36,7 @@ class DichVuComponent extends Component {
                     </div>
                     {this.props.modalLoaiDV && <ModalCategoryService />}
                     {this.props.modalDV && <ModalService />}
+                    {this.props.modalGiaDichVu && <ModalMoney />}
                 </div>
             </DichVuComponentStyles>
 
@@ -112,7 +114,8 @@ const mapStatetoProps = state => {
     return {
         modalLoaiDV: state.qlDichVu.modalLoaiDV.isShow,
         modalDV: state.qlDichVu.modalDV.isShow,
-        dropDown_MaLDV: state.qlDichVu.dropDown_MaLDV
+        dropDown_MaLDV: state.qlDichVu.dropDown_MaLDV,
+        modalGiaDichVu: state.qlDichVu.modalGiaDichVu.isShow
     }
 }
 export default connect(mapStatetoProps)(DichVuComponent);

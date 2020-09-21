@@ -14,6 +14,7 @@ export const ADD_LOAIDICHVU = 'ADD_LOAIDICHVU';
 export const DELETE_LOAIDICHVU = 'DELETE_LOAIDICHVU';
 export const UPDATE_LOAIDICHVU = 'UPDATE_LOAIDICHVU';
 export const DROPDOWN_TABLE_DICHVU = 'DROPDOWN_TABLE_DICHVU';
+export const CHECK_EXIST_LDV = 'loaidichvu/CHECK_EXIST_LDV';
 
 export const FETCH_DICHVU = 'FETCH_DICHVU';
 export const SHOW_MODAL_DICHVU = 'SHOW_MODAL_DICHVU';
@@ -21,9 +22,11 @@ export const HIRE_MODAL_DICHVU = 'HIRE_MODAL_DICHVU';
 export const ADD_DICHVU = 'ADD_DICHVU';
 export const DELETE_DICHVU = 'DELETE_DICHVU';
 export const UPDATE_DICHVU = 'UPDATE_DICHVU';
+export const SHOW_MODAL_GIA_DICH_VU = 'dichvu/SHOW_MODAL_GIA_DICH_VU';
+export const HIRE_MODAL_GIA_DICH_VU = 'dichvu/HIRE_MODAL_GIA_DICH_VU';
+export const CHECK_EXIST_DV = 'dichvu/CHECK_EXIST_DV';
 /// quy trinh dich vu 
 export const SET_DATA_QUYTRINHDICHVUBYID = 'SET_DATA_QUYTRINHDICHVUBYID';
-
 
 export const CHECK_DATA = 'CHECK_DATA';
 
@@ -58,4 +61,5 @@ export const HIRE_MODAL_MANAGER = 'manager/HIRE_MODAL_MANAGER';
 export const SET_DATA_LIST_MANAGER = 'manager/SET_DATA_LIST_MANAGER';
 export const ADD_MANAGER = 'manager/ADD_MANAGER';
 export const UPDATE_MANAGER = 'manager/UPDATE_MANAGER';
+export const CHECK_EXIST_EMAIL = 'manager/CHECK_EXIST_EMAIL';
 

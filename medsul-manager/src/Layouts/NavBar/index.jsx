@@ -10,6 +10,7 @@ import { createAction } from '../../Redux/actions';
 class NavBar extends Component {
     state = {
         sidepanel: false,
+        name: '',
     }
     handleOpensidepanel = (value) => () => {
         this.setState({
@@ -91,7 +92,7 @@ class NavBar extends Component {
                             <ul className="navbar-nav ml-auto">
                                 <li className="nav-item dropdown">
                                     <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        {`hi ${this.props.name.toUpperCase()}  !!`}
+                                        {`hi ${this.props.hoTen.trim().slice(this.props.hoTen.trim().lastIndexOf(' ') + 1)}  !!`}
                                     </a>
                                     <div className="dropdown-menu" aria-labelledby="navbarDropdown"
 
@@ -134,8 +135,8 @@ class NavBar extends Component {
 const mapStateToProps = state => {
     return {
         isLoginPage: state.credentials.credentials.isLogin,
-        name: state.credentials.credentials.value.admin_USERNAME,
-        chucVu: state.credentials.credentials.value.admin_CHUCVU
+        chucVu: state.credentials.credentials.value.admin_CHUCVU,
+        hoTen: state.credentials.credentials.value.admin_HOTEN,
 
     }
 }

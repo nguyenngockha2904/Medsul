@@ -7,7 +7,9 @@ let initialState = {
         role: 1, //1 thêm //2 xem //3 sửa
     },
     listAllManager: [],
-
+    checkExistSDT: false,
+    checkExistCMND: false,
+    checkExistEmail: false,
 }
 
 

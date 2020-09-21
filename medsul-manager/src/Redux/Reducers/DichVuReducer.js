@@ -1,4 +1,4 @@
-import { FETCH_LOAIDICHVU, FETCH_DICHVU, ADD_LOAIDICHVU, SHOW_MODAL_DICHVU, HIRE_MODAL_DICHVU, SHOW_MODAL_LOAIDICHVU, HIRE_MODAL_LOAIDICHVU, UPDATE_LOAIDICHVU, DROPDOWN_TABLE_DICHVU, ADD_DICHVU, UPDATE_DICHVU, CHECK_DATA, SET_DATA_QUYTRINHDICHVUBYID } from "../actions/type";
+import { FETCH_LOAIDICHVU, FETCH_DICHVU, ADD_LOAIDICHVU, SHOW_MODAL_DICHVU, HIRE_MODAL_DICHVU, SHOW_MODAL_LOAIDICHVU, HIRE_MODAL_LOAIDICHVU, UPDATE_LOAIDICHVU, DROPDOWN_TABLE_DICHVU, ADD_DICHVU, UPDATE_DICHVU, CHECK_DATA, SET_DATA_QUYTRINHDICHVUBYID, HIRE_MODAL_GIA_DICH_VU, SHOW_MODAL_GIA_DICH_VU, CHECK_EXIST_DV, CHECK_EXIST_LDV } from "../actions/type";
 
 let initialState = {
     modalLoaiDV: {
@@ -25,20 +25,30 @@ let initialState = {
             moTaDichVu: '',
             tenDichVu: '',
             thoiGianUocTinh: 0,
-            yeuCauCongViec: ''
+            yeuCauCongViec: '',
+            giaDichVu: 0
         },
+        role: 1, //1 thêm // 2 xem //3 sửa
         listQTDV: []
     },
     mangDichVu: [
 
     ],
+    modalGiaDichVu: {
+        isShow: false,
+        value: {}
+    },
+    isExistLDV: false,
+    isExistDV: false,
+
 }
 
 const DichVuReducer = (state = initialState, { type, payload }) => {
     switch (type) {
         case SHOW_MODAL_DICHVU: {
             state.modalDV.isShow = true;
-            state.modalDV.value = payload;
+            state.modalDV.value = payload.value;
+            state.modalDV.role = payload.role;
             let index = state.mangLoaiDichVu.findIndex(item => item.loaiDichVu_Id === state.dropDown_MaLDV);
             if (index !== -1) {
                 state.modalDV.maLDV = state.mangLoaiDichVu[index].maLoaiDichVu;
@@ -97,6 +107,30 @@ const DichVuReducer = (state = initialState, { type, payload }) => {
         } case SET_DATA_QUYTRINHDICHVUBYID: {
             state.modalDV.listQTDV = payload;
             return { ...state }
+        } case SHOW_MODAL_GIA_DICH_VU: {
+            state.modalGiaDichVu.isShow = true;
+            state.modalGiaDichVu.value = payload;
+            return { ...state };
+        } case HIRE_MODAL_GIA_DICH_VU: {
+            state.modalGiaDichVu.isShow = false;
+            state.modalGiaDichVu.value = payload;
+            return { ...state };
+        } case CHECK_EXIST_DV: {
+            let index = state.mangDichVu.findIndex(dv => dv.maDichVu.toLowerCase() === payload.toLowerCase());
+            if (index === -1) {
+                state.isExistDV = false;
+            } else {
+                state.isExistDV = true;
+            }
+            return { ...state };
+        } case CHECK_EXIST_LDV: {
+            let index = state.mangLoaiDichVu.findIndex(ldv => ldv.maLoaiDichVu.toLowerCase() === payload.toLowerCase());
+            if (index === -1) {
+                state.isExistLDV = false;
+            } else {
+                state.isExistLDV = true;
+            }
+            return { ...state };
         }
         default: {
             return state;

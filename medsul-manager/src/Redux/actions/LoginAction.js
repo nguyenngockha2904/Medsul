@@ -10,7 +10,7 @@ export const Login = (username, password, callbackThanhCong, callbackThatBai) =>
         }).then(res => {
             // console.log(res.data);
             dispatch(createAction(SET_LOGIN, res.data));
-            callbackThanhCong(res.data.admin_HOTEN, res.data.admin_CHUCVU);
+            callbackThanhCong(res.data.admin_HOTEN, res.data.admin_CHUCVU, res.data.admin_TINHTRANG);
         }).catch(err => {
             // console.log(err);
             callbackThatBai();

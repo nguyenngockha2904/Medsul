@@ -21,7 +21,7 @@ export const layDanhSachLoaiDichVuAction = () => {
     }
 }
 
-export const ThemLoaiDichVuMoi = (value) => {
+export const ThemLoaiDichVuMoi = (value, callback) => {
     return dispatch => {
         LoaiDichVu.addLoaiDichVu(value).then(res => {
             // console.log('Xóa Thành công');
@@ -29,12 +29,8 @@ export const ThemLoaiDichVuMoi = (value) => {
                 type: ADD_LOAIDICHVU,
                 payload: res.data
             })
-            swal({
-                title: "Thành Công!",
-                text: "Bạn đã thêm một loại dịch vụ mới!",
-                icon: "success",
-                button: "Ok!",
-            });
+
+            callback();
         }).catch(err => {
             console.log('Lỗi');
         })
@@ -72,7 +68,7 @@ export const layDanhSachDichVuAction = () => {
     }
 }
 
-export const ThemDichVuMoi = (value) => {
+export const ThemDichVuMoi = (value, callback) => {
     return dispatch => {
         DichVu.addDichVu(value).then(res => {
             // console.log('value:', value);
@@ -80,12 +76,7 @@ export const ThemDichVuMoi = (value) => {
                 type: ADD_DICHVU,
                 payload: res.data
             })
-            swal({
-                title: "Thành Công!",
-                text: "Bạn đã thêm một dịch vụ mới!",
-                icon: "success",
-                button: "Ok!",
-            });
+            callback();
             // console.log('res.data:', res.data);
         }).catch(err => {
             console.log(err);
@@ -108,14 +99,15 @@ export const XoaDichVu = (id) => {
     }
 }
 
-export const CapNhatDichVu = (id, value) => {
+export const CapNhatDichVu = (id, value, callback) => {
     return dispatch => {
         DichVu.updateDichVu(id, value).then(res => {
-            // console.log(res.data);
+            console.log(res.data);
             dispatch({
                 type: UPDATE_DICHVU,
                 payload: res.data
             })
+            callback();
         }).catch(err => {
             console.log(err);
         })
