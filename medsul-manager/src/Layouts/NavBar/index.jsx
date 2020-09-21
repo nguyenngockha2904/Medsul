@@ -51,7 +51,7 @@ class NavBar extends Component {
                             <div className="d-flex justify-content-end px-3 pt-3">
                                 <a onClick={this.handleOpensidepanel(false)}><span className="closeImg"></span></a>
                             </div>
-                            <NavLink activeStyle={{ color: '#2CD889' }} to="/signin" exact className="nav-link custom" onClick={this.handleOpensidepanel(false)}>TÀI KHOẢN</NavLink>
+                            <button type="button" className="nav-link custom" onClick={this.handleOpensidepanel(false)}>TÀI KHOẢN</button>
                         </div>
                     </nav>
 
@@ -72,23 +72,26 @@ class NavBar extends Component {
                                 <li className="nav-item">
                                     <NavLink activeStyle={{ color: '#2CD889' }} to="/dichvu" exact className="nav-link" >DỊCH VỤ</NavLink>
                                 </li>
-                                <li className="nav-item">
+                                {this.props.chucVu === 0 && <li className="nav-item">
+                                    <NavLink activeStyle={{ color: '#2CD889' }} to="/manager" exact className="nav-link" >MANAGER</NavLink>
+                                </li>}
+                                {/* <li className="nav-item">
                                     <NavLink activeStyle={{ color: '#2CD889' }} to="/khachhang" exact className="nav-link" >KHÁCH HÀNG</NavLink>
-                                </li>
-                                <li className="nav-item">
+                                </li> */}
+                                {/* <li className="nav-item">
                                     <NavLink activeStyle={{ color: '#2CD889' }} to="/khuyenmai" exact className="nav-link" >KHUYẾN MÃI</NavLink>
-                                </li>
+                                </li> */}
                                 <li className="nav-item">
                                     <NavLink activeStyle={{ color: '#2CD889' }} to="/donhang" exact className="nav-link" >ĐƠN HÀNG</NavLink>
                                 </li>
-                                <li className="nav-item">
+                                {/* <li className="nav-item">
                                     <NavLink activeStyle={{ color: '#2CD889' }} to="/daotao" exact className="nav-link" >ĐÀO TẠO</NavLink>
-                                </li>
+                                </li> */}
                             </ul>
                             <ul className="navbar-nav ml-auto">
                                 <li className="nav-item dropdown">
                                     <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        ADMIN
+                                        {`hi ${this.props.name.toUpperCase()}  !!`}
                                     </a>
                                     <div className="dropdown-menu" aria-labelledby="navbarDropdown"
 
@@ -110,11 +113,14 @@ class NavBar extends Component {
                             <NavLink activeStyle={{ color: '#2CD889' }} to="/" exact className="nav-link" href="#" onClick={this.handleOpensidepanel(false)}>THỐNG KÊ</NavLink>
                             <NavLink activeStyle={{ color: '#2CD889' }} to="/dieuduong" exact className="nav-link" onClick={this.handleOpensidepanel(false)}>ĐIỀU DƯỠNG</NavLink>
                             <NavLink activeStyle={{ color: '#2CD889' }} to="/dichvu" exact className="nav-link" onClick={this.handleOpensidepanel(false)}>DỊCH VỤ</NavLink>
-                            <NavLink activeStyle={{ color: '#2CD889' }} to="/khachhang" exact className="nav-link" onClick={this.handleOpensidepanel(false)}>KHÁCH HÀNG</NavLink>
-                            <NavLink activeStyle={{ color: '#2CD889' }} to="/khuyenmai" exact className="nav-link" onClick={this.handleOpensidepanel(false)}>KHUYẾN MÃI</NavLink>
+                            {this.props.chucVu === 0 && <li className="nav-item">
+                                <NavLink activeStyle={{ color: '#2CD889' }} to="/manager" exact className="nav-link" onClick={this.handleOpensidepanel(false)}>MANAGER</NavLink>
+                            </li>}
+                            {/* <NavLink activeStyle={{ color: '#2CD889' }} to="/khachhang" exact className="nav-link" onClick={this.handleOpensidepanel(false)}>KHÁCH HÀNG</NavLink> */}
+                            {/* <NavLink activeStyle={{ color: '#2CD889' }} to="/khuyenmai" exact className="nav-link" onClick={this.handleOpensidepanel(false)}>KHUYẾN MÃI</NavLink> */}
                             <NavLink activeStyle={{ color: '#2CD889' }} to="/donhang" exact className="nav-link" onClick={this.handleOpensidepanel(false)}>ĐƠN HÀNG</NavLink>
-                            <NavLink activeStyle={{ color: '#2CD889' }} to="/daotao" exact className="nav-link" onClick={this.handleOpensidepanel(false)}>ĐÀO TẠO</NavLink>
-                            <div className="hrtag"></div>
+                            {/*  <NavLink activeStyle={{ color: '#2CD889' }} to="/daotao" exact className="nav-link" onClick={this.handleOpensidepanel(false)}>ĐÀO TẠO</NavLink>
+                            <div className="hrtag"></div> */}
                             <button className="nav-link custom" onClick={this.handleOpensidepanel(false) || this.handleShowModalThongTinCaNhan({})}>TÀI KHOẢN</button>
                             <NavLink activeStyle={{ color: '#2CD889' }} to="/caidat" exact className="nav-link custom" onClick={this.handleOpensidepanel(false)}>CÀI ĐẶT</NavLink>
                             <button className="nav-link custom" onClick={this.handleLogOut}>THOÁT</button>
@@ -127,7 +133,10 @@ class NavBar extends Component {
 }
 const mapStateToProps = state => {
     return {
-        isLoginPage: state.credentials.credentials.isLogin
+        isLoginPage: state.credentials.credentials.isLogin,
+        name: state.credentials.credentials.value.admin_USERNAME,
+        chucVu: state.credentials.credentials.value.admin_CHUCVU
+
     }
 }
 
@@ -160,7 +169,7 @@ const NavbarContainer = styled.div`
                     margin-top: 7px;
                     font-size: 13px;
                     font-weight: 600;
-                    letter-spacing: 0.5px;
+                    letter-spacing: 1px;
                     word-spacing: 1px;
                     color: rgba(0, 0, 0, 0.5);
                     padding: 1em;
@@ -194,7 +203,7 @@ const NavbarContainer = styled.div`
                         
                     }
                     .dropdown-menu{
-                        left: -105%;
+                        left: -65%;
                         .dropdown-item{
                             font-size: 13px;
                             font-weight: 400;

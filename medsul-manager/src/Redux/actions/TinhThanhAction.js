@@ -5,7 +5,7 @@ import { SET_DATA_TINHTHANH } from './type';
 export const LayDanhSachTinhThanh = () => {
     return dispatch => {
         TinhThanh.fetchDanhSachTinhThanh().then(res => {
-            console.log(res.data);
+            // console.log(res.data);
             dispatch(createAction(SET_DATA_TINHTHANH, res.data));
         }).catch(err => {
             console.log(err);

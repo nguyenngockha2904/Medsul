@@ -2,7 +2,7 @@ import Axios from 'axios';
 import { createAction } from '.';
 import { SET_LOGIN } from './type';
 
-export const Login = (username, password, callback) => {
+export const Login = (username, password, callbackThanhCong, callbackThatBai) => {
     return dispatch => {
         Axios({
             method: 'GET',
@@ -10,9 +10,10 @@ export const Login = (username, password, callback) => {
         }).then(res => {
             // console.log(res.data);
             dispatch(createAction(SET_LOGIN, res.data));
-            callback();
+            callbackThanhCong(res.data.admin_HOTEN, res.data.admin_CHUCVU);
         }).catch(err => {
-            console.log(err);
+            // console.log(err);
+            callbackThatBai();
         })
     }
 }

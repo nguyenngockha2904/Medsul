@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import bgSignin from '../../img/bgSignin.png';
 import logo from '../../img/icon.svg';
 import { Login } from '../../Redux/actions/LoginAction';
+import swal from 'sweetalert';
 class SignIn extends Component {
     state = {
         credentials: {
@@ -19,8 +20,19 @@ class SignIn extends Component {
     handleSubmit = (e) => {
         e.preventDefault();
         // console.log(this.state.credentials);
-        this.props.dispatch(Login(this.state.credentials.userName, this.state.credentials.passWord.toLowerCase(), () => {
-            this.props.history.replace('/');
+        this.props.dispatch(Login(this.state.credentials.userName, this.state.credentials.passWord.toLowerCase(), (name, role) => {
+            { role === 0 ? this.props.history.replace('/manager') : this.props.history.replace('/dieuduong') }
+            swal({
+                title: `Hi! ${name}`,
+                text: "Chào mừng bạn đến với hệ thống quản trị của MedSul !!",
+                icon: "success",
+            })
+        }, () => {
+            swal({
+                title: "Thất bại?",
+                text: "Có thể Tài khoản hoặc mật khẩu của bạn đã sai!!",
+                icon: "info",
+            })
         }));
     }
     render() {

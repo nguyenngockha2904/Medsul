@@ -27,7 +27,13 @@ class DieuDuong {
             url: `http://localhost:8080/api/dieuDuong/getDieuDUongByDaoTaoVienId/${id}`
         })
     }
-    // updateViTien()
+    updateViTien(id, value) {
+        return Axios({
+            method: 'PUT',
+            url: `http://localhost:8080/api/vidientu/${id}`,
+            data: value
+        });
+    }
 
 }
 

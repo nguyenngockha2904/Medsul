@@ -31,15 +31,15 @@ class App extends Component {
             </Fragment>
             :
             <Fragment>
-              <Route path="/signin" component={SignIn} />
-              <Route path="/dieuduong" component={DieuDuongComponent} />
-              <Route path="/dichvu" component={DichVuComponent} />
-              <Route path='/khachhang' component={KhachHangComponent} />
-              <Route path='/khuyenmai' component={KhuyenMaiComponent} />
-              <Route path='/daotao' component={DaoTaoComponent} />
-              <Route path='/donhang' component={DonHangComponent} />
-              <Route path='/manager' component={ManagerComponent} />
-              <Route path="/" component={ThongKeComponent} />
+              <Route exact path="/signin" component={SignIn} />
+              <Route exact path="/dichvu" component={DichVuComponent} />
+              <Route exact path='/khachhang' component={KhachHangComponent} />
+              <Route exact path='/khuyenmai' component={KhuyenMaiComponent} />
+              <Route exact path='/daotao' component={DaoTaoComponent} />
+              <Route exact path='/donhang' component={DonHangComponent} />
+              <Route exact path='/manager' component={ManagerComponent} />
+              <Route exact path="/dieuduong" component={DieuDuongComponent} />
+              <Route exact path="/thongke" component={ThongKeComponent} />
 
             </Fragment>}
 

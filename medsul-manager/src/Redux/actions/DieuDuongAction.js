@@ -1,6 +1,6 @@
 import { createAction } from '.';
 import { DieuDuong, GPHN } from '../../Services/index';
-import { ADD_DIEUDUONG, ADD_GIAYPHEPHANHNGHE, HIRE_MODAL_DIEUDUONG, SET_DATA_LISTDIEUDUONG, SET_DATA_LISTGPHN, SET_DIEUDUONG_BY_DAOTAOVIEN, SET_LISTGPHN_BY_DIEUDUONGID, UPDATE_DIEUDUONG, UPDATE_GIAYPHEPHANHNGHE } from './type';
+import { ADD_DIEUDUONG, ADD_GIAYPHEPHANHNGHE, HIRE_MODAL_DIEUDUONG, SET_DATA_LISTDIEUDUONG, SET_DATA_LISTGPHN, SET_DIEUDUONG_BY_DAOTAOVIEN, SET_LISTGPHN_BY_DIEUDUONGID, SHOW_MODAL_VITIEN, UPDATE_DIEUDUONG, UPDATE_GIAYPHEPHANHNGHE } from './type';
 import swal from 'sweetalert';
 export const LayDanhSachDieuDuong = () => {
     return dispatch => {
@@ -91,6 +91,19 @@ export const capNhatGPHN = (id, value) => {
     return dispatch => {
         GPHN.updateGiayPhepHanhNghe(id, value).then(res => {
             dispatch(createAction(UPDATE_GIAYPHEPHANHNGHE, res.data));
+        }).catch(err => {
+            console.log(err);
+        })
+    }
+}
+
+export const capNhatViTien = (id, value, callback) => {
+    return dispatch => {
+        DieuDuong.updateViTien(id, value).then(res => {
+            dispatch(createAction(UPDATE_DIEUDUONG, res.data));
+            // console.log(res.data);
+            dispatch(createAction(SHOW_MODAL_VITIEN, res.data));
+            callback();
         }).catch(err => {
             console.log(err);
         })

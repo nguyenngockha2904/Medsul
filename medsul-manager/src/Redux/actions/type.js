@@ -55,3 +55,7 @@ export const SET_DATA_TINHTHANH = 'tinhthanh/SET_DATA_TINHTHANH';
 /* Manager action */
 export const SHOW_MODAL_MANAGER = 'manager/SHOW_MODAL_MANAGER';
 export const HIRE_MODAL_MANAGER = 'manager/HIRE_MODAL_MANAGER';
+export const SET_DATA_LIST_MANAGER = 'manager/SET_DATA_LIST_MANAGER';
+export const ADD_MANAGER = 'manager/ADD_MANAGER';
+export const UPDATE_MANAGER = 'manager/UPDATE_MANAGER';
+

@@ -6,6 +6,7 @@ import { StylePageComponent, StyleGroupButtonSearch } from '../../Styles';
 import { connect } from 'react-redux';
 import { createAction } from '../../Redux/actions';
 import { SHOW_MODAL_MANAGER } from '../../Redux/actions/type';
+import { LayDanhSachManager } from '../../Redux/actions/managerAction';
 class Manager extends Component {
     state = {
         statusSelect: 0,
@@ -32,7 +33,26 @@ class Manager extends Component {
         e.preventDefault();
     }
     handleShowModalManager = (value) => () => {
-        this.props.dispatch(createAction(SHOW_MODAL_MANAGER, value));
+        this.props.dispatch(createAction(SHOW_MODAL_MANAGER, { value: value, role: 1 }));
+        let item = {
+            admin_ID: -1,
+            admin_PASSWORD: '',
+            admin_CMNDMATSAU: '',
+            admin_CMNDNOICAP: '',
+            admin_CMNDMATTRUOC: '',
+            admin_CMNDNGAYCAP: '',
+            admin_TINHTRANG: 0,
+            admin_HOTEN: '',
+            admin_AVATAR: '',
+            admin_CHUCVU: 0,
+            admin_EMAIL: '',
+            admin_NGAYSINH: null,
+            admin_GIOITINH: '',
+            admin_SDT: '',
+            admin_DIACHI: '',
+            admin_USERNAME: '',
+            admin_CMND: ''
+        }
     }
     render() {
         return (
@@ -64,7 +84,25 @@ class Manager extends Component {
                                     <button className="btnSearch" type="submit">Tìm kiếm</button>
                                 </div>
                             </form>
-                            <button className="btnAdd" onClick={this.handleShowModalManager({})}>Thêm</button>
+                            <button className="btnAdd" onClick={this.handleShowModalManager({
+                                admin_ID: -1,
+                                admin_PASSWORD: '',
+                                admin_CMNDMATSAU: '',
+                                admin_CMNDNOICAP: '',
+                                admin_CMNDMATTRUOC: '',
+                                admin_CMNDNGAYCAP: '',
+                                admin_TINHTRANG: 0,
+                                admin_HOTEN: '',
+                                admin_AVATAR: '',
+                                admin_CHUCVU: 0,
+                                admin_EMAIL: '',
+                                admin_NGAYSINH: null,
+                                admin_GIOITINH: '',
+                                admin_SDT: '',
+                                admin_DIACHI: '',
+                                admin_USERNAME: '',
+                                admin_CMND: ''
+                            })}>Thêm</button>
                         </StyleGroupButtonSearch>
                         <ManagerTable />
                     </div>
@@ -74,6 +112,10 @@ class Manager extends Component {
             </StylePageComponent>
 
         );
+    }
+
+    componentDidMount() {
+        this.props.dispatch(LayDanhSachManager());
     }
 }
 const mapStateToProps = state => ({

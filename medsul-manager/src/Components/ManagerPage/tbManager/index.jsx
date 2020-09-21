@@ -1,9 +1,14 @@
 import React, { PureComponent } from 'react';
 import { StyleTable } from '../../../Styles';
 import ManagerItem from '../managerItem';
+import { connect } from 'react-redux';
 class ManagerTable extends PureComponent {
     renderManagerItem = () => {
-
+        return this.props.listAllManager.map((item, index) => {
+            return (
+                <ManagerItem index={index + 1} item={item} key={index} />
+            )
+        })
     }
     render() {
         return (
@@ -32,15 +37,14 @@ class ManagerTable extends PureComponent {
                         </tr>
                     </thead>
                     <tbody>
-                        {/*this.renderManagerItem()*/}
-                        <ManagerItem />
-                        <ManagerItem />
-                        <ManagerItem />
+                        {this.renderManagerItem()}
                     </tbody>
                 </table>
             </StyleTable>
         );
     }
 }
-
-export default ManagerTable;
+const mapStateToProps = state => ({
+    listAllManager: state.qlManager.listAllManager
+});
+export default connect(mapStateToProps)(ManagerTable);

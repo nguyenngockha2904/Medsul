@@ -3,6 +3,7 @@ import { createAction } from '../../../Redux/actions';
 import { HIRE_MODAL_VITIEN } from '../../../Redux/actions/type';
 import { StyledModel } from '../../../Styles';
 import { connect } from 'react-redux';
+import { capNhatViTien } from '../../../Redux/actions/DieuDuongAction';
 class ModalViTien extends Component {
     HandleHireModal = () => {
         this.props.dispatch(createAction(HIRE_MODAL_VITIEN, false));
@@ -10,24 +11,39 @@ class ModalViTien extends Component {
 
     state = {
         isHistory: true,
-        monney: 0,
+        total: 0,
         item: {},
+        monney: ''
     }
     toogleTabHistory = (value) => () => {
         this.setState({
             isHistory: value
         });
     }
-
+    handleChange = e => {
+        this.setState({
+            [e.target.name]: e.target.value
+        });
+    }
+    handleUpdateViTien = (id, value) => (e) => {
+        e.preventDefault();
+        this.props.dispatch(capNhatViTien(id, { soTienNapVaoVi: parseInt(value) }, () => {
+            this.setState({
+                isHistory: true
+            }, () => {
+                this._setValue();
+            });
+        }));
+    }
     _setValue = () => {
         this.setState({
             item: this.props.item,
-            monney: this.props.item.tongTien,
+            total: this.props.item.tongTien,
         })
     }
     render() {
         // console.log(this.props.item);
-        const { monney } = this.state;
+        const { total } = this.state;
         return (
             <StyledModel>
                 <div className=" modalService-dialog">
@@ -47,7 +63,7 @@ class ModalViTien extends Component {
                         {/* Modal body */}
                         <div className="d-flex justify-content-between  TongTien_Title">
                             <p className="m-0 p-0 subtitle">Số tiền tổng: </p>
-                            <p className="m-0 p-0  price">{monney.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')}<span className="vnd">Vnd</span></p>
+                            <p className="m-0 p-0  price">{total.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')}<span className="vnd">Vnd</span></p>
                         </div>
                         {this.state.isHistory
                             ?
@@ -79,21 +95,23 @@ class ModalViTien extends Component {
                             </Fragment>
                             :
                             <Fragment>
-                                <form className="TongTien_history modalService-body ">
+                                <form className="TongTien_history modalService-body " onSubmit={this.handleUpdateViTien(this.state.item.dieuDuong_Id, this.state.monney)}>
                                     <div className="form-group ac">
                                         <label >họ tên: </label>
                                         <input type="text" className="form-contro"
-                                            name="tenDieuDuong" value="Nguyễn Ngọc Kha"
+                                            name="tenDieuDuong" value={this.state.item.hoTen}
+                                            disabled={true}
                                         />
                                     </div>
                                     <div className="form-group">
                                         <label >Số tiền nạp: </label>
                                         <input type="num" className="form-contro"
-                                            name="tenDieuDuong"
+                                            name="monney" value={this.state.monney}
+                                            onChange={this.handleChange}
                                         />
                                     </div>
                                     <div className="text-center my-5">
-                                        <button type="submit" className="btnNapTien" style={{ width: '500px' }} onClick={this.toogleTabHistory(true)}>Nạp tiền</button>
+                                        <button type="submit" className="btnNapTien" style={{ width: '500px' }}>Nạp tiền</button>
                                     </div>
                                 </form>
 
