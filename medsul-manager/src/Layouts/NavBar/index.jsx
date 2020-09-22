@@ -85,6 +85,9 @@ class NavBar extends Component {
                                 <li className="nav-item">
                                     <NavLink activeStyle={{ color: '#2CD889' }} to="/donhang" exact className="nav-link" >ĐƠN HÀNG</NavLink>
                                 </li>
+                                <li className="nav-item">
+                                    <NavLink activeStyle={{ color: '#2CD889' }} to="/tinhthanh" exact className="nav-link" >TỈNH THÀNH</NavLink>
+                                </li>
                                 {/* <li className="nav-item">
                                     <NavLink activeStyle={{ color: '#2CD889' }} to="/daotao" exact className="nav-link" >ĐÀO TẠO</NavLink>
                                 </li> */}

@@ -15,6 +15,7 @@ import TaiKhoanModal from './Components/ModalTaiKhoan';
 import { connect } from 'react-redux';
 import { LayDanhSachTinhThanh } from './Redux/actions/TinhThanhAction';
 import { layDanhSachDichVuAction, layDanhSachLoaiDichVuAction } from './Redux/actions/DichVuAction';
+import TinhThanhComponent from './Screens/TinhThanh';
 
 class App extends Component {
   render() {
@@ -39,6 +40,7 @@ class App extends Component {
               <Route exact path='/donhang' component={DonHangComponent} />
               <Route exact path='/manager' component={ManagerComponent} />
               <Route exact path="/dieuduong" component={DieuDuongComponent} />
+              <Route exact path="/tinhthanh" component={TinhThanhComponent} />
               <Route exact path="/thongke" component={ThongKeComponent} />
 
             </Fragment>}

@@ -53,7 +53,11 @@ export const UPDATE_GIAYPHEPHANHNGHE = 'giayphephanhnghe/UPDATE_GIAYPHEPHANHNGHE
 
 /* Tỉnh thành action*/
 export const SET_DATA_TINHTHANH = 'tinhthanh/SET_DATA_TINHTHANH';
-
+export const SHOW_MODAL_TINHTHANH = 'tinhthanh/SHOW_MODAL_TINHTHANH';
+export const ADD_TINHTHANH = 'tinhthanh/ADD_TINHTHANH';
+export const UPDATE_TINHTHANH = 'tinhthanh/UPDATE_TINHTHANH';
+export const HIRE_MODAL_TINHTHANH = 'tinhthanh/HIRE_MODAL_DIEUDUONG';
+export const CHECK_TINHTHANH = 'tinhthanh/CHECK_TINHTHANH';
 
 /* Manager action */
 export const SHOW_MODAL_MANAGER = 'manager/SHOW_MODAL_MANAGER';

@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
+import { StylePageComponent } from '../../Styles';
 
 
 class DaoTaoComponent extends Component {
     render() {
         return (
-            <div>
+            <StylePageComponent>
 
-                DaoTaoComponent
-            </div>
+            </StylePageComponent>
         );
     }
 }

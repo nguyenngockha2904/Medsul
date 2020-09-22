@@ -333,6 +333,9 @@ export const StyleTable = styled.div`
                 &.isChinhThuc{
                     color:#2CD889;
                 }
+                &.isAnother{
+                    color:#5500D6;
+                }
                 
                 &.groupBtn{
                     .btnCustom{
@@ -412,6 +415,15 @@ export const StyleGroupButtonSearch = styled.div`
             &:hover{
                 color: #fff ;
                 background:#2CD889;    
+            }
+        }
+        &.isAnother{
+            color:#5500D6;
+            background:#fff;
+            box-shadow: 1px 2px 4px -0.5px #80808080;
+            &:hover{
+                color: #fff ;
+                background:#5500D6;    
             }
         }
         
