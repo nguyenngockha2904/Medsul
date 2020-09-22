@@ -55,64 +55,30 @@ public class TinhThanhController {
 			ModelMapper modelMapper = new ModelMapper();
 			TinhThanh tinhThanh = modelMapper.map(updateTinhThanhDto, TinhThanh.class);
 
-			/*
-			 * Kiem tra ma tinh va ten tinh update co trung voi ma va ten co trong database
-			 * hay khong 1.Co => update binh thuong 2.Khong => kiem tra co bi trung hay
-			 * khong +Trung => failed, update that bai +Khong Trung => update
-			 */
-
-			TinhThanh checkValueTinhThanh = tinhThanhRepository.GetTinhThanhByMaTinhThanh(updateTinhThanhDto.getMaTinhThanh());
-
-			// ma tinh thanh update trung voi ma tinh thanh co trong database
-			if (checkValueTinhThanh.getMaTinhThanh().equals(updateTinhThanhDto.getMaTinhThanh())) {
-				
-				//kiem tra tinh thanh update co trung voi trong database hay khong
-				if (checkValueTinhThanh.getTenTinhThanh().equals(updateTinhThanhDto.getTenTinhThanh())) {
-					//trung => tien  hanh update
-					tinhThanh.setTinhThanh_Id(tinhThanh_Id);
-					TinhThanh entity = tinhThanhRepository.save(tinhThanh);
-					return new ResponseEntity<TinhThanh>(entity, HttpStatus.OK);
-
-				} else {
-					// khac => check da ton tai hay khong
-					TinhThanh checkTenTinh = tinhThanhRepository.GetTinhThanhByTenTinhThanh(updateTinhThanhDto.getTenTinhThanh());
-					if (checkTenTinh == null) {
-						// khong ton tai =>  update
-						tinhThanh.setTinhThanh_Id(tinhThanh_Id);
-						TinhThanh entity = tinhThanhRepository.save(tinhThanh);
-						return new ResponseEntity<TinhThanh>(entity, HttpStatus.OK);
-
-					}
-				}
-			} else {// ma tinh khong trung 
-				
-				//check ma tinh update co tong tai trong database hay chua
-				TinhThanh checkMaTinh = tinhThanhRepository.GetTinhThanhByMaTinhThanh(updateTinhThanhDto.getMaTinhThanh());
-				if (checkMaTinh == null) {
-					// khong ton tai => check ten tinh thanh
-					if (checkValueTinhThanh.getTenTinhThanh().equals(updateTinhThanhDto.getTenTinhThanh())) {
-							//ten tinh update trung voi ten tinh trong database => update
-						tinhThanh.setTinhThanh_Id(tinhThanh_Id);
-						TinhThanh entity = tinhThanhRepository.save(tinhThanh);
-						return new ResponseEntity<TinhThanh>(entity, HttpStatus.OK);
-
-					} else { // ten tinh khong trung => check xem co ton tai hay khong
-
-						TinhThanh checkTenTinh = tinhThanhRepository.GetTinhThanhByTenTinhThanh(updateTinhThanhDto.getTenTinhThanh());
-						if (checkTenTinh == null) {
-							// khong ton tai update	
-							tinhThanh.setTinhThanh_Id(tinhThanh_Id);
-							TinhThanh entity = tinhThanhRepository.save(tinhThanh);
-							return new ResponseEntity<TinhThanh>(entity, HttpStatus.OK);
-
-						}
-
-					}
-
-				}
-			}
-
+//			/*
+//			 * Kiem tra ma tinh va ten tinh update co trung voi ma va ten co trong database
+//			 * hay khong 1.Co => update binh thuong 2.Khong => kiem tra co bi trung hay
+//			 * khong +Trung => failed, update that bai +Khong Trung => update
+//			 */
+//			if (checkTT.getMaTinhThanh().equals(updateTinhThanhDto.getMaTinhThanh())) {
+//				if (checkTT.getTenTinhThanh().equals(updateTinhThanhDto.getTenTinhThanh())) {
+//					tinhThanh.setTinhThanh_Id(tinhThanh_Id);
+//					TinhThanh entity = tinhThanhRepository.save(tinhThanh);
+//					return new ResponseEntity<TinhThanh>(entity, HttpStatus.CREATED);
+//				} else {
+//					if (tinhThanhRepository.GetTinhThanhByTenTinhThanh(updateTinhThanhDto.getTenTinhThanh()) != null) {
+//						return new ResponseEntity<String>("Ten Tinh Thanh Da Ton Tai", HttpStatus.BAD_REQUEST);
+//					}
+//				}
+//			} else {
+//				if (tinhThanhRepository.GetTinhThanhByMaTinhThanh(updateTinhThanhDto.getMaTinhThanh()) != null) {
+//					return new ResponseEntity<String>("Ma Tinh Thanh Da Ton Tai", HttpStatus.BAD_REQUEST);
+//				}
+//			}
+			tinhThanh.setTinhThanh_Id(tinhThanh_Id);
+			TinhThanh entity = tinhThanhRepository.save(tinhThanh);
+			return new ResponseEntity<TinhThanh>(entity, HttpStatus.CREATED);
 		}
-		return new ResponseEntity<String>("Update Failed..!, Ma Hoac Ten Tinh Da Ton Tai", HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<String>("Update Failed..!, Loi K xac Dinhi", HttpStatus.BAD_REQUEST);
 	}
 }
