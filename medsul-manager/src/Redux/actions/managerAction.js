@@ -28,7 +28,7 @@ export const capNhatManager = (id, value, callback) => {
         Manager.updateManager(id, value).then(res => {
             // console.log(res);
             dispatch(createAction(UPDATE_MANAGER, res.data));
-            dispatch(createAction(SET_LOGIN, res.data));
+            // dispatch(createAction(SET_LOGIN, res.data));
             callback();
         }).catch(err => {
             console.log(err);

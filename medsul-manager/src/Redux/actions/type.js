@@ -61,5 +61,7 @@ export const HIRE_MODAL_MANAGER = 'manager/HIRE_MODAL_MANAGER';
 export const SET_DATA_LIST_MANAGER = 'manager/SET_DATA_LIST_MANAGER';
 export const ADD_MANAGER = 'manager/ADD_MANAGER';
 export const UPDATE_MANAGER = 'manager/UPDATE_MANAGER';
-export const CHECK_EXIST_EMAIL = 'manager/CHECK_EXIST_EMAIL';
+export const CHECK_EXIST_EMAIL_MANAGER = 'manager/CHECK_EXIST_EMAIL';
+export const CHECK_EXIST_CMND_MANAGER = 'manager/CHECK_EXIST_CMND_MANAGER';
+export const CHECK_EXIST_SDT_MANAGER = 'manager/CHECK_EXIST_SDT_MANAGER';
 

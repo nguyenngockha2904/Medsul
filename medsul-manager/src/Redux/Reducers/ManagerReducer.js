@@ -1,4 +1,4 @@
-import { ADD_MANAGER, HIRE_MODAL_MANAGER, SET_DATA_LIST_MANAGER, SHOW_MODAL_MANAGER, UPDATE_MANAGER } from "../actions/type";
+import { ADD_MANAGER, CHECK_EXIST_CMND_MANAGER, CHECK_EXIST_EMAIL_MANAGER, CHECK_EXIST_SDT_MANAGER, HIRE_MODAL_MANAGER, SET_DATA_LIST_MANAGER, SHOW_MODAL_MANAGER, UPDATE_MANAGER } from "../actions/type";
 
 let initialState = {
     modalManager: {
@@ -35,6 +35,30 @@ const ManagerReducer = (state = initialState, { type, payload }) => {
                 let mangTam = [...state.listAllManager];
                 mangTam[index] = payload;
                 state.listAllManager = mangTam;
+            }
+            return { ...state };
+        } case CHECK_EXIST_EMAIL_MANAGER: {
+            let index = state.listAllManager.findIndex(mn => mn.admin_USERNAME === payload);
+            if (index !== -1) {
+                state.checkExistEmail = true;
+            } else {
+                state.checkExistEmail = false;
+            }
+            return { ...state };
+        } case CHECK_EXIST_CMND_MANAGER: {
+            let index = state.listAllManager.findIndex(mn => mn.admin_CMND === payload);
+            if (index !== -1) {
+                state.checkExistCMND = true;
+            } else {
+                state.checkExistCMND = false;
+            }
+            return { ...state };
+        } case CHECK_EXIST_SDT_MANAGER: {
+            let index = state.listAllManager.findIndex(mn => mn.admin_SDT === payload);
+            if (index !== -1) {
+                state.checkExistSDT = true;
+            } else {
+                state.checkExistSDT = false;
             }
             return { ...state };
         }

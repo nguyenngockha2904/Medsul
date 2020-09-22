@@ -74,8 +74,6 @@ class Manager extends Component {
                                 <option value={2}>Nghỉ việc</option>
 
                             </select>
-
-
                             {/* <form className="d-flex justify-content-center groupSearch" onSubmit={this.handleSearch}>
                                 <input type="text" className="form-contro" placeholder="SDT...."
                                     name="valueSearch" value={this.state.valueSearch ? this.state.valueSearch : ''}

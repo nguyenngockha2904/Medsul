@@ -4,7 +4,7 @@ import avatarImg from '../../../img/avatar/avatar_1.jpg';
 import CMNDImg from '../../../img/indentityCard_Img.svg';
 import { connect } from 'react-redux';
 import { createAction } from '../../../Redux/actions';
-import { HIRE_MODAL_MANAGER } from '../../../Redux/actions/type';
+import { CHECK_EXIST_CMND_MANAGER, CHECK_EXIST_EMAIL_MANAGER, CHECK_EXIST_SDT_MANAGER, HIRE_MODAL_MANAGER } from '../../../Redux/actions/type';
 import { capNhatManager, themManager } from '../../../Redux/actions/managerAction';
 import swal from 'sweetalert';
 class ModalManager extends Component {
@@ -12,7 +12,10 @@ class ModalManager extends Component {
         this.props.dispatch(createAction(HIRE_MODAL_MANAGER, {}));
     }
     state = {
-        item: {}
+        item: {},
+        oldItem: {
+            admin_USERNAME: '',
+        },
     }
 
     handleChange_Number = (e) => {
@@ -21,15 +24,34 @@ class ModalManager extends Component {
         });
     }
     handleChangeEmail = (e) => {
-
+        this.setState({
+            item: { ...this.state.item, [e.target.name]: e.target.value }
+        }, () => {
+            this.props.dispatch(createAction(CHECK_EXIST_EMAIL_MANAGER, this.state.item.admin_EMAIL.slice(0, this.state.item.admin_EMAIL.lastIndexOf('@'))));
+        });
     }
-    handleChangeCMND = (e) => {
-
+    handleChangeCMND = e => {
+        this.setState({
+            item: { ...this.state.item, [e.target.name]: e.target.value }
+        }, () => {
+            let value = this.state.item.admin_CMND;
+            this.props.dispatch(createAction(CHECK_EXIST_CMND_MANAGER, value));
+        });
     }
+    handleChangeSDT = e => {
+        this.setState({
+            item: { ...this.state.item, [e.target.name]: e.target.value }
+        }, () => {
+            let value = this.state.item.admin_SDT;
+            this.props.dispatch(createAction(CHECK_EXIST_SDT_MANAGER, value));
+        });
+    }
+
     handleChange = e => {
         this.setState({
             item: { ...this.state.item, [e.target.name]: e.target.value }
         });
+
     }
     handleSubmit = e => {
         e.preventDefault();
@@ -40,8 +62,9 @@ class ModalManager extends Component {
             admin_SDT, admin_DIACHI, admin_USERNAME, admin_CMND
         } = this.state.item;
         let username = admin_EMAIL.slice(0, admin_EMAIL.lastIndexOf('@'));
+        // console.log(username);
         let itemAdd = {
-            admin_AVATAR: admin_AVATAR,
+            admin_AVATAR: this.props.role === 1 ? "string" : admin_AVATAR,
             admin_CHUCVU: admin_CHUCVU,
             admin_CMND: admin_CMND,
             admin_CMNDMATSAU: this.props.role === 1 ? "string" : admin_CMNDMATSAU,
@@ -58,42 +81,101 @@ class ModalManager extends Component {
             admin_TINHTRANG: this.props.role === 1 ? 1 : admin_TINHTRANG,
             admin_USERNAME: this.props.role === 1 ? username : admin_USERNAME
         };
+        console.log(itemAdd);
         if (this.props.role === 1) {
-            this.props.dispatch(themManager(itemAdd, () => {
+            if (this.props.isExistCMND) {
                 swal({
-                    title: "Thành công !!",
-                    text: 'Bạn đã thêm thành công một quản trị viên mới !',
-                    icon: "success",
+                    title: "Đã tồn tại!",
+                    text: "Vui lòng kiểm tra lại CMND!!",
+                    icon: "warning",
                 });
-                this.HandleHireModal();
-            }));
-
-        } else if (this.props.role === 3) {
-            swal({
-                title: "Bạn Chắc Chứ?",
-                text: `Nếu đồng ý dữ liệu sẽ thay đổi!`,
-                icon: "info",
-                buttons: true,
-            }).then((willDelete) => {
-                if (willDelete) {
-                    swal(`Dữ liệu đã được cập nhật!`, {
+            };
+            if (this.props.isExistSDT) {
+                swal({
+                    title: "Đã tồn tại!",
+                    text: "Vui lòng kiểm tra lại SDT!!",
+                    icon: "warning",
+                });
+            };
+            if (this.props.isExistEmail) {
+                swal({
+                    title: "Đã tồn tại!",
+                    text: "Vui lòng kiểm tra lại Email!!",
+                    icon: "warning",
+                });
+            }
+            let valueCheck = !(this.props.isExistEmail && this.props.isExistCMND && this.props.isExistSDT);
+            if (valueCheck) {
+                this.props.dispatch(themManager(itemAdd, () => {
+                    swal({
+                        title: "Thành công !!",
+                        text: 'Bạn đã thêm thành công một quản trị viên mới !',
                         icon: "success",
                     });
-                    this.props.dispatch(capNhatManager(admin_ID, itemAdd, this.HandleHireModal));
+                    this.HandleHireModal();
+                }));
+            }
+
+
+        } else if (this.props.role === 3) {
+            let username = '';
+            if (username !== this.state.oldItem.admin_USERNAME) {
+                if (!this.props.isExistEmail) {
+                    swal({
+                        title: "Bạn Chắc Chứ?",
+                        text: `Nếu đồng ý dữ liệu sẽ thay đổi!`,
+                        icon: "info",
+                        buttons: true,
+                    }).then((willDelete) => {
+                        if (willDelete) {
+                            swal(`Dữ liệu đã được cập nhật!`, {
+                                icon: "success",
+                            });
+                            this.props.dispatch(capNhatManager(admin_ID, itemAdd, this.HandleHireModal));
+                        } else {
+                            swal(`Dữ liệu được giữ nguyên!`);
+                            // this.HandleHireModal();
+                            this.setState({
+                                item: this.props.item
+                            });
+                        }
+                    });
                 } else {
-                    swal(`Dữ liệu được giữ nguyên!`);
-                    // this.HandleHireModal();
-                    this.setState({
-                        item: this.props.item
+                    swal({
+                        title: "Đã tồn tại!",
+                        text: "Vui lòng kiểm tra lại Email!!",
+                        icon: "warning",
                     });
                 }
-            });
+            } else {
+                swal({
+                    title: "Bạn Chắc Chứ?",
+                    text: `Nếu đồng ý dữ liệu sẽ thay đổi!`,
+                    icon: "info",
+                    buttons: true,
+                }).then((willDelete) => {
+                    if (willDelete) {
+                        swal(`Dữ liệu đã được cập nhật!`, {
+                            icon: "success",
+                        });
+                        this.props.dispatch(capNhatManager(admin_ID, itemAdd, this.HandleHireModal));
+                    } else {
+                        swal(`Dữ liệu được giữ nguyên!`);
+                        // this.HandleHireModal();
+                        this.setState({
+                            item: this.props.item
+                        });
+                    }
+                });
+            }
+
         }
 
     }
     _setValue = () => {
         this.setState({
-            item: this.props.item
+            item: this.props.item,
+            oldItem: { ...this.state.oldItem, admin_USERNAME: this.props.item.admin_EMAIL.slice(0, this.props.item.admin_EMAIL.lastIndexOf('@')) }
         })
     }
     render() {
@@ -135,7 +217,7 @@ class ModalManager extends Component {
                                             <input type="text" className="form-contro"
                                                 value={admin_SDT ? admin_SDT : ''}
                                                 name='admin_SDT'
-                                                onChange={this.handleChange}
+                                                onChange={this.handleChangeSDT}
                                                 disabled={this.props.role === 1 ? false : (this.props.role === 2 ? true : false)}
                                                 required={true}
                                             />
@@ -221,7 +303,7 @@ class ModalManager extends Component {
                                             <input type="text" className="form-contro"
                                                 value={admin_EMAIL ? admin_EMAIL : ''}
                                                 name='admin_EMAIL'
-                                                onChange={this.handleChange}
+                                                onChange={this.handleChangeEmail}
                                                 disabled={this.props.role === 1 ? false : (this.props.role === 2 ? true : false)}
                                                 required={true}
                                             />
@@ -263,7 +345,7 @@ class ModalManager extends Component {
                                                 <input type="text" className="form-contro"
                                                     value={admin_CMND ? admin_CMND : ''}
                                                     name='admin_CMND'
-                                                    onChange={this.handleChange}
+                                                    onChange={this.handleChangeCMND}
                                                     disabled={this.props.role === 1 ? false : (this.props.role === 2 ? true : false)}
                                                     required={true}
                                                 />
@@ -334,6 +416,9 @@ class ModalManager extends Component {
 }
 const mapStateToProps = state => ({
     item: state.qlManager.modalManager.value,
-    role: state.qlManager.modalManager.role
+    role: state.qlManager.modalManager.role,
+    isExistEmail: state.qlManager.checkExistEmail,
+    isExistSDT: state.qlManager.checkExistSDT,
+    isExistCMND: state.qlManager.checkExistCMND,
 })
 export default connect(mapStateToProps)(ModalManager);
