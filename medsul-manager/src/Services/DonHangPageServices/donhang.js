@@ -4,7 +4,7 @@ class DonHang {
     getAllDongHang() {
         return Axios({
             method: 'GET',
-            url: ''
+            url: 'http://localhost:8080/api/datlich'
         });
     }
 }

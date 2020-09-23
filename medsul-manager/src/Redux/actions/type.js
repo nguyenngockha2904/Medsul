@@ -69,3 +69,5 @@ export const CHECK_EXIST_EMAIL_MANAGER = 'manager/CHECK_EXIST_EMAIL';
 export const CHECK_EXIST_CMND_MANAGER = 'manager/CHECK_EXIST_CMND_MANAGER';
 export const CHECK_EXIST_SDT_MANAGER = 'manager/CHECK_EXIST_SDT_MANAGER';
 
+/* Don hang action */
+export const SET_DATA_LIST_DONHANG = 'donhang/SET_DATA_LIST_DONHANG'; 

@@ -2,8 +2,15 @@ import React, { Component } from 'react';
 import { PureComponent } from 'react';
 import { StyleTable } from '../../../Styles';
 import DonHangItem from '../DonHangItem';
-
+import { connect } from 'react-redux';
 class DonHangTable extends PureComponent {
+    renderListDonHang = () => {
+        return this.props.listDonHang.map((item, index) => {
+            return (
+                <DonHangItem index={index + 1} key={index} item={item} />
+            )
+        });
+    }
     render() {
         return (
             <StyleTable>
@@ -34,14 +41,12 @@ class DonHangTable extends PureComponent {
                         </tr>
                     </thead>
                     <tbody>
-                        <DonHangItem />
-                        <DonHangItem />
-                        <DonHangItem />
+                        {this.renderListDonHang()}
                     </tbody>
                 </table>
             </StyleTable>
         );
     }
 }
-
-export default DonHangTable;
+const mapStateToProps = state => ({ listDonHang: state.qlDonHang.listDonHang })
+export default connect(mapStateToProps)(DonHangTable);

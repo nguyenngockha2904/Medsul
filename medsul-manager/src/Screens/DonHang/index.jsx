@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { StylePageComponent, StyleGroupButtonSearch } from '../../Styles';
 import DonHangTable from '../../Components/DonHangPage/tbDonHang';
+import { connect } from 'react-redux';
+import { layDanhSachDonHang } from '../../Redux/actions/DonHangAction';
 class DonHangComponent extends Component {
     state = {
         statusSelect: 0,
@@ -55,6 +57,9 @@ class DonHangComponent extends Component {
             </StylePageComponent>
         );
     }
+    componentDidMount() {
+        this.props.dispatch(layDanhSachDonHang());
+    }
 }
 
-export default DonHangComponent;
+export default connect()(DonHangComponent);
