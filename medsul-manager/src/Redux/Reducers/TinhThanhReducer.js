@@ -1,4 +1,4 @@
-import { SET_DATA_TINHTHANH, SHOW_MODAL_TINHTHANH, HIRE_MODAL_TINHTHANH, ADD_TINHTHANH, UPDATE_TINHTHANH, CHECK_TINHTHANH } from "../actions/type";
+import { SET_DATA_TINHTHANH, SHOW_MODAL_TINHTHANH, HIRE_MODAL_TINHTHANH, ADD_TINHTHANH, UPDATE_TINHTHANH, CHECK_EXIST_MA_TINHTHANH } from "../actions/type";
 
 let initialState = {
     listTinhThanh: [],
@@ -35,7 +35,7 @@ const TinhThanhReducer = (state = initialState, { type, payload }) => {
                 state.listTinhThanh = mangmoi;
             }
             return { ...state };
-        } case CHECK_TINHTHANH: {
+        } case CHECK_EXIST_MA_TINHTHANH: {
             let index = state.listTinhThanh.findIndex(dv => dv.maTinhThanh.toLowerCase() === payload.toLowerCase());
             if (index === -1) {
                 state.isExistTT = false;

@@ -2,6 +2,7 @@ import { createAction } from '.';
 import { TinhThanh } from '../../Services/index';
 import { SET_DATA_TINHTHANH, ADD_TINHTHANH, UPDATE_TINHTHANH, HIRE_MODAL_TINHTHANH } from './type';
 import swal from 'sweetalert';
+import { Callbacks } from 'jquery';
 
 export const LayDanhSachTinhThanh = () => {
     return dispatch => {
@@ -13,18 +14,12 @@ export const LayDanhSachTinhThanh = () => {
         })
     }
 }
-export const themTinhThanh = (value) => {
+export const themTinhThanh = (value, Callback) => {
     return dispatch => {
         TinhThanh.addTinhThanh(value).then(res => {
             // console.log(res.data);
             dispatch(createAction(ADD_TINHTHANH, res.data));
-            swal({
-                title: "Thành Công!",
-                text: "Bạn đã thêm một tỉnh thành mới!",
-                icon: "success",
-                button: "Ok!",
-            });
-            dispatch(createAction(HIRE_MODAL_TINHTHANH, false));
+            Callback();
         }).catch(err => {
             console.log(err);
         })

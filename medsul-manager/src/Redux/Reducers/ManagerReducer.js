@@ -38,7 +38,7 @@ const ManagerReducer = (state = initialState, { type, payload }) => {
             }
             return { ...state };
         } case CHECK_EXIST_EMAIL_MANAGER: {
-            let index = state.listAllManager.findIndex(mn => mn.admin_USERNAME === payload);
+            let index = state.listAllManager.findIndex(mn => mn.admin_USERNAME.toLowerCase() === payload.toLowerCase());
             if (index !== -1) {
                 state.checkExistEmail = true;
             } else {
@@ -46,7 +46,7 @@ const ManagerReducer = (state = initialState, { type, payload }) => {
             }
             return { ...state };
         } case CHECK_EXIST_CMND_MANAGER: {
-            let index = state.listAllManager.findIndex(mn => mn.admin_CMND === payload);
+            let index = state.listAllManager.findIndex(mn => mn.admin_CMND.toLowerCase() === payload.toLowerCase());
             if (index !== -1) {
                 state.checkExistCMND = true;
             } else {
@@ -54,7 +54,7 @@ const ManagerReducer = (state = initialState, { type, payload }) => {
             }
             return { ...state };
         } case CHECK_EXIST_SDT_MANAGER: {
-            let index = state.listAllManager.findIndex(mn => mn.admin_SDT === payload);
+            let index = state.listAllManager.findIndex(mn => mn.admin_SDT.toLowerCase() === payload.toLowerCase());
             if (index !== -1) {
                 state.checkExistSDT = true;
             } else {

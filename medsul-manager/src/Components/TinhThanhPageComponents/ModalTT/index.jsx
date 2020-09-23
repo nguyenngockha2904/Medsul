@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { createAction } from '../../../Redux/actions';
 import { StyledModel } from '../../../Styles/index';
-import { HIRE_MODAL_TINHTHANH, CHECK_TINHTHANH } from '../../../Redux/actions/type';
+import { HIRE_MODAL_TINHTHANH, CHECK_EXIST_MA_TINHTHANH } from '../../../Redux/actions/type';
 import { themTinhThanh, capNhapTinhThanh } from '../../../Redux/actions/TinhThanhAction';
 import swal from 'sweetalert';
 
@@ -22,9 +22,9 @@ class ModalTinhThanh extends Component {
     }
     handleChangeSpecial = e => {
         this.setState({
-            dichVu: { ...this.state.tinhThanh, [e.target.name]: e.target.value }
+            item: { ...this.state.item, [e.target.name]: e.target.value }
         }, () => {
-            this.props.dispatch(createAction(CHECK_TINHTHANH, this.state.tinhThanh.maTinhThanh));
+            this.props.dispatch(createAction(CHECK_EXIST_MA_TINHTHANH, this.state.item.maTinhThanh));
         });
     }
     handleChange = (e) => {
@@ -49,33 +49,61 @@ class ModalTinhThanh extends Component {
             maTinhThanh: maTinhThanh,
             tenTinhThanh: tenTinhThanh,
         }
-
         if (this.props.role === 1) {
             //sự kiện thêm 
-            this.props.dispatch(themTinhThanh(newitemTT));
+            if (!this.props.isExistMaTT) {
+                this.props.dispatch(themTinhThanh(newitemTT, () => {
+                    swal({
+                        title: "Thành Công!",
+                        text: "Bạn đã thêm một tỉnh thành mới!",
+                        icon: "success",
+                        button: "Ok!",
+                    });
+                    this.HandleHireModal();
+                }));
+            } else {
+                swal({
+                    title: "Đã tồn tại!",
+                    text: "Vui lòng kiểm tra lại Mã tỉnh thành!!",
+                    icon: "warning",
+                });
+            }
+
             // console.log(newitemTT);
         } else {
             //sự kiện sửa
-            swal({
-                title: "Bạn Chắc Chứ?",
-                text: "Nếu đồng ý dữ liệu này sẽ thay đổi!",
-                icon: "info",
-                buttons: true,
-                dangerMode: true,
-            }).then((willDelete) => {
-                if (willDelete) {
-                    swal("Dữ liệu đã được cập nhật!", {
-                        icon: "success",
-                    });
-                    this.props.dispatch(capNhapTinhThanh(tinhThanh_Id, updateTT, this.HandleHireModal));
-                } else {
-                    swal({
-                        title: "Giữ nguyên !",
-                        text: "Dữ liệu được giữ nguyên",
-                        icon: "info",
-                    });
-                }
-            });
+            if (!this.props.isExistMaTT) {
+                swal({
+                    title: "Bạn Chắc Chứ?",
+                    text: "Nếu đồng ý dữ liệu này sẽ thay đổi!",
+                    icon: "info",
+                    buttons: true,
+                    dangerMode: true,
+                }).then((willDelete) => {
+                    if (willDelete) {
+                        swal("Dữ liệu đã được cập nhật!", {
+                            icon: "success",
+                        });
+                        this.props.dispatch(capNhapTinhThanh(tinhThanh_Id, updateTT, this.HandleHireModal));
+                    } else {
+                        swal({
+                            title: "Giữ nguyên !",
+                            text: "Dữ liệu được giữ nguyên",
+                            icon: "info",
+                        });
+                    }
+                });
+            } else {
+                swal({
+                    title: "Đã tồn tại!",
+                    text: "Vui lòng kiểm tra lại Mã tỉnh thành!!",
+                    icon: "warning",
+                });
+                this.setState({
+                    item: { ...this.state.item, maTinhThanh: this.props.item.maTinhThanh }
+                })
+            }
+
         }
 
 
@@ -101,7 +129,7 @@ class ModalTinhThanh extends Component {
                                     className="form-group secondFormleft width3"
                                 >
                                     <label >Mã tỉnh thành: </label>
-                                    <input type="text" className="form-contro " name="maTinhThanh" value={maTinhThanh ? maTinhThanh : ''} onChange={this.handleChange} />
+                                    <input type="text" className="form-contro " name="maTinhThanh" value={maTinhThanh ? maTinhThanh : ''} onChange={this.handleChangeSpecial} />
                                     {/* value={maTinhThanh?maTinhThanh:''} */}
                                 </div>
                                 {/* họ tên điều dưỡng */}
@@ -142,6 +170,7 @@ class ModalTinhThanh extends Component {
 const mapStateToProps = state => ({
     item: state.qlTinhThanh.modalTinhThanh.value,
     role: state.qlTinhThanh.modalTinhThanh.role,
+    isExistMaTT: state.qlTinhThanh.isExistTT
 })
 
 export default connect(mapStateToProps)(ModalTinhThanh);

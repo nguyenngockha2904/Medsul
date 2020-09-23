@@ -57,7 +57,7 @@ export const SHOW_MODAL_TINHTHANH = 'tinhthanh/SHOW_MODAL_TINHTHANH';
 export const ADD_TINHTHANH = 'tinhthanh/ADD_TINHTHANH';
 export const UPDATE_TINHTHANH = 'tinhthanh/UPDATE_TINHTHANH';
 export const HIRE_MODAL_TINHTHANH = 'tinhthanh/HIRE_MODAL_DIEUDUONG';
-export const CHECK_TINHTHANH = 'tinhthanh/CHECK_TINHTHANH';
+export const CHECK_EXIST_MA_TINHTHANH = 'tinhthanh/CHECK_EXIST_MA_TINHTHANH';
 
 /* Manager action */
 export const SHOW_MODAL_MANAGER = 'manager/SHOW_MODAL_MANAGER';
