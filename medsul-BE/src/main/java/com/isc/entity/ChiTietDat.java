@@ -31,6 +31,6 @@ public class ChiTietDat {
 	private int DL_ID;
 	private Date CTD_NGAYBATDAU;
 	private Float CTD_DONGIA;
-	private Double CTD_GIOBATDAU;
+	private String CTD_GIOBATDAU;
 	
 }

@@ -19,7 +19,7 @@ import lombok.Data;
 public class DatLichDto {
 	private String DL_HOTEN;
 	private Date DL_NGAYDAT;
-	private Double CTD_GIOBATDAU;
+	private String CTD_GIOBATDAU;
 	private int DL_TINHTRANG;
 	private int DichVu_Id;
 	private String DL_SDT;
@@ -34,7 +34,7 @@ public class DatLichDto {
 	public DatLichDto() {
 		
 	}
-	public DatLichDto(String dL_HOTEN, Date dL_NGAYDAT, Double cTD_GIOBATDAU, int dL_TINHTRANG, int dichVu_Id,
+	public DatLichDto(String dL_HOTEN, Date dL_NGAYDAT, String cTD_GIOBATDAU, int dL_TINHTRANG, int dichVu_Id,
 			String dL_SDT, String dL_EMAIL, String dL_DIACHI, Double dL_TONGTIEN, String tenTinhThanh, String mGG_HESOGIAM,
 			Float cTD_DONGIA, Date cTD_NGAYBATDAU, String dL_GHICHU) {
 		super();

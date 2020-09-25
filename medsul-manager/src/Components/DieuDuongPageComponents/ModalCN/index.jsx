@@ -38,7 +38,7 @@ class ModalBC extends PureComponent {
         },
         listGPHN: [],
         giayPhep_Id: -1,
-
+        ListDTV: [],
     }
     HandleHireModal = () => {
         this.props.dispatch(createAction(HIRE_MODAL_GIAYPHEPHANHNGHE, false));
@@ -63,7 +63,7 @@ class ModalBC extends PureComponent {
         })
     }
     renderMaDTV = () => {
-        return this.props.ListDTV.filter(dtv => dtv.dieuDuong_Id !== this.state.DD.idDD).map((item, index) => {
+        return this.state.ListDTV.map((item, index) => {
             return (
                 <option value={item.dieuDuong_Id} key={index}>{item.maDieuDuong}</option>
             )
@@ -87,10 +87,10 @@ class ModalBC extends PureComponent {
         this.setState({
             DTV: { ...this.state.DTV, [e.target.name]: parseInt(e.target.value) }
         }, () => {
-            let index = this.props.ListDTV.findIndex(dtv => dtv.dieuDuong_Id === this.state.DTV.maDTV);
+            let index = this.state.ListDTV.findIndex(dtv => dtv.dieuDuong_Id === this.state.DTV.maDTV);
             if (index !== -1) {
                 this.setState({
-                    DTV: { ...this.state.DTV, nameDTV: this.props.ListDTV[index].hoTen }
+                    DTV: { ...this.state.DTV, nameDTV: this.state.ListDTV[index].hoTen }
                 })
             }
 
@@ -388,14 +388,19 @@ class ModalBC extends PureComponent {
     componentDidMount() {
         let listDvByIdLdv = this.props.ListDV.filter(dv => dv.loaiDichVuID === this.state.LDV.maLDV);
         let listGPHNF = this.props.listGPHN.filter(gphn => gphn.giayPhep_DieuDuong_Id === this.state.DD.idDD);
+        let lstDTV = this.props.ListDTV.filter(dtv => dtv.dieuDuong_Id !== this.state.DD.idDD);
         this.setState({
             listDV: listDvByIdLdv,
-            listGPHN: listGPHNF
+            listGPHN: listGPHNF,
+            ListDTV: lstDTV,
+            DTV: { ...this.state.DTV, maDTV: lstDTV[0].dieuDuong_Id, }
 
         }, () => {
-            this.setState({ DV: { ...this.state.DV, idDV: this.state.listDV.length !== 0 ? this.state.listDV[0].dichVu_Id : '' } })
-        });
+            this.setState({
+                DV: { ...this.state.DV, idDV: this.state.listDV.length !== 0 ? this.state.listDV[0].dichVu_Id : '' },
 
+            })
+        });
     }
 }
 const mapStateToProps = state => ({

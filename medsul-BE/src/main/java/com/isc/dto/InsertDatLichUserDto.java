@@ -26,7 +26,7 @@ public class InsertDatLichUserDto {
 	private Date CTD_NGAYBATDAU;
 	
 	@NotBlank(message = "Giờ BD không được bỏ trống!")
-	private Double CTD_GIOBATDAU;
+	private String CTD_GIOBATDAU;
 	
 	private String DL_GHICHU;
 	
@@ -39,7 +39,7 @@ public class InsertDatLichUserDto {
 	@NotBlank(message = "Tỉnh không được bỏ trống!")
 	private Integer TINHT_ID;
 	public InsertDatLichUserDto(String dL_HOTEN, String dL_SDT, String dL_EMAIL, String dL_DIACHI,
-			Date cTD_NGAYBATDAU, Double cTD_GIOBATDAU, String dL_GHICHU, Date dL_NGAYDAT, int dL_TINHTRANG,
+			Date cTD_NGAYBATDAU, String cTD_GIOBATDAU, String dL_GHICHU, Date dL_NGAYDAT, int dL_TINHTRANG,
 			Integer tINHT_ID) {
 		super();
 //		DV_ID = dV_ID;

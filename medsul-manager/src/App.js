@@ -1,7 +1,9 @@
 
-import React, { Component, Fragment } from 'react';
+import React, { Component, Fragment, lazy, Suspense } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
+//layout
 import Header from './Layouts/NavBar';
+//component
 import SignIn from './Screens/SignIn';
 import ThongKeComponent from './Screens/ThongKe';
 import DieuDuongComponent from './Screens/DieuDuong';
@@ -12,10 +14,12 @@ import DonHangComponent from './Screens/DonHang';
 import DaoTaoComponent from './Screens/DaoTao';
 import ManagerComponent from './Screens/Manager';
 import TaiKhoanModal from './Components/ModalTaiKhoan';
+import TinhThanhComponent from './Screens/TinhThanh';
+//another
 import { connect } from 'react-redux';
 import { LayDanhSachTinhThanh } from './Redux/actions/TinhThanhAction';
 import { layDanhSachDichVuAction, layDanhSachLoaiDichVuAction } from './Redux/actions/DichVuAction';
-import TinhThanhComponent from './Screens/TinhThanh';
+
 
 class App extends Component {
   render() {

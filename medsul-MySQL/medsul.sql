@@ -1,8 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.21, for Win64 (x86_64)
 --
-
-use csdl_medsul
--- Host: 127.0.0.1    Database: csdl_medsul
+-- Host: localhost    Database: medsul
 -- ------------------------------------------------------
 -- Server version	8.0.21
 
@@ -56,7 +54,14 @@ CREATE TABLE `admin` (
 
 LOCK TABLES `admin` WRITE;
 /*!40000 ALTER TABLE `admin` DISABLE KEYS */;
-INSERT INTO `admin` VALUES (4,'Trần Thanh Quy','thanhquy0164@gmail.com','Nam','quy','quy123','Long An','301634259','2013-10-15','LA','chuaco','chuaco','chuaco',1,'0375250024',0,NULL),(5,'Lê Ngọc Hậu','hau@gmail.com','Nam','hau','hau123','LA','012345678','2013-10-15','LA','chuaco','chuaco','chuaco',1,'0123456789',1,NULL),(6,'Nguyễn Lan','lan@gmail.com','Nam','lan','lan123','LA','032165489','2013-10-15','LA','chuaco','chuaco','chuaco',1,'0123456852',1,NULL),(7,'Nguyễn Trọng Dương','duon@gmail.com','Nam','duong','duong123','LA','258963123','2013-10-15','LA','chuaco','chuaco','chuaco',1,'0123526325',1,NULL),(8,'Lê Anh Kiệt','ket@gmail.com','Nam','kiet','kiet123','LA','254123652','2013-10-15','LA','chuaco','chuaco','chuaco',1,'2541203215',1,NULL),(9,'Nguyễn Ngọc Kha','kha@gmail.com','Nam','kha','kha123','LA','215236521','2013-10-15','LA','chuaco','chuaco','chuaco',1,'2512355625',1,NULL),(10,'Trần Văn Ba','quym@gmail.com','Nam','ba','ba123','123 HCM','012352102','2013-02-03','HCM','chua co 2','chua co2','chua co 2',1,'012352145201',1,'1995-03-01');
+INSERT INTO `admin` VALUES 
+(4,'Trần Thanh Quy','thanhquy0164@gmail.com','Nam','quy','quy123','Long An','301634259','2013-10-15','LA','chưa có','chưa có','chưa có',1,'0375250024',1,'1987-04-04'),
+(5,'Lê Ngọc Hậu','hau@gmail.com','Nam','hau','hau123','Long An','012345678','2013-10-15','HCM','chưa có','chưa có','chưa có',1,'0123456789',1,'1987-05-04'),
+(6,'Nguyễn Lan','lan@gmail.com','Nam','lan','lan123','Long An','032165489','2013-10-15','LA','chưa có','chưa có','chưa có',2,'0123456852',1,'1987-04-04'),
+(7,'Nguyễn Trọng Dương','duon@gmail.com','Nam','duong','duong123','Long An','258963123','2013-10-15','HCM','chưa có','chưa có','chưa có',2,'0123526325',1,'1987-05-04'),
+(8,'Lê Anh Kiệt','ket@gmail.com','Nam','kiet','kiet123','Long An','254123652','2013-10-15','HCM','chưa có','chưa có','chưa có',1,'2541203215',1,'1987-02-04'),
+(9,'Nguyễn Ngọc Kha','kha@gmail.com','Nam','kha','123','Long An','215236521','2013-10-15','HCM','chưa có','chưa có','chưa có',1,'2512355625',0,'1987-04-04'),
+(10,'Trần Văn Ba','quym@gmail.com','Nam','ba','ba123','123 HCM','012352102','2013-02-03','HCM','chưa có','chưa có','chưa có',2,'012352145201',1,'1995-03-01');
 /*!40000 ALTER TABLE `admin` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -73,12 +78,13 @@ CREATE TABLE `chitietdat` (
   `DL_ID` int NOT NULL,
   `CTD_NGAYBATDAU` date NOT NULL,
   `CTD_DONGIA` double NOT NULL,
-  `CTD_GIOBATDAU` time NOT NULL,
+  `CTD_GIOBATDAU` double NOT NULL,
   PRIMARY KEY (`CTD_ID`),
   KEY `FK_CHITIETDAT_CO_DICHVU` (`DV_ID`),
   KEY `FK_CO_CHITIETDAT` (`DL_ID`),
   CONSTRAINT `FK_CHITIETDAT_CO_DICHVU` FOREIGN KEY (`DV_ID`) REFERENCES `dichvu` (`DV_ID`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `FK_CO_CHITIETDAT` FOREIGN KEY (`DL_ID`) REFERENCES `datlich` (`DL_ID`) ON DELETE RESTRICT ON UPDATE RESTRICT
+  CONSTRAINT `FK_CO_CHITIETDAT` FOREIGN KEY (`DL_ID`) REFERENCES `datlich` (`DL_ID`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `FKk53j07ffhxdaurkcycbttiax4` FOREIGN KEY (`DL_ID`) REFERENCES `datlich` (`DL_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -143,7 +149,7 @@ CREATE TABLE `chuyennganh` (
   PRIMARY KEY (`CNGANH_ID`),
   KEY `FK_DD_CO_CN` (`DD_ID`),
   CONSTRAINT `FK_DD_CO_CN` FOREIGN KEY (`DD_ID`) REFERENCES `dieuduong` (`DD_ID`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -152,7 +158,24 @@ CREATE TABLE `chuyennganh` (
 
 LOCK TABLES `chuyennganh` WRITE;
 /*!40000 ALTER TABLE `chuyennganh` DISABLE KEYS */;
-INSERT INTO `chuyennganh` VALUES (1,1,'Kỹ thuật viên phục hồi chức năng','Khá','2019-12-10','1524152156','chua co','chua co',NULL),(2,1,'Y sỹ.','TB','2019-10-10','21536215','chua co','chua co',NULL),(3,2,'Kỹ thuật viên phục hồi chức năng','Giỏi ','2019-12-29','1524256322','chuaco','cchua co',NULL);
+INSERT INTO `chuyennganh` VALUES 
+(1,1,'Kỹ thuật viên phục hồi chức năng','Khá','2019-12-10','1524152156','chua co','chua co',NULL),
+(2,1,'Y sỹ.','TB','2019-10-10','21536215','chua co','chua co',NULL),
+(3,2,'Kỹ thuật viên phục hồi chức năng','Giỏi ','2019-12-29','1524256322','chua co','chua co',NULL),
+(32,3,'Kỹ thuật viên phục hồi chức năng','TB','2019-12-13','21536215','chua co','chua co',NULL),
+(33,7,'Kỹ thuật viên phục hồi chức năng','Giỏi ','2019-12-26','15242322','chua co','chua co',NULL),
+(34,8,'Kỹ thuật viên phục hồi chức năng','Khá','2019-12-11','152423322','chua co','chua co',NULL),
+(35,9,'Kỹ thuật viên phục hồi chức năng','Khá','2019-12-31','1524256322','chua co','chua co',NULL),
+(36,10,'Y sỹ.','TB','2019-12-15','152422322','chua co','chua co',NULL),
+(37,10,'Kỹ thuật viên phục hồi chức năng','Khá','2019-12-16','1524251332','chua co','chua co',NULL),
+(38,11,'Kỹ thuật viên phục hồi chức năng','Giỏi ','2019-11-18','1524276332','chua co','chua co',NULL),
+(39,12,'Kỹ thuật viên phục hồi chức năng','Giỏi ','2019-01-18','155256332','chua co','chua co',NULL),
+(40,13,'Kỹ thuật viên phục hồi chức năng','Giỏi ','2019-03-18','1524256232','chua co','chua co',NULL),
+(41,14,'Kỹ thuật viên phục hồi chức năng','Khá','2019-12-20','152425232','chua co','chua co',NULL),
+(42,15,'Y sỹ.','Khá','2019-12-28','1524252672','chua co','chua co',NULL),
+(43,16,'Y sỹ.','Khá','2019-12-21','152425282','chua co','chua co',NULL),
+(44,17,'Kỹ thuật viên phục hồi chức năng','Giỏi ','2019-12-12','152425262','chua co','chua co',NULL),
+(45,18,'Kỹ thuật viên phục hồi chức năng','TB','2019-12-14','152425222','chua co','chua co',NULL);
 /*!40000 ALTER TABLE `chuyennganh` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -181,7 +204,7 @@ CREATE TABLE `cmnd_dieuduong` (
   UNIQUE KEY `DD_ID_UNIQUE` (`DD_ID`),
   CONSTRAINT `FK_DD_CO_CMND` FOREIGN KEY (`DD_ID`) REFERENCES `dieuduong` (`DD_ID`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `FKcckt2qle68fjkasilwdatb0p0` FOREIGN KEY (`DD_ID`) REFERENCES `dieuduong` (`DD_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -190,7 +213,7 @@ CREATE TABLE `cmnd_dieuduong` (
 
 LOCK TABLES `cmnd_dieuduong` WRITE;
 /*!40000 ALTER TABLE `cmnd_dieuduong` DISABLE KEYS */;
-INSERT INTO `cmnd_dieuduong` VALUES (1,'12541235hkbhj',2,'LE NGOC HAU[','Việt Nam','HN','123 G','long an 1','2013-10-10','@@ QWE','CHƯA CÓ','CHƯA CÓ'),(3,'301634259lolo',1,'TRAN THANH QUY','Việt Nam','LA','phuoc tan hung , chau thanh, long an','long an','2013-10-15','đẹp trai nhất vũ trụ ','chưa có','chưa có'),(4,'963245126',3,'NGUYEN LAN','Việt Nam','LA','341DA','long an 2','2013-10-10','@@ QWE','CHƯA CÓ','CHƯA CÓ'),(5,'965896325',4,'NGUYEN NGOC KHA','Việt Nam','HCM','ASD12','long an 3','2013-10-11','@@ QWE','CHƯA CÓ','CHƯA CÓ');
+INSERT INTO `cmnd_dieuduong` VALUES (1,'123456789',2,'LÊ NGỌC HẬU','Việt Nam','CA.Quận Bình Tân','10/11/99 Đồng Tháp','Đồng Tháp','2013-10-10','Cà Khịa','chưa có','chưa có'),(3,'987654321',1,'TRẦN THANH QUY','Việt Nam','CA.Quận 8','911 quang trung ','Long An','2013-10-15','1 vs 5 ','chưa có','chưa có'),(4,'112345678',3,'NGUYỄN LAN','Việt Nam','CA.Quận 9','26/10/99 Nha Trang','Nha Trang','2013-10-10','3 Que','chưa có','chưa có'),(5,'123155746',4,'NGUYỄN NGỌC KHA','Việt Nam','CA.Củ Chi','Củ Chi','Củ Chi','2013-10-11','Thích Mai','chưa có','chưa có'),(8,'123677865',7,'NGUYỄN TRỌNG DƯƠNG','Việt Nam','CA.Quận 10','40/3 Nguyễn Hới KP6, P.An Lạc, Q.Bình Tân, TP.Hồ Chí Minh','Hà Nội','2020-05-20','Mập Thích Nét','chưa có','chưa có'),(9,'768234312',9,'LÊ VĂN HIẾU','Việt Nam','CA.Quận 1','Đồng Tháp','Long An','2019-12-01','Kiệt lặt','chưa có','chưa có'),(10,'352612381',10,'LÊ HẬU','Việt Nam','CA.Quận 2','20/11 Thành Phố Hồ Chí Minh','Hồ Chí Minh','2016-11-05','Hậu Cà Khịa','chưa có ','chưa có'),(11,'456473853',8,'Lê Anh Kiệt','Việt Nam','CA.Quận 3','10/22 Phú Thọ','Hồ Chí Minh','2013-11-02','Hiếu Lùn','chưa có ','chưa có'),(12,'123679276',11,'Nguyễn Kim Ngọc','Việt Nam','CA.Quận 1','20/16 Thành Phố Hồ Chí Minh','Hồ Chí Minh','2013-06-02','16 lặt','chưa có ','chưa có '),(13,'457439221',12,'Trần Thanh Huy','Việt Nam','CA.Quận 5','20/113 Thành Phố Hồ Chí Minh','Hồ Chí Minh','2013-12-02','123 lặt','chưa có ','chưa có '),(14,'3427t2384',13,'Trần Văn Tú','Việt Nam','CA.Quận 1','20/12 Thành Phố Hồ Chí Minh','Hồ Chí Minh','2013-07-02','12 lặt','chưa có ','chưa có '),(15,'123453465',14,'Trần Văn Lợi','Việt Nam','CA.Quận 5','210/12 Thành Phố Hồ Chí Minh','Hồ Chí Minh','2013-07-02','Hiếu Lùn','chưa có ','chưa có '),(16,'456456324',15,'Trần Văn Đan','Việt Nam','CA.Quận 12','230/12 Thành Phố Hồ Chí Minh','Hồ Chí Minh','2013-07-02','Hiếu Lùn','chưa có ','chưa có '),(17,'124325564',16,'Trần Văn Hòa','Việt Nam','CA.Quận 11','10/12 Thành Phố Hồ Chí Minh','Hồ Chí Minh','2013-07-02','12 lặt','chưa có ','chưa có '),(18,'780234233',17,'Trần Văn Đức','Việt Nam','CA.Quận 7','250/12 Thành Phố Hồ Chí Minh','Hồ Chí Minh','2013-07-02','123 lặt','chưa có ','chưa có '),(19,'453658679',18,'Trần Văn Kiện','Việt Nam','CA.Quận 9','210/12 Thành Phố Hồ Chí Minh','Hồ Chí Minh','2013-07-02','12 lặt','chưa có ','chưa có ');
 /*!40000 ALTER TABLE `cmnd_dieuduong` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -263,7 +286,7 @@ CREATE TABLE `dichvu` (
   KEY `FK_CO` (`LOAIDV_ID`),
   CONSTRAINT `FK_CO` FOREIGN KEY (`LOAIDV_ID`) REFERENCES `loaidichvu` (`LOAIDV_ID`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `FKdp6lttqajuvpddao48037hqag` FOREIGN KEY (`LOAIDV_ID`) REFERENCES `loaidichvu` (`LOAIDV_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -272,7 +295,15 @@ CREATE TABLE `dichvu` (
 
 LOCK TABLES `dichvu` WRITE;
 /*!40000 ALTER TABLE `dichvu` DISABLE KEYS */;
-INSERT INTO `dichvu` VALUES (1,4,'PHCN STB','Phục Hồi Chức Năng Sau Tai Biến','Tai biến – đột quỵ có thể gặp ở bất kỳ lứa tuổi nào, tỷ lệ cao nhất ở người lớn tuổi nhưng đang có xu hướng trẻ hóa. Hậu quả thường gặp nhất sau tai biến là bệnh nhân mất khả năng vận động, liệt nửa người không tự chăm sóc được bản thân và sinh hoạt khó khăn.','Chăm sóc toàn diện cho bệnh nhân tại nhà và bệnh viện thay cho người nhà bệnh nhân bằng các điều dưỡng viên được đào tạo bài bản, chính quy','- Thay băng cắt chỉ cho vết thương.',3,399000,1),(2,4,'PHCN STN','Phục Hồi Chức Năng Sau Tai Nạn','Vật lý trị liệu và vận động phục hồi chức năng là hoạt động rất quang trọng quyết định đến sự thành công của ca phẫu thuật và khả năng phục hồi của bệnh nhân. Tuy nhiên sau khi phẫu thuật điều trị bệnh nhân vẫn còn rất đau, việc di chuyển đi lại rất khó khăn, nhiều rủi ro, tốn thời gian và chi phí. Hiểu được điều đó chúng tôi sẽ cử các chuyên viên PHCN nhiều năm kinh nghiệm đến thực hiện các thủ thuật vật lý trị liệu và hoạt động trị liệu cho bạn hoặc người thân tại nhà hoặc bất kỳ địa chỉ nào bạn yêu cầu.','Chăm sóc toàn diện cho bệnh nhân tại nhà và bệnh viện thay cho người nhà bệnh nhân bằng các điều dưỡng viên được đào tạo bài bản, chính quy.','- Thay băng cắt chỉ cho vết thương.',4,399000,1),(3,5,'CCTM','Cắt Chỉ Thẩm Mỹ','Khi đang bị đau ốm thì việc di chuyển đến các cơ sở y tế để thực hiện các thủ thuật đơn giản nhưng rất quan trọng như thay băng, cắt chỉ, rửa vết thương là việc khó khăn. Hiểu được điều đó chúng tôi sẽ cử các điều dưỡng viên có kỹ thuật cao và nhiều năm kinh nghiệm đến thực hiện các thủ thuật tại nhà hoặc bất kỳ địa chỉ nào bạn yêu cầu thực hiện một hoặc một nhóm các thủ thuật chăm sóc bệnh nhân bằng kỹ thuật','Chăm sóc toàn diện cho bệnh nhân tại nhà và bệnh viện thay cho người nhà bệnh nhân bằng các điều dưỡng viên được đào tạo bài bản, chính quy','- Trông nom, chăm sóc bệnh nhân',2,199000,1);
+INSERT INTO `dichvu` VALUES 
+(1,4,'PHCN STB','Phục Hồi Chức Năng Sau Tai Biến','Tai biến – đột quỵ có thể gặp ở bất kỳ lứa tuổi nào, tỷ lệ cao nhất ở người lớn tuổi nhưng đang có xu hướng trẻ hóa. Hậu quả thường gặp nhất sau tai biến là bệnh nhân mất khả năng vận động, liệt nửa người không tự chăm sóc được bản thân và sinh hoạt khó khăn.','Chăm sóc toàn diện cho bệnh nhân tại nhà và bệnh viện thay cho người nhà bệnh nhân bằng các điều dưỡng viên được đào tạo bài bản, chính quy','- Thay băng cắt chỉ cho vết thương.',3,399000,1),
+(2,4,'PHCN STN','Phục Hồi Chức Năng Sau Tai Nạn','Vật lý trị liệu và vận động phục hồi chức năng là hoạt động rất quang trọng quyết định đến sự thành công của ca phẫu thuật và khả năng phục hồi của bệnh nhân. Tuy nhiên sau khi phẫu thuật điều trị bệnh nhân vẫn còn rất đau, việc di chuyển đi lại rất khó khăn, nhiều rủi ro, tốn thời gian và chi phí. Hiểu được điều đó chúng tôi sẽ cử các chuyên viên PHCN nhiều năm kinh nghiệm đến thực hiện các thủ thuật vật lý trị liệu và hoạt động trị liệu cho bạn hoặc người thân tại nhà hoặc bất kỳ địa chỉ nào bạn yêu cầu.','Chăm sóc toàn diện cho bệnh nhân tại nhà và bệnh viện thay cho người nhà bệnh nhân bằng các điều dưỡng viên được đào tạo bài bản, chính quy.','- Thay băng cắt chỉ cho vết thương.',4,399000,1),
+(3,5,'CCTM','Cắt Chỉ Thẩm Mỹ','Khi đang bị đau ốm thì việc di chuyển đến các cơ sở y tế để thực hiện các thủ thuật đơn giản nhưng rất quan trọng như thay băng, cắt chỉ, rửa vết thương là việc khó khăn. Hiểu được điều đó chúng tôi sẽ cử các điều dưỡng viên có kỹ thuật cao và nhiều năm kinh nghiệm đến thực hiện các thủ thuật tại nhà hoặc bất kỳ địa chỉ nào bạn yêu cầu thực hiện một hoặc một nhóm các thủ thuật chăm sóc bệnh nhân bằng kỹ thuật','Chăm sóc toàn diện cho bệnh nhân tại nhà và bệnh viện thay cho người nhà bệnh nhân bằng các điều dưỡng viên được đào tạo bài bản, chính quy','- Trông nom, chăm sóc bệnh nhân',2,199000,1),
+(6,4,'PHCN_SPT','Phục Hồi Chức Năng Sau Phẫu Thuật','Vật lý trị liệu và vận động phục hồi chức năng là hoạt động rất quang trọng quyết định đến sự thành công của ca phẫu thuật và khả năng phục hồi của bệnh nhân. Tuy nhiên sau khi phẫu thuật điều trị bệnh nhân vẫn còn rất đau, việc di chuyển đi lại rất khó khăn, nhiều rủi ro, tốn thời gian và chi phí. Hiểu được điều đó chúng tôi sẽ cử các chuyên viên PHCN nhiều năm kinh nghiệm đến thực hiện các thủ thuật vật lý trị liệu và hoạt động trị liệu cho bạn hoặc người thân tại nhà hoặc bất kỳ địa chỉ nào bạn yêu cầu.','Hướng dẫn tập vận động trị liệu và thực hiện các biện pháp vật lý trị liệu để giúp tăng hiệu quả điều trị và phục hồi khả năng vận động của bệnh nhân.','- Thay băng cắt chỉ cho vết thương.',2,399000,1),
+(7,4,'PHCN_BNOT','Phục Hồi Chức Năng Bại Não Ở Trẻ','Bại não là tổn thương não không tiến triển gây nên bởi các yếu tố nguy cơ xảy ra ở giai đoạn trước sinh, trong khi sinh và sau sinh đến 5 tuổi.','- Hướng dẫn sử dụng các máy tập vận động phục hồi chức năng.','- Thay băng cắt chỉ, rửa vết thương.',3,329000,1),
+(8,4,'PHCN_CNBL','Phục Hồi Chức Năng Cho Người Bị Liệt','Khi đang bị đau sau phẫu thuật hoặc chấn thương thì việc di chuyển đến các cơ sở y tế để thực hiện các hoạt động phục hồi chức năng rất quang trọng thường là việc khó khăn. Hiểu được điều đó chúng tôi sẽ cử các điều dưỡng viên, chuyên viên PHCN nhiều năm kinh nghiệm đến thực hiện các thủ thuật tại nhà hoặc bất kỳ địa chỉ nào bạn yêu cầu','Chăm sóc toàn diện cho bệnh nhân tại nhà và bệnh viện thay cho người nhà bệnh nhân bằng các điều dưỡng viên được đào tạo bài bản, chính quy','- Thay băng cắt chỉ cho vết thương',2,399000,1),
+(9,4,'PHCN_CTTT','Phục Hồi Chức Năng Chấn Thương Thể Thao','Vật lý trị liệu và vận động phục hồi chức năng là hoạt động rất quang trọng quyết định đến sự thành công của ca phẫu thuật và khả năng phục hồi của bệnh nhân. Tuy nhiên sau khi phẫu thuật điều trị bệnh nhân vẫn còn rất đau, việc di chuyển đi lại rất khó khăn, nhiều rủi ro, tốn thời gian và chi phí. Hiểu được điều đó chúng tôi sẽ cử các chuyên viên PHCN nhiều năm kinh nghiệm đến thực hiện các thủ thuật vật lý trị liệu và hoạt động trị liệu cho bạn hoặc người thân tại nhà hoặc bất kỳ địa chỉ nào bạn yêu cầu.','Chăm sóc toàn diện cho bệnh nhân tại nhà và bệnh viện thay cho người nhà bệnh nhân bằng các điều dưỡng viên được đào tạo bài bản, chính quy','- Thay băng cắt chỉ cho vết thương',3,399000,1),
+(10,4,'PHCN_XHCUDC','Phục Hồi Chức Năng Xơ Hóa Cơ Ức Đòn Chũm','Khi cơ ức đòn chũm bị u (phì đại), xơ hóa khiến cho chiều dài các bó cơ bị ngắn lại so với bình thường làm ảnh hưởng đến tầm vận động của cử động tương ứng bó cơ tạo nên tư thế điển hình của bệnh. Bệnh xơ hóa cơ ức đòn chũm không gây nguy hiểm đến tính mạng bệnh nhân, có ảnh hưởng đến sức khỏe và thẩm mỹ bệnh nhân sau này nếu không được điều khỏi, các biến chứng :','- Hướng dẫn sử dụng các máy tập vận động phục hồi chức năng.','- Thay băng cắt chỉ, rửa vết thương.',2,289000,1);
 /*!40000 ALTER TABLE `dichvu` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -306,7 +337,7 @@ CREATE TABLE `dieuduong` (
   KEY `FK_DIEUDUONG_THUOC_TINHTHANH` (`TINHT_ID`),
   CONSTRAINT `FK_DIEUDUONG_THUOC_TINHTHANH` FOREIGN KEY (`TINHT_ID`) REFERENCES `tinhthanh` (`TINHT_ID`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `FKius6pw410pmtcxf4eoloa2onu` FOREIGN KEY (`TINHT_ID`) REFERENCES `tinhthanh` (`TINHT_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -315,7 +346,23 @@ CREATE TABLE `dieuduong` (
 
 LOCK TABLES `dieuduong` WRITE;
 /*!40000 ALTER TABLE `dieuduong` DISABLE KEYS */;
-INSERT INTO `dieuduong` VALUES (1,1,'DD0001','Trần Thanh Quy',NULL,'Nam','1999-08-02','0375250024','thanhquy0164@gmail.com','911 quang trung ','chua co','quy123',1,1),(2,2,'DD0002','Lê Ngọc Hậu',NULL,'Nam','1999-08-02','0122456789','hau@gmail.com','trái đất','chua co','hau123',0,1),(3,1,'DD0003','Nguyễn Lan',NULL,'Nam','1999-05-03','012352525421','lan@gmail.com','việt nam','chua co','lan123',1,1),(4,3,'DD0004','Nguyễn Ngọc Kha',NULL,'Nam','1999-01-01','1235214520','kha@gmail.com','HCM','chua co','kha123',0,1);
+INSERT INTO `dieuduong` VALUES 
+(1,1,'DD0001','Trần Thanh Quy',NULL,'Nam','1999-08-02','0375250024','thanhquy0164@gmail.com','911 quang trung ','chưa có','quy123',1,3),
+(2,2,'DD0002','Lê Ngọc Hậu',NULL,'Nam','1999-08-02','0122456789','hau@gmail.com','trái đất','chưa có','hau123',1,3),
+(3,1,'DD0003','Nguyễn Lan',NULL,'Nam','1999-05-03','0981034841','lan@gmail.com','việt nam','chưa có','lan123',1,3),
+(4,3,'DD0004','Nguyễn Ngọc Kha',NULL,'Nam','1999-01-01','1235214520','kha@gmail.com','HCM','chưa có','kha123',1,2),
+(7,2,'DD0005','Nguyễn Trọng Dương',NULL,'Nữ','1999-11-10','0981034840','trongduong101199@gmail.com','40/3 Nguyễn Hới Khu Phố 6, Phường An Lạc, Quận Bình Tân, Thành Phố Hồ Chí Minh','chưa có','duong123',2,2),
+(8,4,'DD0006','Lê Anh Kiệt',NULL,'Nữ','1999-05-20','0981034842','leanhkiet20599@gmail.com','Long An','chưa có','kiet123',2,1),
+(9,10,'DD0007','Nguyễn Văn Hiếu',NULL,'Nam','1999-03-10','0981034843','nguyenvanhieu@gmail.com','Bình Dương','chưa có','hieu123',2,1),
+(10,2,'DD0008','Lê Hậu',NULL,'Nữ','1999-11-10','0981034844','lehau101199@gmail.com','Đồng Tháp','chưa có','hau1234',2,1),
+(11,2,'DD0009','Nguyễn Kim Ngọc',NULL,'Nữ','1999-12-12','0981034800','nguyenkiemngoc@gmail.com','Bình Tân','chưa có','ngoc1234',2,3),
+(12,3,'DD0010','Trần Thanh Huy',NULL,'Nam','1999-05-12','0981346572','tranthanhhuy@gmail.com','Hà Nội','chưa có ','huy123',2,3),
+(13,2,'DD0011','Trần Văn Tú',NULL,'Nam','1999-01-19','0981034801','tranvantu@gmail.com','Bình Tân','chưa có ','tu123',2,3),
+(14,2,'DD0012','Trần Văn Lợi',NULL,'Nữ','1999-02-19','0981034802','tranvanloi@gmail.com','Quận 10','chưa có ','loi123',2,3),
+(15,2,'DD0013','Trần Văn Đan',NULL,'Nữ','1999-03-19','0981034803','tranvandan@gmail.com','Quận 6','chưa có ','dan123',2,3),
+(16,3,'DD0014','Trần Văn Hòa',NULL,'Nữ','1999-04-19','0981034804','tranvanhoa@gmail.com','Quận 2','chưa có ','hoa123',2,3),
+(17,3,'DD0015','Trần Văn Đức',NULL,'Nam','1999-08-19','0981034805','tranvanduc@gmail.com','Quận 8','chưa có ','duc123',2,1),
+(18,10,'DD0016','Trần Văn Kiện',NULL,'Nam','1999-11-19','0981034806','tranvankien@gmail.com','Quận 3','chưa có ','kien123',2,1);
 /*!40000 ALTER TABLE `dieuduong` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -345,7 +392,7 @@ CREATE TABLE `giayphephanhnghe` (
   CONSTRAINT `FK_DD_DAOTAO_DDMOI` FOREIGN KEY (`DD_DAOTAOVIEN_ID`) REFERENCES `dieuduong` (`DD_ID`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `FKbevbrdr3p0o2ui4fwtvx1s61` FOREIGN KEY (`DD_DAOTAOVIEN_ID`) REFERENCES `dieuduong` (`DD_ID`),
   CONSTRAINT `FKet67072osfh4iwl7xoqe6e1xg` FOREIGN KEY (`DV_ID`) REFERENCES `dichvu` (`DV_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -354,7 +401,21 @@ CREATE TABLE `giayphephanhnghe` (
 
 LOCK TABLES `giayphephanhnghe` WRITE;
 /*!40000 ALTER TABLE `giayphephanhnghe` DISABLE KEYS */;
-INSERT INTO `giayphephanhnghe` VALUES (1,1,2,1,'Giấy phép phục hồi chức năng sau tai biến','chưa cấp',0,NULL),(2,2,4,3,'Giấy phép Phục Hồi Chức Năng Sau Tai Nạn','khá',1,NULL),(3,2,2,1,'Giấy phép Phục Hồi Chức Năng Sau Tai Nạn','TB',1,NULL),(4,1,4,1,'Giấy phép phục hồi chức năng sau tai biến','khá',2,NULL),(6,3,2,3,'Giấy Phép Cắt Chỉ Thẩm Mỹ','Khá',1,NULL),(7,2,2,1,'Giấy Phép Phục Hồi Chức Năng Sau Tai Nạn','Rớt',0,NULL),(8,2,3,1,'Giấy Phép Phục Hồi Chức Năng Sau Tai Nạn','Giỏi',1,NULL),(9,1,4,1,'Giấy phép phục hồi chức năng sau tai biến','Khá',1,NULL);
+INSERT INTO `giayphephanhnghe` VALUES 
+(1,1,2,1,'Giấy Phép Phục Hồi Chức Năng Sau Tai Biến','chưa cấp',0,NULL),
+(2,2,4,2,'Giấy Phép Phục Hồi Chức Năng Sau Tai Nạn','khá',2,NULL),
+(3,2,2,3,'Giấy Phép Phục Hồi Chức Năng Sau Tai Nạn','TB',2,NULL),
+(4,1,4,1,'Giấy Phép Phục Hồi Chức Năng Sau Tai Biến','khá',2,NULL),
+(6,3,2,2,'Giấy phép phục hồi chức năng sau phẫu thuật','Khá',1,NULL),
+(7,2,2,3,'Giấy Phép Phục Hồi Chức Năng Sau Tai Nạn','chưa cấp',0,NULL),
+(8,2,3,1,'Giấy Phép Phục Hồi Chức Năng Sau Tai Nạn','Giỏi',2,NULL),
+(9,1,4,2,'Giấy Phép Phục Hồi Chức Năng Sau Tai Biến','Khá',2,NULL),
+(10,6,7,3,'Giấy Phép Phục Hồi Chức Năng Sau Phẫu Thuật','chưa cấp',0,NULL),
+(11,8,8,4,'Giấy Phép Phục Hồi Chức Năng Cho Người Bị Liệt','chưa cấp',0,NULL),
+(12,9,9,4,'Giấy Phép Phục Hồi Chức Năng Chấn Thương Thể Thao','chưa cấp',0,NULL),
+(13,10,10,1,'Giấy Phép Phục Hồi Chức Năng Xơ Hóa Cơ Ức Đòn Chũm','chưa cấp',0,NULL),
+(14,7,8,4,'Giấy Phép Phục Hồi Chức Năng Bại Não Ở Trẻ','chưa cấp',0,NULL),
+(15,10,7,4,'Giấy Phép Phục Hồi Chức Năng Xơ Hóa Cơ Ức Đòn Chũm','Giỏi',1,NULL);
 /*!40000 ALTER TABLE `giayphephanhnghe` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -373,7 +434,7 @@ CREATE TABLE `loaidichvu` (
   PRIMARY KEY (`LOAIDV_ID`),
   UNIQUE KEY `LOAIDV_MA_UNIQUE` (`LOAIDV_MA`),
   UNIQUE KEY `LOAIDV_TEN_UNIQUE` (`LOAIDV_TEN`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -382,7 +443,12 @@ CREATE TABLE `loaidichvu` (
 
 LOCK TABLES `loaidichvu` WRITE;
 /*!40000 ALTER TABLE `loaidichvu` DISABLE KEYS */;
-INSERT INTO `loaidichvu` VALUES (4,'PHCN','Phục Hồi Chức Năng',1),(5,'TTDD','Thủ Thuật Điều Dưỡng',1),(7,'CS-DD','Chăm Sóc Điều Dưỡng',0);
+INSERT INTO `loaidichvu` VALUES 
+(4,'PHCN','Phục Hồi Chức Năng',1),
+(5,'TTDD','Thủ Thuật Điều Dưỡng',1),
+(7,'CS-DD','Chăm Sóc Điều Dưỡng',2),
+(8,'M-B','Mẹ Và Bé',3),
+(9,'CC-BH','Châm Cứu Bấm Huyệt',2);
 /*!40000 ALTER TABLE `loaidichvu` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -520,12 +586,12 @@ CREATE TABLE `tinhthanh` (
   `TINHT_ID` int NOT NULL AUTO_INCREMENT,
   `TINHT_MATINHTHANH` varchar(100) NOT NULL,
   `TINHT_TENTINH` varchar(300) DEFAULT NULL,
-  `TINHT_HESOGIAMDD` varchar(100) DEFAULT NULL,
-  `TINHT_HESOGIAMUSER` varchar(100) DEFAULT NULL,
+  `TINHT_HESOGIAMDD` double DEFAULT NULL,
+  `TINHT_HESOGIAMUSER` double DEFAULT NULL,
   PRIMARY KEY (`TINHT_ID`),
   UNIQUE KEY `TINHT_MATINHTHANH_UNIQUE` (`TINHT_MATINHTHANH`),
   UNIQUE KEY `TINHT_TENTINH_UNIQUE` (`TINHT_TENTINH`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=59 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -534,7 +600,31 @@ CREATE TABLE `tinhthanh` (
 
 LOCK TABLES `tinhthanh` WRITE;
 /*!40000 ALTER TABLE `tinhthanh` DISABLE KEYS */;
-INSERT INTO `tinhthanh` VALUES (1,'LA','Long An','5','1'),(2,'HCM','Hồ Chí Minh','1','1'),(3,'HN','Hà Nội','2','3'),(4,'DN','Đà Nẵng','3','4'),(5,'BT','Bến Tre','2','3'),(7,'CM','Cà Mau','3','2'),(9,'DL','Đà Lạt','3','2');
+INSERT INTO `tinhthanh` VALUES 
+(1,'LA','Long An',70,50),
+(2,'hcm','Hồ Chí Minh',70,50),
+(3,'hn','Hà Nội',30,20),
+(4,'DN','Đà Nẵng',30,40),
+(5,'BT','Bến Tre',50,70),
+(7,'CM','Cà Mau',40,60),
+(9,'DL','Đà Lạt',30,50),
+(10,'DT','Đồng Tháp',40,50),
+(11,'AG','An Giang',30,50),
+(14,'CT','Cần Thơ',20,20),
+(15,'HP','Hải Phòng',20,20),
+(16,'TG','Tiền Giang',30,50),
+(30,'LS','Lạng Sơn',30,60),
+(42,'BG','Bắc Giang',50,70),
+(43,'BN','Bắc Ninh',40,60),
+(44,'BD','Bình Dương',50,80),
+(45,'HB','Hòa Bình',30,50),
+(46,'HY','Hưng Yên',30,50),
+(47,'TH','Thanh Hóa',50,50),
+(54,'ht','Hà Tây',60,50),
+(55,'bc','Bắc Cạn',60,50),
+(56,'qt','Quảng Trị',60,50),
+(57,'cb','Cao Bằng',60,30),
+(58,'TTH','Thừa Thiên Huế',70,60);
 /*!40000 ALTER TABLE `tinhthanh` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -563,7 +653,7 @@ CREATE TABLE `user` (
   UNIQUE KEY `USER_SDT_UNIQUE` (`USER_SDT`),
   KEY `FK_USER_THUOC_TINHTHANH` (`TINHT_ID`),
   CONSTRAINT `FK_USER_THUOC_TINHTHANH` FOREIGN KEY (`TINHT_ID`) REFERENCES `tinhthanh` (`TINHT_ID`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -572,6 +662,15 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
+INSERT INTO `user` VALUES 
+(33,1,'trongduong101199@gmail.com','Nguyễn Trọng Dương','0981034840','duong12345',NULL,'Nam','40/3 Nguyễn Hới KP6, P.An Lạc, Q.Bình Tân, TP.Hồ Chí Minh','1999-11-10','chưa có ',1),
+(35,2,'lengochau@gmail.com','Lê Ngọc Hậu','0981034841','hau12345',NULL,'Nữ','40/3 Nguyễn Hới KP6, P.An Lạc, Q.Bình Tân, TP.Hồ Chí Minh','1999-11-10','chưa có ',1),
+(36,1,'nguyenlan@gmail.com','Nguyễn Lan','0981034842','lan12345',NULL,'Nữ','40/3 Nguyễn Hới KP6, P.An Lạc, Q.Bình Tân, TP.Hồ Chí Minh','1999-10-26','chưa có ',1),
+(37,3,'ngockha@gmail.com','Nguyễn Ngọc Kha','0981034843','kha12345',NULL,'Nam','40/3 Nguyễn Hới KP6, P.An Lạc, Q.Bình Tân, TP.Hồ Chí Minh','1999-10-26','chưa có ',1),
+(38,2,'leanhkiet@gmail.com','Lê Anh Kiệt','0981034844','kiet12345',NULL,'Nam','40/3 Nguyễn Hới KP6, P.An Lạc, Q.Bình Tân, TP.Hồ Chí Minh','1999-10-26','chưa có ',1),
+(39,4,'tranthanhquy@gmail.com','Trần Thanh Quy','098103484045','quy12345',NULL,'Nam','40/3 Nguyễn Hới KP6, P.An Lạc, Q.Bình Tân, TP.Hồ Chí Minh','1999-11-10','chưa có ',1),
+(40,10,'nguyenvanhieu@gmail.com','Nguyễn Văn Hiếu','0981034846','hieu12345',NULL,'Nam','40/3 Nguyễn Hới KP6, P.An Lạc, Q.Bình Tân, TP.Hồ Chí Minh','1999-11-10','chưa có ',1),
+(41,2,'lethanh@gmail.com','Lê Thành','0981034847','thanh12345',NULL,'Nữ','40/3 Nguyễn Hới KP6, P.An Lạc, Q.Bình Tân, TP.Hồ Chí Minh','1999-10-26','chưa có ',1);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -594,7 +693,7 @@ CREATE TABLE `vidientu` (
   UNIQUE KEY `DD_ID_UNIQUE` (`DD_ID`),
   CONSTRAINT `FK_DD_CO_VI` FOREIGN KEY (`DD_ID`) REFERENCES `dieuduong` (`DD_ID`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `FKs8h18b7mby88vy71kur9xkrgc` FOREIGN KEY (`DD_ID`) REFERENCES `dieuduong` (`DD_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -603,7 +702,23 @@ CREATE TABLE `vidientu` (
 
 LOCK TABLES `vidientu` WRITE;
 /*!40000 ALTER TABLE `vidientu` DISABLE KEYS */;
-INSERT INTO `vidientu` VALUES (7,1,100000000,'VIETTINBANK','1234568987978','TRAN THANH QUY',NULL),(8,2,0,NULL,NULL,NULL,NULL),(9,3,0,NULL,NULL,NULL,NULL),(10,4,0,NULL,NULL,NULL,NULL);
+INSERT INTO `vidientu` VALUES 
+(7,1,5000000,'VIETTINBANK','1234568987978','TRAN THANH QUY',NULL),
+(8,2,0,NULL,NULL,NULL,NULL),
+(9,3,0,NULL,NULL,NULL,NULL),
+(10,4,0,NULL,NULL,NULL,NULL),
+(17,7,0,NULL,NULL,NULL,NULL),
+(18,8,100000,NULL,NULL,NULL,NULL),
+(19,9,0,NULL,NULL,NULL,NULL),
+(20,10,0,NULL,NULL,NULL,NULL),
+(21,11,0,NULL,NULL,NULL,NULL),
+(22,12,0,NULL,NULL,NULL,NULL),
+(23,13,0,NULL,NULL,NULL,NULL),
+(24,14,100000,NULL,NULL,NULL,NULL),
+(25,15,100000,NULL,NULL,NULL,NULL),
+(26,16,0,NULL,NULL,NULL,NULL),
+(27,17,0,NULL,NULL,NULL,NULL),
+(28,18,0,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `vidientu` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -616,4 +731,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-09-19  8:06:58
+-- Dump completed on 2020-09-25 22:24:17
