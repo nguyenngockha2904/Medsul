@@ -48,7 +48,7 @@ class App extends Component {
               <Route exact path="/thongke" component={ThongKeComponent} />
 
             </Fragment>}
-
+          {/* <Route exact path="/" component={ThongKeComponent} /> */}
         </Switch>
         {this.props.isModalThongTin && <TaiKhoanModal />}
       </BrowserRouter>
