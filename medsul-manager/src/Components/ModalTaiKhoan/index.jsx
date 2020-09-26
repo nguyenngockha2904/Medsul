@@ -37,7 +37,7 @@ class TaiKhoanComponent extends Component {
             admin_USERNAME: admin_USERNAME
         }
         // console.log(upItem);
-        let titleMessage = admin_CHUCVU === 1 ? 'mật khẩu' : 'dữ liệu';
+        let titleMessage = 'dữ liệu';
         swal({
             title: "Bạn Chắc Chứ?",
             text: `Nếu đồng ý ${titleMessage} sẽ thay đổi!`,
@@ -63,12 +63,15 @@ class TaiKhoanComponent extends Component {
     handleChangeFile = async (e) => {
         const file = e.target.files[0];
         const storageRef = app.storage().ref();
-        const fileRef = storageRef.child(file.name);
-        await fileRef.put(file);
-        const fileUrl = await fileRef.getDownloadURL();
-        this.setState({
-            item: { ...this.state.item, admin_AVATAR: fileUrl }
-        })
+        let check = file.name ? file.name : '';
+        if (!!check) {
+            const fileRef = storageRef.child(file.name);
+            await fileRef.put(file);
+            const fileUrl = await fileRef.getDownloadURL();
+            this.setState({
+                item: { ...this.state.item, admin_AVATAR: fileUrl }
+            })
+        }
     }
     handleChange = e => {
         this.setState({

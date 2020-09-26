@@ -146,6 +146,20 @@ export const StyledModel = styled.div`
                     box-shadow: 1px 2px 4px -0.5px #80808080;
                     
                 }
+               &.dd{
+                text-align: center;
+                width: 100%;
+                padding: 1em;
+                .avatarDieuDuong{
+                    width:50%;
+                    height:auto;
+                    border-radius: 50%;
+                    box-shadow: 0px 0px 11px 5.5px #8080808f;
+                }
+                .cmndImg{
+                    width:50%;
+                }
+               }
                 &.cmnd{
                     width: 100%;
                     height: 100%;
@@ -224,7 +238,11 @@ export const StyledModel = styled.div`
                     &.gioitinh{
                         border:none;
                     }
-                    
+                    &.input_file{
+                        border:none;
+                        margin: 0 auto;
+                        width: 50%;
+                    }
                 }
                 
                 &.ac{
@@ -247,6 +265,15 @@ export const StyledModel = styled.div`
                 }
                 &.width3{
                     width:30.6%;
+                }
+                &.width4{
+                    width:40.6%;
+                }
+                &.formAvatar{
+                    text-align: center;
+                }
+                &.width6{
+                    width: 60%;
                 }
             }  
         }

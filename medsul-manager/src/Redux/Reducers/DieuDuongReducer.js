@@ -88,8 +88,6 @@ const dieuDuongReducer = (state = initialState, { type, payload }) => {
             return { ...state };
         } case CHECK_SDT: {
             let index = state.listDieuDuong.findIndex(dd => dd.soDienThoai === payload);
-            console.log(index);
-            console.log(payload);
             if (index === -1) {
                 state.checkExistSDT = false;
             } else {

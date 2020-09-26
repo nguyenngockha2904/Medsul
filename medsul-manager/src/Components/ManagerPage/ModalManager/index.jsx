@@ -7,6 +7,9 @@ import { createAction } from '../../../Redux/actions';
 import { CHECK_EXIST_CMND_MANAGER, CHECK_EXIST_EMAIL_MANAGER, CHECK_EXIST_SDT_MANAGER, HIRE_MODAL_MANAGER } from '../../../Redux/actions/type';
 import { capNhatManager, themManager } from '../../../Redux/actions/managerAction';
 import swal from 'sweetalert';
+import { app } from '../../../base';
+import imgTest from '../../../img/avatar/avatar_1.jpg';
+import cmndTest from '../../../img/indentityCard_Img.svg';
 class ModalManager extends Component {
     HandleHireModal = () => {
         this.props.dispatch(createAction(HIRE_MODAL_MANAGER, {}));
@@ -46,12 +49,50 @@ class ModalManager extends Component {
             this.props.dispatch(createAction(CHECK_EXIST_SDT_MANAGER, value));
         });
     }
-
     handleChange = e => {
         this.setState({
             item: { ...this.state.item, [e.target.name]: e.target.value }
         });
 
+    }
+    handleChangeFileCMNDAdmin_CMNDMATTRUOC = async (e) => {
+        const file = e.target.files[0];
+        const storageRef = app.storage().ref();
+        let check = file.name ? file.name : '';
+        if (!!check) {
+            const fileRef = storageRef.child(file.name);
+            await fileRef.put(file);
+            const fileUrl = await fileRef.getDownloadURL();
+            this.setState({//admin_CMNDMATTRUOC
+                item: { ...this.state.item, admin_CMNDMATTRUOC: fileUrl }
+            })
+        }
+    }
+    handleChangeFileAdmin_CMNDMATSAU = async (e) => {
+        const file = e.target.files[0];
+        const storageRef = app.storage().ref();
+        let check = file.name ? file.name : '';
+        if (!!check) {
+            const fileRef = storageRef.child(file.name);
+            await fileRef.put(file);
+            const fileUrl = await fileRef.getDownloadURL();
+            this.setState({//admin_CMNDMATSAU
+                item: { ...this.state.item, admin_CMNDMATSAU: fileUrl }
+            })
+        }
+    }
+    handleChangeFileAdmin_AVATAR = async (e) => {
+        const file = e.target.files[0];
+        const storageRef = app.storage().ref();
+        let check = file.name ? file.name : '';
+        if (!!check) {
+            const fileRef = storageRef.child(file.name);
+            await fileRef.put(file);
+            const fileUrl = await fileRef.getDownloadURL();
+            this.setState({ //admin_AVATAR
+                item: { ...this.state.item, admin_AVATAR: fileUrl }
+            })
+        }
     }
     handleSubmit = e => {
         e.preventDefault();
@@ -64,7 +105,7 @@ class ModalManager extends Component {
         let username = admin_EMAIL.slice(0, admin_EMAIL.lastIndexOf('@'));
         // console.log(username);
         let itemAdd = {
-            admin_AVATAR: this.props.role === 1 ? "string" : admin_AVATAR,
+            admin_AVATAR: this.props.role === 1 ? "chưa có" : admin_AVATAR,
             admin_CHUCVU: admin_CHUCVU,
             admin_CMND: admin_CMND,
             admin_CMNDMATSAU: this.props.role === 1 ? "string" : admin_CMNDMATSAU,
@@ -197,7 +238,7 @@ class ModalManager extends Component {
                         <form className="modalService-body" style={{ paddingTop: 0 }} onSubmit={this.handleSubmit}>
                             <div className="titleGroup">Thông Tin Cá Nhân</div>
                             <div className="d-flex justify-content-between mb-4">
-                                <div className=" secondFormright" style={{ width: '65%', marginLeft: '1em' }}>
+                                <div className=" secondFormright" style={{ width: '90%', marginLeft: '1em' }}>
                                     <div className="d-flex justify-content-between">
                                         <div
                                             className={this.props.role === 2 ? 'form-group secondFormleft ac' : 'form-group secondFormleft'}
@@ -325,10 +366,20 @@ class ModalManager extends Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div className=" secondFormleft d-flex justify-content-center" style={{ width: '35%', marginRight: '1em' }}>
-                                    <div className="avatarImg">
-                                        <img src={avatarImg} alt="" className="img-fluid" />
+                                <div className="form-group secondFormright formAvatar width6">
+                                    <label >Ảnh chân dung: </label>
+                                    <div className="avatarImg dd"  >
+                                        <img src={admin_AVATAR !== 'chưa có' ? admin_AVATAR : imgTest} alt="avatar" className="avatarDieuDuong" />
                                     </div>
+                                    <input type="file" className="form-contro input_file"
+                                        name="admin_AVATAR"
+                                        style={{ display: this.props.role === 1 ? 'block' : (this.props.role === 2 ? 'none' : 'block') }}
+                                        // value={avatar ? avatar : ''}
+                                        onChange={this.handleChangeFileAdmin_AVATAR}
+                                        disabled={
+                                            this.props.role === 1 ? false : (this.props.role === 2 ? true : false)
+                                        }
+                                    />
                                 </div>
 
                             </div>
@@ -382,17 +433,37 @@ class ModalManager extends Component {
 
                                     <div className=" secondFormleft" style={{ width: '35%', marginLeft: '1em' }}>
 
-                                        <div className={this.props.role === 2 ? 'form-group ac' : 'form-group'}>
-                                            <label >Ảnh CMND Mặt Trước: </label>
-                                            <div className="avatarImg cmnd">
-                                                <img src={CMNDImg} alt="CMNDImg" className="img-fluid" />
+                                        <div className="form-group  formAvatar ">
+                                            <label >Ảnh CMND mặt trước: </label>
+                                            <div className="avatarImg dd"  >
+                                                <img src={admin_CMNDMATTRUOC !== 'chưa có' ? admin_CMNDMATTRUOC : cmndTest} alt="admin_CMNDMATTRUOC" className="cmndImg" />
                                             </div>
+
+                                            <input type="file" className="form-contro input_file"
+                                                name="admin_CMNDMATTRUOC"
+                                                // value={anhMatTruoc ? anhMatTruoc : ''}
+                                                onChange={this.handleChangeFileCMNDAdmin_CMNDMATTRUOC}
+                                                style={{ display: this.props.role === 1 ? 'block' : (this.props.role === 2 ? 'none' : 'block') }}
+                                                disabled={
+                                                    this.props.role === 1 ? false : (this.props.role === 2 ? true : false)
+                                                }
+                                            />
                                         </div>
-                                        <div className={this.props.role === 2 ? 'form-group ac' : 'form-group'}>
-                                            <label >Ảnh CMND Mặt Sau: </label>
-                                            <div className="avatarImg cmnd">
-                                                <img src={CMNDImg} alt="CMNDImg" className="img-fluid" />
+                                        <div className="form-group  formAvatar ">
+                                            <label >Ảnh CMND mặt sau: </label>
+                                            <div className="avatarImg dd"  >
+                                                <img src={admin_CMNDMATSAU !== 'chưa có' ? admin_CMNDMATSAU : cmndTest} alt="admin_CMNDMATSAU" className="cmndImg" />
                                             </div>
+
+                                            <input type="file" className="form-contro input_file"
+                                                name="admin_CMNDMATSAU"
+                                                // value={anhMatTruoc ? anhMatTruoc : ''}
+                                                onChange={this.handleChangeFileAdmin_CMNDMATSAU}
+                                                style={{ display: this.props.role === 1 ? 'block' : (this.props.role === 2 ? 'none' : 'block') }}
+                                                disabled={
+                                                    this.props.role === 1 ? false : (this.props.role === 2 ? true : false)
+                                                }
+                                            />
                                         </div>
                                     </div>
                                 </div>

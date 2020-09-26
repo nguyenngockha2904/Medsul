@@ -144,12 +144,12 @@ class ModalTinhThanh extends Component {
                             <div className="d-flex justify-content-between">
                                 {/* Hệ số User */}
                                 <div className="form-group secondFormright">
-                                    <label >Hệ số giảm user: </label>
+                                    <label >Hệ số giảm dành cho user (%): </label>
                                     <input placeholder="0.0 ....." type="text" className="form-contro" name="heSoTinhThanhUser" value={heSoTinhThanhUser ? heSoTinhThanhUser : ''} onChange={this.handleChange} />
                                 </div>
                                 {/* Hệ số Điều Dưỡng */}
                                 <div className="form-group secondFormright">
-                                    <label >Hệ số giảm điều dưỡng: </label>
+                                    <label >Hệ số giảm dành cho điều dưỡng (%): </label>
                                     <input placeholder="0.0 ....." type="text" className="form-contro" name="heSoTinhThanhDieuDuong" value={heSoTinhThanhDieuDuong ? heSoTinhThanhDieuDuong : ''} onChange={this.handleChange} />
                                 </div>
                             </div>

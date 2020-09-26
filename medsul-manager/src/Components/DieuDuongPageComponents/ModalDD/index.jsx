@@ -5,6 +5,9 @@ import { createAction } from '../../../Redux/actions';
 import { StyledModel } from '../../../Styles/index';
 import { capNhapDieuDuong, themDieuDuong } from '../../../Redux/actions/DieuDuongAction';
 import swal from 'sweetalert';
+import { app } from '../../../base';
+import imgTest from '../../../img/avatar/avatar_1.jpg';
+import cmndTest from '../../../img/indentityCard_Img.svg';
 class ModalDieuDuong extends Component {
     HandleHireModal = () => {
         this.props.dispatch(createAction(HIRE_MODAL_DIEUDUONG, false));
@@ -135,6 +138,45 @@ class ModalDieuDuong extends Component {
 
 
     }
+    handleChangeFileCMNDmatTruoc = async (e) => {
+        const file = e.target.files[0];
+        const storageRef = app.storage().ref();
+        let check = file.name ? file.name : '';
+        if (!!check) {
+            const fileRef = storageRef.child(file.name);
+            await fileRef.put(file);
+            const fileUrl = await fileRef.getDownloadURL();
+            this.setState({
+                dieuDuong: { ...this.state.dieuDuong, anhMatTruoc: fileUrl }
+            })
+        }
+    }
+    handleChangeFileCMNDmatSau = async (e) => {
+        const file = e.target.files[0];
+        const storageRef = app.storage().ref();
+        let check = file.name ? file.name : '';
+        if (!!check) {
+            const fileRef = storageRef.child(file.name);
+            await fileRef.put(file);
+            const fileUrl = await fileRef.getDownloadURL();
+            this.setState({
+                dieuDuong: { ...this.state.dieuDuong, anhMatSau: fileUrl }
+            })
+        }
+    }
+    handleChangeFileAvatar = async (e) => {
+        const file = e.target.files[0];
+        const storageRef = app.storage().ref();
+        let check = file.name ? file.name : '';
+        if (!!check) {
+            const fileRef = storageRef.child(file.name);
+            await fileRef.put(file);
+            const fileUrl = await fileRef.getDownloadURL();
+            this.setState({
+                dieuDuong: { ...this.state.dieuDuong, avatar: fileUrl }
+            })
+        }
+    }
     handleSubmit = e => {
         e.preventDefault();
         const {
@@ -261,116 +303,152 @@ class ModalDieuDuong extends Component {
                             <div className="titleGroup">Thông tin cá nhân</div>
 
 
-                            {/* Mã điều dưỡng */}{/* họ tên điều dưỡng */}
                             <div className="d-flex justify-content-between">
-                                {/* Mã điều dưỡng */}
-                                <div
-                                    className="form-group secondFormleft width3"
+                                <div className="form-group secondFormleft formAvatar">
+                                    <label >Ảnh chân dung: </label>
+                                    <div className="avatarImg dd"  >
+                                        <img src={avatar !== 'chưa có' ? avatar : imgTest} alt="avatar" className="avatarDieuDuong" />
+                                    </div>
+                                    <input type="file" className="form-contro input_file"
+                                        name="avatar"
+                                        style={{ display: this.props.role === 1 ? 'block' : (this.props.role === 2 ? 'none' : 'block') }}
+                                        // value={avatar ? avatar : ''}
+                                        onChange={this.handleChangeFileAvatar}
+                                        disabled={
+                                            this.props.role === 1 ? false : (this.props.role === 2 ? true : false)
+                                        }
+                                    />
+                                </div>
+                                <div className="form-group secondFormright">
+                                    {/* Mã điều dưỡng */}{/* họ tên điều dưỡng */}
+                                    <div className="d-flex justify-content-between">
+                                        {/* Mã điều dưỡng */}
+                                        <div
+                                            className="form-group secondFormleft width4"
+                                            style={
+                                                this.props.role === 1 ? { display: 'none' } : (this.props.role === 2 ? { display: 'block' } : { display: 'block' })
+                                            }
+                                        >
+                                            <label >Mã điều dưỡng: </label>
+                                            <input type="text" className="form-contro "
+                                                name="maDieuDuong"
+                                                value={maDieuDuong ? maDieuDuong : ''}
+                                                onChange={this.handleChange}
+                                                disabled={
+                                                    this.props.role === 1 ? true : (this.props.role === 2 ? true : true)
+                                                }
+
+                                            />
+                                        </div>
+                                        {/* họ tên điều dưỡng */}
+                                        <div className={this.props.role === 1 ? "form-group w-100" : "form-group secondFormright"}
+                                        >
+                                            <label >Tên điều dưỡng: </label>
+                                            <input type="text" className="form-contro"
+                                                name="hoTen"
+                                                value={hoTen ? hoTen : ''}
+                                                onChange={this.handleChange}
+                                                disabled={
+                                                    this.props.role === 1 ? false : (this.props.role === 2 ? true : false)
+                                                }
+                                                required={true}
+                                            />
+                                        </div>
+                                    </div>
+
+
+                                    {/* Giới tính */}{/* SDT */}
+                                    <div className="d-flex justify-content-between">
+                                        {/* Giới tính */}
+                                        <div className="form-group secondFormleft ">
+                                            <label>Giới tính: </label>
+                                            <div className="form-contro d-flex justify-content-end">
+                                                <p className="mr-2">
+                                                    <input className="radGen" type="radio" name="gioiTinh" checked={gioiTinh === 'Nam' ? true : false}
+                                                        value="Nam" onChange={this.handleChange}
+                                                        disabled={
+                                                            this.props.role === 1 ? false : (this.props.role === 2 ? true : false)
+                                                        }
+                                                    />Nam
+                                                 </p>
+                                                <p className="mx-4"></p>
+                                                <p>
+                                                    <input className="radGen" type="radio"
+                                                        checked={gioiTinh !== 'Nam' ? true : false}
+                                                        name="gioiTinh" value="Nữ" onChange={this.handleChange}
+                                                        disabled={
+                                                            this.props.role === 1 ? false : (this.props.role === 2 ? true : false)
+                                                        }
+                                                    />Nữ
+                                                </p>
+                                            </div>
+                                        </div>
+                                        {/* Ngày Sinh */}
+                                        <div className="form-group secondFormright">
+                                            <label>Ngày sinh: </label>
+                                            <input type="date" className="form-contro"
+                                                /*disabled={true}*/
+                                                name="ngaySinh" value={ngaySinh ? ngaySinh : ''}
+                                                onChange={this.handleChange}
+                                                disabled={
+                                                    this.props.role === 1 ? false : (this.props.role === 2 ? true : false)
+                                                }
+                                                required={true}
+                                            />
+                                        </div>
+                                    </div>
+
+                                    {/* SDT */}
+                                    <div className="form-group secondFormleft">
+                                        <label>* Số điện thoại: </label>
+                                        <input type="num" className="form-contro"
+                                            /*disabled={true}*/
+                                            name="soDienThoai"
+                                            value={soDienThoai ? soDienThoai : ''}
+                                            onChange={this.handleChangeSpecialSDT}
+                                            disabled={
+                                                this.props.role === 1 ? false : (this.props.role === 2 ? true : (this.props.chucVu === 0 ? false : true))
+                                            }
+                                            required={true}
+                                        />
+                                    </div>
+                                    {/* Email */}
+                                    <div className="form-group secondFormleft">
+                                        <label >*Email: </label>
+                                        <input type="email" className="form-contro"
+                                            /*disabled={true}*/
+                                            name="email" value={email ? email : ''}
+                                            onChange={this.handleChangeSpecialEmail}
+                                            disabled={
+                                                this.props.role === 1 ? false : (this.props.role === 2 ? true : false)
+                                            }
+                                            required={true}
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Ngày Sinh */}{/* Email */}{/* Trạng thái */}{/* Tỉnh thành */}
+                            <div className="d-flex justify-content-between">
+                                {/* Đào tạo viên */}
+                                <div className="form-group secondFormleft "
                                     style={
                                         this.props.role === 1 ? { display: 'none' } : (this.props.role === 2 ? { display: 'block' } : { display: 'block' })
                                     }
                                 >
-                                    <label >Mã điều dưỡng: </label>
-                                    <input type="text" className="form-contro "
-                                        name="maDieuDuong"
-                                        value={maDieuDuong ? maDieuDuong : ''}
-                                        onChange={this.handleChange}
+                                    <label>Là đào viên: </label>
+                                    <select className="form-contro"
+                                        value={laDaoTaoVien ? laDaoTaoVien : ''}
+                                        name="laDaoTaoVien"
+                                        onChange={this.handleChangeSpecialDTV}
                                         disabled={
-                                            this.props.role === 1 ? true : (this.props.role === 2 ? true : true)
+                                            this.props.role === 1 ? true : (this.props.role === 2 ? true : (this.state.dieuDuong.trangThai === 3 ? false : true))
                                         }
+                                    >
+                                        <option value={1}>Có</option>
+                                        <option value={2}>Không</option>
 
-                                    />
-                                </div>
-                                {/* họ tên điều dưỡng */}
-                                <div className={this.props.role === 1 ? "form-group w-100" : "form-group secondFormright"}
-                                >
-                                    <label >Tên điều dưỡng: </label>
-                                    <input type="text" className="form-contro"
-                                        name="hoTen"
-                                        value={hoTen ? hoTen : ''}
-                                        onChange={this.handleChange}
-                                        disabled={
-                                            this.props.role === 1 ? false : (this.props.role === 2 ? true : false)
-                                        }
-                                        required={true}
-                                    />
-                                </div>
-                            </div>
-
-
-                            {/* Giới tính */}{/* SDT */}{/* password */}
-                            <div className="d-flex justify-content-between">
-                                {/* Giới tính */}
-                                <div className="form-group secondFormleft ">
-                                    <label>Giới tính: </label>
-                                    <div className="form-contro d-flex justify-content-end">
-                                        <p className="mr-2">
-                                            <input className="radGen" type="radio" name="gioiTinh" checked={gioiTinh === 'Nam' ? true : false}
-                                                value="Nam" onChange={this.handleChange}
-                                                disabled={
-                                                    this.props.role === 1 ? false : (this.props.role === 2 ? true : false)
-                                                }
-                                            />Nam
-                                    </p>
-                                        <p className="mx-4"></p>
-                                        <p>
-                                            <input className="radGen" type="radio"
-                                                checked={gioiTinh !== 'Nam' ? true : false}
-                                                name="gioiTinh" value="Nữ" onChange={this.handleChange}
-                                                disabled={
-                                                    this.props.role === 1 ? false : (this.props.role === 2 ? true : false)
-                                                }
-                                            />Nữ
-                                    </p>
-                                    </div>
-                                </div>
-                                {/* SDT */}
-                                <div className="form-group secondFormleft secondFormright">
-                                    <label>* Số điện thoại: </label>
-                                    <input type="num" className="form-contro"
-                                        /*disabled={true}*/
-                                        name="soDienThoai"
-                                        value={soDienThoai ? soDienThoai : ''}
-                                        onChange={this.handleChangeSpecialSDT}
-                                        disabled={
-                                            this.props.role === 1 ? false : (this.props.role === 2 ? true : true)
-                                        }
-                                        required={true}
-                                    />
-                                </div>
-                                {/* password */}
-
-
-                            </div>
-
-
-                            {/* Ngày Sinh */}{/* Email */}{/* Trạng thái */}{/* Tỉnh thành */}
-                            <div className="d-flex justify-content-between">
-                                {/* Ngày Sinh */}
-                                <div className="form-group secondFormleft">
-                                    <label>Ngày sinh: </label>
-                                    <input type="date" className="form-contro"
-                                        /*disabled={true}*/
-                                        name="ngaySinh" value={ngaySinh ? ngaySinh : ''}
-                                        onChange={this.handleChange}
-                                        disabled={
-                                            this.props.role === 1 ? false : (this.props.role === 2 ? true : false)
-                                        }
-                                        required={true}
-                                    />
-                                </div>
-                                {/* Email */}
-                                <div className="form-group secondFormright secondFormleft">
-                                    <label >*Email: </label>
-                                    <input type="email" className="form-contro"
-                                        /*disabled={true}*/
-                                        name="email" value={email ? email : ''}
-                                        onChange={this.handleChangeSpecialEmail}
-                                        disabled={
-                                            this.props.role === 1 ? false : (this.props.role === 2 ? true : false)
-                                        }
-                                        required={true}
-                                    />
+                                    </select>
                                 </div>
                                 {/* Trạng thái */}
                                 <div className="form-group secondFormleft secondFormright"
@@ -411,26 +489,6 @@ class ModalDieuDuong extends Component {
 
                             {/* Đào tạo viên */}{/* Địa chỉ */}
                             <div className="d-flex justify-content-between">
-                                {/* Đào tạo viên */}
-                                <div className="form-group secondFormleft  width3 "
-                                    style={
-                                        this.props.role === 1 ? { display: 'none' } : (this.props.role === 2 ? { display: 'block' } : { display: 'block' })
-                                    }
-                                >
-                                    <label>Là đào viên: </label>
-                                    <select className="form-contro"
-                                        value={laDaoTaoVien ? laDaoTaoVien : ''}
-                                        name="laDaoTaoVien"
-                                        onChange={this.handleChangeSpecialDTV}
-                                        disabled={
-                                            this.props.role === 1 ? true : (this.props.role === 2 ? true : (this.state.dieuDuong.trangThai === 3 ? false : true))
-                                        }
-                                    >
-                                        <option value={1}>Có</option>
-                                        <option value={2}>Không</option>
-
-                                    </select>
-                                </div>
                                 {/* Địa chỉ */}
                                 <div className={this.props.role === 1 ? "form-group w-100" : "form-group secondFormright"}
                                 >
@@ -568,56 +626,43 @@ class ModalDieuDuong extends Component {
 
 
                             {/* Ảnh CMND mặt trước */}{/* Ảnh CMND mặt sau */}{/* Ảnh chân dung */}
-                            <div className="d-flex justify-content-between">
+                            <div className="d-flex justify-content-between ">
                                 {/* Ảnh CMND mặt trước */}
-                                <div className="form-group secondFormleft">
+                                <div className="form-group secondFormleft formAvatar ">
                                     <label >Ảnh CMND mặt trước: </label>
-                                    <div className="d-flex">
-                                        <input type="text" className="form-contro"
-                                            name="anhMatTruoc"
-                                            value={anhMatTruoc ? anhMatTruoc : ''}
-                                            onChange={this.handleChange}
-                                            disabled={
-                                                this.props.role === 1 ? false : (this.props.role === 2 ? true : false)
-                                            }
-                                        />
-                                        {this.props.role === 2 ? '' : <button type="button" className="btnChooseImage">Chọn hình</button>
-                                        }
-
+                                    <div className="avatarImg dd"  >
+                                        <img src={anhMatTruoc !== 'chưa có' ? anhMatTruoc : cmndTest} alt="cmndMatTruoc" className="cmndImg" />
                                     </div>
+
+                                    <input type="file" className="form-contro input_file"
+                                        name="anhMatTruoc"
+                                        // value={anhMatTruoc ? anhMatTruoc : ''}
+                                        onChange={this.handleChangeFileCMNDmatTruoc}
+                                        style={{ display: this.props.role === 1 ? 'block' : (this.props.role === 2 ? 'none' : 'block') }}
+                                        disabled={
+                                            this.props.role === 1 ? false : (this.props.role === 2 ? true : false)
+                                        }
+                                    />
                                 </div>
                                 {/* Ảnh CMND mặt sau */}
-                                <div className="form-group secondFormright secondFormleft">
+                                <div className="form-group secondFormright formAvatar">
                                     <label >Ảnh CMND mặt sau: </label>
-                                    <div className="d-flex">
-                                        <input type="text" className="form-contro"
-                                            name="anhMatSau"
-                                            value={anhMatSau ? anhMatSau : ''}
-                                            onChange={this.handleChange}
-                                            disabled={
-                                                this.props.role === 1 ? false : (this.props.role === 2 ? true : false)
-                                            }
-                                        />
-                                        {this.props.role === 2 ? '' : <button type="button" className="btnChooseImage">Chọn hình</button>
-                                        }
+                                    <div className="avatarImg dd"  >
+                                        <img src={anhMatSau !== 'chưa có' ? anhMatSau : cmndTest} alt="cmndMatSau" className="cmndImg" />
                                     </div>
+
+                                    <input type="file" className="form-contro input_file"
+                                        name="anhMatSau"
+                                        // value={anhMatSau ? anhMatSau : ''}
+                                        style={{ display: this.props.role === 1 ? 'block' : (this.props.role === 2 ? 'none' : 'block') }}
+                                        onChange={this.handleChangeFileCMNDmatSau}
+                                        disabled={
+                                            this.props.role === 1 ? false : (this.props.role === 2 ? true : false)
+                                        }
+                                    />
                                 </div>
                                 {/* Ảnh chân dung */}
-                                <div className="form-group secondFormright">
-                                    <label >Ảnh chân dung: </label>
-                                    <div className="d-flex">
-                                        <input type="text" className="form-contro"
-                                            name="avatar"
-                                            value={avatar ? avatar : ''}
-                                            onChange={this.handleChange}
-                                            disabled={
-                                                this.props.role === 1 ? false : (this.props.role === 2 ? true : false)
-                                            }
-                                        />
-                                        {this.props.role === 2 ? '' : <button type="button" className="btnChooseImage">Chọn hình</button>
-                                        }
-                                    </div>
-                                </div>
+
                             </div>
                             {this.props.role === 2 ? '' :
                                 <div className="text-right" style={{ padding: '1rem 0' }}>
@@ -648,7 +693,8 @@ const mapStateToProps = state => {
         checkExistDTV: state.qlDieuDuong.checkExist,
         checkExistSDT: state.qlDieuDuong.checkExistSDT,
         checkExistCMND: state.qlDieuDuong.checkExistCMND,
-        checkExistEmail: state.qlDieuDuong.checkExistEmail
+        checkExistEmail: state.qlDieuDuong.checkExistEmail,
+        chucVu: state.credentials.credentials.value.admin_CHUCVU,
     }
 }
 

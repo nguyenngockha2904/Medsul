@@ -6,7 +6,14 @@ import { connect } from 'react-redux';
 
 class TbTinhThanhComponent extends PureComponent {
     renderTinhThanhItem = () => {
-        return this.props.listTinhThanh.map((item, index) => {
+        // this.props.valueSearch
+        let list = [];
+        if (this.props.valueSearch !== -1) {
+            list = this.props.listTinhThanh.filter(tt => tt.maTinhThanh.toLowerCase() === this.props.valueSearch.toLowerCase());
+        } else {
+            list = this.props.listTinhThanh;
+        }
+        return list.map((item, index) => {
             return (
                 <TinhThanhItem index={index + 1} item={item} key={index} />
             )
@@ -14,35 +21,35 @@ class TbTinhThanhComponent extends PureComponent {
     }
     render() {
         return (
-                <StyleTable>
-                    <table className="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">
-                                    No.
+            <StyleTable>
+                <table className="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">
+                                No.
                             </th>
-                                <th scope="col">
-                                    Mã tỉnh thành
+                            <th scope="col">
+                                Mã tỉnh thành
                             </th>
-                                <th scope="col">
-                                    Tên tỉnh thanh
+                            <th scope="col">
+                                Tên tỉnh thanh
                             </th>
-                                <th scope="col">
-                                    Hệ số User
+                            <th scope="col">
+                                Hệ số User
                             </th>
-                                <th scope="col">
-                                    Hệ số điều dưỡng
+                            <th scope="col">
+                                Hệ số điều dưỡng
                             </th>
-                                <th scope="col">
-                                    Tùy chỉnh
+                            <th scope="col">
+                                Tùy chỉnh
                             </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {this.renderTinhThanhItem()}
-                        </tbody>
-                    </table>
-                </StyleTable>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {this.renderTinhThanhItem()}
+                    </tbody>
+                </table>
+            </StyleTable>
         );
     }
 }

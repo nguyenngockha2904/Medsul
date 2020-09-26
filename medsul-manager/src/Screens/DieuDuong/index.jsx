@@ -42,9 +42,9 @@ class DieuDuongComponent extends Component {
     handleShowModalDieuDuong = () => {
         let payload = {
             value: {
-                anhMatSau: '',
-                anhMatTruoc: '',
-                avatar: '',
+                anhMatSau: 'chưa có',
+                anhMatTruoc: 'chưa có',
+                avatar: 'chưa có',
                 diaChi: '',
                 diaChiThuongTruCMND: '',
                 dieuDuong_Id: '',
