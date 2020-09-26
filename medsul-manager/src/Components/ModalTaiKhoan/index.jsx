@@ -6,6 +6,7 @@ import { createAction } from '../../Redux/actions';
 import { HIRE_MODAL_THONGTINCANHAN } from '../../Redux/actions/type';
 import { capNhatManager } from '../../Redux/actions/managerAction';
 import swal from 'sweetalert';
+import { app } from '../../base';
 class TaiKhoanComponent extends Component {
     HandleHireModal = () => {
         this.props.dispatch(createAction(HIRE_MODAL_THONGTINCANHAN, {}));
@@ -47,7 +48,7 @@ class TaiKhoanComponent extends Component {
                 swal(`${titleMessage} đã được cập nhật!`, {
                     icon: "success",
                 });
-                this.props.dispatch(capNhatManager(admin_ID, upItem, this.HandleHireModal));
+                this.props.dispatch(capNhatManager(admin_ID, upItem, this.HandleHireModal, 1));
             } else {
                 swal(`${titleMessage} được giữ nguyên!`);
                 // this.HandleHireModal();
@@ -58,6 +59,16 @@ class TaiKhoanComponent extends Component {
         });
 
 
+    }
+    handleChangeFile = async (e) => {
+        const file = e.target.files[0];
+        const storageRef = app.storage().ref();
+        const fileRef = storageRef.child(file.name);
+        await fileRef.put(file);
+        const fileUrl = await fileRef.getDownloadURL();
+        this.setState({
+            item: { ...this.state.item, admin_AVATAR: fileUrl }
+        })
     }
     handleChange = e => {
         this.setState({
@@ -70,7 +81,7 @@ class TaiKhoanComponent extends Component {
         })
     }
     render() {
-        const { admin_HOTEN, admin_USERNAME, admin_SDT, admin_PASSWORD, admin_CMND, admin_EMAIL, admin_NGAYSINH, admin_GIOITINH, admin_DIACHI, admin_CHUCVU } = this.state.item; //chức vụ 0 admin 1 manager
+        const { admin_AVATAR, admin_HOTEN, admin_USERNAME, admin_SDT, admin_PASSWORD, admin_CMND, admin_EMAIL, admin_NGAYSINH, admin_GIOITINH, admin_DIACHI, admin_CHUCVU } = this.state.item; //chức vụ 0 admin 1 manager
         return (
             <div>
                 <StyledModel>
@@ -82,10 +93,11 @@ class TaiKhoanComponent extends Component {
                             </div>
                             <form className="modalService-body" onSubmit={this.handleSubmit}>
                                 <div className="d-flex justify-content-between">
-                                    <div className=" secondFormleft d-flex justify-content-center" style={{ width: '35%', marginRight: '1em' }}>
+                                    <div className=" secondFormleft  " style={{ width: '35%', marginRight: '1em' }}>
                                         <div className="avatarImg">
-                                            <img src={avatarImg} alt="" className="img-fluid" />
+                                            <img src={admin_AVATAR} alt="admin_AVATAR" className="img-fluid" />
                                         </div>
+                                        <input type="file" onChange={this.handleChangeFile} />
                                     </div>
                                     <div className=" secondFormright" style={{ width: '65%', marginLeft: '1em' }}>
                                         <div className="d-flex justify-content-between">

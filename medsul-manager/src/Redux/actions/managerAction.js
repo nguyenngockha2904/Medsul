@@ -23,12 +23,16 @@ export const themManager = (value, callback) => {
     }
 }
 
-export const capNhatManager = (id, value, callback) => {
+export const capNhatManager = (id, value, callback, role = 0) => {
     return dispatch => {
         Manager.updateManager(id, value).then(res => {
             // console.log(res);
             dispatch(createAction(UPDATE_MANAGER, res.data));
             // dispatch(createAction(SET_LOGIN, res.data));
+            // role ===1 modal tai khoan
+            if (role === 1) {
+                dispatch(createAction(SET_LOGIN, res.data));
+            }
             callback();
         }).catch(err => {
             console.log(err);
