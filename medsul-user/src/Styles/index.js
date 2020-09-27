@@ -1,5 +1,10 @@
 import styled from 'styled-components';
-import BannerOrder from '../Assets/banner1.png';
+import banner1 from '../Assets/banner1.png';
+import banner2 from '../Assets/banner2.png';
+import banner3 from '../Assets/banner3.jpg';
+import banner4 from '../Assets/banner4.jpeg';
+import banner5 from '../Assets/banner5.jpeg';
+import banner6 from '../Assets/banner6.jpeg';
 export const StyledModel = styled.div`
     position: fixed;
     top: 0;
@@ -517,17 +522,20 @@ export const StylePageComponent = styled.div`
     height: auto;
     .wrapper{
         min-height: 500px;
-        background-image: url(${BannerOrder});
+        background-image: url(${banner5});
         background-size: cover;
         display: flex;
         align-items: center;
         justify-content: center;
-        padding:4rem;
+        padding:7rem;
+        background-position: center;
+    background-attachment: fixed;
         .banner{
             background: #ffffffe0;
             width: 80%;
             border-radius: 20px;
             padding:3em 0;
+            box-shadow: 0 0 4px 2px #ffffffe0;
             .form-group{
                 label{
                     margin:0;
@@ -622,10 +630,10 @@ export const StylePageComponent = styled.div`
                 &.price{
                     .form-contro{
                         border: none;
-    font-size: 2em;
-    font-family: fangsong;
-    color: #2CD889;
-    letter-spacing: 10px;
+                        font-size: 2em;
+                        font-family: fangsong;
+                        color: #2CD889;
+                        letter-spacing: 10px;
                     }
                 }
             }  
@@ -635,8 +643,8 @@ export const StylePageComponent = styled.div`
         color: #2CD889;
         text-transform: uppercase;
         font-size: 1.6rem;
-        font-weight: normal;
-        letter-spacing: 6px;
+        font-weight: 600;
+        letter-spacing: 4px;
         
     }
     .btnAdd{
@@ -657,7 +665,47 @@ export const StylePageComponent = styled.div`
         }
        
     }
+    .infoServices{
+        .groupInfo{
+            .titleInfo{
+                color: #2CD889;
+                font-size: 1em;
+                font-weight: 600;
+                letter-spacing: 1.2px;
+                text-transform: uppercase;
+            }
+            .serviceContent{    
+                margin: 0;
+                color: #000;
+                letter-spacing: 1px;
+                font-size: 1em;
+                margin-bottom: 4rem;
+                word-spacing: 4px;
+                line-height: 2.2;
+                
+            }
+            &.twoGroup{
+                width:100%;
+            }
+            &.marginRight{
+                margin-right:1em;
+            }
+            &.marginleft{
+                margin-left:1em;
+            }
+        }
 
+        
+    }
+    .TagImg{
+        width: 100%;
+        margin: auto;
+        .img-fluid{
+            border-radius: 10px;
+            margin:1rem 1rem;
+            box-shadow: 1px 2px 4px -0.5px #80808080;
+        }
+    }
    
 
 

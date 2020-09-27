@@ -102,7 +102,6 @@ ul {
     top: 0px;
     width: 100%;
     z-index: 1000;
-    box-shadow: 0 0px 3px rgba(0, 0, 0, 0.6);
     background-color: white;
   }
   

@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
-
+import banner1 from '../../Assets/banner1.png';
+import banner2 from '../../Assets/banner2.png';
+import banner3 from '../../Assets/banner3.jpg';
+import banner4 from '../../Assets/banner4.jpeg';
+import banner5 from '../../Assets/banner5.jpeg';
+import banner6 from '../../Assets/banner6.jpeg';
 import { connect } from 'react-redux';
 import { bookService } from '../../Redux/action/serviceAction';
 import { StylePageComponent } from '../../Styles';
@@ -22,7 +27,9 @@ class ServiceScreens extends Component {
         },
         tinhThanh: {
             hsgU: 0,
-        }
+        },
+        listBanner: [banner1, banner2, banner3, banner4, banner5, banner6],
+
 
     }
     handleChangeNum = (e) => {
@@ -79,6 +86,7 @@ class ServiceScreens extends Component {
     }
     componentDidUpdate(prevProps) {
         // Typical usage (don't forget to compare props):
+
         if (this.props.valueDV.dichVu_Id !== prevProps.valueDV.dichVu_Id) {
             this._setValue();
         }
@@ -96,12 +104,12 @@ class ServiceScreens extends Component {
             dl_TINHTRANG,
             tinht_ID } = this.state.item;
         {/* BannerOrder */ }
-
         return (
+            //  background-image: url(${listBanner[Math.floor(Math.random() * 6)]});
             <StylePageComponent>
-                <div className="wrapper">
+                <div className="wrapper" style={{ backgroundImage: `url(${this.state.listBanner[Math.floor(Math.random() * 6)]})` }}>
                     <form className="banner">
-                        <p className="title text-center py-3">PHCN sau tai biến</p>
+                        <p className="title text-center py-3">{this.state.serviceItem.tenDichVu}</p>
                         <div className="d-flex justify-content-between">
                             <div className='form-group secondFormright'>
                                 <label >Họ và tên</label>
@@ -168,6 +176,46 @@ class ServiceScreens extends Component {
                         </div>
                     </form>
                 </div>
+                <div className="container my-2 py-5">
+                    <div className="d-flex justify-content-between">
+                        <div className="infoServices">
+                            <div className="groupInfo">
+                                <p className="titleInfo">giới thiệu chung về dịch vụ :</p>
+                                <p className="serviceContent">
+                                    {this.state.serviceItem.moTaDichVu}
+                                </p>
+                            </div>
+                            <div className="groupInfo">
+                                <p className="titleInfo">Yêu cầu công việc :</p>
+                                <p className="serviceContent">
+                                    {this.state.serviceItem.yeuCauCongViec}
+                                </p>
+                            </div>
+                            <div className="d-flex justify-content-between">
+                                <div className="groupInfo twoGroup marginRight">
+                                    <p className="titleInfo">Công việc không bao gồm :</p>
+                                    <p className="serviceContent">
+                                        {this.state.serviceItem.khongBaoGom}
+                                    </p>
+                                </div>
+                                <div className="groupInfo twoGroup marginleft">
+                                    <p className="titleInfo">Thời gian ước tính (giờ) :</p>
+                                    <p className="serviceContent text-center">
+                                        {this.state.serviceItem.thoiGianUocTinh} giờ
+                                     </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="TagImg">
+
+                            <img src={banner4} alt="" className="img-fluid" />
+                            <img src={banner5} alt="" className="img-fluid" />
+                            <img src={banner6} alt="" className="img-fluid" />
+                        </div>
+
+                    </div>
+                </div>
+
             </StylePageComponent>
         );
     }
