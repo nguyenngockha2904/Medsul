@@ -51,7 +51,7 @@ class ServiceItem extends Component {
                 <td onClick={this.handleEdit(dichVu_Id, { value: this.props.item, role: 2 })}>{maDichVu}</td>
                 <td className="wrap text-center" onClick={this.handleEdit(dichVu_Id, { value: this.props.item, role: 2 })}>{tenDichVu}</td>
                 <td onClick={this.handleEdit(dichVu_Id, { value: this.props.item, role: 2 })}>{thoiGianUocTinh} giờ</td>
-                <td onClick={this.handleEdit(dichVu_Id, { value: this.props.item, role: 2 })}>{giaDichVu.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</td>
+                <td onClick={this.handleEdit(dichVu_Id, { value: this.props.item, role: 2 })}>{giaDichVu.toLocaleString()}</td>
                 <td
                     className={tinhTrangDichVu === 1 ? 'tdStatus isThuViec' : (tinhTrangDichVu === 2 ? 'tdStatus isNghiViec' : 'tdStatus isChinhThuc')}
                     onClick={this.handleEdit(dichVu_Id, { value: this.props.item, role: 2 })}>{tinhTrangDichVu === 1 ? 'Kinh doanh' : (tinhTrangDichVu === 2 ? 'Ngừng kinh doanh' : 'tạm ngừng kinh doanh')}</td>

@@ -21,10 +21,12 @@ export const getAllListService = () => {
     }
 }
 export const bookService = (id, value, callback) => {
-    BookService.bookService(id, value).then(res => {
-        console.log(res.data);
-        callback();
-    }).catch(err => {
-        console.log(err);
-    });
+    return dispatch => {
+        BookService.bookService(id, value).then(res => {
+            console.log(res.data);
+            callback();
+        }).catch(err => {
+            console.log(err);
+        });
+    }
 }

@@ -124,7 +124,7 @@ class DieuDuongComponent extends Component {
                     </div>
                 </div>
 
-                <div className="contentTabGroup">
+                <div className="contentTabGroup pageDD">
                     {
                         this.state.isTabDD
                             ?

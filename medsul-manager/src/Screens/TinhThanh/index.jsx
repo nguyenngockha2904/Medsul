@@ -31,6 +31,9 @@ class TinhThanhComponent extends Component {
             valueSearchTotal: e.target.value
         })
     }
+    handleSubmitSearch = e => {
+        e.preventDefault();
+    }
     render() {
         return (
             <StylePageComponent>
@@ -40,7 +43,7 @@ class TinhThanhComponent extends Component {
 
                         <p className="m-0 p-0 text-center title_tab">Danh Sách Tỉnh Thành</p>
                         <StyleGroupButtonSearch>
-                            <form className="d-flex justify-content-center groupSearch">
+                            <form className="d-flex justify-content-center groupSearch" onSubmit={this.handleSubmitSearch}>
                                 <input type="text" className="form-contro" placeholder="Mã tỉnh thành..."
                                     style={{ padding: '5px' }}
                                     name="valueSearch"

@@ -5,7 +5,14 @@ import DonHangItem from '../DonHangItem';
 import { connect } from 'react-redux';
 class DonHangTable extends PureComponent {
     renderListDonHang = () => {
-        return this.props.listDonHang.map((item, index) => {
+        let list = [];
+        let statusSelect = this.props.statusSelect;
+        if (statusSelect === -1 || statusSelect === 0) {
+            list = this.props.listDonHang;
+        } else {
+            list = this.props.listDonHang.filter(dh => dh.dl_TINHTRANG === statusSelect);
+        }
+        return list.map((item, index) => {
             return (
                 <DonHangItem index={index + 1} key={index} item={item} />
             )
@@ -27,16 +34,16 @@ class DonHangTable extends PureComponent {
                                 Tên dịch vụ
                             </th>
                             <th scope="col">
-                                Trạng thái
+                                Tỉnh thành
                             </th>
                             <th scope="col">
-                                Số tiền giảm
-                            </th>
-                            <th scope="col">
-                                Tổng tiền dịch vụ
+                                Tiền dịch vụ
                             </th>
                             <th scope="col">
                                 Tùy chỉnh
+                            </th>
+                            <th scope="col">
+                                Trạng thái
                             </th>
                         </tr>
                     </thead>

@@ -1,5 +1,5 @@
 -- MySQL dump 10.13  Distrib 8.0.21, for Win64 (x86_64)
---
+--use csdl_medsul
 -- Host: localhost    Database: medsul
 -- ------------------------------------------------------
 -- Server version	8.0.21
@@ -78,7 +78,7 @@ CREATE TABLE `chitietdat` (
   `DL_ID` int NOT NULL,
   `CTD_NGAYBATDAU` date NOT NULL,
   `CTD_DONGIA` double NOT NULL,
-  `CTD_GIOBATDAU` double NOT NULL,
+  `CTD_GIOBATDAU` varchar(10) NOT NULL,
   PRIMARY KEY (`CTD_ID`),
   KEY `FK_CHITIETDAT_CO_DICHVU` (`DV_ID`),
   KEY `FK_CO_CHITIETDAT` (`DL_ID`),
@@ -601,30 +601,13 @@ CREATE TABLE `tinhthanh` (
 LOCK TABLES `tinhthanh` WRITE;
 /*!40000 ALTER TABLE `tinhthanh` DISABLE KEYS */;
 INSERT INTO `tinhthanh` VALUES 
-(1,'LA','Long An',70,50),
-(2,'hcm','Hồ Chí Minh',70,50),
-(3,'hn','Hà Nội',30,20),
-(4,'DN','Đà Nẵng',30,40),
-(5,'BT','Bến Tre',50,70),
-(7,'CM','Cà Mau',40,60),
-(9,'DL','Đà Lạt',30,50),
-(10,'DT','Đồng Tháp',40,50),
-(11,'AG','An Giang',30,50),
-(14,'CT','Cần Thơ',20,20),
-(15,'HP','Hải Phòng',20,20),
-(16,'TG','Tiền Giang',30,50),
-(30,'LS','Lạng Sơn',30,60),
-(42,'BG','Bắc Giang',50,70),
-(43,'BN','Bắc Ninh',40,60),
-(44,'BD','Bình Dương',50,80),
-(45,'HB','Hòa Bình',30,50),
-(46,'HY','Hưng Yên',30,50),
-(47,'TH','Thanh Hóa',50,50),
-(54,'ht','Hà Tây',60,50),
-(55,'bc','Bắc Cạn',60,50),
-(56,'qt','Quảng Trị',60,50),
-(57,'cb','Cao Bằng',60,30),
-(58,'TTH','Thừa Thiên Huế',70,60);
+(1,'LA','Long An',18,28),
+(2,'hcm','Hồ Chí Minh',10,20),
+(3,'hn','Hà Nội',9,19),
+(4,'DN','Đà Nẵng',9,19),
+(9,'DL','Đà Lạt',12,22),
+(10,'DT','Đồng Tháp',18,28),
+(44,'BD','Bình Dương',15,25);
 /*!40000 ALTER TABLE `tinhthanh` ENABLE KEYS */;
 UNLOCK TABLES;
 

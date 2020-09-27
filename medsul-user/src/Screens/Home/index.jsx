@@ -20,23 +20,20 @@ class HomeScreen extends Component {
                         <div className="carousel-item active">
                             <img src={Carousel01} className="d-block w-100" alt="..." />
                             <div className="carousel-caption text-dark d-none d-md-block">
-                                <h5>First slide label</h5>
-                                <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+
                             </div>
 
                         </div>
                         <div className="carousel-item">
                             <img src={Carousel02} className="d-block w-100" alt="..." />
                             <div className="carousel-caption text-dark d-none d-md-block">
-                                <h5>Second slide label</h5>
-                                <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+
                             </div>
                         </div>
                         <div className="carousel-item">
                             <img src={Carousel03} className="d-block w-100" alt="..." />
                             <div className="carousel-caption text-dark d-none d-md-block">
-                                <h5>Third slide label</h5>
-                                <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+
                             </div>
                         </div>
                     </div>

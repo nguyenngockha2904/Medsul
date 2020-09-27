@@ -3,26 +3,43 @@ import { StylePageComponent, StyleGroupButtonSearch } from '../../Styles';
 import DonHangTable from '../../Components/DonHangPage/tbDonHang';
 import { connect } from 'react-redux';
 import { layDanhSachDonHang } from '../../Redux/actions/DonHangAction';
+import ModalDonHang from '../../Components/DonHangPage/modalDonHang';
+import { createAction } from '../../Redux/actions';
+import { SHOW_MODAL_DONHANG } from '../../Redux/actions/type';
 class DonHangComponent extends Component {
     state = {
         statusSelect: 0,
+    }
+    handleShowModalDonHang = () => {
+        let value = {
+            ctd_DONGIA: '',
+            ctd_GIOBATDAU: '',
+            ctd_NGAYBATDAU: '',
+            dichVu_Id: '',
+            dl_DIACHI: '',
+            dl_EMAIL: '',
+            dl_GHICHU: '',
+            dl_HOTEN: '',
+            dl_NGAYDAT: '',
+            dl_SDT: '',
+            dl_TINHTRANG: '',
+            dl_TONGTIEN: '',
+            mgg_HESOGIAM: '',
+            tenTinhThanh: ''
+        }
+        this.props.dispatch(createAction(SHOW_MODAL_DONHANG, { value, role: 1 }));
     }
     handleChangeSelectNum = (e) => {
         this.setState({
             statusSelect: parseInt(e.target.value)
         })
     }
-    handleSearch = () => {
-
-    }
     render() {
         return (
             <StylePageComponent>
                 <p className="text-center title">Danh sách đơn hàng</p>
                 <div className="contentTabGroup">
-
                     <div className="contentTab tab_DD">
-                        <p className="m-0 p-0 text-center title_tab">danh sách điều dưỡng</p>
                         <StyleGroupButtonSearch >
                             <select className={this.state.statusSelect === 1 ? "selectStatus isThuViec" : (
                                 this.state.statusSelect === 4 ? "selectStatus isNghiViec" : (this.state.statusSelect === 3 ? "selectStatus isChinhThuc" : this.state.statusSelect === 2 ? "selectStatus isAnother" : 'selectStatus'))}
@@ -31,9 +48,9 @@ class DonHangComponent extends Component {
                                 onChange={this.handleChangeSelectNum}
                             >
                                 <option value={0}>Tất cả</option>
-                                <option value={1}>Chưa hoàn thành</option>
+                                <option value={1}>Chưa nhận</option>
                                 <option value={2}>Đang thực hiện</option>
-                                <option value={3}>Đã hoàn thành</option>
+                                <option value={3}>Hoàn thành</option>
                                 <option value={4}>Đã hủy</option>
                             </select>
 
@@ -50,10 +67,10 @@ class DonHangComponent extends Component {
                         </form> */}
                             <button className="btnAdd" onClick={this.handleShowModalDonHang}>Thêm</button>
                         </StyleGroupButtonSearch>
-                        <DonHangTable />
+                        <DonHangTable statusSelect={this.state.statusSelect ? this.state.statusSelect : -1} />
                     </div>
                 </div>
-
+                {this.props.isShowModalDonHang && <ModalDonHang />}
             </StylePageComponent>
         );
     }
@@ -61,5 +78,7 @@ class DonHangComponent extends Component {
         this.props.dispatch(layDanhSachDonHang());
     }
 }
-
-export default connect()(DonHangComponent);
+const mapStateToProps = state => ({
+    isShowModalDonHang: state.qlDonHang.modalDonHang.isShow
+})
+export default connect(mapStateToProps)(DonHangComponent);

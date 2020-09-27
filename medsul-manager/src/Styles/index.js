@@ -573,10 +573,13 @@ export const StylePageComponent = styled.div`
     .contentTabGroup{
         background: #fff;
         padding: 1rem 0.8rem;
-        border-top-right-radius: 10px;
-        border-bottom-right-radius: 10px;
-        border-bottom-left-radius: 10px;
+        border-radius:10px;
         transition: all 1s;
+        &.pageDD{
+            border-top-right-radius: 10px;
+            border-bottom-right-radius: 10px;
+            border-bottom-left-radius: 10px;
+        }
         .contentTab{
             .title_tab{
                 letter-spacing: 0.8px;

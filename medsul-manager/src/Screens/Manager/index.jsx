@@ -59,7 +59,7 @@ class Manager extends Component {
         return (
             <StylePageComponent>
                 <p className="text-center title">Danh sách quản trị viên</p>
-                <div className="contentTabGroup">
+                <div className="contentTabGroup ">
                     <div className="contentTab">
                         <StyleGroupButtonSearch >
                             <select className={this.state.statusSelect === 1 ? "selectStatus isChinhThuc" : (

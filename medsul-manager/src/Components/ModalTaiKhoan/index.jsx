@@ -98,7 +98,7 @@ class TaiKhoanComponent extends Component {
                                 <div className="d-flex justify-content-between">
                                     <div className=" secondFormleft  " style={{ width: '35%', marginRight: '1em' }}>
                                         <div className="avatarImg">
-                                            <img src={admin_AVATAR} alt="admin_AVATAR" className="img-fluid" />
+                                            <img src={admin_AVATAR !== 'chưa có' ? admin_AVATAR : avatarImg} alt="admin_AVATAR" className="img-fluid" />
                                         </div>
                                         <input type="file" onChange={this.handleChangeFile} />
                                     </div>

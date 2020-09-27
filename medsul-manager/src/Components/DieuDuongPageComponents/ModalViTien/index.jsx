@@ -63,7 +63,7 @@ class ModalViTien extends Component {
                         {/* Modal body */}
                         <div className="d-flex justify-content-between  TongTien_Title">
                             <p className="m-0 p-0 subtitle">Số tiền tổng: </p>
-                            <p className="m-0 p-0  price">{total.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')}<span className="vnd">Vnd</span></p>
+                            <p className="m-0 p-0  price">{total.toLocaleString()}<span className="vnd">Vnd</span></p>
                         </div>
                         {this.state.isHistory
                             ?

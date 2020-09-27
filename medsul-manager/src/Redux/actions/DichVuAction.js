@@ -102,7 +102,6 @@ export const XoaDichVu = (id) => {
 export const CapNhatDichVu = (id, value, callback) => {
     return dispatch => {
         DichVu.updateDichVu(id, value).then(res => {
-            console.log(res.data);
             dispatch({
                 type: UPDATE_DICHVU,
                 payload: res.data
