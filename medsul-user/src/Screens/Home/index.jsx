@@ -3,12 +3,13 @@ import Carousel01 from '../../Assets/banner1.png';
 import Carousel02 from '../../Assets/banner2.png';
 import Carousel03 from '../../Assets/banner3.jpg';
 import './styles.css';
-
+import { connect } from 'react-redux';
+import ServiceScreens from '../Service';
 class HomeScreen extends Component {
     render() {
         return (
             <div>
-                <div id="carouselExampleFade" className="carousel slide carousel-fade" data-ride="carousel">
+                {this.props.isShowComponentService ? <ServiceScreens /> : <div id="carouselExampleFade" className="carousel slide carousel-fade" data-ride="carousel">
                     <ol className="carousel-indicators">
                         <li data-target="#carouselExampleCaptions" data-slide-to={0} className="active" />
                         <li data-target="#carouselExampleCaptions" data-slide-to={1} />
@@ -47,11 +48,12 @@ class HomeScreen extends Component {
                         <span className="carousel-control-next-icon" aria-hidden="true" />
                         <span className="sr-only">Next</span>
                     </a>
-                </div>
-
+                </div>}
             </div>
         );
     }
 }
-
-export default HomeScreen;
+const mapStateToProps = state => ({
+    isShowComponentService: state.service.componentService.isShow
+})
+export default connect(mapStateToProps)(HomeScreen);

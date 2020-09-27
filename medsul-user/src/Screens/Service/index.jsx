@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import BannerOrder from '../../Assets/banner2.png';
-import './styles.css';
+
 import { connect } from 'react-redux';
 import { bookService } from '../../Redux/action/serviceAction';
+import { StylePageComponent } from '../../Styles';
 class ServiceScreens extends Component {
     state = {
         item: {
@@ -18,8 +18,7 @@ class ServiceScreens extends Component {
             tinht_ID: 1
         },
         serviceItem: {
-            tenDichVu: "",
-            giaDichVu: 200000,
+
         },
         tinhThanh: {
             hsgU: 0,
@@ -74,95 +73,102 @@ class ServiceScreens extends Component {
         })
     }
     _setValue = () => {
-        let item = this.props.listDV.filter(dv => dv.dichVu_Id === parseInt(this.props.match.params.idService));
-
         this.setState({
-            serviceItem: item[0],
-        }, () => {
-            let hsg = this.props.listTinhThanh.filter(tt => tt.tinhThanh_Id === this.state.item.tinht_ID)[0].heSoTinhThanhUser;
-            // let giaDichVu = this.state.serviceItem.giaDichVu - this.state.serviceItem.giaDichVu * this.state.tinhThanh.hsgU;
-            this.setState({
-                tinhThanh: { ...this.state.tinhThanh, hsgU: hsg ? hsg : 0 }
-            })
-        });
+            serviceItem: this.props.valueDV
+        })
+    }
+    componentDidUpdate(prevProps) {
+        // Typical usage (don't forget to compare props):
+        if (this.props.valueDV.dichVu_Id !== prevProps.valueDV.dichVu_Id) {
+            this._setValue();
+        }
+        // console.log(prevProps.valueDV);
     }
     render() {
-        const { ctd_GIOBATDAU,
-            ctd_NGAYBATDAU,
-            dl_DIACHI,
-            dl_EMAIL,
-            dl_GHICHU,
-            dl_HOTEN,
+        const { ctd_GIOBATDAU,//
+            ctd_NGAYBATDAU,// 
+            dl_DIACHI,// 
+            dl_EMAIL,// 
+            dl_GHICHU,// 
+            dl_HOTEN, // 
             dl_NGAYDAT,
-            dl_SDT,
+            dl_SDT, //
             dl_TINHTRANG,
             tinht_ID } = this.state.item;
-        // const { tenDichVu, giaDichVu } = this.state.serviceItem;
+        {/* BannerOrder */ }
+
         return (
-
-            <div>
-                <div className="order_background">
-                    <img style={{ width: '100%' }} src={BannerOrder} alt="" />
-                </div>
-                <div className="order_title">
-                    <h1 className="display-4 text-center">{this.state.serviceItem.tenDichVu}</h1>
-                </div>
-                <div className="order_content row">
-                    <form className="row" onSubmit={this._handleSubmit}>
-                        <div className="col-3">
-                            <label className="title ml-2">Họ và tên </label>
-                            <input type="text" className="form-control"
-                                name="dl_HOTEN"
-                                value={dl_HOTEN ? dl_HOTEN : ''}
-                                onChange={this.handleChange} />
-                        </div>
-                        <div className="col-3">
-                            <label className="title ml-2">Số điện thoại </label>
-                            <input type="text" className="form-control" name="dl_SDT"
-                                value={dl_SDT ? dl_SDT : ''}
-                                onChange={this.handleChange} />
-                        </div>
-                        <div className="col-3">
-                            <label className="title ml-2" >Email </label>
-                            <input type="email" className="form-control" name="dl_EMAIL"
-                                value={dl_EMAIL ? dl_EMAIL : ''}
-                                onChange={this.handleChange} />
-                        </div>
-                        <div className="col-3">
-
-                            <label className="title ml-2" >Tỉnh/Thành phố<span className="text-danger">*</span> </label>
-
-                            <div className="form-group">
-                                <select className="form-control" name="tinht_ID" value={tinht_ID} onChange={this.handleChangeNum}>
+            <StylePageComponent>
+                <div className="wrapper">
+                    <form className="banner">
+                        <p className="title text-center py-3">PHCN sau tai biến</p>
+                        <div className="d-flex justify-content-between">
+                            <div className='form-group secondFormright'>
+                                <label >Họ và tên</label>
+                                <input type="text" className="form-contro"
+                                    required={true}
+                                />
+                            </div>
+                            <div className='form-group  secondFormright'>
+                                <label >Số điện thoại</label>
+                                <input type="text" className="form-contro"
+                                    required={true}
+                                />
+                            </div>
+                            <div className='form-group secondFormleft secondFormright'>
+                                <label >Email</label>
+                                <input type="text" className="form-contro"
+                                    required={true}
+                                />
+                            </div>
+                            <div className='form-group secondFormleft'>
+                                <label>Thành phố: </label>
+                                <select className="form-contro"
+                                >
                                     {this.renderTinhThanh()}
                                 </select>
                             </div>
                         </div>
-                        <div className="col-3">
-                            <label className="title ml-2">Ngày bắt đầu </label>
-                            <input type="date" className="form-control" name="ctd_NGAYBATDAU" value={ctd_NGAYBATDAU ? ctd_NGAYBATDAU : ''} onChange={this.handleChange} />
+                        <div className="d-flex justify-content-between">
+                            <div className="d-flex justify-content between secondFormright">
+                                <div className='form-group secondFormright'>
+                                    <label >Ngày bắt đầu</label>
+                                    <input type="date" className="form-contro"
+                                        required={true}
+                                    />
+                                </div>
+                                <div className='form-group secondFormright secondFormleft'>
+                                    <label >Giờ bắt đầu</label>
+                                    <input type="time" className="form-contro"
+                                        required={true}
+                                    />
+                                </div>
+                            </div>
+                            <div className='form-group  secondFormleft'>
+                                <label >Ghi chú</label>
+                                <input type="text" className="form-contro"
+                                    required={true}
+                                />
+                            </div>
                         </div>
-                        <div className="col-3">
-                            <label className="title ml-2" >Giờ bắt đầu </label>
-                            <input type="time" className="form-control" name="ctd_GIOBATDAU" value={ctd_GIOBATDAU} onChange={this.handleChange} />
+                        <div className="d-flex justify-content-between">
+                            <div className='form-group secondFormright secondFormleft'>
+                                <label >Địa chỉ</label>
+                                <input type="text" className="form-contro"
+                                    required={true}
+                                />
+                            </div>
+                            <div className='form-group secondFormleft width3 price'>
+                                <label >Giá dịch vụ:</label>
+                                <p className="m-0 p-0 form-contro">50000</p>
+                            </div>
                         </div>
-                        <div className="col-6">
-                            <label className="title ml-2" >Ghi chú </label>
-                            <input type="text" className="form-control" name="dl_GHICHU" value={dl_GHICHU ? dl_GHICHU : ''} onChange={this.handleChange} />
-                        </div>
-                        <div className="col-6">
-                            <label className="title ml-2" >Địa chỉ </label>
-                            <input type="text" className="form-control" name="dl_DIACHI" value={dl_DIACHI ? dl_DIACHI : ''} onChange={this.handleChange} />
-                        </div>
-                        <div className="col-12">
-                            <h1>Giá: <span className="text-warning">{this.state.serviceItem.giaDichVu.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</span></h1>
-                        </div>{/*  */}
-                        <div className="col-12 text-center">
-                            <button className="btn btn-danger" style={{ textAlign: 'center' }}>ĐẶT LỊCH</button>
+                        <div className="text-center">
+                            <button type="submit" className="btnAdd">Đặt dịch vụ</button>
                         </div>
                     </form>
                 </div>
-            </div>
+            </StylePageComponent>
         );
     }
     componentDidMount() {
@@ -172,7 +178,8 @@ class ServiceScreens extends Component {
 const mapStateToProps = state => {
     return {
         listTinhThanh: state.tinhThanh.listTinhThanh,
-        listDV: state.service.ListDV
+        listDV: state.service.ListDV,
+        valueDV: state.service.componentService.value
     }
 }
 

@@ -16,9 +16,8 @@ class App extends Component {
       <BrowserRouter>
         <Headers />
         <Switch>
-          <Route exact path="/service/:idService" component={ServiceScreens} />
-          <Route exact path="/introduction" component={IntroductionScreen} />
-          <Route exact path="/recruitment" component={RecruitmentScreen} />
+          {/* <Route exact path="/introduction" component={IntroductionScreen} />
+          <Route exact path="/recruitment" component={RecruitmentScreen} /> */}
           <Route exact path="/" component={HomeScreen} />
         </Switch>
       </BrowserRouter>
