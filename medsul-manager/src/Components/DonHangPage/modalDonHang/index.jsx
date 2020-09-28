@@ -68,19 +68,23 @@ class ModalDonHang extends Component {
                                 <div className="form-group  secondFormleft width3">
                                     <label >Tên dịch vụ :</label>
                                     <input type="text" className="form-contro"
-                                        disabled={true}
                                         name="dichVu_Id"
                                         value={dichVu_Id ? dichVu_Id : ''}
                                         onChange={this.handleChange}
+                                        disabled={
+                                            this.props.role === 1 ? true : (this.props.role === 2 ? true : false)
+                                        }
                                     />
                                 </div>
                                 <div className="form-group  secondFormright">
                                     <label >Tên khách hàng :</label>
                                     <input type="text" className="form-contro"
-                                        disabled={true}
                                         name="dl_HOTEN"
                                         value={dl_HOTEN ? dl_HOTEN : ''}
                                         onChange={this.handleChange}
+                                        disabled={
+                                            this.props.role === 1 ? true : (this.props.role === 2 ? true : false)
+                                        }
                                     />
                                 </div>
                             </div>
@@ -88,29 +92,36 @@ class ModalDonHang extends Component {
                                 <div className="form-group  secondFormleft">
                                     <label >Số điện thoại :</label>
                                     <input type="text" className="form-contro"
-                                        disabled={true}
                                         name="dl_SDT"
                                         value={dl_SDT ? dl_SDT : ''}
                                         onChange={this.handleChange}
+
+                                        disabled={
+                                            this.props.role === 1 ? true : (this.props.role === 2 ? true : false)
+                                        }
                                     />
                                 </div>
                                 <div className="form-group  secondFormright">
                                     <label >Email :</label>
                                     <input type="text" className="form-contro"
-                                        disabled={true}
                                         name="dl_EMAIL"
                                         value={dl_EMAIL ? dl_EMAIL : ''}
                                         onChange={this.handleChange}
+                                        disabled={
+                                            this.props.role === 1 ? true : (this.props.role === 2 ? true : false)
+                                        }
                                     />
                                 </div>
                             </div>
                             <div className="form-group">
                                 <label >Địa chỉ :</label>
                                 <input type="text" className="form-contro"
-                                    disabled={true}
                                     name="dl_DIACHI"
                                     value={dl_DIACHI ? dl_DIACHI : ''}
                                     onChange={this.handleChange}
+                                    disabled={
+                                        this.props.role === 1 ? true : (this.props.role === 2 ? true : false)
+                                    }
                                 />
                                 <div className={role === 2 ? "form-group ac" : "form-group"}>
                                     <label  >Ghi chú của khách hàng : </label>
@@ -119,7 +130,9 @@ class ModalDonHang extends Component {
                                         value={dl_GHICHU ? dl_GHICHU : ''}
                                         name="dl_GHICHU"
                                         onChange={this.handleChange}
-                                        disabled={role === 1 ? false : (role === 2 ? true : false)}
+                                        disabled={
+                                            this.props.role === 1 ? true : (this.props.role === 2 ? true : false)
+                                        }
                                     >
                                     </textarea>
                                 </div>
@@ -128,34 +141,79 @@ class ModalDonHang extends Component {
                                     <div className="form-group  secondFormleft">
                                         <label >Ngày đặt :</label>
                                         <input type="date" className="form-contro"
-                                            disabled={true}
                                             name="dl_NGAYDAT"
                                             value={this.handleReturnDate(dl_NGAYDAT)}
                                             onChange={this.handleChange}
+                                            disabled={
+                                                this.props.role === 1 ? true : (this.props.role === 2 ? true : false)
+                                            }
                                         />
                                     </div>
                                     <div className="form-group  secondFormleft secondFormright">
                                         <label >Ngày bắt đầu :</label>
                                         <input type="date" className="form-contro"
-                                            disabled={true}
                                             name="ctd_NGAYBATDAU"
                                             value={this.handleReturnDate(ctd_NGAYBATDAU)}
                                             onChange={this.handleChange}
+                                            disabled={
+                                                this.props.role === 1 ? true : (this.props.role === 2 ? true : false)
+                                            }
                                         />
                                     </div>
                                     <div className="form-group  secondFormright">
                                         <label >Giờ bắt đầu :</label>
                                         <input type="time" className="form-contro"
-                                            disabled={true}
                                             name="ctd_GIOBATDAU"
                                             value={ctd_GIOBATDAU ? ctd_GIOBATDAU : '0:00'}
                                             onChange={this.handleChange}
+                                            disabled={
+                                                this.props.role === 1 ? true : (this.props.role === 2 ? true : false)
+                                            }
                                         />
                                     </div>
                                 </div>
-
+                                <div className="d-flex justify-content-between">
+                                    <div className="form-group  secondFormleft">
+                                        <label >Tình trạng :</label>
+                                        <select className="form-contro"
+                                            value={dl_TINHTRANG ? dl_TINHTRANG : 1}
+                                            name="dl_TINHTRANG"
+                                            onChange={this.handleChange}
+                                            disabled={
+                                                this.props.role === 1 ? true : (this.props.role === 2 ? true : false)
+                                            }
+                                        >
+                                            <option value={1}>Chưa nhận</option>
+                                            <option value={2}>Đang thực hiện</option>
+                                            <option value={3}>Hoàn thành</option>
+                                            <option value={4}>Đã hủy</option>
+                                        </select>
+                                    </div>
+                                    <div className="form-group  secondFormleft secondFormright">
+                                        <label >Đơn giá dịch vụ :</label>
+                                        <input type="text" className="form-contro"
+                                            name="ctd_DONGIA"
+                                            value={ctd_DONGIA ? ctd_DONGIA : ''}
+                                            onChange={this.handleChange}
+                                            disabled={
+                                                this.props.role === 1 ? true : (this.props.role === 2 ? true : false)
+                                            }
+                                        />
+                                    </div>
+                                    <div className="form-group  secondFormright">
+                                        <label >Tổng tiền (trừ chiếc khấu) :</label>
+                                        <input type="text" className="form-contro"
+                                            name="dl_TONGTIEN"
+                                            value={dl_TONGTIEN ? dl_TONGTIEN : ''}
+                                            onChange={this.handleChange}
+                                            disabled={
+                                                this.props.role === 1 ? true : (this.props.role === 2 ? true : false)
+                                            }
+                                        />
+                                    </div>
+                                </div>
                             </div>
-                            <div className="text-right">
+                            <div className="text-right" style={{ display: this.props.role === 1 ? 'block' : (this.props.role === 2 ? 'none' : 'block') }}>
                                 <button type="submit" className="btn btn-danger btnAccept" >Xác Nhận</button>
                             </div>
                         </form>

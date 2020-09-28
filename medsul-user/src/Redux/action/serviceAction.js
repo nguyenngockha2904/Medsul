@@ -23,7 +23,7 @@ export const getAllListService = () => {
 export const bookService = (id, value, callback) => {
     return dispatch => {
         BookService.bookService(id, value).then(res => {
-            console.log(res.data);
+            // console.log(res.data);
             callback();
         }).catch(err => {
             console.log(err);
