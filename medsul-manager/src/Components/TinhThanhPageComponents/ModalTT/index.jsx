@@ -49,18 +49,46 @@ class ModalTinhThanh extends Component {
             maTinhThanh: maTinhThanh,
             tenTinhThanh: tenTinhThanh,
         }
+        let hsttDD = parseFloat(heSoTinhThanhDieuDuong);
+        let hsttUser = parseFloat(heSoTinhThanhUser);
         if (this.props.role === 1) {
             //sự kiện thêm 
+            let checkHSTT_DD = false;
+            let checkHSTT_U = false;
             if (!this.props.isExistMaTT) {
-                this.props.dispatch(themTinhThanh(newitemTT, () => {
+
+                if (hsttDD >= 0 && hsttDD <= 100) {
+                    checkHSTT_DD = true;
+                } else {
                     swal({
-                        title: "Thành Công!",
-                        text: "Bạn đã thêm một tỉnh thành mới!",
-                        icon: "success",
-                        button: "Ok!",
+                        title: "Lỗi Hệ số điều dưỡng!",
+                        text: "Hệ số giảm điều dưỡng phải trong khoảng (0<=hs<=100)!!",
+                        icon: "info",
                     });
-                    this.HandleHireModal();
-                }));
+                    checkHSTT_DD = false;
+                }
+                if (hsttUser >= 0 && hsttUser <= 100) {
+                    checkHSTT_U = true;
+                } else {
+                    swal({
+                        title: "Lỗi Hệ số user!",
+                        text: "Hệ số giảm user phải trong khoảng (0<=hs<=100)!!",
+                        icon: "info",
+                    });
+                    checkHSTT_U = false;
+                }
+                if (checkHSTT_U && checkHSTT_DD) {
+                    this.props.dispatch(themTinhThanh(newitemTT, () => {
+                        swal({
+                            title: "Thành Công!",
+                            text: "Bạn đã thêm một tỉnh thành mới!",
+                            icon: "success",
+                            button: "Ok!",
+                        });
+                        this.HandleHireModal();
+                    }));
+                }
+
             } else {
                 swal({
                     title: "Đã tồn tại!",
@@ -68,31 +96,55 @@ class ModalTinhThanh extends Component {
                     icon: "warning",
                 });
             }
-
             // console.log(newitemTT);
         } else {
             //sự kiện sửa
+            let checkHSTT_DD = false;
+            let checkHSTT_U = false;
+
             if (!this.props.isExistMaTT) {
-                swal({
-                    title: "Bạn Chắc Chứ?",
-                    text: "Nếu đồng ý dữ liệu này sẽ thay đổi!",
-                    icon: "info",
-                    buttons: true,
-                    dangerMode: true,
-                }).then((willDelete) => {
-                    if (willDelete) {
-                        swal("Dữ liệu đã được cập nhật!", {
-                            icon: "success",
-                        });
-                        this.props.dispatch(capNhapTinhThanh(tinhThanh_Id, updateTT, this.HandleHireModal));
-                    } else {
-                        swal({
-                            title: "Giữ nguyên !",
-                            text: "Dữ liệu được giữ nguyên",
-                            icon: "info",
-                        });
-                    }
-                });
+                if (hsttDD >= 0 && hsttDD <= 100) {
+                    checkHSTT_DD = true;
+                } else {
+                    swal({
+                        title: "Lỗi Hệ số điều dưỡng!",
+                        text: "Hệ số giảm điều dưỡng phải trong khoảng (0<=hs<=100)!!",
+                        icon: "info",
+                    });
+                    checkHSTT_DD = false;
+                }
+                if (hsttUser >= 0 && hsttUser <= 100) {
+                    checkHSTT_U = true;
+                } else {
+                    swal({
+                        title: "Lỗi Hệ số user!",
+                        text: "Hệ số giảm user phải trong khoảng (0<=hs<=100)!!",
+                        icon: "info",
+                    });
+                    checkHSTT_U = false;
+                }
+                if (checkHSTT_U && checkHSTT_DD) {
+                    swal({
+                        title: "Bạn Chắc Chứ?",
+                        text: "Nếu đồng ý dữ liệu này sẽ thay đổi!",
+                        icon: "info",
+                        buttons: true,
+                        dangerMode: true,
+                    }).then((willDelete) => {
+                        if (willDelete) {
+                            swal("Dữ liệu đã được cập nhật!", {
+                                icon: "success",
+                            });
+                            this.props.dispatch(capNhapTinhThanh(tinhThanh_Id, updateTT, this.HandleHireModal));
+                        } else {
+                            swal({
+                                title: "Giữ nguyên !",
+                                text: "Dữ liệu được giữ nguyên",
+                                icon: "info",
+                            });
+                        }
+                    });
+                }
             } else {
                 swal({
                     title: "Đã tồn tại!",
