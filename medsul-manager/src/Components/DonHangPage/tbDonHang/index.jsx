@@ -40,10 +40,10 @@ class DonHangTable extends PureComponent {
                                 Tiền dịch vụ
                             </th>
                             <th scope="col">
-                                Tùy chỉnh
+                                Trạng thái
                             </th>
                             <th scope="col">
-                                Trạng thái
+                                Tùy chỉnh
                             </th>
                         </tr>
                     </thead>

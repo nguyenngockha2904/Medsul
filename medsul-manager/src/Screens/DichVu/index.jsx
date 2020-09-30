@@ -23,7 +23,6 @@ class DichVuComponent extends Component {
                         <p className="title ">
                             Danh sách tất cả dịch vụ
                         </p>
-                        <p className="datecurrent">Dịch vụ 8/20</p>
                     </div>
 
                     <div className="dichVuContent">

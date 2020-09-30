@@ -53,8 +53,8 @@ class ServiceItem extends Component {
                 <td onClick={this.handleEdit(dichVu_Id, { value: this.props.item, role: 2 })}>{thoiGianUocTinh} giờ</td>
                 <td onClick={this.handleEdit(dichVu_Id, { value: this.props.item, role: 2 })}>{giaDichVu.toLocaleString()}</td>
                 <td
-                    className={tinhTrangDichVu === 1 ? 'tdStatus isThuViec' : (tinhTrangDichVu === 2 ? 'tdStatus isNghiViec' : 'tdStatus isChinhThuc')}
-                    onClick={this.handleEdit(dichVu_Id, { value: this.props.item, role: 2 })}>{tinhTrangDichVu === 1 ? 'Kinh doanh' : (tinhTrangDichVu === 2 ? 'Ngừng kinh doanh' : 'tạm ngừng kinh doanh')}</td>
+                    className={tinhTrangDichVu === 1 ? 'tdStatus  isChinhThuc' : (tinhTrangDichVu === 2 ? 'tdStatus  isThuViec' : 'tdStatus isNghiViec')}
+                    onClick={this.handleEdit(dichVu_Id, { value: this.props.item, role: 2 })}>{tinhTrangDichVu === 1 ? 'Kinh doanh' : (tinhTrangDichVu === 2 ? 'Tạm ngừng kinh doanh ' : 'Ngừng kinh doanh')}</td>
                 <td className="d-flex justify-content-center groupBtn">
                     <button className=" btnCustom" onClick={this.handleEdit(dichVu_Id, { value: this.props.item, role: 3 })}>
                         <img src={btnEdit} alt="btnEdit" />
