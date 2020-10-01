@@ -1,5 +1,8 @@
 -- MySQL dump 10.13  Distrib 8.0.21, for Win64 (x86_64)
---use csdl_medsul
+
+
+use csdl_medsul
+
 -- Host: localhost    Database: medsul
 -- ------------------------------------------------------
 -- Server version	8.0.21
@@ -61,7 +64,8 @@ INSERT INTO `admin` VALUES
 (7,'Nguyễn Trọng Dương','duon@gmail.com','Nam','duong','duong123','Long An','258963123','2013-10-15','HCM','chưa có','chưa có','chưa có',2,'0123526325',1,'1987-05-04'),
 (8,'Lê Anh Kiệt','ket@gmail.com','Nam','kiet','kiet123','Long An','254123652','2013-10-15','HCM','chưa có','chưa có','chưa có',1,'2541203215',1,'1987-02-04'),
 (9,'Nguyễn Ngọc Kha','kha@gmail.com','Nam','kha','123','Long An','215236521','2013-10-15','HCM','chưa có','chưa có','chưa có',1,'2512355625',0,'1987-04-04'),
-(10,'Trần Văn Ba','quym@gmail.com','Nam','ba','ba123','123 HCM','012352102','2013-02-03','HCM','chưa có','chưa có','chưa có',2,'012352145201',1,'1995-03-01');
+(10,'Trần Văn manager','manager@gmail.com','Nam','manager','123','123 HCM','012352102','2013-02-03','HCM','chưa có','chưa có','chưa có',1,'012352145201',1,'1995-03-01'),
+(11,'Nguyễn Ngọc Admin','admin@gmail.com','Nam','admin','123','Long An','0336521948','2013-10-15','HCM','chưa có','chưa có','chưa có',1,'20125625',0,'1987-04-04');
 /*!40000 ALTER TABLE `admin` ENABLE KEYS */;
 UNLOCK TABLES;
 
